@@ -24,7 +24,7 @@ def info():
 
 def start():
     os.chdir("/opt/zemberek-server")
-    os.system("source /etc/profile; export LC_ALL=tr_TR.UTF-8; " +
+    os.system("source /etc/profile.env; export LC_ALL=tr_TR.UTF-8; " +
         "/sbin/start-stop-daemon -b --start --quiet --pidfile " +
         "/var/run/zemberek.pid --make-pidfile --exec ${JAVA_HOME}/bin/java " +
         "-- -jar zemberek_server-0.3.jar >/dev/null"
