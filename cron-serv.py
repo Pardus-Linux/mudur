@@ -1,4 +1,3 @@
-
 import os
 import subprocess
 
@@ -6,11 +5,6 @@ def run(*cmd):
     """Run a command without running a shell"""
     return subprocess.call(cmd)
 
-#
-
-def check_config():
-    if not os.path.exists("/proc/acpi"):
-        fail("ACPI support has not been compiled into the kernel")
 #
 
 def get_state():
@@ -26,19 +20,14 @@ def get_state():
 
 def info():
     state = get_state()
-    return "local\n" + state + "\nACPID"
+    return "local\n" + state + "\nVixie Cron"
 
 def start():
-    check_config()
-    run("/sbin/start-stop-daemon", "--start", "--quiet", "--exec", "/usr/sbin/acpid", "--chuid", "/etc/acpi/events")
+    run("start-stop-daemon", "--start", "--quiet", "--exec", "/usr/sbin/cron")
 
 def stop():
-    run("/sbin/start-stop-daemon", "--stop", "--quiet", "--exec", "/usr/sbin/acpid")
-
-#FIXME: Gürer reload ekleyince
-#def reload():
-#    run("/sbin/start-stop-daemon", "--stop", "--quiet", "--exec", "/usr/sbin/acpid", "--signal", "HUP")
-
+    run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/cron.pid")
+    
 def ready():
     s = get_state()
     if s == "on":

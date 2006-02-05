@@ -22,7 +22,8 @@ def write(filename, data):
 def configure():
     if not os.path.exists("/etc/X11/xorg.conf"):
         run("/sbin/xorg.py")
-    
+   
+    # FIXME: change startDM.sh in xorg package
     ensureDirs("/var/lib/init.d/options/xdm")
     write("/var/lib/init.d/options/xdm/service", "/usr/kde/3.5/bin/kdm")
 
