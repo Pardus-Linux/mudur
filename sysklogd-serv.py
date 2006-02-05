@@ -2,9 +2,9 @@ import os
 import time
 import subprocess
 
-def run(*cmd):
+def run(cmd):
     """Run a command without running a shell"""
-    return subprocess.call(cmd)
+    return subprocess.call(cmd.split())
 
 #
 
@@ -24,15 +24,15 @@ def info():
     return "local\n" + state + "\nLogger"
 
 def start():
-    run("start-stop-daemon", "--start", "--quiet", "--background", "--exec", "/usr/sbin/syslogd", "--", "-m", "15")
+    run("start-stop-daemon --start --quiet --background --exec /usr/sbin/syslogd -- -m 15")
 
     # klogd do not always start proper if started too early
     time.sleep(1)
-    run("start-stop-daemon", "--start", "--quiet", "--background", "--exec", "/usr/sbin/klogd", "--", "-c", "3", "-2")
+    run("start-stop-daemon --start --quiet --background --exec /usr/sbin/klogd -- -c 3 -2")
             
 def stop():
-    run("start-stop-daemon", "--stop" "--oknodo", "--retry", "15", "--quiet", "--pidfile", "/var/run/klogd.pid")
-    run("start-stop-daemon", "--stop", "--oknodo", "--retry", "15", "--quiet", "--pidfile", "/var/run/syslogd.pid")
+    run("start-stop-daemon --stop --oknodo --retry 15 --quiet --pidfile /var/run/klogd.pid")
+    run("start-stop-daemon --stop --oknodo --retry 15 --quiet --pidfile /var/run/syslogd.pid")
             
 def ready():
     s = get_state()
