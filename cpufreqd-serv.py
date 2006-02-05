@@ -10,7 +10,7 @@ def run(*cmd):
 
 def check_config():
     if not os.path.exists("/sys/devices/system/cpu/cpu0/cpufreq"):
-        fail("You need /etc/ssh/sshd_config to run sshd")
+        fail("CPUFreq support has not been compiled into the kernel")
 #
 
 def get_state():
