@@ -6,7 +6,9 @@ import subprocess
 
 cfg_file = "/etc/asound.state"
 
-alsa_all = [
+#
+
+alsa_drivers = [
 "snd_ad1889",
 "snd_ali5451",
 "snd_als4000",
@@ -65,7 +67,11 @@ alsa_all = [
 "snd_ymfpci"
 ]
 
-#
+oss_modules = [
+"snd-seq-oss",
+"snd-pcm-oss",
+"snd-mixer-oss"
+]
 
 def run(*cmd):
     """Run a command without running a shell"""
@@ -83,7 +89,11 @@ def get_state():
     return state
 
 def load_modules():
-    for drv in alsa_all:
+    for drv in alsa_drivers:
+        run("/sbin/modprobe", drv)
+
+def load_oss_support():
+    for drv in oss_modules:
         run("/sbin/modprobe", drv)
 
 def restore_mixer():
@@ -107,7 +117,9 @@ def info():
     return "script\n" + state + "\nAdvanced Linux Sound System"
 
 def start():
+    #FIXME: Use discover
     load_modules()
+    load_oss_support()
     restore_mixer()
 
 def stop():
