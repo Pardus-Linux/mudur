@@ -374,7 +374,16 @@ def saveClock():
     if config.is_livecd() or config.is_virtual():
         return
     
-    ui.info("Syncing system clock to hardware clock")
+    opts = "--utc"
+    if config.get("clock") != "UTC":
+        opts = "--localtime"
+    
+    ui.begin("Syncing system clock to hardware clock")
+    t = capture("/sbin/hwclock", "--systohc", opts)
+    if t[1] != '':
+        ui.end("Failed to sync clocks")
+    else:
+        ui.end()
 
 def stopSystem():
     def proc_key(x):
