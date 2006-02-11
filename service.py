@@ -45,12 +45,32 @@ def list():
         info = item[2].split("\n")
         print item[3].ljust(size), info[0].ljust(6), info[1].ljust(3), info[2]
 
+def start(service):
+    c = comlink()
+    c.call_package("System.Service.start", service)
+    reply = c.read_cmd()
+    if reply[0] == c.RESULT:
+        print "Service '%s' started." % service
+    else:
+        print "Error: %s" % reply[2]
+
+def stop(service):
+    c = comlink()
+    c.call_package("System.Service.stop", service)
+    reply = c.read_cmd()
+    if reply[0] == c.RESULT:
+        print "Service '%s' stopped." % service
+    else:
+        print "Error: %s" % reply[2]
+
 # Usage
 
 def usage():
     print "usage: service command [options]"
     print "commands:"
     print " list"
+    print " start <service>"
+    print " stop <service>"
 
 # Main
 
@@ -63,6 +83,18 @@ def main(args):
     
     elif args[0] == "help":
         usage()
+    
+    elif args[0] == "start":
+        if len(args) < 2:
+            usage()
+        else:
+            start(args[1])
+    
+    elif args[0] == "stop":
+        if len(args) < 2:
+            usage()
+        else:
+            stop(args[1])
     
     else:
         usage()
