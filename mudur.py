@@ -14,7 +14,6 @@ import sys
 import os
 import subprocess
 import time
-import re
 
 #
 # Utilities
@@ -305,9 +304,11 @@ def setHostname():
     khost = capture("/bin/hostname")[0].rstrip("\n")
     uhost = None
     data = loadFile("/etc/env.d/01hostname")
-    m = re.match('HOSTNAME="(.*)"', data)
-    if m:
-        uhost = m.group(1)
+    i = data.find('HOSTNAME="')
+    if i != -1:
+        j = data.find('"',i+10)
+        if j != -1:
+            uhost = data[i+10:j]
     
     if khost != "" and khost != "(none)":
         # kernel already got a hostname (pxeboot or something)
@@ -320,7 +321,13 @@ def setHostname():
             host = "pardus"
     
     if uhost and host != uhost:
-        data = re.sub('HOSTNAME="(.*)"', 'HOSTNAME="%s"' % host, data)
+        i = data.find('HOSTNAME="')
+        if i != -1:
+            j = data.find('"',i+10)
+            if j != -1:
+                data = data[:i+10] + host + data[j:]
+        else:
+            data = 'HOSTNAME="' + host + '"\n' + data
         write("/etc/env.d/01hostname", data)
     
     ui.info("Setting up hostname as '%s'" % host)
@@ -472,11 +479,7 @@ def stopSystem():
     # we parse /proc/mounts but use umount, so this have to agree
     run("cp", "/proc/mounts", "/etc/mtab")
     if remount_ro():
-        ui.info("bank")
-        time.sleep(5)
         if remount_ro():
-            ui.info("lala")
-            time.sleep(5)
             remount_ro(True)
     ui.end()
 
