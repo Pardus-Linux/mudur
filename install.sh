@@ -13,3 +13,4 @@ hav register System.Service openssh `pwd`/ssh-serv.py
 hav register System.Service xorg `pwd`/xdm-serv.py
 hav register System.Service zemberek-server `pwd`/zemberek-serv.py
 cp mudur.py /sbin/mudur.py
+cp service.py /bin/service

@@ -20,7 +20,7 @@ def get_state():
 
 def info():
     state = get_state()
-    return "local\n" + state + "\nLocal"
+    return "local\n" + state + "\nCustom startup commands"
 
 def start():
     if os.path.exists("/etc/conf.d/local.start"):

@@ -39,7 +39,7 @@ def get_state():
 
 def info():
     state = get_state()
-    return "local\n" + state + "\nSecure Shell Server"
+    return "server\n" + state + "\nSecure Shell Server"
 
 def start():
     check_config()
