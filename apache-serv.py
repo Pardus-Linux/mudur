@@ -10,12 +10,12 @@ def get_state():
     if s:
         state = s["state"]
     else:
-        state = "on"
+        state = "off"
     return state
 #
 def info():
     state = get_state()
-    return "local\n" + state + "\nApache Web Server"
+    return "server\n" + state + "\nApache Web Server"
 
 def start():
     run("/usr/sbin/apachec2tl", "-d", "/usr/lib/apache2/", "-f", "/etc/apache2/httpd.conf", get_config_vars(), "-k", "start")

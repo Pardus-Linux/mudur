@@ -71,6 +71,19 @@ def run(*cmd):
 
 #
 
+class Logger:
+    def __init__(self):
+        self.log = []
+    
+    def log(self, msg):
+        pass
+    
+    def stat(self, msg):
+        pass
+
+logger = Logger()
+
+
 class Config:
     def __init__(self):
         self.kernel = os.uname()[2].split(".")
