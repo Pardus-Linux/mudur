@@ -44,9 +44,21 @@ def write(filename, data):
     f.close()
 
 def mdate(filename):
+    """Return last modification date of a file"""
     if os.path.exists(filename):
         return os.stat(filename).st_mtime
     return 0
+
+def mdirdate(dirname):
+    """Return last modification date of a directory"""
+    # Directory mdate is not updated for file updates, so we check each file
+    # Note that we dont recurse into subdirs, modules.d, env.d etc are all flat
+    d = mdate(dirname)
+    for f in os.listdir(dirname):
+        d2 = mdate(os.path.join(dirname, f))
+        if d2 > d:
+            d = d2
+    return d
 
 def touch(filename):
     """Update file modification date, create file if necessary"""
@@ -338,7 +350,7 @@ def modules():
     if not os.path.exists("/proc/modules"):
         return
     
-    if mdate("/etc/modules.d") > mdate("/etc/modules.conf"):
+    if mdirdate("/etc/modules.d") > mdate("/etc/modules.conf"):
         # FIXME: convert this script to python
         ui.begin("Calculating module dependencies")
         os.system("/sbin/modules-update &>/dev/null")
