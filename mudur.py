@@ -612,11 +612,18 @@ if sys.argv[1] == "sysinit":
     run("/usr/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
 elif sys.argv[1] == "boot":
+    logger.uptime()
+    
     ui.begin("Setting up localhost")
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
     ui.end()
+    
+    if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
+        ui.begin("Updating environment")
+        os.system("/sbin/env-update.sh")
+        ui.end()
     
     ui.begin("Cleaning up /var")
     for root,dirs,files in os.walk("/var/run"):
@@ -651,6 +658,7 @@ elif sys.argv[1] == "shutdown":
     run("/sbin/halt", "-f")
 
 elif sys.argv[1] == "default":
+    logger.uptime()
     startServices()
 
 logger.uptime()
