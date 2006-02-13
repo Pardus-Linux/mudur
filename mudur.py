@@ -63,8 +63,16 @@ def mdirdate(dirname):
 def touch(filename):
     """Update file modification date, create file if necessary"""
     try:
-        file(filename, "w").close()
+        if os.path.exists(filename):
+            os.utime(filename, None)
+        else:
+            file(filename, "w").close()
     except IOError, e:
+        if e.errno != 13:
+            raise
+        else:
+            return False
+    except OSError, e:
         if e.errno != 13:
             raise
         else:
@@ -84,13 +92,19 @@ def run(*cmd):
 
 class Logger:
     def __init__(self):
-        self.log = []
+        self.lines = []
     
     def log(self, msg):
-        pass
+        self.lines.append(msg)
     
-    def stat(self, msg):
-        pass
+    def uptime(self, msg):
+        tmp = "uptime %s seconds." % loadFile("/proc/uptime").split()[0]
+        self.lines.append(tmp)
+    
+    def sync(self):
+        f = file("/var/log/mudur.log", "a")
+        map(lambda x: f.write("%s\n" % x), self.lines)
+        f.close()
 
 logger = Logger()
 
@@ -189,15 +203,19 @@ class UI:
             time.sleep(3)
     
     def info(self, msg):
+        logger.log(msg)
         self._echo(msg + "\n", self.GOOD)
     
     def warn(self, msg):
+        logger.log(msg)
         self._echo(msg + "\n", self.WARN)
     
     def error(self, msg):
+        logger.log(msg)
         self._echo(msg + "\n", self.BAD, True)
     
     def begin(self, msg):
+        logger.log(msg)
         self._echo(msg, self.GOOD)
         self.last_col = 3 + len(msg)
     
@@ -211,6 +229,9 @@ class UI:
         
         if error:
             self.error(error)
+    
+    def debug(self, msg):
+        logger.log(msg)
 
 
 ui = UI()
@@ -244,6 +265,27 @@ def mount(part, args):
         args = "-t %s -o %s %s %s" % (ent[2], ent[3], ent[0], ent[1])
     os.system("mount -n %s" % args)
 
+
+#
+# COMAR functions
+#
+
+def startServices():
+    ui.begin("Starting services")
+    import comar
+    go = True
+    while go:
+        try:
+            link = comar.Link()
+            go = False
+        except comar.Error:
+            time.sleep(0.1)
+    link.call("System.Service.ready")
+    ui.end()
+
+
+#
+# Initialization functions
 #
 
 def setupUdev():
@@ -513,6 +555,8 @@ def except_hook(eType, eValue, eTrace):
 # Main program
 #
 
+logger.log("(((o) mudur %s" % sys.argv[1])
+
 os.umask(022)
 sys.excepthook = except_hook
 
@@ -523,8 +567,10 @@ if sys.argv[1] == "sysinit":
     # This is who we are
     print "Pardus, http://www.uludag.org.tr"
     
-    # mount /proc and parse kernel opts
+    # mount /proc
     mount("/proc", "-t proc proc /proc")
+    # those need /proc
+    logger.uptime()
     config.parse_kernel_opts()
     
     # Setup encoding, font and mapping for console
@@ -605,8 +651,7 @@ elif sys.argv[1] == "shutdown":
     run("/sbin/halt", "-f")
 
 elif sys.argv[1] == "default":
-    ui.begin("Starting services")
-    # FIXME: hav should wait as necessary
-    time.sleep(0.5)
-    run("/usr/bin/hav", "-w", "call", "System.Service.ready")
-    ui.end()
+    startServices()
+
+logger.uptime()
+logger.sync()
