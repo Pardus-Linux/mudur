@@ -97,7 +97,7 @@ class Logger:
     def log(self, msg):
         self.lines.append(msg)
     
-    def uptime(self, msg):
+    def uptime(self):
         tmp = "uptime %s seconds." % loadFile("/proc/uptime").split()[0]
         self.lines.append(tmp)
     
