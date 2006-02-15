@@ -18,10 +18,10 @@ def info():
     return "server\n" + state + "\nApache Web Server"
 
 def start():
-    run("/usr/sbin/apachec2tl", "-d", "/usr/lib/apache2/", "-f", "/etc/apache2/httpd.conf", get_config_vars(), "-k", "start")
+    run("/usr/sbin/apache2ctl", "-d", "/usr/lib/apache2/", "-f", "/etc/apache2/httpd.conf", get_config_vars(), "-k", "start")
 
 def stop():
-    run("/usr/sbin/apachec2tl", "-d", "/usr/lib/apache2/", "-f", "/etc/apache2/httpd.conf", get_config_vars(), "-k", "stop")
+    run("/usr/sbin/apache2ctl", "-d", "/usr/lib/apache2/", "-f", "/etc/apache2/httpd.conf", get_config_vars(), "-k", "stop")
 
 def ready():
     s = get_state()
