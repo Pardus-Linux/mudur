@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Pardus boot and initialization system
 # Copyright (C) 2006, TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
