@@ -63,14 +63,34 @@ def stop(service):
     else:
         print "Error: %s" % reply[2]
 
+def on(service):
+    c = comlink()
+    c.call_package("System.Service.setState", service, "state", "on")
+    reply = c.read_cmd()
+    if reply[0] == c.RESULT:
+        print "Service '%s' turned on." % service
+    else:
+        print "Error: %s" % reply[2]
+
+def on(service):
+    c = comlink()
+    c.call_package("System.Service.setState", service, "state", "off")
+    reply = c.read_cmd()
+    if reply[0] == c.RESULT:
+        print "Service '%s' turned off." % service
+    else:
+        print "Error: %s" % reply[2]
+
 # Usage
 
 def usage():
-    print "usage: service command [options]"
-    print "commands:"
-    print " list"
-    print " start <service>"
-    print " stop <service>"
+    print "usage: service [<service>] <command>"
+    print "where command is:"
+    print " list   Display service list"
+    print " on     Turn on the service permamently"
+    print " off    Turn off the service permamently"
+    print " start  Start the service"
+    print " stop   Stop the service"
 
 # Main
 
@@ -84,17 +104,20 @@ def main(args):
     elif args[0] == "help":
         usage()
     
-    elif args[0] == "start":
-        if len(args) < 2:
-            usage()
-        else:
-            start(args[1])
+    elif len(args) < 2:
+        usage()
     
-    elif args[0] == "stop":
-        if len(args) < 2:
-            usage()
-        else:
-            stop(args[1])
+    elif args[1] == "start":
+        start(args[0])
+    
+    elif args[1] == "stop":
+        stop(args[0])
+    
+    elif args[1] == "on":
+        on(args[0])
+    
+    elif args[1] == "off":
+        off(args[0])
     
     else:
         usage()
