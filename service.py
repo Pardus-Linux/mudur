@@ -71,7 +71,7 @@ def on(service):
     else:
         print "Error: %s" % reply[2]
 
-def on(service):
+def off(service):
     c = comlink()
     c.call_package("System.Service.setState", service, "state", "off")
     reply = c.read_cmd()
