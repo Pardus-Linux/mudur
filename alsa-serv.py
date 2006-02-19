@@ -77,6 +77,11 @@ def run(*cmd):
     """Run a command without running a shell"""
     return subprocess.call(cmd)
 
+def capture(*cmd):
+    """Capture the output of command without running a shell"""
+    a = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return a.communicate()
+
 #
 
 def get_state():
@@ -100,11 +105,10 @@ def restore_mixer():
     if os.path.exists(cfg_file):
         run("/usr/sbin/alsactl", "-f", cfg_file, "restore", "0")
     else:
-        run("/usr/bin/amixer", "-q", "set", "Master", "75%", "unmute")
-        run("/usr/bin/amixer", "-q", "set", "PCM", "75%", "unmute")
-        run("/usr/bin/amixer", "-q", "set", "CD", "75%", "unmute")
-        run("/usr/bin/amixer", "-q", "set", "Line", "75%", "unmute")
-        run("/usr/bin/amixer", "-q", "set", "Mic", "75%", "unmute")
+        for a in capture("/usr/bin/amixer", "scontrols")[0].split("\n"):
+            # strange, but "a" may not exist
+            if a:
+                run("/usr/bin/amixer", "-q", "set", a.split("'")[1], "75%", "unmute")
 
 def save_mixer():
     if os.path.exists("/usr/sbin/alsactl"):
