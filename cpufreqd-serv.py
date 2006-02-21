@@ -18,7 +18,7 @@ def get_state():
     if s:
         state = s["state"]
     else:
-        state = "off"
+        state = "on"
     
     return state
 
