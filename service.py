@@ -64,7 +64,7 @@ def stop(service):
 
 def on(service):
     c = comlink()
-    c.call_package("System.Service.setState", service, "state", "on")
+    c.call_package("System.Service.setState", service, ["state", "on"])
     reply = c.read_cmd()
     if reply[0] == c.RESULT:
         print "Service '%s' turned on." % service
@@ -73,7 +73,7 @@ def on(service):
 
 def off(service):
     c = comlink()
-    c.call_package("System.Service.setState", service, "state", "off")
+    c.call_package("System.Service.setState", service, ["state", "off"])
     reply = c.read_cmd()
     if reply[0] == c.RESULT:
         print "Service '%s' turned off." % service
