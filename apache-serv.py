@@ -13,11 +13,21 @@ def get_state():
         state = "off"
     return state
 
+def check_apache():
+    if not os.path.exists("/etc/apache2"):
+        fail("apache2 is not installed.")
+
+def check_config():
+    if not os.path.exists("/etc/apache2/httpd.conf"):
+        fail("apache2 configuration file (httpd.conf) not exists")
+
 def info():
     state = get_state()
     return "server\n" + state + "\nApache Web Server"
 
 def start():
+    check_apache()
+    check_config()
     run("/usr/sbin/apache2ctl", "-d", "/usr/lib/apache2/", "-f", "/etc/apache2/httpd.conf", get_config_vars(), "-k", "start")
 
 def stop():
