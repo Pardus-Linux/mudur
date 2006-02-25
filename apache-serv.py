@@ -4,7 +4,7 @@ import subprocess
 def run(*cmd):
     """Run a command without running a shell"""
     return subprocess.call(cmd)
-#
+
 def get_state():
     s = get_profile("System.Service.setState")
     if s:
@@ -12,7 +12,7 @@ def get_state():
     else:
         state = "off"
     return state
-#
+
 def info():
     state = get_state()
     return "server\n" + state + "\nApache Web Server"
