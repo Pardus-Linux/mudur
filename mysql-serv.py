@@ -22,6 +22,7 @@ def info():
     return "server\n" + state + "\nMySQL DB Server"
 
 def start():
+    check_mysql()
     run("/sbin/start-stop-daemon", "--start", "--quiet", "--background", "--exec", "/usr/bin/mysqld_safe", "--", "--user=mysql", \
     "--basedir=/usr", "--datadir=/var/lib/mysql", "--max_allowed_packet=8M", "--net_buffer_length=16K", \
     "--socket=/var/run/mysqld/mysqld.sock", "--pid-file=/var/run/mysqld/mysqld.pid")
