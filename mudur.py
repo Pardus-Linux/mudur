@@ -586,10 +586,6 @@ if sys.argv[1] == "sysinit":
     mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
     ui.end()
     
-    ui.begin("Activating swap partitions")
-    run("/sbin/swapon", "-a")
-    ui.end()
-    
     # Set kernel console log level for cleaner boot
     # only panic messages will be printed
     run("/bin/dmesg", "-n", "1")
@@ -600,6 +596,10 @@ if sys.argv[1] == "sysinit":
     checkFS()
     localMount()
     setClock()
+    
+    ui.begin("Activating swap partitions")
+    run("/sbin/swapon", "-a")
+    ui.end()
     
     # better performance for SMP systems, /var/run must be mounted rw before this
     if os.path.exists("/sbin/irqbalance"):
