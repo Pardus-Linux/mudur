@@ -8,6 +8,7 @@ hav register System.Service dbus `pwd`/dbus-serv.py
 hav register System.Service hal `pwd`/hald-serv.py
 hav register System.Service hotplug `pwd`/coldplug-serv.py
 hav register System.Service local `pwd`/local-serv.py
+hav register System.Service mdnsd `pwd`/mdnsd-serv.py
 hav register System.Service sysklogd `pwd`/sysklogd-serv.py
 hav register System.Service openssh `pwd`/ssh-serv.py
 hav register System.Service xorg `pwd`/xdm-serv.py
