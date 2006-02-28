@@ -614,6 +614,12 @@ if sys.argv[1] == "sysinit":
     run("/usr/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
     run("/usr/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
+    ui.begin("Starting Coldplug")
+    for rc in os.listdir("/etc/hotplug/"):
+        if rc.endswith(".rc"):
+            os.spawnl(os.P_NOWAIT, os.path.join("/etc/hotplug", rc), os.path.join("/etc/hotplug", rc), "start")
+    ui.end()
+
 elif sys.argv[1] == "boot":
     logger.uptime()
     
@@ -621,6 +627,14 @@ elif sys.argv[1] == "boot":
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
+    ui.end()
+
+    # set some disk parameters
+    # run("/sbin/hdparm", "-d1", "-Xudma5", "-c3", "-u1", "-a8192", "/dev/hda")
+
+    # start x earlier 
+    ui.begin("Starting X")
+    run("/sbin/start-stop-daemon", "--start", "--quiet", "--exe", "/usr/kde/3.5/bin/kdm")
     ui.end()
     
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
