@@ -632,10 +632,11 @@ elif sys.argv[1] == "boot":
     # set some disk parameters
     # run("/sbin/hdparm", "-d1", "-Xudma5", "-c3", "-u1", "-a8192", "/dev/hda")
 
-    # start x earlier 
-    ui.begin("Starting X")
-    run("/sbin/start-stop-daemon", "--start", "--quiet", "--exe", "/usr/kde/3.5/bin/kdm")
-    ui.end()
+    # start x earlier
+    # we can't start X here, we sometimes need a service to run first
+    # ui.begin("Starting X")
+    # run("/sbin/start-stop-daemon", "--start", "--quiet", "--exe", "/usr/kde/3.5/bin/kdm")
+    # ui.end()
     
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.begin("Updating environment")

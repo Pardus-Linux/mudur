@@ -10,6 +10,7 @@ hav register System.Service local `pwd`/scripts/local-serv.py
 hav register System.Service mdnsd `pwd`/scripts/mdnsd-serv.py
 hav register System.Service sysklogd `pwd`/scripts/sysklogd-serv.py
 hav register System.Service openssh `pwd`/scripts/ssh-serv.py
+hav register System.Service xorg `pwd`/scripts/xdm-serv.py
 hav register System.Service zemberek-server `pwd`/scripts/zemberek-serv.py
 cp mudur.py /sbin/mudur.py
 cp service.py /bin/service
