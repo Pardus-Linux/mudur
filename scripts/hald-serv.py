@@ -25,8 +25,7 @@ def info():
 def start():
     call("System.Service.start", "dbus")
     call("System.Service.start", "acpid")
-    run("/sbin/start-stop-daemon", "--start", "-q",
-        "--exec", "/usr/sbin/hald", "--", "--retain-privileges")
+    run("/sbin/start-stop-daemon", "--start", "-q", "--exec", "/usr/sbin/hald")
 
 def stop():
     run("/sbin/start-stop-daemon", "--stop", "-q", "--pidfile", "/var/run/hald.pid")
