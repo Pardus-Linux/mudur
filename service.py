@@ -10,6 +10,7 @@
 #
 
 import sys
+import os
 import comar
 
 # Utilities
@@ -43,6 +44,17 @@ def list():
     for item in services:
         info = item[2].split("\n")
         print item[3].ljust(size), info[0].ljust(6), info[1].ljust(3), info[2]
+
+def manage_comar(op):
+    if os.getuid() != 0:
+        print "You should be the root user in order to control the comar service."
+        sys.exit(1)
+    
+    if op == "stop" or op == "restart":
+        os.system("/sbin/start-stop-daemon --stop --pidfile /var/run/comar.pid")
+    
+    if op == "start" or op == "restart":
+        os.system("/sbin/start-stop-daemon -b --start --pidfile /var/run/comar.pid --make-pidfile --exec /usr/bin/comar")
 
 def start(service):
     c = comlink()
@@ -105,6 +117,9 @@ def main(args):
     
     elif len(args) < 2:
         usage()
+    
+    elif args[0] == "comar":
+        manage_comar(args[1])
     
     elif args[1] == "start":
         start(args[0])
