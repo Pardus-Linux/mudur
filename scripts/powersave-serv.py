@@ -23,7 +23,7 @@ def info():
     return "local\n" + state + "\nPowerSaved"
 
 def start():
-    run("/sbin/start-stop-daemon", "--start", "-q", "--exec", "/usr/sbin/powersaved", "--", "-f", "/etc/acpi/event", "-d")
+    run("/sbin/start-stop-daemon", "--start", "-q", "--exec", "/usr/sbin/powersaved", "--", "-f", "/etc/acpi/events", "-d")
 
 def stop():
     run("/sbin/start-stop-daemon", "--stop", "-q", "--exec", "/usr/sbin/powersaved")
