@@ -607,7 +607,10 @@ if sys.argv[1] == "sysinit":
     # better performance for SMP systems, /var/run must be mounted rw before this
     if os.path.exists("/sbin/irqbalance"):
         run("/sbin/irqbalance")
-    
+
+    # improve responsiveness
+    write("/proc/sys/dev/rtc/max-user-freq", "1024")
+
     # when we exit this runlevel, init will write a boot record to utmp
     write("/var/run/utmp", "")
     touch("/var/log/wtmp")
