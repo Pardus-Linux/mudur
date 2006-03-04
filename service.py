@@ -41,6 +41,7 @@ def list():
     
     size = max(map(lambda x: len(x[3]), services))
     
+    services.sort(key=lambda x: x[3])
     for item in services:
         info = item[2].split("\n")
         print item[3].ljust(size), info[0].ljust(6), info[1].ljust(3), info[2]
