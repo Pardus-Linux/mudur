@@ -30,7 +30,7 @@ def info():
 
 def start():
     check_config()
-    run("/sbin/start-stop-daemon", "--start", "--quiet", "--exec", "/usr/sbin/acpid", "--chuid", "/etc/acpi/events")
+    run("/sbin/start-stop-daemon", "--start", "--quiet", "--exec", "/usr/sbin/acpid", "--", "-c", "/etc/acpi/events")
 
 def stop():
     run("/sbin/start-stop-daemon", "--stop", "--quiet", "--exec", "/usr/sbin/acpid")
