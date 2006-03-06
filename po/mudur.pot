@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-06 15:53+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: mudur.py:263
+msgid "Starting services"
+msgstr ""
+
+#: mudur.py:284
+msgid "Restoring saved device states"
+msgstr ""
+
+#: mudur.py:287
+msgid "Starting udev"
+msgstr ""
+
+#: mudur.py:307
+msgid "Remounting root filesystem read-only"
+msgstr ""
+
+#: mudur.py:312
+msgid "Checking root filesystem"
+msgstr ""
+
+#: mudur.py:317
+msgid "Filesystem repaired, but reboot needed!"
+msgstr ""
+
+#: mudur.py:321
+msgid "Rebooting in 10 seconds ..."
+msgstr ""
+
+#: mudur.py:323
+msgid "Rebooting..."
+msgstr ""
+
+#: mudur.py:326
+msgid "Filesystem couldn't be fixed :("
+msgstr ""
+
+#: mudur.py:328
+msgid "Skipping root filesystem check (fstab's passno == 0)"
+msgstr ""
+
+#: mudur.py:330
+msgid "Remounting root filesystem read/write"
+msgstr ""
+
+#: mudur.py:332
+msgid "Root filesystem could not be mounted read/write :("
+msgstr ""
+
+#: mudur.py:374
+#, python-format
+msgid "Setting up hostname as '%s'"
+msgstr ""
+
+#: mudur.py:384
+msgid "Calculating module dependencies"
+msgstr ""
+
+#: mudur.py:397
+msgid "Checking all filesystems"
+msgstr ""
+
+#: mudur.py:402
+msgid "Filesystem errors corrected"
+msgstr ""
+
+#: mudur.py:404
+msgid "Fsck could not correct all errors, manual repair needed"
+msgstr ""
+
+#: mudur.py:407
+msgid "Mounting local filesystems"
+msgstr ""
+
+#: mudur.py:409
+msgid "Activating swap"
+msgstr ""
+
+#: mudur.py:422
+msgid "Setting system clock to hardware clock"
+msgstr ""
+
+#: mudur.py:431
+msgid "Failed to set system clock to hardware clock"
+msgstr ""
+
+#: mudur.py:441
+msgid "Syncing system clock to hardware clock"
+msgstr ""
+
+#: mudur.py:444
+msgid "Failed to sync clocks"
+msgstr ""
+
+#: mudur.py:451
+msgid "Stopping services"
+msgstr ""
+
+#: mudur.py:454
+msgid "Stopping COMAR"
+msgstr ""
+
+#: mudur.py:459
+msgid "Deactivating swap"
+msgstr ""
+
+#: mudur.py:480
+msgid "Unmounting filesystems"
+msgstr ""
+
+#: mudur.py:512
+msgid "Remounting remaining filesystems readonly"
+msgstr ""
+
+#: mudur.py:563
+msgid "Mounting /sys"
+msgstr ""
+
+#: mudur.py:568
+msgid "Mounting /dev/pts"
+msgstr ""
+
+#: mudur.py:595
+msgid "Starting Coldplug"
+msgstr ""
+
+#: mudur.py:603
+msgid "Setting up localhost"
+msgstr ""
+
+#: mudur.py:618
+msgid "Updating environment variables"
+msgstr ""
+
+#: mudur.py:621
+msgid "Cleaning up /var"
+msgstr ""
+
+#: mudur.py:636
+msgid "Starting COMAR"
+msgstr ""
+
+#: service.py:57
+msgid "You should be the root user in order to control the comar service."
+msgstr ""
+
+#: service.py:71
+#, python-format
+msgid "Service '%s' started."
+msgstr ""
+
+#: service.py:73 service.py:82 service.py:91 service.py:100
+#, python-format
+msgid "Error: %s"
+msgstr ""
+
+#: service.py:80
+#, python-format
+msgid "Service '%s' stopped."
+msgstr ""
+
+#: service.py:89
+#, python-format
+msgid "Service '%s' turned on."
+msgstr ""
+
+#: service.py:98
+#, python-format
+msgid "Service '%s' turned off."
+msgstr ""
+
+#: service.py:105
+msgid ""
+"usage: service [<service>] <command>\n"
+"where command is:\n"
+" list   Display service list\n"
+" on     Turn on the service permamently\n"
+" off    Turn off the service permamently\n"
+" start  Start the service\n"
+" stop   Stop the service"
+msgstr ""
