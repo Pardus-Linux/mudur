@@ -54,11 +54,11 @@ msgstr "Dosya sistemindeki sorun düzeltilemedi."
 
 #: mudur.py:328
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr ""
+msgstr "Kök dosya sistemi denetimi atlandı (fstab pass değeri = 0)"
 
 #: mudur.py:330
 msgid "Remounting root filesystem read/write"
-msgstr ""
+msgstr "Kök dosya sistemi okunur/yazılır halde yeniden bağlanıyor"
 
 #: mudur.py:332
 msgid "Root filesystem could not be mounted read/write :("
@@ -67,15 +67,15 @@ msgstr ""
 #: mudur.py:374
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr ""
+msgstr "Makine adı '%s' olarak ayarlanıyor"
 
 #: mudur.py:384
 msgid "Calculating module dependencies"
-msgstr ""
+msgstr "Modül bağımlılıkları hesaplanıyor"
 
 #: mudur.py:397
 msgid "Checking all filesystems"
-msgstr ""
+msgstr "Tüm dosya sistemleri denetleniyor"
 
 #: mudur.py:402
 msgid "Filesystem errors corrected"
@@ -87,15 +87,15 @@ msgstr ""
 
 #: mudur.py:407
 msgid "Mounting local filesystems"
-msgstr ""
+msgstr "Yerel dosya sistemleri bağlanıyor"
 
 #: mudur.py:409
 msgid "Activating swap"
-msgstr ""
+msgstr "Takas alanı etkinleştiriliyor"
 
 #: mudur.py:422
 msgid "Setting system clock to hardware clock"
-msgstr ""
+msgstr "Sistem saati donanım saatinden ayarlanıyor"
 
 #: mudur.py:431
 msgid "Failed to set system clock to hardware clock"
@@ -103,7 +103,7 @@ msgstr ""
 
 #: mudur.py:441
 msgid "Syncing system clock to hardware clock"
-msgstr ""
+msgstr "Donanım saati sistem saati ile senkronize ediliyor"
 
 #: mudur.py:444
 msgid "Failed to sync clocks"
@@ -111,19 +111,19 @@ msgstr ""
 
 #: mudur.py:451
 msgid "Stopping services"
-msgstr ""
+msgstr "Servisler durduruluyor"
 
 #: mudur.py:454
 msgid "Stopping COMAR"
-msgstr ""
+msgstr "COMAR durduruluyor"
 
 #: mudur.py:459
 msgid "Deactivating swap"
-msgstr ""
+msgstr "Takas alanı bırakılıyor"
 
 #: mudur.py:480
 msgid "Unmounting filesystems"
-msgstr ""
+msgstr "Dosya sistemleri ayrılıyor"
 
 #: mudur.py:512
 msgid "Remounting remaining filesystems readonly"

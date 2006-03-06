@@ -14,13 +14,13 @@ import sys
 import os
 import subprocess
 import locale
+import gettext
 import time
 
 #
 # i18n
 #
 
-import gettext
 __trans = gettext.translation('mudur', fallback=True)
 _ = __trans.ugettext
 
@@ -206,9 +206,9 @@ class UI:
         logger.log(msg)
         
         if colour:
-            sys.stdout.write(" %s*%s %s\n" % (colour, self.NORMAL, msg))
+            sys.stdout.write(" %s*%s %s\n" % (colour, self.NORMAL, msg.encode("utf-8")))
         else:
-            sys.stdout.write(msg)
+            sys.stdout.write(msg.encode("utf-8"))
             sys.stdout.write("\n")
     
     def info(self, msg):
@@ -240,15 +240,21 @@ class Language:
         run("/usr/bin/kbd_mode", "-u")
         run("/bin/loadkeys", self.keymap)
         run("/usr/bin/setfont", "-f", self.font, "-m", self.trans)
-    
-    def setTranslation(self):
-        locale.setlocale(locale.LC_MESSAGES, self.locale)
 
 
 languages = {
     "en": Language(("us", "iso01.16", "8859-1", "en_US.UTF-8")),
     "tr": Language(("trq", "iso09.16", "8859-9", "tr_TR.UTF-8"))
 }
+
+def setTranslation():
+    global __trans
+    global _
+    lang = config.get("language")
+    if not languages.has_key(lang):
+        lang = "tr"
+    __trans = gettext.translation('mudur', languages=[lang], fallback=True)
+    _ = __trans.ugettext
 
 #
 
@@ -563,7 +569,8 @@ if sys.argv[1] == "sysinit":
     if not languages.has_key(lang):
         lang = "tr"
     languages[lang].setConsole()
-    languages[lang].setTranslation()
+    
+    setTranslation()
     
     ui.info(_("Mounting /sys"))
     mount("/sys", "-t sysfs sysfs /sys")
@@ -604,6 +611,7 @@ if sys.argv[1] == "sysinit":
 
 elif sys.argv[1] == "boot":
     logger.uptime()
+    setTranslation()
     
     ui.info(_("Setting up localhost"))
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
@@ -644,16 +652,19 @@ elif sys.argv[1] == "boot":
         "--exec", "/usr/bin/comar")
 
 elif sys.argv[1] == "reboot":
+    setTranslation()
     stopSystem()
     run("/sbin/reboot", "-idp")
     run("/sbin/reboot", "-f")
 
 elif sys.argv[1] == "shutdown":
+    setTranslation()
     stopSystem()
     run("/sbin/halt", "-ihdp")
     run("/sbin/halt", "-f")
 
 elif sys.argv[1] == "default":
+    setTranslation()
     logger.uptime()
     startServices()
 
