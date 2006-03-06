@@ -27,7 +27,11 @@ def install(args):
     os.system("cp mudur.py %s" % os.path.join(prefix, "sbin/mudur.py"))
     os.system("cp service.py %s" % os.path.join(prefix, "bin/service"))
     
-    # FIXME: compile and install translations
+    for item in os.listdir("po"):
+        if item.endswith(".po"):
+            lang = item[:-3]
+            dest = "usr/share/locale/%s/LC_MESSAGES/mudur.mo" % lang
+            os.system("msgfmt po/%s -o %s" % (item, os.path.join(prefix, dest)))
 
 def usage():
     print "setup.py install [prefix]"

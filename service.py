@@ -11,6 +11,7 @@
 
 import sys
 import os
+import locale
 import comar
 
 # i18n
@@ -146,4 +147,5 @@ def main(args):
 #
 
 if __name__ == "__main__":
+    locale.setlocale(locale.LC_ALL, '')
     main(sys.argv[1:])
