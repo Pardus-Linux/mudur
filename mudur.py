@@ -228,9 +228,9 @@ class Language:
         self.locale = data[3]
     
     def setConsole(self):
-        os.system("/usr/bin/kbd_mode -u")
-        os.system("/bin/loadkeys %s &> /dev/null" % self.keymap)
-        os.system("/usr/bin/setfont -f %s -m %s" % (self.font, self.trans))
+        run("/usr/bin/kbd_mode", "-u")
+        run("/bin/loadkeys", self.keymap)
+        run("/usr/bin/setfont", "-f", self.font, "-m", self.trans)
 
 
 languages = {
