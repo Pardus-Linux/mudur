@@ -398,7 +398,7 @@ def checkFS():
 def localMount():
     ui.info("Mounting local filesystems")
     run("/bin/mount", "-at", "noproc,noshm")
-    ui.info("Activating more swap")
+    ui.info("Activating swap")
     run("/sbin/swapon", "-a")
 
 def setClock():
@@ -557,9 +557,6 @@ if sys.argv[1] == "sysinit":
     
     ui.info("Mounting /dev/pts")
     mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
-    
-    ui.info("Activating swap partitions")
-    run("/sbin/swapon", "-a")
     
     # Set kernel console log level for cleaner boot
     # only panic messages will be printed
