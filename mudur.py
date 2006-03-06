@@ -13,7 +13,6 @@
 import sys
 import os
 import subprocess
-import locale
 import gettext
 import time
 
@@ -554,7 +553,7 @@ os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 
 if sys.argv[1] == "sysinit":
     # This is who we are
-    print
+    print "\x1b%G"
     print "Pardus, http://www.uludag.org.tr"
     print
     
