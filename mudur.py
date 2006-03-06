@@ -86,7 +86,11 @@ def capture(*cmd):
 
 def run(*cmd):
     """Run a command without running a shell"""
-    return subprocess.call(cmd)
+    a = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    logs = a.communicate()
+    if logs[1] and logs[1] != '':
+        logger.log(logs[1])
+    return a.returncode
 
 #
 
@@ -184,51 +188,28 @@ config = Config()
 
 class UI:
     def __init__(self):
-        self.wait = False
         self.GOOD = '\x1b[32;01m'
         self.WARN = '\x1b[33;01m'
         self.BAD = '\x1b[31;01m'
-        self.BRACKET = '\x1b[34;01m'
         self.NORMAL = '\x1b[0m'
-        self.last_col = -1
-        self.width = int(capture("/usr/bin/stty", "size")[0].split()[1])
     
-    def _echo(self, msg, colour=None, is_error=False):
+    def _echo(self, msg, colour=None):
+        logger.log(msg)
+        
         if colour:
-            sys.stdout.write(" %s*%s %s" % (colour, self.NORMAL, msg))
+            sys.stdout.write(" %s*%s %s\n" % (colour, self.NORMAL, msg))
         else:
             sys.stdout.write(msg)
-        
-        if self.wait:
-            time.sleep(3)
+            sys.stdout.write("\n")
     
     def info(self, msg):
-        logger.log(msg)
-        self._echo(msg + "\n", self.GOOD)
+        self._echo(msg, self.GOOD)
     
     def warn(self, msg):
-        logger.log(msg)
-        self._echo(msg + "\n", self.WARN)
+        self._echo(msg, self.WARN)
     
     def error(self, msg):
-        logger.log(msg)
-        self._echo(msg + "\n", self.BAD, True)
-    
-    def begin(self, msg):
-        logger.log(msg)
-        self._echo(msg, self.GOOD)
-        self.last_col = 3 + len(msg)
-    
-    def end(self, error=None):
-        if error:
-            msg = "%s[ %s!!%s ]%s" % (self.BRACKET, self.BAD, self.BRACKET, self.NORMAL)
-        else:
-            msg = "%s[ %s%s%s ]%s" % (self.BRACKET, self.GOOD, "ok", self.BRACKET, self.NORMAL)
-        
-        self._echo("%s%s\n" % (" " * (self.width - self.last_col - len(msg)), msg))
-        
-        if error:
-            self.error(error)
+        self._echo(msg, self.BAD)
     
     def debug(self, msg):
         logger.log(msg)
@@ -271,7 +252,7 @@ def mount(part, args):
 #
 
 def startServices():
-    ui.begin("Starting services")
+    ui.info("Starting services")
     import comar
     go = True
     while go:
@@ -281,7 +262,6 @@ def startServices():
         except comar.Error:
             time.sleep(0.1)
     link.call("System.Service.ready")
-    ui.end()
 
 
 #
@@ -316,9 +296,8 @@ def setupUdev():
     write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
 
 def checkRoot():
-    ui.begin("Remounting root filesystem read-only")
+    ui.info("Remounting root filesystem read-only")
     run("/bin/mount", "-n", "-o", "remount,ro", "/")
-    ui.end()
     
     ent = config.get_mount("/")
     if len(ent) > 5 and ent[5] != "0":
@@ -394,9 +373,8 @@ def modules():
     
     if mdirdate("/etc/modules.d") > mdate("/etc/modules.conf"):
         # FIXME: convert this script to python
-        ui.begin("Calculating module dependencies")
+        ui.info("Calculating module dependencies")
         os.system("/sbin/modules-update &>/dev/null")
-        ui.end()
     
     fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
     if not os.path.exists(fn):
@@ -420,9 +398,8 @@ def checkFS():
 def localMount():
     ui.info("Mounting local filesystems")
     run("/bin/mount", "-at", "noproc,noshm")
-    ui.begin("Activating more swap")
+    ui.info("Activating more swap")
     run("/sbin/swapon", "-a")
-    ui.end()
 
 def setClock():
     if config.is_virtual():
@@ -434,7 +411,7 @@ def setClock():
     elif os.stat("/etc/adjtime").st_size == 0:
         write("/etc/adjtime", "0.0 0 0.0\n")
     
-    ui.begin("Setting system clock to hardware clock")
+    ui.info("Setting system clock to hardware clock")
     
     opts = "--utc"
     if config.get("clock") != "UTC":
@@ -443,9 +420,7 @@ def setClock():
     t = capture("/sbin/hwclock", adj, opts)
     t2 = capture("/sbin/hwclock", "--hctosys", opts)
     if t[1] != '' or t2[1] != '':
-        ui.end("Failed to set system clock to hardware clock")
-    else:
-        ui.end()
+        ui.error("Failed to set system clock to hardware clock")
 
 def saveClock():
     if config.is_livecd() or config.is_virtual():
@@ -455,34 +430,29 @@ def saveClock():
     if config.get("clock") != "UTC":
         opts = "--localtime"
     
-    ui.begin("Syncing system clock to hardware clock")
+    ui.info("Syncing system clock to hardware clock")
     t = capture("/sbin/hwclock", "--systohc", opts)
     if t[1] != '':
-        ui.end("Failed to sync clocks")
-    else:
-        ui.end()
+        ui.error("Failed to sync clocks")
 
 def stopSystem():
     def proc_key(x):
         """sort helper"""
         return x[1]
     
-    ui.begin("Stopping services")
+    ui.info("Stopping services")
     run("/usr/bin/hav", "call", "System.Service.stop")
-    ui.end()
     
-    ui.begin("Stopping COMAR")
+    ui.info("Stopping COMAR")
     run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/comar.pid")
-    ui.end()
     
     saveClock()
     
-    ui.begin("Deactivating swap")
+    ui.info("Deactivating swap")
     # unmount unused tmpfs filesystems before swap
     # (tmpfs can be swapped and you can get a deadlock)
     run("/bin/umount", "-at", "tmpfs")
     run("/sbin/swapoff", "-a")
-    ui.end()
     
     def getFS():
         ents = loadFile("/proc/mounts").split("\n")
@@ -499,7 +469,7 @@ def stopSystem():
         ents.sort(key=proc_key, reverse=True)
         return ents
     
-    ui.begin("Unmounting filesystems")
+    ui.info("Unmounting filesystems")
     # write a reboot record to /var/log/wtmp before unmounting
     run("/sbin/halt", "-w")
     for dev in getFS():
@@ -508,7 +478,6 @@ def stopSystem():
             run("/bin/fuser", "-k", "-9", "-m", dev[1])
             time.sleep(2)
             run("/bin/umount", "-f", "-r", dev[1])
-    ui.end()
     
     def remount_ro(force=False):
         ents = loadFile("/proc/mounts").split("\n")
@@ -532,13 +501,12 @@ def stopSystem():
             run("killall5", "-9")
         return ret
     
-    ui.begin("Remounting remaining filesystems readonly")
+    ui.info("Remounting remaining filesystems readonly")
     # we parse /proc/mounts but use umount, so this have to agree
     run("cp", "/proc/mounts", "/etc/mtab")
     if remount_ro():
         if remount_ro():
             remount_ro(True)
-    ui.end()
 
 
 #
@@ -577,21 +545,21 @@ if sys.argv[1] == "sysinit":
     config.parse_kernel_opts()
     
     # Setup encoding, font and mapping for console
-    languages["tr"].setConsole()
+    lang = config.get_opt("language")
+    if not languages.has_key(lang):
+        lang = "tr"
+    languages[lang].setConsole()
     
-    ui.begin("Mounting /sys")
+    ui.info("Mounting /sys")
     mount("/sys", "-t sysfs sysfs /sys")
-    ui.end()
     
     setupUdev()
     
-    ui.begin("Mounting /dev/pts")
+    ui.info("Mounting /dev/pts")
     mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
-    ui.end()
     
-    ui.begin("Activating swap partitions")
+    ui.info("Activating swap partitions")
     run("/sbin/swapon", "-a")
-    ui.end()
     
     # Set kernel console log level for cleaner boot
     # only panic messages will be printed
@@ -617,20 +585,18 @@ if sys.argv[1] == "sysinit":
     run("/usr/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
     run("/usr/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
-    ui.begin("Starting Coldplug")
+    ui.info("Starting Coldplug")
     for rc in os.listdir("/etc/hotplug/"):
         if rc.endswith(".rc"):
             os.spawnl(os.P_NOWAIT, os.path.join("/etc/hotplug", rc), os.path.join("/etc/hotplug", rc), "start")
-    ui.end()
 
 elif sys.argv[1] == "boot":
     logger.uptime()
     
-    ui.begin("Setting up localhost")
+    ui.info("Setting up localhost")
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
-    ui.end()
 
     # set some disk parameters
     # run("/sbin/hdparm", "-d1", "-Xudma5", "-c3", "-u1", "-a8192", "/dev/hda")
@@ -642,16 +608,14 @@ elif sys.argv[1] == "boot":
     # ui.end()
     
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
-        ui.begin("Updating environment")
+        ui.info("Updating environment")
         os.system("/sbin/env-update.sh")
-        ui.end()
     
-    ui.begin("Cleaning up /var")
+    ui.info("Cleaning up /var")
     for root,dirs,files in os.walk("/var/run"):
         for f in files:
             if f != "utmp" and f != "random-seed":
                 os.unlink(os.path.join(root, f))
-    ui.end()
     
     # reset console permissions if we are actually using it
     if os.path.exists("/sbin/pam_console_apply"):
@@ -662,11 +626,10 @@ elif sys.argv[1] == "boot":
                 run("/sbin/pam_console_apply", "-r")
                 break
     
-    ui.begin("Starting COMAR")
+    ui.info("Starting COMAR")
     run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
         "--pidfile", "/var/run/comar.pid", "--make-pidfile",
         "--exec", "/usr/bin/comar")
-    ui.end()
 
 elif sys.argv[1] == "reboot":
     stopSystem()
