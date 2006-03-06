@@ -13,6 +13,7 @@
 import sys
 import os
 import subprocess
+import locale
 import time
 
 #
@@ -239,6 +240,9 @@ class Language:
         run("/usr/bin/kbd_mode", "-u")
         run("/bin/loadkeys", self.keymap)
         run("/usr/bin/setfont", "-f", self.font, "-m", self.trans)
+    
+    def setTranslation(self):
+        locale.setlocale(locale.LC_MESSAGES, self.locale)
 
 
 languages = {
@@ -559,6 +563,7 @@ if sys.argv[1] == "sysinit":
     if not languages.has_key(lang):
         lang = "tr"
     languages[lang].setConsole()
+    languages[lang].setTranslation()
     
     ui.info(_("Mounting /sys"))
     mount("/sys", "-t sysfs sysfs /sys")
