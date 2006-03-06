@@ -16,6 +16,14 @@ import subprocess
 import time
 
 #
+# i18n
+#
+
+import gettext
+__trans = gettext.translation('mudur', fallback=True)
+_ = __trans.ugettext
+
+#
 # Utilities
 #
 
@@ -252,7 +260,7 @@ def mount(part, args):
 #
 
 def startServices():
-    ui.info("Starting services")
+    ui.info(_("Starting services"))
     import comar
     go = True
     while go:
@@ -273,10 +281,10 @@ def setupUdev():
     # many video drivers require exec access in /dev
     ui.info("Mounting /dev")
     mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755 udev /dev")
-    ui.info("Restoring saved device states")
+    ui.info(_("Restoring saved device states"))
     if os.path.exists(udev_backup):
         run("/bin/tar", "-jxpf", udev_backup, "-C" "/dev")
-    ui.info("Starting udev")
+    ui.info(_("Starting udev"))
     run("/sbin/udevstart")
     # Not provided by sysfs but needed
     symLink("/dev/fd", "/proc/self/fd")
@@ -296,32 +304,32 @@ def setupUdev():
     write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
 
 def checkRoot():
-    ui.info("Remounting root filesystem read-only")
+    ui.info(_("Remounting root filesystem read-only"))
     run("/bin/mount", "-n", "-o", "remount,ro", "/")
     
     ent = config.get_mount("/")
     if len(ent) > 5 and ent[5] != "0":
-        ui.info("Checking root filesystem")
+        ui.info(_("Checking root filesystem"))
         t = run("/sbin/fsck", "-C", "-T", "-a", "/")
         if t == 0:
             pass
         elif t == 2 or t == 3:
-            ui.info("Filesystem repaired, but reboot needed!")
+            ui.info(_("Filesystem repaired, but reboot needed!"))
             for i in range(4):
                 print "\07"
                 time.sleep(1)
-            ui.info("Rebooting in 10 seconds ...")
+            ui.info(_("Rebooting in 10 seconds ..."))
             time.sleep(10)
-            ui.info("Rebooting...")
+            ui.info(_("Rebooting..."))
             run("/sbin/reboot", "-f")
         else:
-            ui.info("Filesystem couldn't be fixed :(")
+            ui.info(_("Filesystem couldn't be fixed :("))
     else:
-        ui.info("Skipping root filesystem check (fstab's passno == 0)")
+        ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
     
-    ui.info("Remounting root filesystem read/write")
+    ui.info(_("Remounting root filesystem read/write"))
     if run("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
-        ui.info("Root filesystem could not be mounted read/write :(")
+        ui.info(_("Root filesystem could not be mounted read/write :("))
     
     # Fix mtab
     write("/etc/mtab", "")
@@ -363,7 +371,7 @@ def setHostname():
             data = 'HOSTNAME="' + host + '"\n' + data
         write("/etc/env.d/01hostname", data)
     
-    ui.info("Setting up hostname as '%s'" % host)
+    ui.info(_("Setting up hostname as '%s'") % host)
     run("/bin/hostname", host)
 
 def modules():
@@ -373,7 +381,7 @@ def modules():
     
     if mdirdate("/etc/modules.d") > mdate("/etc/modules.conf"):
         # FIXME: convert this script to python
-        ui.info("Calculating module dependencies")
+        ui.info(_("Calculating module dependencies"))
         os.system("/sbin/modules-update &>/dev/null")
     
     fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
@@ -386,19 +394,19 @@ def modules():
             run("/sbin/modprobe", "-q", mod)
 
 def checkFS():
-    ui.info("Checking all filesystems")
+    ui.info(_("Checking all filesystems"))
     t = run("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
     if t == 0:
         pass
     elif t >= 2 and t <= 3:
-        ui.info("Filesystem errors corrected")
+        ui.info(_("Filesystem errors corrected"))
     else:
-        ui.info("Fsck could not correct all errors, manual repair needed")
+        ui.info(_("Fsck could not correct all errors, manual repair needed"))
 
 def localMount():
-    ui.info("Mounting local filesystems")
+    ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,noshm")
-    ui.info("Activating swap")
+    ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
 
 def setClock():
@@ -411,7 +419,7 @@ def setClock():
     elif os.stat("/etc/adjtime").st_size == 0:
         write("/etc/adjtime", "0.0 0 0.0\n")
     
-    ui.info("Setting system clock to hardware clock")
+    ui.info(_("Setting system clock to hardware clock"))
     
     opts = "--utc"
     if config.get("clock") != "UTC":
@@ -420,7 +428,7 @@ def setClock():
     t = capture("/sbin/hwclock", adj, opts)
     t2 = capture("/sbin/hwclock", "--hctosys", opts)
     if t[1] != '' or t2[1] != '':
-        ui.error("Failed to set system clock to hardware clock")
+        ui.error(_("Failed to set system clock to hardware clock"))
 
 def saveClock():
     if config.is_livecd() or config.is_virtual():
@@ -430,25 +438,25 @@ def saveClock():
     if config.get("clock") != "UTC":
         opts = "--localtime"
     
-    ui.info("Syncing system clock to hardware clock")
+    ui.info(_("Syncing system clock to hardware clock"))
     t = capture("/sbin/hwclock", "--systohc", opts)
     if t[1] != '':
-        ui.error("Failed to sync clocks")
+        ui.error(_("Failed to sync clocks"))
 
 def stopSystem():
     def proc_key(x):
         """sort helper"""
         return x[1]
     
-    ui.info("Stopping services")
+    ui.info(_("Stopping services"))
     run("/usr/bin/hav", "call", "System.Service.stop")
     
-    ui.info("Stopping COMAR")
+    ui.info(_("Stopping COMAR"))
     run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/comar.pid")
     
     saveClock()
     
-    ui.info("Deactivating swap")
+    ui.info(_("Deactivating swap"))
     # unmount unused tmpfs filesystems before swap
     # (tmpfs can be swapped and you can get a deadlock)
     run("/bin/umount", "-at", "tmpfs")
@@ -469,7 +477,7 @@ def stopSystem():
         ents.sort(key=proc_key, reverse=True)
         return ents
     
-    ui.info("Unmounting filesystems")
+    ui.info(_("Unmounting filesystems"))
     # write a reboot record to /var/log/wtmp before unmounting
     run("/sbin/halt", "-w")
     for dev in getFS():
@@ -501,7 +509,7 @@ def stopSystem():
             run("killall5", "-9")
         return ret
     
-    ui.info("Remounting remaining filesystems readonly")
+    ui.info(_("Remounting remaining filesystems readonly"))
     # we parse /proc/mounts but use umount, so this have to agree
     run("cp", "/proc/mounts", "/etc/mtab")
     if remount_ro():
@@ -536,7 +544,9 @@ os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 
 if sys.argv[1] == "sysinit":
     # This is who we are
+    print
     print "Pardus, http://www.uludag.org.tr"
+    print
     
     # mount /proc
     mount("/proc", "-t proc proc /proc")
@@ -550,12 +560,12 @@ if sys.argv[1] == "sysinit":
         lang = "tr"
     languages[lang].setConsole()
     
-    ui.info("Mounting /sys")
+    ui.info(_("Mounting /sys"))
     mount("/sys", "-t sysfs sysfs /sys")
     
     setupUdev()
     
-    ui.info("Mounting /dev/pts")
+    ui.info(_("Mounting /dev/pts"))
     mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
     
     # Set kernel console log level for cleaner boot
@@ -582,7 +592,7 @@ if sys.argv[1] == "sysinit":
     run("/usr/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
     run("/usr/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
-    ui.info("Starting Coldplug")
+    ui.info(_("Starting Coldplug"))
     for rc in os.listdir("/etc/hotplug/"):
         if rc.endswith(".rc"):
             os.spawnl(os.P_NOWAIT, os.path.join("/etc/hotplug", rc), os.path.join("/etc/hotplug", rc), "start")
@@ -590,7 +600,7 @@ if sys.argv[1] == "sysinit":
 elif sys.argv[1] == "boot":
     logger.uptime()
     
-    ui.info("Setting up localhost")
+    ui.info(_("Setting up localhost"))
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
@@ -605,10 +615,10 @@ elif sys.argv[1] == "boot":
     # ui.end()
     
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
-        ui.info("Updating environment")
+        ui.info(_("Updating environment variables"))
         os.system("/sbin/env-update.sh")
     
-    ui.info("Cleaning up /var")
+    ui.info(_("Cleaning up /var"))
     for root,dirs,files in os.walk("/var/run"):
         for f in files:
             if f != "utmp" and f != "random-seed":
@@ -623,7 +633,7 @@ elif sys.argv[1] == "boot":
                 run("/sbin/pam_console_apply", "-r")
                 break
     
-    ui.info("Starting COMAR")
+    ui.info(_("Starting COMAR"))
     run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
         "--pidfile", "/var/run/comar.pid", "--make-pidfile",
         "--exec", "/usr/bin/comar")
