@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-06 15:53+0200\n"
+"POT-Creation-Date: 2006-03-07 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,177 +16,177 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: mudur.py:263
+#: mudur.py:272
 msgid "Starting services"
 msgstr ""
 
-#: mudur.py:284
+#: mudur.py:293
 msgid "Restoring saved device states"
 msgstr ""
 
-#: mudur.py:287
+#: mudur.py:296
 msgid "Starting udev"
 msgstr ""
 
-#: mudur.py:307
+#: mudur.py:316
 msgid "Remounting root filesystem read-only"
 msgstr ""
 
-#: mudur.py:312
+#: mudur.py:321
 msgid "Checking root filesystem"
 msgstr ""
 
-#: mudur.py:317
+#: mudur.py:326
 msgid "Filesystem repaired, but reboot needed!"
 msgstr ""
 
-#: mudur.py:321
+#: mudur.py:330
 msgid "Rebooting in 10 seconds ..."
 msgstr ""
 
-#: mudur.py:323
+#: mudur.py:332
 msgid "Rebooting..."
 msgstr ""
 
-#: mudur.py:326
+#: mudur.py:335
 msgid "Filesystem couldn't be fixed :("
 msgstr ""
 
-#: mudur.py:328
+#: mudur.py:337
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr ""
 
-#: mudur.py:330
+#: mudur.py:339
 msgid "Remounting root filesystem read/write"
 msgstr ""
 
-#: mudur.py:332
+#: mudur.py:341
 msgid "Root filesystem could not be mounted read/write :("
 msgstr ""
 
-#: mudur.py:374
+#: mudur.py:383
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr ""
 
-#: mudur.py:384
+#: mudur.py:393
 msgid "Calculating module dependencies"
 msgstr ""
 
-#: mudur.py:397
+#: mudur.py:406
 msgid "Checking all filesystems"
 msgstr ""
 
-#: mudur.py:402
+#: mudur.py:411
 msgid "Filesystem errors corrected"
 msgstr ""
 
-#: mudur.py:404
+#: mudur.py:413
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 
-#: mudur.py:407
+#: mudur.py:416
 msgid "Mounting local filesystems"
 msgstr ""
 
-#: mudur.py:409
+#: mudur.py:418
 msgid "Activating swap"
 msgstr ""
 
-#: mudur.py:422
+#: mudur.py:431
 msgid "Setting system clock to hardware clock"
 msgstr ""
 
-#: mudur.py:431
+#: mudur.py:440
 msgid "Failed to set system clock to hardware clock"
 msgstr ""
 
-#: mudur.py:441
+#: mudur.py:450
 msgid "Syncing system clock to hardware clock"
 msgstr ""
 
-#: mudur.py:444
+#: mudur.py:453
 msgid "Failed to sync clocks"
 msgstr ""
 
-#: mudur.py:451
+#: mudur.py:460
 msgid "Stopping services"
 msgstr ""
 
-#: mudur.py:454
+#: mudur.py:463
 msgid "Stopping COMAR"
 msgstr ""
 
-#: mudur.py:459
+#: mudur.py:468
 msgid "Deactivating swap"
 msgstr ""
 
-#: mudur.py:480
+#: mudur.py:489
 msgid "Unmounting filesystems"
 msgstr ""
 
-#: mudur.py:512
+#: mudur.py:521
 msgid "Remounting remaining filesystems readonly"
 msgstr ""
 
-#: mudur.py:563
+#: mudur.py:574
 msgid "Mounting /sys"
 msgstr ""
 
-#: mudur.py:568
+#: mudur.py:579
 msgid "Mounting /dev/pts"
 msgstr ""
 
-#: mudur.py:595
+#: mudur.py:606
 msgid "Starting Coldplug"
 msgstr ""
 
-#: mudur.py:603
+#: mudur.py:615
 msgid "Setting up localhost"
 msgstr ""
 
-#: mudur.py:618
+#: mudur.py:630
 msgid "Updating environment variables"
 msgstr ""
 
-#: mudur.py:621
+#: mudur.py:633
 msgid "Cleaning up /var"
 msgstr ""
 
-#: mudur.py:636
+#: mudur.py:648
 msgid "Starting COMAR"
 msgstr ""
 
-#: service.py:57
+#: service.py:58
 msgid "You should be the root user in order to control the comar service."
 msgstr ""
 
-#: service.py:71
+#: service.py:72
 #, python-format
 msgid "Service '%s' started."
 msgstr ""
 
-#: service.py:73 service.py:82 service.py:91 service.py:100
+#: service.py:74 service.py:83 service.py:92 service.py:101
 #, python-format
 msgid "Error: %s"
 msgstr ""
 
-#: service.py:80
+#: service.py:81
 #, python-format
 msgid "Service '%s' stopped."
 msgstr ""
 
-#: service.py:89
+#: service.py:90
 #, python-format
 msgid "Service '%s' turned on."
 msgstr ""
 
-#: service.py:98
+#: service.py:99
 #, python-format
 msgid "Service '%s' turned off."
 msgstr ""
 
-#: service.py:105
+#: service.py:106
 msgid ""
 "usage: service [<service>] <command>\n"
 "where command is:\n"

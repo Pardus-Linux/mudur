@@ -16,7 +16,11 @@ source_list = [ "mudur.py", "service.py" ]
 
 def update_messages():
     os.system("xgettext -o po/mudur.pot %s" % " ".join(source_list))
-    # FIXME: merge with old translations
+    for item in os.listdir("po"):
+        if item.endswith(".po"):
+            os.system("msgmerge -q -o temp.po po/%s po/mudur.pot" % item)
+            os.system("cp temp.po po/%s" % item)
+    os.system("rm -f temp.po")
 
 def install(args):
     if args == []:
@@ -46,6 +50,9 @@ def do_setup(args):
     
     elif args[0] == "update_messages":
         update_messages()
+    
+    else:
+        usage()
 
 if __name__ == "__main__":
     do_setup(sys.argv[1:])
