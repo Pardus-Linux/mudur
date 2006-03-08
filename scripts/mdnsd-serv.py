@@ -23,6 +23,7 @@ def info():
     return "local\n" + state + "\nZeroconf"
 
 def start():
+    call("System.Service.start", "sysklogd")
     run("/sbin/start-stop-daemon", "--start", "-q", "--pidfile", "/var/run/mdnsd.pid", "--exec", "/usr/sbin/mdnsd")
 
 def stop():
