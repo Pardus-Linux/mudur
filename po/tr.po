@@ -62,7 +62,7 @@ msgstr "Kök dosya sistemi okunur/yazılır halde yeniden bağlanıyor"
 
 #: mudur.py:341
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
+msgstr "Kök dizini oku-yaz olarak bağlanamadı"
 
 #: mudur.py:383
 #, python-format
@@ -79,11 +79,11 @@ msgstr "Tüm dosya sistemleri denetleniyor"
 
 #: mudur.py:411
 msgid "Filesystem errors corrected"
-msgstr ""
+msgstr "Dosya sisteminde bazı hatalar var"
 
 #: mudur.py:413
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
+msgstr "Fsck programı tüm hataları düzeltemedi. Düzeltme işleminin elle yapılması gerekiyor"
 
 #: mudur.py:416
 msgid "Mounting local filesystems"
@@ -134,6 +134,8 @@ msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
+"Bir hata oluştu. Lütfen bu hatayı bugs.uludag.org.tr'ye girin. Hata "
+"girişi yaparken aşağıdaki çıktıyı da yazın."
 
 #: mudur.py:587
 msgid "Mounting /sys"
@@ -149,15 +151,15 @@ msgstr "Coldplug başlatılıyor"
 
 #: mudur.py:636
 msgid "Setting up localhost"
-msgstr ""
+msgstr "Localhost ayarlanıyor"
 
 #: mudur.py:651
 msgid "Updating environment variables"
-msgstr ""
+msgstr "Çevresel değişkenler güncelleniyor"
 
 #: mudur.py:654
 msgid "Cleaning up /var"
-msgstr ""
+msgstr "/var dizini temizleniyor"
 
 #: mudur.py:669
 msgid "Starting COMAR"
