@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-07 09:48+0200\n"
+"POT-Creation-Date: 2006-03-08 12:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,31 +129,37 @@ msgstr ""
 msgid "Remounting remaining filesystems readonly"
 msgstr ""
 
-#: mudur.py:574
+#: mudur.py:545
+msgid ""
+"An internal error occured. Please report to the bugs.pardus.org.tr with "
+"following information:"
+msgstr ""
+
+#: mudur.py:587
 msgid "Mounting /sys"
 msgstr ""
 
-#: mudur.py:579
+#: mudur.py:592
 msgid "Mounting /dev/pts"
 msgstr ""
 
-#: mudur.py:606
+#: mudur.py:620
 msgid "Starting Coldplug"
 msgstr ""
 
-#: mudur.py:615
+#: mudur.py:636
 msgid "Setting up localhost"
 msgstr ""
 
-#: mudur.py:630
+#: mudur.py:651
 msgid "Updating environment variables"
 msgstr ""
 
-#: mudur.py:633
+#: mudur.py:654
 msgid "Cleaning up /var"
 msgstr ""
 
-#: mudur.py:648
+#: mudur.py:669
 msgid "Starting COMAR"
 msgstr ""
 

@@ -527,16 +527,29 @@ def stopSystem():
 
 
 #
+# Coldplug stuff
+#
+
+def plugPCI():
+    a = capture("/usr/sbin/pcimodules")[0].split()
+    for b in a:
+        run("/sbin/modprobe", "-q", b)
+
+
+#
 # Exception hook
 #
 
 def except_hook(eType, eValue, eTrace):
-    print "boink\07 boink\07!"
+    print
+    print _("An internal error occured. Please report to the bugs.pardus.org.tr with following information:")
+    print
     print eType, eValue
     import traceback
     traceback.print_tb(eTrace)
-    time.sleep(10)
-    run("/sbin/sulogin")
+    print
+    time.sleep(5)
+    subprocess.call(["/sbin/sulogin"])
 
 
 #
@@ -603,10 +616,18 @@ if sys.argv[1] == "sysinit":
     run("/usr/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
     run("/usr/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
+    logger.uptime()
     ui.info(_("Starting Coldplug"))
     for rc in os.listdir("/etc/hotplug/"):
-        if rc.endswith(".rc"):
-            os.spawnl(os.P_NOWAIT, os.path.join("/etc/hotplug", rc), os.path.join("/etc/hotplug", rc), "start")
+        if rc.endswith(".rc") and rc != "pci.rc":
+            logger.log("coldplug %s" % rc)
+            logger.uptime()
+            os.spawnl(os.P_WAIT, os.path.join("/etc/hotplug", rc), os.path.join("/etc/hotplug", rc), "start")
+            logger.uptime()
+    logger.uptime()
+    logger.log("pci plug")
+    plugPCI()
+    logger.uptime()
 
 elif sys.argv[1] == "boot":
     logger.uptime()
