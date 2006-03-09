@@ -1,10 +1,6 @@
 
+from comar.service import *
 import os
-import subprocess
-
-def run(*cmd):
-    """Run a command without running a shell"""
-    return subprocess.call(cmd)
 
 #
 
@@ -26,20 +22,9 @@ def check_config():
 
 #
 
-def get_state():
-    s = get_profile("System.Service.setState")
-    if s:
-        state = s["state"]
-    else:
-        state = "off"
-    
-    return state
+serviceType = "server"
 
-#
-
-def info():
-    state = get_state()
-    return "server\n" + state + "\nSecure Shell Server"
+serviceDesc = "Secure Shell Server"
 
 def start():
     check_config()
@@ -48,18 +33,4 @@ def start():
         "--startas", "/usr/sbin/sshd")
 
 def stop():
-    run("/sbin/start-stop-daemon", "--stop", "--quiet",
-        "--pidfile", "/var/run/sshd.pid")
-
-def ready():
-    s = get_state()
-    if s == "on":
-        start()
-
-def setState(state=None):
-    if state == "on":
-        start()
-    elif state == "off":
-        stop()
-    else:
-        fail("Unknown state '%s'" % state)
+    run("/sbin/start-stop-daemon --stop --quiet --pidfile /var/run/sshd.pid")
