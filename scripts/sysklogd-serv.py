@@ -1,6 +1,6 @@
+from comar.service import *
 import os
 import time
-from comar.service import *
 
 serviceType = "server"
 serviceDesc = "System Logger"

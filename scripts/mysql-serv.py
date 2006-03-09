@@ -1,5 +1,5 @@
+from comar.service import *
 import os
-import subprocess
 
 serviceType="server"
 serviceDesc = "MySQL DB Server"

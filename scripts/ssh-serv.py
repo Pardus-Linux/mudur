@@ -2,8 +2,6 @@
 from comar.service import *
 import os
 
-#
-
 def check_config():
     if not os.path.exists("/etc/ssh/sshd_config"):
         fail("You need /etc/ssh/sshd_config to run sshd")
@@ -19,8 +17,6 @@ def check_config():
     if not os.path.exists("/etc/ssh/ssh_host_rsa_key"):
         run("/usr/bin/ssh-keygen", "-t", "rsa",
             "-f", "/etc/ssh/ssh_host_rsa_key", "-N", "")
-
-#
 
 serviceType = "server"
 serviceDesc = "Secure Shell Server"

@@ -1,7 +1,10 @@
-import os
-import socket
-import time
 from comar.service import *
+import os
+import time
+import socket
+
+serviceType = "local"
+serviceDesc = "Hald"
 
 def wait_for_bus(unix_name, retry=10, wait=0.2):
     sock = socket.socket(socket.AF_UNIX,socket.SOCK_STREAM)
