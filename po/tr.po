@@ -127,7 +127,7 @@ msgstr "Dosya sistemleri ayrılıyor"
 
 #: mudur.py:521
 msgid "Remounting remaining filesystems readonly"
-msgstr "Kök dosya sistemi salt oku şekilde yeniden bağlanıyor"
+msgstr "Kök dosya sistemi salt okunur şekilde yeniden bağlanıyor"
 
 #: mudur.py:545
 msgid ""
