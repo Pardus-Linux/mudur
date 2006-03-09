@@ -99,7 +99,7 @@ msgstr "Sistem saati donanım saatinden ayarlanıyor"
 
 #: mudur.py:440
 msgid "Failed to set system clock to hardware clock"
-msgstr ""
+msgstr "Sistem saati donanım saatine göre ayarlanamadı"
 
 #: mudur.py:450
 msgid "Syncing system clock to hardware clock"
@@ -107,7 +107,7 @@ msgstr "Donanım saati sistem saati ile senkronize ediliyor"
 
 #: mudur.py:453
 msgid "Failed to sync clocks"
-msgstr ""
+msgstr "Saatler senkronize edilemedi"
 
 #: mudur.py:460
 msgid "Stopping services"
