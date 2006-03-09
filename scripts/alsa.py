@@ -1,6 +1,9 @@
 from comar.service import *
 import os
 
+serviceType = "local"
+serviceDesc = "Alsa"
+
 cfg_file = "/etc/asound.state"
 
 oss_modules = [
