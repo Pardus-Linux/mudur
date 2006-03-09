@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 hav register System.Service acpid `pwd`/scripts/acpid.py
 hav register System.Service alsa-utils `pwd`/scripts/alsa.py
 hav register System.Service cpufreqd `pwd`/scripts/cpufreqd.py
