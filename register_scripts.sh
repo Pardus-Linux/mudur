@@ -12,4 +12,4 @@ hav register System.Service sysklogd `pwd`/scripts/sysklogd.py
 hav register System.Service openssh `pwd`/scripts/ssh.py
 hav register System.Service powersave `pwd`/scripts/powersave.py
 hav register System.Service xorg `pwd`/scripts/xdm.py
-hav register System.Service zembereker `pwd`/scripts/zemberek.py
+hav register System.Service zemberek-server `pwd`/scripts/zemberek.py
