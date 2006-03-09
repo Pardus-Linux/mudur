@@ -23,7 +23,6 @@ def check_config():
 #
 
 serviceType = "server"
-
 serviceDesc = "Secure Shell Server"
 
 def start():

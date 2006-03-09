@@ -1,6 +1,5 @@
-import os
 from comar.service import *
-
+import os
 
 serviceType = "local"
 serviceDesc = "Zemberek Spell Checker"
