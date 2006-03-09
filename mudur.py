@@ -638,6 +638,12 @@ elif sys.argv[1] == "boot":
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
 
+    ui.info(_("Cleaning up /var"))
+    for root,dirs,files in os.walk("/var/run"):
+        for f in files:
+            if f != "utmp" and f != "random-seed":
+                os.unlink(os.path.join(root, f))
+ 
     # set some disk parameters
     # run("/sbin/hdparm", "-d1", "-Xudma5", "-c3", "-u1", "-a8192", "/dev/hda")
 
@@ -650,12 +656,6 @@ elif sys.argv[1] == "boot":
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
         os.system("/sbin/env-update.sh")
-    
-    ui.info(_("Cleaning up /var"))
-    for root,dirs,files in os.walk("/var/run"):
-        for f in files:
-            if f != "utmp" and f != "random-seed":
-                os.unlink(os.path.join(root, f))
     
     # reset console permissions if we are actually using it
     if os.path.exists("/sbin/pam_console_apply"):
