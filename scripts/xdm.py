@@ -1,6 +1,9 @@
 from comar.service import *
 import os
 
+serviceType = "local"
+serviceDesc = "X Window Server"
+
 def ensureDirs(path):
     """Create missing directories in the path"""
     if not os.path.exists(path):
