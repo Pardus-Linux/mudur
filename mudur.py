@@ -15,6 +15,7 @@ import os
 import subprocess
 import gettext
 import time
+import signal
 
 #
 # i18n
@@ -556,10 +557,13 @@ def except_hook(eType, eValue, eTrace):
 # Main program
 #
 
-logger.log("(((o) mudur %s" % sys.argv[1])
-
-os.umask(022)
+signal.signal(signal.SIGINT, signal.SIG_IGN)
+signal.signal(signal.SIGQUIT, signal.SIG_IGN)
+signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 sys.excepthook = except_hook
+os.umask(022)
+
+logger.log("(((o) mudur %s" % sys.argv[1])
 
 # Setup path just in case
 os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
