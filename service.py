@@ -82,6 +82,19 @@ def stop(service):
     else:
         print _("Error: %s") % reply[2]
 
+def restart(service):
+    stop(service)
+    start(service)
+
+def reload(service):
+    c = comlink()
+    c.call_package("System.Service.reload", service)
+    reply = c.read_cmd()
+    if reply[0] == c.RESULT:
+        print _("Service '%s' reloaded.") % service
+    else:
+        print _("Error: %s") % reply[2]
+
 def on(service):
     c = comlink()
     c.call_package("System.Service.setState", service, ["state", "on"])
@@ -105,11 +118,13 @@ def off(service):
 def usage():
     print _("""usage: service [<service>] <command>
 where command is:
- list   Display service list
- on     Turn on the service permamently
- off    Turn off the service permamently
- start  Start the service
- stop   Stop the service""")
+ list    Display service list
+ on      Turn on the service permamently
+ off     Turn off the service permamently
+ start   Start the service
+ stop    Stop the service
+ restart Stop the service, then start again
+ reload  Reload the configuration (if service supports this)""")
 
 # Main
 
@@ -134,6 +149,12 @@ def main(args):
     
     elif args[1] == "stop":
         stop(args[0])
+    
+    elif args[1] == "restart":
+        restart(args[0])
+    
+    elif args[1] == "reload":
+        reload(args[0])
     
     elif args[1] == "on":
         on(args[0])
