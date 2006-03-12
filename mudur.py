@@ -16,6 +16,7 @@ import subprocess
 import gettext
 import time
 import signal
+import fcntl
 
 #
 # i18n
@@ -313,6 +314,19 @@ def setupUdev():
     # Avast!
     write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
 
+def ttyUnicode():
+    # constants from linux/kd.h
+    KDSKBMODE = 0x4B45
+    K_UNICODE = 0x03
+    for i in range(1, 13):
+        try:
+            f = file("/dev/tty" + str(i), "w")
+            fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
+            f.write("\x1b%G")
+            f.close()
+        except:
+            ui.error(_("Could not set unicode mode on tty %d") % i)
+
 def checkRoot():
     ui.info(_("Remounting root filesystem read-only"))
     run("/bin/mount", "-n", "-o", "remount,ro", "/")
@@ -599,6 +613,8 @@ if sys.argv[1] == "sysinit":
     # Set kernel console log level for cleaner boot
     # only panic messages will be printed
     run("/bin/dmesg", "-n", "1")
+    
+    ttyUnicode()
     
     checkRoot()
     setHostname()
