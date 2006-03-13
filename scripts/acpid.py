@@ -6,7 +6,7 @@ serviceDesc = "ACPID"
 
 def check_config():
     if not os.path.exists("/proc/acpi"):
-        fail("ACPI support has not been compiled into the kernel")
+        fail("ACPI support has not been found")
 
 def start():
     check_config()
