@@ -16,6 +16,10 @@ import subprocess
 import gettext
 import time
 
+#
+# Utility functions
+#
+
 def loadFile(path):
     """Read contents of a file"""
     f = file(path)
@@ -34,6 +38,9 @@ def sysHexValue(path, value):
         tmp = tmp[2:]
     return tmp
 
+
+#
+# Plugging Classes
 #
 
 class PCI:
@@ -208,6 +215,13 @@ class PNP:
         
         return modules
 
+
+# List of plugging classes, in coldstart order
+pluggers = ( PNP, PCI, USB )
+
+
+#
+# Module functions
 #
 
 def blackList():
@@ -225,27 +239,30 @@ def tryModule(modname):
     if ret == 0:
         ret = subprocess.call(["/sbin/modprobe", modname], stdout=f, stderr=f)
 
+
+#
+# Main Functions
 #
 
 def coldPlug():
     blacks = blackList()
-    usb = USB()
-    for mod in usb.findModules():
-        if not mod in blacks:
-            tryModule(mod)
+    
+    for class_ in pluggers:
+        plug = class_()
+        for mod in plug.findModules():
+            if not mod in blacks:
+                tryModule(mod)
 
 def debug():
-    pnp = PNP()
-    print "PNP modules:", list(pnp.findModules())
-    
-    pci = PCI()
-    print "PCI modules:", list(pci.findModules())
-    
-    usb = USB()
-    print "USB modules:", list(usb.findModules())
+    for class_ in pluggers:
+        plug = class_()
+        print list(plug.findModules())
     
     print "Blacklist:", list(blackList())
 
+
+#
+# Command line driver
 #
 
 if __name__ == "__main__":
