@@ -40,7 +40,7 @@ def sysHexValue(path, value):
 
 
 #
-# Plugging Classes
+# Plugger classes
 #
 
 class PCI:
@@ -61,10 +61,9 @@ class PCI:
     
     def findModules(self, devpath=None):
         if devpath:
-            if isinstance(devpath, basestring):
-                devpath = ( devpath )
+            devices = (self.deviceInfo(devpath), )
         else:
-            devpath = self.coldDevices()
+            devices = self.coldDevices()
         
         PCI_ANY = '0xffffffff'
         
@@ -75,7 +74,7 @@ class PCI:
             
             mod, values = line.split(None, 1)
             values = values.split()
-            for dev in devpath:
+            for dev in devices:
                 t = filter(lambda x: values[x] == PCI_ANY or values[x].endswith(dev[x]), range(4))
                 if len(t) != 4:
                     continue
@@ -127,10 +126,9 @@ class USB:
     
     def findModules(self, devpath=None):
         if devpath:
-            if isinstance(devpath, basestring):
-                devpath = ( devpath )
+            devices = (self.deviceInfo(devpath), )
         else:
-            devpath = self.coldDevices()
+            devices = self.coldDevices()
         
         mVendor = 0x0001
         mProduct = 0x0002
@@ -151,7 +149,7 @@ class USB:
             mod, flags, values = line.split(None, 2)
             flags = int(flags, 16)
             values = values.split()
-            for dev in devpath:
+            for dev in devices:
                 if flags & mVendor and dev[0] != values[0]:
                     continue
                 if flags & mProduct and dev[1] != values[1]:
@@ -198,10 +196,10 @@ class PNP:
     
     def findModules(self, devpath=None):
         if devpath:
-            if isinstance(devpath, basestring):
-                devpath = ( devpath )
+            # no hotplug for PNP
+            return []
         else:
-            devpath = self.coldDevices()
+            devices = self.coldDevices()
         
         modules = set()
         for line in file("/lib/modules/%s/modules.usbmap" % os.uname()[2]):
@@ -209,15 +207,20 @@ class PNP:
                 continue
             
             mod, vendor, device, rest = line.split(None, 3)
-            for dev in devpath:
+            for dev in devices:
                 if vendor == dev[1] and device == dev[0]:
                     modules.append(mod)
         
         return modules
 
 
-# List of plugging classes, in coldstart order
-pluggers = ( PNP, PCI, USB )
+# List of plugger classes, in coldstart order
+cold_pluggers = ( PNP, PCI, USB )
+# Mapping of hot plugger classes
+hot_pluggers = {
+    "pci": PCI,
+    "usb": USB,
+}
 
 
 #
@@ -246,15 +249,24 @@ def tryModule(modname):
 
 def coldPlug():
     blacks = blackList()
-    
-    for class_ in pluggers:
+    for class_ in cold_pluggers:
         plug = class_()
         for mod in plug.findModules():
             if not mod in blacks:
                 tryModule(mod)
 
+def hotPlug(type, env):
+    if hot_pluggers.has_key(type) and env.has_key("DEVPATH"):
+        if not env.has_key("ACTION") or env["ACTION"] != "add":
+            return
+        blacks = blackList()
+        plug = hot_pluggers[type]()
+        for mod in plug.findModules("/sys" + env["DEVPATH"]):
+            if not mod in blacks:
+                tryModule(mod)
+
 def debug():
-    for class_ in pluggers:
+    for class_ in cold_pluggers:
         plug = class_()
         print list(plug.findModules())
     
@@ -266,5 +278,11 @@ def debug():
 #
 
 if __name__ == "__main__":
-    debug()
-    #coldPlug()
+    if len(sys.argv) == 2 and sys.argv[1] == "--debug":
+        debug()
+    
+    elif len(sys.argv) == 2 and sys.argv[1] == "--coldplug":
+        coldPlug()
+    
+    else:
+        hotPlug(sys.argv[1], os.environ)
