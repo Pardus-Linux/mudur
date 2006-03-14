@@ -224,6 +224,31 @@ hot_pluggers = {
 
 
 #
+
+def loadFirmware(env):
+    # FIXME: lame code, almost copied directly from firmware.agent
+    devpath = "/sys" + env["DEVPATH"]
+    firm = "/lib/firmware/" + env["FIRMWARE"]
+    loading = devpath + "/loading"
+    if not os.path.exists(loading):
+        import time
+        time.sleep(1)
+    
+    f = file(loading, "w")
+    if not os.path.exists(firm):
+        f.write("-1\n")
+        f.close()
+        return
+    f.write("1\n")
+    f.close()
+    import shutil
+    shutil.copy(firm, devpath + "/data")
+    f = file(loading, "w")
+    f.write("0\n")
+    f.close()
+
+
+#
 # Module functions
 #
 
@@ -256,6 +281,10 @@ def coldPlug():
                 tryModule(mod)
 
 def hotPlug(type, env):
+    if type == "firmware":
+        if not env.has_key("ACTION") or env["ACTION"] != "add":
+            return
+        loadFirmware(env)
     if hot_pluggers.has_key(type) and env.has_key("DEVPATH"):
         if not env.has_key("ACTION") or env["ACTION"] != "add":
             return
