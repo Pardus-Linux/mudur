@@ -153,6 +153,42 @@ def usbModules(devices):
 
 #
 
+def pnpDevice(sysid):
+    vendor = sysid[:3]
+    vendor = hex((ord(vendor[0]) & 0x3f) << 2 |
+        (ord(vendor[1]) & 0x18) >> 3 |
+        (ord(vendor[1]) & 0x07) << 13 |
+        (ord(vendor[2]) & 0x1f) << 8)
+    device = sysid[3:]
+    device = "0x" + device[2:] + device[:2]
+    return (device, vendor)
+
+def pnpColdDevices():
+    devices = []
+    for dev in os.listdir("/sys/bus/pnp/devices"):
+        devids = sysValue("/sys/bus/pnp/devices/" + dev, "id").split('\n')
+        for id in devids:
+            devices.append(pnpDevice(id))
+    return devices
+
+def pnpModules(devices):
+    modules = set()
+    for line in file("/lib/modules/%s/modules.usbmap" % os.uname()[2]):
+        if line == '' or line.startswith('#'):
+            continue
+        
+        mod, vendor, device, rest = line.split(None, 3)
+        for dev in devices:
+            if vendor == dev[1] and device == dev[0]:
+                modules.append(mod)
+    
+    return modules
+
+#
+
+devs = pnpColdDevices()
+print pnpModules(devs)
+
 devs = pciColdDevices()
 print pciModules(devs)
 
