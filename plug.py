@@ -55,16 +55,19 @@ def pciModules(devices):
     PCI_ANY = '0xffffffff'
     
     modules = set()
-    for mod in file("/lib/modules/%s/modules.pcimap" % os.uname()[2]):
-        if mod != '' and not mod.startswith('#'):
-            mod = mod.split()
-            for dev in devices:
-                t = filter(lambda x: mod[x+1] == PCI_ANY or mod[x+1].endswith(dev[x]), range(4))
-                if len(t) != 4:
-                    continue
-                if int(dev[4], 16) & int(mod[6], 16) != int(mod[5], 16):
-                    continue
-                modules.add(mod[0])
+    for line in file("/lib/modules/%s/modules.pcimap" % os.uname()[2]):
+        if line == '' or line.startswith('#'):
+            continue
+        
+        mod, values = line.split(None, 1)
+        values = values.split()
+        for dev in devices:
+            t = filter(lambda x: values[x] == PCI_ANY or values[x].endswith(dev[x]), range(4))
+            if len(t) != 4:
+                continue
+            if int(dev[4], 16) & int(values[5], 16) != int(values[4], 16):
+                continue
+            modules.add(mod)
     return modules
 
 #
