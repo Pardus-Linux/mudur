@@ -189,11 +189,42 @@ def pnpModules(devices):
 
 #
 
-devs = pnpColdDevices()
-print pnpModules(devs)
+def blackList():
+    blacks = set()
+    for line in file("/etc/hotplug/blacklist"):
+        line = line.rstrip('\n')
+        if line == '' or line.startswith('#'):
+            continue
+        blacks.add(line)
+    return blacks
 
-devs = pciColdDevices()
-print pciModules(devs)
+def tryModule(modname):
+    f = file("/dev/null", "w")
+    ret = subprocess.call(["/sbin/modprobe", "-n", modname], stdout=f, stderr=f)
+    if ret == 0:
+        ret = subprocess.call(["/sbin/modprobe", modname], stdout=f, stderr=f)
 
-devs = usbColdDevices()
-print usbModules(devs)
+#
+
+def coldPlug():
+    blacks = blackList()
+    for mod in usbModules(usbColdDevices()):
+        if not mod in blacks:
+            tryModule(mod)
+
+def debug():
+    devs = pnpColdDevices()
+    print "PNP modules:", list(pnpModules(devs))
+    
+    devs = pciColdDevices()
+    print "PCI modules:", list(pciModules(devs))
+    
+    devs = usbColdDevices()
+    print "USB modules:", list(usbModules(devs))
+    
+    print "Blacklist:", list(blackList())
+
+#
+
+if __name__ == "__main__":
+    debug()
