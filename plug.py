@@ -38,6 +38,29 @@ def sysHexValue(path, value):
         tmp = tmp[2:]
     return tmp
 
+#
+
+def blackList():
+    blacks = set()
+    for line in file("/etc/hotplug/blacklist"):
+        line = line.rstrip('\n')
+        if line == '' or line.startswith('#'):
+            continue
+        blacks.add(line)
+    return blacks
+
+def tryModule(modname):
+    f = file("/dev/null", "w")
+    ret = subprocess.call(["/sbin/modprobe", "-n", modname], stdout=f, stderr=f)
+    if ret == 0:
+        ret = subprocess.call(["/sbin/modprobe", modname], stdout=f, stderr=f)
+
+def loadModules(modules):
+    blacks = blackList()
+    for mod in modules:
+        if not mod in blacks:
+            tryModule(mod)
+
 
 #
 # Plugger classes
@@ -213,6 +236,39 @@ class PNP:
         
         return modules
 
+#
+
+class SCSI:
+    def findModules(self, devpath):
+        modules = set()
+        while not os.path.exists("/sys" + devpath + "/type"):
+            time.sleep(0.1)
+        
+        # constants from scsi/scsi.h
+        type = loadFile("/sys" + devpath + "/type").rstrip("\n")
+        if type == "0":
+            # disk
+            modules.add("sd_mod")
+        elif type == "1":
+            # tape
+            modules.add("st")
+        elif type == "4":
+            # worm
+            modules.add("sr_mod")
+        elif type == "5":
+            # cdrom
+            modules.add("sr_mod")
+        elif type == "7":
+            # mod
+            modules.add("sd_mod")
+        
+        return modules
+    
+    def hotPlug(self, action, devpath, env):
+        if action != "add" or not devpath:
+            return
+        loadModules(self.findModules(devpath))
+
 
 # List of plugger classes, in coldstart order
 cold_pluggers = ( PNP, PCI, USB )
@@ -222,7 +278,6 @@ hot_pluggers = {
     "usb": USB,
 }
 
-
 #
 
 def loadFirmware(env):
@@ -231,7 +286,6 @@ def loadFirmware(env):
     firm = "/lib/firmware/" + env["FIRMWARE"]
     loading = devpath + "/loading"
     if not os.path.exists(loading):
-        import time
         time.sleep(1)
     
     f = file(loading, "w")
@@ -246,26 +300,6 @@ def loadFirmware(env):
     f = file(loading, "w")
     f.write("0\n")
     f.close()
-
-
-#
-# Module functions
-#
-
-def blackList():
-    blacks = set()
-    for line in file("/etc/hotplug/blacklist"):
-        line = line.rstrip('\n')
-        if line == '' or line.startswith('#'):
-            continue
-        blacks.add(line)
-    return blacks
-
-def tryModule(modname):
-    f = file("/dev/null", "w")
-    ret = subprocess.call(["/sbin/modprobe", "-n", modname], stdout=f, stderr=f)
-    if ret == 0:
-        ret = subprocess.call(["/sbin/modprobe", modname], stdout=f, stderr=f)
 
 
 #
@@ -293,6 +327,9 @@ def hotPlug(type, env):
         for mod in plug.findModules("/sys" + env["DEVPATH"]):
             if not mod in blacks:
                 tryModule(mod)
+    if type == "scsi":
+        plug = SCSI()
+        plug.hotPlug(env["ACTION"], env["DEVPATH"], env)
 
 def debug():
     for class_ in cold_pluggers:
