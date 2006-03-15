@@ -105,6 +105,11 @@ class PCI:
                     continue
                 modules.add(mod)
         return modules
+    
+    def hotPlug(self, action, devpath, env):
+        if action != "add" or not devpath:
+            return
+        loadModules(self.findModules("/sys" + devpath))
 
 #
 
@@ -195,6 +200,11 @@ class USB:
                     continue
                 modules.add(mod)
         return modules
+    
+    def hotPlug(self, action, devpath, env):
+        if action != "add" or not devpath:
+            return
+        loadModules(self.findModules("/sys" + devpath))
 
 #
 
@@ -235,6 +245,10 @@ class PNP:
                     modules.append(mod)
         
         return modules
+    
+    def hotPlug(self, action, devpath, env):
+        # No hotplug possibility for ISA PNP devices
+        pass
 
 #
 
@@ -269,6 +283,30 @@ class SCSI:
             return
         loadModules(self.findModules(devpath))
 
+#
+
+class Firmware:
+    def hotPlug(self, action, devpath, env):
+        # FIXME: lame code, almost copied directly from firmware.agent
+        devpath = "/sys" + devpath
+        firm = "/lib/firmware/" + env["FIRMWARE"]
+        loading = devpath + "/loading"
+        if not os.path.exists(loading):
+            time.sleep(1)
+        
+        f = file(loading, "w")
+        if not os.path.exists(firm):
+            f.write("-1\n")
+            f.close()
+            return
+        f.write("1\n")
+        f.close()
+        import shutil
+        shutil.copy(firm, devpath + "/data")
+        f = file(loading, "w")
+        f.write("0\n")
+        f.close()
+
 
 # List of plugger classes, in coldstart order
 cold_pluggers = ( PNP, PCI, USB )
@@ -276,30 +314,9 @@ cold_pluggers = ( PNP, PCI, USB )
 hot_pluggers = {
     "pci": PCI,
     "usb": USB,
+    "scsi": SCSI,
+    "firmware": Firmware,
 }
-
-#
-
-def loadFirmware(env):
-    # FIXME: lame code, almost copied directly from firmware.agent
-    devpath = "/sys" + env["DEVPATH"]
-    firm = "/lib/firmware/" + env["FIRMWARE"]
-    loading = devpath + "/loading"
-    if not os.path.exists(loading):
-        time.sleep(1)
-    
-    f = file(loading, "w")
-    if not os.path.exists(firm):
-        f.write("-1\n")
-        f.close()
-        return
-    f.write("1\n")
-    f.close()
-    import shutil
-    shutil.copy(firm, devpath + "/data")
-    f = file(loading, "w")
-    f.write("0\n")
-    f.close()
 
 
 #
@@ -315,21 +332,10 @@ def coldPlug():
                 tryModule(mod)
 
 def hotPlug(type, env):
-    if type == "firmware":
-        if not env.has_key("ACTION") or env["ACTION"] != "add":
-            return
-        loadFirmware(env)
-    if hot_pluggers.has_key(type) and env.has_key("DEVPATH"):
-        if not env.has_key("ACTION") or env["ACTION"] != "add":
-            return
-        blacks = blackList()
-        plug = hot_pluggers[type]()
-        for mod in plug.findModules("/sys" + env["DEVPATH"]):
-            if not mod in blacks:
-                tryModule(mod)
-    if type == "scsi":
-        plug = SCSI()
-        plug.hotPlug(env["ACTION"], env["DEVPATH"], env)
+    if hot_pluggers.has_key(type):
+        if env.has_key("DEVPATH") and env.has_key("ACTION"):
+            plugger = hot_pluggers[type]()
+            plugger.hotPlug(env["ACTION"], env["DEVPATH"], env)
 
 def debug():
     for class_ in cold_pluggers:
