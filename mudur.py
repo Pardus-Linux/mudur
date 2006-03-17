@@ -197,6 +197,8 @@ config = Config()
 
 
 class UI:
+    UNICODE_MAGIC = "\x1b%G"
+    
     def __init__(self):
         self.GOOD = '\x1b[32;01m'
         self.WARN = '\x1b[33;01m'
@@ -322,7 +324,7 @@ def ttyUnicode():
         try:
             f = file("/dev/tty" + str(i), "w")
             fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
-            f.write("\x1b%G")
+            f.write(UI.UNICODE_MAGIC)
             f.close()
         except:
             ui.error(_("Could not set unicode mode on tty %d") % i)
@@ -557,13 +559,12 @@ def plugPCI():
 
 def except_hook(eType, eValue, eTrace):
     print
-    print _("An internal error occured. Please report to the bugs.pardus.org.tr with following information:")
+    print _("An internal error occured. Please report to the bugs.pardus.org.tr with following information:").encode("utf-8")
     print
     print eType, eValue
     import traceback
     traceback.print_tb(eTrace)
     print
-    time.sleep(5)
     subprocess.call(["/sbin/sulogin"])
 
 
@@ -584,7 +585,7 @@ os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 
 if sys.argv[1] == "sysinit":
     # This is who we are
-    print "\x1b%G"
+    print UI.UNICODE_MAGIC
     print "Pardus, http://www.pardus.org.tr"
     print
     
