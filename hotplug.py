@@ -53,7 +53,7 @@ def tryModule(modname):
     f = file("/dev/null", "w")
     ret = subprocess.call(["/sbin/modprobe", "-n", modname], stdout=f, stderr=f)
     if ret == 0:
-        ret = subprocess.call(["/sbin/modprobe", modname], stdout=f, stderr=f)
+        ret = subprocess.call(["/sbin/modprobe", "-q", modname], stdout=f, stderr=f)
 
 def loadModules(modules):
     blacks = blackList()

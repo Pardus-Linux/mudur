@@ -288,6 +288,8 @@ def startServices():
             go = False
         except comar.Error:
             time.sleep(0.1)
+    link.call_package("System.Service.ready", "xorg")
+    time.sleep(1.5)
     link.call("System.Service.ready")
 
 
@@ -550,16 +552,6 @@ def stopSystem():
 
 
 #
-# Coldplug stuff
-#
-
-def plugPCI():
-    a = capture("/usr/sbin/pcimodules")[0].split()
-    for b in a:
-        run("/sbin/modprobe", "-q", b)
-
-
-#
 # Exception hook
 #
 
@@ -628,6 +620,10 @@ if sys.argv[1] == "sysinit":
     modules()
     checkFS()
     localMount()
+    
+    ui.info(_("Starting Coldplug"))
+    subprocess.Popen(["/sbin/hotplug.py", "--coldplug"])
+    
     setClock()
     
     # better performance for SMP systems, /var/run must be mounted rw before this
@@ -643,18 +639,6 @@ if sys.argv[1] == "sysinit":
     run("/usr/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
     run("/usr/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
-    logger.uptime()
-    ui.info(_("Starting Coldplug"))
-    for rc in os.listdir("/etc/hotplug/"):
-        if rc.endswith(".rc") and rc != "pci.rc":
-            logger.log("coldplug %s" % rc)
-            logger.uptime()
-            os.spawnl(os.P_WAIT, os.path.join("/etc/hotplug", rc), os.path.join("/etc/hotplug", rc), "start")
-            logger.uptime()
-    logger.uptime()
-    logger.log("pci plug")
-    plugPCI()
-    logger.uptime()
 
 elif sys.argv[1] == "boot":
     logger.uptime()
@@ -674,12 +658,6 @@ elif sys.argv[1] == "boot":
     # set some disk parameters
     # run("/sbin/hdparm", "-d1", "-Xudma5", "-c3", "-u1", "-a8192", "/dev/hda")
 
-    # start x earlier
-    # we can't start X here, we sometimes need a service to run first
-    # ui.begin("Starting X")
-    # run("/sbin/start-stop-daemon", "--start", "--quiet", "--exe", "/usr/kde/3.5/bin/kdm")
-    # ui.end()
-    
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
         # FIXME: convert this script to python

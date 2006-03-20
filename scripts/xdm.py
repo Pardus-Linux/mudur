@@ -19,12 +19,14 @@ def configure():
         run("/sbin/xorg.py")
    
     # FIXME: change startDM.sh in xorg package
-    ensureDirs("/var/lib/init.d/options/xdm")
-    write("/var/lib/init.d/options/xdm/service", "/usr/kde/3.5/bin/kdm")
+    #ensureDirs("/var/lib/init.d/options/xdm")
+    #write("/var/lib/init.d/options/xdm/service", "/usr/kde/3.5/bin/kdm")
 
 def start():
     configure()
-    run("/sbin/telinit a")
+    call("System.Service.start", "acpid")
+    call("System.Service.start", "dbus")
+    run("/sbin/start-stop-daemon", "--start", "--quiet", "--exe", "/usr/kde/3.5/bin/kdm")
 
 def stop():
     run("/sbin/start-stop-daemon --stop --quiet --exe /usr/kde/3.5/bin/kdm")
