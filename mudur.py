@@ -90,17 +90,23 @@ def touch(filename):
     return True
 
 def capture(*cmd):
-    """Capture the output of command without running a shell"""
+    """Capture output of the command without running a shell"""
     a = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return a.communicate()
 
 def run(*cmd):
-    """Run a command without running a shell"""
-    a = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    logs = a.communicate()
-    if logs[1] and logs[1] != '':
-        logger.log(logs[1])
-    return a.returncode
+    """Run a command without running a shell, only output errors"""
+    f = file("/dev/null", "w")
+    return subprocess.call(cmd, stdout=f)
+
+def run_full(*cmd):
+    """Run a command without running a shell, with full output"""
+    return subprocess.call(cmd)
+
+def run_quiet(*cmd):
+    """Run the command without running a shell and no output"""
+    f = file("/dev/null", "w")
+    return subprocess.call(cmd, stdout=f, stderr=f)
 
 #
 
@@ -241,7 +247,7 @@ class Language:
     
     def setConsole(self):
         run("/usr/bin/kbd_mode", "-u")
-        run("/bin/loadkeys", self.keymap)
+        run_quiet("/bin/loadkeys", self.keymap)
         run("/usr/bin/setfont", "-f", self.font, "-m", self.trans)
 
 
@@ -265,7 +271,7 @@ def mount(part, args):
     ent = config.get_mount(part)
     if ent and len(ent) > 3:
         args = "-t %s -o %s %s %s" % (ent[2], ent[3], ent[0], ent[1])
-    os.system("mount -n %s" % args)
+    os.system("/bin/mount -n %s" % args)
 
 
 #
@@ -336,7 +342,7 @@ def checkRoot():
     ent = config.get_mount("/")
     if len(ent) > 5 and ent[5] != "0":
         ui.info(_("Checking root filesystem"))
-        t = run("/sbin/fsck", "-C", "-T", "-a", "/")
+        t = run_full("/sbin/fsck", "-C", "-T", "-a", "/")
         if t == 0:
             pass
         elif t == 2 or t == 3:
@@ -354,7 +360,7 @@ def checkRoot():
         ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
     
     ui.info(_("Remounting root filesystem read/write"))
-    if run("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
+    if run_quiet("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
         ui.info(_("Root filesystem could not be mounted read/write :("))
     
     # Fix mtab
@@ -408,7 +414,7 @@ def modules():
     if mdirdate("/etc/modules.d") > mdate("/etc/modules.conf"):
         # FIXME: convert this script to python
         ui.info(_("Calculating module dependencies"))
-        os.system("/sbin/modules-update &>/dev/null")
+        run_quiet("/sbin/modules-update")
     
     fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
     if not os.path.exists(fn):
@@ -421,7 +427,7 @@ def modules():
 
 def checkFS():
     ui.info(_("Checking all filesystems"))
-    t = run("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
+    t = run_full("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
     if t == 0:
         pass
     elif t >= 2 and t <= 3:
@@ -475,7 +481,7 @@ def stopSystem():
         return x[1]
     
     ui.info(_("Stopping services"))
-    run("/usr/bin/hav", "call", "System.Service.stop")
+    run_quiet("/usr/bin/hav", "call", "System.Service.stop")
     
     ui.info(_("Stopping COMAR"))
     run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/comar.pid")
@@ -485,8 +491,8 @@ def stopSystem():
     ui.info(_("Deactivating swap"))
     # unmount unused tmpfs filesystems before swap
     # (tmpfs can be swapped and you can get a deadlock)
-    run("/bin/umount", "-at", "tmpfs")
-    run("/sbin/swapoff", "-a")
+    run_quiet("/bin/umount", "-at", "tmpfs")
+    run_quiet("/sbin/swapoff", "-a")
     
     def getFS():
         ents = loadFile("/proc/mounts").split("\n")
@@ -507,11 +513,11 @@ def stopSystem():
     # write a reboot record to /var/log/wtmp before unmounting
     run("/sbin/halt", "-w")
     for dev in getFS():
-        if run("/bin/umount", dev[1]) != 0:
+        if run_quiet("/bin/umount", dev[1]) != 0:
             # kill processes still using this mount
-            run("/bin/fuser", "-k", "-9", "-m", dev[1])
+            run_quiet("/bin/fuser", "-k", "-9", "-m", dev[1])
             time.sleep(2)
-            run("/bin/umount", "-f", "-r", dev[1])
+            run_quiet("/bin/umount", "-f", "-r", dev[1])
     
     def remount_ro(force=False):
         ents = loadFile("/proc/mounts").split("\n")
@@ -528,11 +534,11 @@ def stopSystem():
         ret = 0
         for ent in ents:
             if force:
-                ret += run("/bin/umount", "-n", "-r", ent[1])
+                ret += run_quiet("/bin/umount", "-n", "-r", ent[1])
             else:
-                ret += run("/bin/mount", "-n", "-o", "remount,ro", ent[1])
+                ret += run_quiet("/bin/mount", "-n", "-o", "remount,ro", ent[1])
         if ret:
-            run("killall5", "-9")
+            run_quiet("killall5", "-9")
         return ret
     
     ui.info(_("Remounting remaining filesystems readonly"))
@@ -565,7 +571,7 @@ def except_hook(eType, eValue, eTrace):
     import traceback
     traceback.print_tb(eTrace)
     print
-    subprocess.call(["/sbin/sulogin"])
+    run_full("/sbin/sulogin")
 
 
 #
@@ -676,7 +682,8 @@ elif sys.argv[1] == "boot":
     
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
-        os.system("/sbin/env-update.sh")
+        # FIXME: convert this script to python
+        run("/sbin/env-update.sh")
     
     # reset console permissions if we are actually using it
     if os.path.exists("/sbin/pam_console_apply"):
