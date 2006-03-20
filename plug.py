@@ -153,6 +153,9 @@ class USB:
         return devices
     
     def findModules(self, devpath=None):
+        if not os.path.exists("/sys/bus/usb/devices"):
+            return set()
+        
         if devpath:
             devices = (self.deviceInfo(devpath), )
         else:
