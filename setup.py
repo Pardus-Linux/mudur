@@ -11,6 +11,18 @@
 
 import sys
 import os
+import glob
+import shutil
+
+version = "1.1"
+
+distfiles = """
+    mudur.py
+    hotplug.py
+    service.py
+    po/mudur.pot
+    po/*.po
+"""
 
 i18n_source_list = [ "mudur.py", "service.py" ]
 
@@ -21,6 +33,25 @@ def update_messages():
             os.system("msgmerge -q -o temp.po po/%s po/mudur.pot" % item)
             os.system("cp temp.po po/%s" % item)
     os.system("rm -f temp.po")
+
+def make_dist():
+    distdir = "mudur-%s" % version
+    list = []
+    for t in distfiles.split():
+        list.extend(glob.glob(t))
+    if os.path.exists(distdir):
+        shutil.rmtree(distdir)
+    os.mkdir(distdir)
+    for file_ in list:
+        cum = distdir[:]
+        for d in os.path.dirname(file_).split('/'):
+            dn = os.path.join(cum, d)
+            cum = dn[:]
+            if not os.path.exists(dn):
+                os.mkdir(dn)
+        shutil.copy(file_, os.path.join(distdir, file_))
+    os.popen("tar -czf %s %s" % ("mudur-" + version + ".tar.gz", distdir))
+    shutil.rmtree(distdir)
 
 def install(args):
     if args == []:
@@ -41,6 +72,7 @@ def install(args):
 def usage():
     print "setup.py install [prefix]"
     print "setup.py update_messages"
+    print "setup.py dist"
 
 def do_setup(args):
     if args == []:
@@ -51,6 +83,9 @@ def do_setup(args):
     
     elif args[0] == "update_messages":
         update_messages()
+    
+    elif args[0] == "dist":
+        make_dist()
     
     else:
         usage()

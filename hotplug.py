@@ -327,12 +327,14 @@ hot_pluggers = {
 #
 
 def coldPlug():
-    blacks = blackList()
+    modules = set()
     for class_ in cold_pluggers:
         plug = class_()
-        for mod in plug.findModules():
-            if not mod in blacks:
-                tryModule(mod)
+        modules = modules.union(plug.findModules())
+    modules = modules.difference(blackList())
+    print list(modules)
+    for mod in modules:
+        tryModule(mod)
 
 def hotPlug(type, env):
     if hot_pluggers.has_key(type):
