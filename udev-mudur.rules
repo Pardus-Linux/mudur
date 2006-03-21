@@ -1,5 +1,5 @@
-ACTION=="add",SUBSYSTEM=="pci",RUN+="/sbin/hotplug.py"
-ACTION=="add",SUBSYSTEM=="usb",RUN+="/sbin/hotplug.py"
-ACTION=="add",SUBSYSTEM=="scsi",RUN+="/sbin/hotplug.py"
-ACTION=="add",SUBSYSTEM=="firmware",RUN+="/sbin/hotplug.py"
+ACTION=="add",SUBSYSTEM=="pci",RUN+="/sbin/muavin.py"
+ACTION=="add",SUBSYSTEM=="usb",RUN+="/sbin/muavin.py"
+ACTION=="add",SUBSYSTEM=="scsi",RUN+="/sbin/muavin.py"
+ACTION=="add",SUBSYSTEM=="firmware",RUN+="/sbin/muavin.py"
 

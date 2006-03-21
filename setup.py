@@ -18,7 +18,7 @@ version = "1.1"
 
 distfiles = """
     mudur.py
-    hotplug.py
+    muavin.py
     service.py
     po/mudur.pot
     po/*.po
@@ -60,7 +60,7 @@ def install(args):
         prefix = args[0]
     
     os.system("cp mudur.py %s" % os.path.join(prefix, "sbin/mudur.py"))
-    os.system("cp hotplug.py %s" % os.path.join(prefix, "sbin/hotplug.py"))
+    os.system("cp muavin.py %s" % os.path.join(prefix, "sbin/muavin.py"))
     os.system("cp service.py %s" % os.path.join(prefix, "bin/service"))
     
     for item in os.listdir("po"):

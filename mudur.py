@@ -622,7 +622,7 @@ if sys.argv[1] == "sysinit":
     localMount()
     
     ui.info(_("Starting Coldplug"))
-    subprocess.Popen(["/sbin/hotplug.py", "--coldplug"])
+    subprocess.Popen(["/sbin/muavin.py", "--coldplug"])
     
     setClock()
     
