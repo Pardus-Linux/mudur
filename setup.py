@@ -62,6 +62,7 @@ def install(args):
     os.system("cp mudur.py %s" % os.path.join(prefix, "sbin/mudur.py"))
     os.system("cp muavin.py %s" % os.path.join(prefix, "sbin/muavin.py"))
     os.system("cp service.py %s" % os.path.join(prefix, "bin/service"))
+    os.system("cp udev-mudur.rules %s" % os.path.join(prefix, "etc/udev/rules.d/51-mudur.rules"))
     
     for item in os.listdir("po"):
         if item.endswith(".po"):
