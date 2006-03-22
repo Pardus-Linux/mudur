@@ -78,7 +78,10 @@ def install(args):
         if item.endswith(".po"):
             lang = item[:-3]
             dest = "usr/share/locale/%s/LC_MESSAGES/mudur.mo" % lang
-            os.makedirs(os.path.dirname(os.path.join(prefix, dest)))
+            try:
+                os.makedirs(os.path.dirname(os.path.join(prefix, dest)))
+            except:
+                pass
             os.system("msgfmt po/%s -o %s" % (item, os.path.join(prefix, dest)))
 
 def usage():
