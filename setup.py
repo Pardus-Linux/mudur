@@ -20,6 +20,7 @@ distfiles = """
     mudur.py
     muavin.py
     service.py
+    udev-mudur.rules
     po/mudur.pot
     po/*.po
 """
