@@ -332,7 +332,6 @@ def coldPlug():
         plug = class_()
         modules = modules.union(plug.findModules())
     modules = modules.difference(blackList())
-    print list(modules)
     for mod in modules:
         tryModule(mod)
 
