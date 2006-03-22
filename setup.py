@@ -14,7 +14,7 @@ import os
 import glob
 import shutil
 
-version = "1.1"
+version = "0.5"
 
 distfiles = """
     setup.py
@@ -55,21 +55,30 @@ def make_dist():
     os.popen("tar -czf %s %s" % ("mudur-" + version + ".tar.gz", distdir))
     shutil.rmtree(distdir)
 
+def install_file(source, prefix, dest):
+    dest = os.path.join(prefix, dest)
+    try:
+        os.makedirs(os.path.dirname(dest))
+    except:
+        pass
+    os.system("cp %s %s" % (source, dest))
+
 def install(args):
     if args == []:
         prefix = "/"
     else:
         prefix = args[0]
     
-    os.system("cp mudur.py %s" % os.path.join(prefix, "sbin/mudur.py"))
-    os.system("cp muavin.py %s" % os.path.join(prefix, "sbin/muavin.py"))
-    os.system("cp service.py %s" % os.path.join(prefix, "bin/service"))
-    os.system("cp udev-mudur.rules %s" % os.path.join(prefix, "etc/udev/rules.d/51-mudur.rules"))
+    install_file("mudur.py", prefix, "sbin/mudur.py")
+    install_file("muavin.py", prefix, "sbin/muavin.py")
+    install_file("service.py", prefix, "bin/service")
+    install_file("udev-mudur.rules", prefix, "etc/udev/rules.d/51-mudur.rules")
     
     for item in os.listdir("po"):
         if item.endswith(".po"):
             lang = item[:-3]
             dest = "usr/share/locale/%s/LC_MESSAGES/mudur.mo" % lang
+            os.makedirs(os.path.dirname(os.path.join(prefix, dest)))
             os.system("msgfmt po/%s -o %s" % (item, os.path.join(prefix, dest)))
 
 def usage():
