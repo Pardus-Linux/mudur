@@ -17,6 +17,7 @@ import shutil
 version = "1.1"
 
 distfiles = """
+    setup.py
     mudur.py
     muavin.py
     service.py
