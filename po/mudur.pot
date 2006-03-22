@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-08 12:58+0200\n"
+"POT-Creation-Date: 2006-03-22 16:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,150 +16,155 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: mudur.py:272
+#: mudur.py:282
 msgid "Starting services"
 msgstr ""
 
-#: mudur.py:293
+#: mudur.py:305
 msgid "Restoring saved device states"
 msgstr ""
 
-#: mudur.py:296
+#: mudur.py:308
 msgid "Starting udev"
 msgstr ""
 
-#: mudur.py:316
-msgid "Remounting root filesystem read-only"
-msgstr ""
-
-#: mudur.py:321
-msgid "Checking root filesystem"
-msgstr ""
-
-#: mudur.py:326
-msgid "Filesystem repaired, but reboot needed!"
-msgstr ""
-
-#: mudur.py:330
-msgid "Rebooting in 10 seconds ..."
-msgstr ""
-
-#: mudur.py:332
-msgid "Rebooting..."
-msgstr ""
-
-#: mudur.py:335
-msgid "Filesystem couldn't be fixed :("
-msgstr ""
-
-#: mudur.py:337
-msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr ""
-
-#: mudur.py:339
-msgid "Remounting root filesystem read/write"
+#: mudur.py:338
+#, python-format
+msgid "Could not set unicode mode on tty %d"
 msgstr ""
 
 #: mudur.py:341
+msgid "Remounting root filesystem read-only"
+msgstr ""
+
+#: mudur.py:346
+msgid "Checking root filesystem"
+msgstr ""
+
+#: mudur.py:351
+msgid "Filesystem repaired, but reboot needed!"
+msgstr ""
+
+#: mudur.py:355
+msgid "Rebooting in 10 seconds ..."
+msgstr ""
+
+#: mudur.py:357
+msgid "Rebooting..."
+msgstr ""
+
+#: mudur.py:360
+msgid "Filesystem couldn't be fixed :("
+msgstr ""
+
+#: mudur.py:362
+msgid "Skipping root filesystem check (fstab's passno == 0)"
+msgstr ""
+
+#: mudur.py:364
+msgid "Remounting root filesystem read/write"
+msgstr ""
+
+#: mudur.py:366
 msgid "Root filesystem could not be mounted read/write :("
 msgstr ""
 
-#: mudur.py:383
+#: mudur.py:408
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr ""
 
-#: mudur.py:393
+#: mudur.py:418
 msgid "Calculating module dependencies"
 msgstr ""
 
-#: mudur.py:406
+#: mudur.py:431
 msgid "Checking all filesystems"
 msgstr ""
 
-#: mudur.py:411
+#: mudur.py:436
 msgid "Filesystem errors corrected"
 msgstr ""
 
-#: mudur.py:413
+#: mudur.py:438
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 
-#: mudur.py:416
+#: mudur.py:441
 msgid "Mounting local filesystems"
 msgstr ""
 
-#: mudur.py:418
+#: mudur.py:443
 msgid "Activating swap"
 msgstr ""
 
-#: mudur.py:431
+#: mudur.py:456
 msgid "Setting system clock to hardware clock"
 msgstr ""
 
-#: mudur.py:440
+#: mudur.py:465
 msgid "Failed to set system clock to hardware clock"
 msgstr ""
 
-#: mudur.py:450
+#: mudur.py:475
 msgid "Syncing system clock to hardware clock"
 msgstr ""
 
-#: mudur.py:453
+#: mudur.py:478
 msgid "Failed to sync clocks"
 msgstr ""
 
-#: mudur.py:460
+#: mudur.py:485
 msgid "Stopping services"
 msgstr ""
 
-#: mudur.py:463
+#: mudur.py:488
 msgid "Stopping COMAR"
 msgstr ""
 
-#: mudur.py:468
+#: mudur.py:493
 msgid "Deactivating swap"
 msgstr ""
 
-#: mudur.py:489
+#: mudur.py:514
 msgid "Unmounting filesystems"
 msgstr ""
 
-#: mudur.py:521
+#: mudur.py:546
 msgid "Remounting remaining filesystems readonly"
 msgstr ""
 
-#: mudur.py:545
+#: mudur.py:560
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
 
-#: mudur.py:587
+#: mudur.py:604
 msgid "Mounting /sys"
 msgstr ""
 
-#: mudur.py:592
+#: mudur.py:609
 msgid "Mounting /dev/pts"
 msgstr ""
 
-#: mudur.py:620
+#: mudur.py:624
 msgid "Starting Coldplug"
 msgstr ""
 
-#: mudur.py:636
+#: mudur.py:647
 msgid "Setting up localhost"
 msgstr ""
 
-#: mudur.py:651
-msgid "Updating environment variables"
-msgstr ""
-
-#: mudur.py:654
+#: mudur.py:652
 msgid "Cleaning up /var"
 msgstr ""
 
-#: mudur.py:669
+#: mudur.py:662
+msgid "Updating environment variables"
+msgstr ""
+
+#: mudur.py:675
 msgid "Starting COMAR"
 msgstr ""
 
@@ -172,7 +177,7 @@ msgstr ""
 msgid "Service '%s' started."
 msgstr ""
 
-#: service.py:74 service.py:83 service.py:92 service.py:101
+#: service.py:74 service.py:83 service.py:96 service.py:105 service.py:114
 #, python-format
 msgid "Error: %s"
 msgstr ""
@@ -182,23 +187,30 @@ msgstr ""
 msgid "Service '%s' stopped."
 msgstr ""
 
-#: service.py:90
+#: service.py:94
+#, python-format
+msgid "Service '%s' reloaded."
+msgstr ""
+
+#: service.py:103
 #, python-format
 msgid "Service '%s' turned on."
 msgstr ""
 
-#: service.py:99
+#: service.py:112
 #, python-format
 msgid "Service '%s' turned off."
 msgstr ""
 
-#: service.py:106
+#: service.py:119
 msgid ""
 "usage: service [<service>] <command>\n"
 "where command is:\n"
-" list   Display service list\n"
-" on     Turn on the service permamently\n"
-" off    Turn off the service permamently\n"
-" start  Start the service\n"
-" stop   Stop the service"
+" list    Display service list\n"
+" on      Turn on the service permamently\n"
+" off     Turn off the service permamently\n"
+" start   Start the service\n"
+" stop    Stop the service\n"
+" restart Stop the service, then start again\n"
+" reload  Reload the configuration (if service supports this)"
 msgstr ""
