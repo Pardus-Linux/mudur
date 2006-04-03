@@ -12,6 +12,8 @@
 
 import sys
 import os
+import glob
+import stat
 import subprocess
 import gettext
 import time
@@ -107,6 +109,27 @@ def run_quiet(*cmd):
     """Run the command without running a shell and no output"""
     f = file("/dev/null", "w")
     return subprocess.call(cmd, stdout=f, stderr=f)
+
+def delete(path, match=False, no_error=False):
+    """Delete files and dirs recursively"""
+    try:
+        if match:
+            path = glob.glob(path)
+        else:
+            path = [ path ]
+        for item in path:
+            for root, dirs, files in os.walk(item, topdown=False):
+                for name in files:
+                    os.unlink(os.path.join(root, name))
+                for name in dirs:
+                    os.rmdir(os.path.join(root, name))
+            if stat.S_ISDIR(os.stat(item).st_mode):
+                os.rmdir(item)
+            else:
+                os.unlink(item)
+    except Exception, e:
+        if no_error == False:
+            raise
 
 #
 
@@ -464,6 +487,24 @@ def setClock():
     if t[1] != '' or t2[1] != '':
         ui.error(_("Failed to set system clock to hardware clock"))
 
+def cleanupTmp():
+    delete("/tmp/.X*-lock", match=True, no_error=True)
+    delete("/tmp/kio*", match=True, no_error=True)
+    delete("/tmp/ssh-*", match=True, no_error=True)
+    delete("/tmp/kio*", match=True, no_error=True)
+    delete("/tmp/ksocket-*", match=True, no_error=True)
+    delete("/tmp/.*-unix", match=True, no_error=True)
+    try:
+        os.mkdir("/tmp/.ICE-unix")
+        os.mkdir("/tmp/.X11-unix")
+    except OSError, e:
+        if e.errno != 17:
+            raise
+    os.chown("/tmp/.ICE-unix", 0, 0)
+    os.chown("/tmp/.X11-unix", 0, 0)
+    os.chmod("/tmp/.ICE-unix", 01777)
+    os.chmod("/tmp/.ICE-unix", 01777)
+
 def saveClock():
     if config.is_livecd() or config.is_virtual():
         return
@@ -671,6 +712,9 @@ elif sys.argv[1] == "boot":
             if len(m) > 0:
                 run("/sbin/pam_console_apply", "-r")
                 break
+    
+    ui.info(_("Cleaning up /tmp"))
+    cleanupTmp()
     
     ui.info(_("Starting COMAR"))
     run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
