@@ -301,6 +301,17 @@ def mount(part, args):
 # COMAR functions
 #
 
+def startComar():
+    ui.info(_("Starting COMAR"))
+    # If a job craches before finishing a transaction, Berkeley DB halts.
+    # We are deleting DB log files before starting Comar, so a reboot fixes
+    # the problem if it ever happens.
+    delete("/var/db/comar/__*", match=True)
+    delete("/var/db/comar/log*", match=True)
+    run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
+        "--pidfile", "/var/run/comar.pid", "--make-pidfile",
+        "--exec", "/usr/bin/comar")
+
 def startServices():
     ui.info(_("Starting services"))
     import comar
@@ -311,7 +322,7 @@ def startServices():
             go = False
         except comar.Error:
             time.sleep(0.1)
-    link.call_package("System.Service.ready", "xorg")
+    link.call_package("System.Service.ready", "kdebase")
     time.sleep(1.5)
     link.call("System.Service.ready")
 
@@ -488,6 +499,7 @@ def setClock():
         ui.error(_("Failed to set system clock to hardware clock"))
 
 def cleanupTmp():
+    ui.info(_("Cleaning up /tmp"))
     delete("/tmp/.X*-lock", match=True, no_error=True)
     delete("/tmp/kio*", match=True, no_error=True)
     delete("/tmp/ssh-*", match=True, no_error=True)
@@ -713,13 +725,9 @@ elif sys.argv[1] == "boot":
                 run("/sbin/pam_console_apply", "-r")
                 break
     
-    ui.info(_("Cleaning up /tmp"))
     cleanupTmp()
     
-    ui.info(_("Starting COMAR"))
-    run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
-        "--pidfile", "/var/run/comar.pid", "--make-pidfile",
-        "--exec", "/usr/bin/comar")
+    startComar()
 
 elif sys.argv[1] == "reboot":
     setTranslation()
