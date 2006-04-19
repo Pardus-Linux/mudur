@@ -40,6 +40,20 @@ def collect(c):
 # Operations
 
 def list():
+    def onoff(state):
+        if state in ("on", "stopped"):
+            return "on"
+        if state in ("off", "started"):
+            return "off"
+    def color(state):
+        if state in "on":
+            return '\x1b[34;01m'
+        if state in "started":
+            return '\x1b[32;01m'
+        if state == "stopped":
+            return '\x1b[31;01m'
+        if state == "off":
+            return '\x1b[0m'
     c = comlink()
     c.call("System.Service.info")
     data = collect(c)
@@ -51,7 +65,7 @@ def list():
     services.sort(key=lambda x: x[3])
     for item in services:
         info = item[2].split("\n")
-        print item[3].ljust(size), info[0].ljust(6), info[1].ljust(3), info[2]
+        print color(info[1]), item[3].ljust(size), info[0].ljust(6), onoff(info[1]).ljust(3), info[2], '\x1b[0m'
 
 def manage_comar(op):
     if os.getuid() != 0:
