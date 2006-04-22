@@ -46,9 +46,9 @@ def list():
         if state in ("off", "started"):
             return "off"
     def color(state):
-        if state in "on":
+        if state == "on":
             return '\x1b[34;01m'
-        if state in "started":
+        if state == "started":
             return '\x1b[32;01m'
         if state == "stopped":
             return '\x1b[31;01m'
