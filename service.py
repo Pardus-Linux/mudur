@@ -46,14 +46,11 @@ def list():
         if state in ("off", "started"):
             return "off"
     def color(state):
-        if state == "on":
-            return '\x1b[34;01m'
-        if state == "started":
-            return '\x1b[32;01m'
-        if state == "stopped":
-            return '\x1b[31;01m'
-        if state == "off":
-            return '\x1b[0m'
+        colors = {"on": '[34;01m',
+                  "started": '[32;01m',
+                  "stopped": '[31;01m',
+                  "off": '[0m'}
+        return "\x1b%s" % colors[state]
     c = comlink()
     c.call("System.Service.info")
     data = collect(c)
