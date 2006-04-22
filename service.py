@@ -46,10 +46,17 @@ def list():
         if state in ("off", "started"):
             return "off"
     def color(state):
-        colors = {"on": '[34;01m',
-                  "started": '[32;01m',
-                  "stopped": '[31;01m',
-                  "off": '[0m'}
+        if os.environ.has_key("TERM") and os.environ["TERM"] == "xterm":
+            colors = {"on": '[0;32m',
+                      "started": '[1;32m',
+                      "stopped": '[0;31m',
+                      "off": '[0m'}
+        else:
+            colors = {"on": '[1;32m',
+                      "started": '[0;32m',
+                      "stopped": '[1;31m',
+                      "off": '[0m'}
+
         return "\x1b%s" % colors[state]
     c = comlink()
     c.call("System.Service.info")
