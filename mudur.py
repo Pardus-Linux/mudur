@@ -637,7 +637,7 @@ os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 if sys.argv[1] == "sysinit":
     # This is who we are
     print UI.UNICODE_MAGIC
-    print "Pardus, http://www.pardus.org.tr"
+    print "\x1b[1m  Pardus, \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m"
     print
     
     # mount /proc
