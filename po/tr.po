@@ -92,7 +92,7 @@ msgstr "Tüm dosya sistemleri denetleniyor"
 
 #: mudur.py:470
 msgid "Filesystem errors corrected"
-msgstr "Dosya sisteminde bazı hatalar var"
+msgstr "Dosya sistemindeki hatalar düzeltildi"
 
 #: mudur.py:472
 msgid "Fsck could not correct all errors, manual repair needed"
@@ -146,7 +146,7 @@ msgstr "Dosya sistemleri ayrılıyor"
 
 #: mudur.py:599
 msgid "Remounting remaining filesystems readonly"
-msgstr "Kök dosya sistemi salt okunur şekilde yeniden bağlanıyor"
+msgstr "Diğer dosya sistemleri salt okunur şekilde yeniden bağlanıyor"
 
 #: mudur.py:613
 msgid ""
