@@ -334,7 +334,7 @@ def startServices():
 def setupUdev():
     udev_backup = "/lib/udev-state/devices.tar.bz2"
     # many video drivers require exec access in /dev
-    ui.info("Mounting /dev")
+    ui.info(_("Mounting /dev"))
     mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755 udev /dev")
     ui.info(_("Restoring saved device states"))
     if os.path.exists(udev_backup):
