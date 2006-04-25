@@ -334,7 +334,7 @@ def startServices():
 def setupUdev():
     udev_backup = "/lib/udev-state/devices.tar.bz2"
     # many video drivers require exec access in /dev
-    ui.info("Mounting /dev")
+    ui.info(_("Mounting /dev"))
     mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755 udev /dev")
     ui.info(_("Restoring saved device states"))
     if os.path.exists(udev_backup):
@@ -637,7 +637,7 @@ os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 if sys.argv[1] == "sysinit":
     # This is who we are
     print UI.UNICODE_MAGIC
-    print "Pardus, http://www.pardus.org.tr"
+    print "\x1b[1m  Pardus, \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m"
     print
     
     # mount /proc

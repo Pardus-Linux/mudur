@@ -33,7 +33,8 @@ def collect(c):
             reply = c.read_cmd()
             if reply[0] == c.RESULT_END:
                 return replies
-            replies.append(reply)
+            if reply[0] == c.RESULT:
+                replies.append(reply)
     else:
         return [reply]
 
@@ -46,14 +47,18 @@ def list():
         if state in ("off", "started"):
             return "off"
     def color(state):
-        if state in "on":
-            return '\x1b[34;01m'
-        if state in "started":
-            return '\x1b[32;01m'
-        if state == "stopped":
-            return '\x1b[31;01m'
-        if state == "off":
-            return '\x1b[0m'
+        if os.environ.has_key("TERM") and os.environ["TERM"] == "xterm":
+            colors = {"on": '[0;32m',
+                      "started": '[1;32m',
+                      "stopped": '[0;31m',
+                      "off": '[0m'}
+        else:
+            colors = {"on": '[1;32m',
+                      "started": '[0;32m',
+                      "stopped": '[1;31m',
+                      "off": '[0m'}
+
+        return "\x1b%s" % colors[state]
     c = comlink()
     c.call("System.Service.info")
     data = collect(c)
