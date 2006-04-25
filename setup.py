@@ -18,15 +18,13 @@ version = "0.5"
 
 distfiles = """
     setup.py
-    mudur.py
-    muavin.py
-    service.py
-    udev-mudur.rules
+    bin/*.py
+    etc/udev-mudur.rules
     po/mudur.pot
     po/*.po
 """
 
-i18n_source_list = [ "mudur.py", "service.py" ]
+i18n_source_list = [ "bin/mudur.py", "bin/service.py" ]
 
 def update_messages():
     os.system("xgettext -o po/mudur.pot %s" % " ".join(i18n_source_list))
@@ -69,10 +67,10 @@ def install(args):
     else:
         prefix = args[0]
     
-    install_file("mudur.py", prefix, "sbin/mudur.py")
-    install_file("muavin.py", prefix, "sbin/muavin.py")
-    install_file("service.py", prefix, "bin/service")
-    install_file("udev-mudur.rules", prefix, "etc/udev/rules.d/51-mudur.rules")
+    install_file("bin/mudur.py", prefix, "sbin/mudur.py")
+    install_file("bin/muavin.py", prefix, "sbin/muavin.py")
+    install_file("bin/service.py", prefix, "bin/service")
+    install_file("etc/udev-mudur.rules", prefix, "etc/udev/rules.d/51-mudur.rules")
     
     for item in os.listdir("po"):
         if item.endswith(".po"):
