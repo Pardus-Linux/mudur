@@ -33,7 +33,8 @@ def collect(c):
             reply = c.read_cmd()
             if reply[0] == c.RESULT_END:
                 return replies
-            replies.append(reply)
+            if reply[0] == c.RESULT:
+                replies.append(reply)
     else:
         return [reply]
 
