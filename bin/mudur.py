@@ -179,7 +179,7 @@ class Config:
             for key in loadConfig("/etc/conf.d/mudur.conf"):
                 self.opts[key] = dict[key]
     
-    def get_opt(self, cmdopt):
+    def get_kernel_opt(self, cmdopt):
         if not self.cmdline:
             self.cmdline = loadFile("/proc/cmdline").split()
         
@@ -193,7 +193,7 @@ class Config:
         return None
     
     def parse_kernel_opts(self):
-        lang = self.get_opt("lang")
+        lang = self.get_kernel_opt("lang")
         if lang:
             self.opts["language"] = lang
     
