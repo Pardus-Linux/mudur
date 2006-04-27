@@ -175,8 +175,8 @@ class Config:
             "clock": "local",
         }
         # load config file if exists
-        if os.path.exists("/etc/conf.d/mudur.conf"):
-            for key in loadConfig("/etc/conf.d/mudur.conf"):
+        if os.path.exists("/etc/conf.d/mudur"):
+            for key in loadConfig("/etc/conf.d/mudur"):
                 self.opts[key] = dict[key]
     
     def get_kernel_opt(self, cmdopt):

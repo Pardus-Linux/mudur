@@ -20,6 +20,7 @@ distfiles = """
     setup.py
     bin/*.py
     etc/udev-mudur.rules
+    etc/mudur.conf
     po/mudur.pot
     po/*.po
 """
@@ -72,6 +73,7 @@ def install(args):
     install_file("bin/muavin.py", prefix, "sbin/muavin.py")
     install_file("bin/service.py", prefix, "bin/service")
     install_file("etc/udev-mudur.rules", prefix, "etc/udev/rules.d/51-mudur.rules")
+    install_file("etc/mudur.conf", prefix, "etc/conf.d/mudur")
     
     for item in os.listdir("po"):
         if item.endswith(".po"):
