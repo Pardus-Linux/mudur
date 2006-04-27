@@ -170,7 +170,9 @@ class Config:
         # default options
         self.opts = {
             "language": "tr",
+            "keymap": None,
             "clock": "local",
+            "debug": False,
             "livecd": False,
         }
         # load config file if exists
@@ -198,8 +200,12 @@ class Config:
             for opt in opts:
                 if opt == "livecd":
                     self.opts["livecd"] = True
+                elif opt == "debug":
+                    self.opts["debug"] = True
                 elif opt.startswith("lang:"):
                     self.opts["language"] = opt[5:]
+                elif opt.startswith("keymap:"):
+                    self.opts["keymap"] = opt[7:]
         
         # old style option
         lang = self.get_kernel_opt("lang")
@@ -317,7 +323,7 @@ def mount(part, args):
 
 def startComar():
     ui.info(_("Starting COMAR"))
-    # If a job craches before finishing a transaction, Berkeley DB halts.
+    # If a job crashes before finishing a transaction, Berkeley DB halts.
     # We are deleting DB log files before starting Comar, so a reboot fixes
     # the problem if it ever happens.
     delete("/var/db/comar/__*", match=True)
