@@ -161,8 +161,6 @@ class Logger:
         map(lambda x: f.write("%s\n" % x), self.lines)
         f.close()
 
-logger = Logger()
-
 
 class Config:
     def __init__(self):
@@ -173,6 +171,7 @@ class Config:
         self.opts = {
             "language": "tr",
             "clock": "local",
+            "livecd": False,
         }
         # load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
@@ -193,6 +192,16 @@ class Config:
         return None
     
     def parse_kernel_opts(self):
+        opts = self.get_kernel_opt("mudur")
+        if opts:
+            opts = opts.split(",")
+            for opt in opts:
+                if opt == "livecd":
+                    self.opts["livecd"] = True
+                elif opt.startswith("lang:"):
+                    self.opts["language"] = opt[5:]
+        
+        # old style option
         lang = self.get_kernel_opt("lang")
         if lang:
             self.opts["language"] = lang
@@ -222,9 +231,6 @@ class Config:
     
     def is_livecd(self):
         return False
-
-
-config = Config()
 
 
 class UI:
@@ -265,9 +271,6 @@ class UI:
     
     def debug(self, msg):
         logger.log(msg)
-
-
-ui = UI()
 
 
 #
@@ -675,6 +678,10 @@ signal.signal(signal.SIGQUIT, signal.SIG_IGN)
 signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 sys.excepthook = except_hook
 os.umask(022)
+
+logger = Logger()
+config = Config()
+ui = UI()
 
 logger.log("(((o) mudur %s" % sys.argv[1])
 
