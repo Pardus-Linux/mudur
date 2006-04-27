@@ -671,7 +671,7 @@ if sys.argv[1] == "sysinit":
     config.parse_kernel_opts()
     
     # Setup encoding, font and mapping for console
-    lang = config.get_opt("language")
+    lang = config.get("language")
     if not languages.has_key(lang):
         lang = "tr"
     languages[lang].setConsole()
