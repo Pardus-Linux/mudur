@@ -249,7 +249,7 @@ class UI:
             release = loadFile("/etc/pardus-release").rstrip("\n")
             print "\x1b[1m  %s  \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m" % release
         else:
-            print "%s * %s" % (self.BAD, _("Cannot find /etc/pardus-release"))
+            self.error(_("Cannot find /etc/pardus-release"))
         print
     
     def info(self, msg):
