@@ -243,6 +243,15 @@ class UI:
             sys.stdout.write(msg.encode("utf-8"))
             sys.stdout.write("\n")
     
+    def greet(self):
+        print self.UNICODE_MAGIC
+        if os.path.exists("/etc/pardus-release"):
+            release = loadFile("/etc/pardus-release").rstrip("\n")
+            print "\x1b[1m  %s, \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m" % release
+        else:
+            print "%s * %s" % (self.BAD, _("Cannot find /etc/pardus-release"))
+        print
+    
     def info(self, msg):
         self._echo(msg, self.GOOD)
     
@@ -636,9 +645,7 @@ os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 
 if sys.argv[1] == "sysinit":
     # This is who we are
-    print UI.UNICODE_MAGIC
-    print "\x1b[1m  Pardus, \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m"
-    print
+    ui.greet()
     
     # mount /proc
     mount("/proc", "-t proc proc /proc")

@@ -59,6 +59,7 @@ def install_file(source, prefix, dest):
         os.makedirs(os.path.dirname(dest))
     except:
         pass
+    print "installing '%s' to '%s'" % (source, dest)
     os.system("cp %s %s" % (source, dest))
 
 def install(args):
@@ -80,7 +81,9 @@ def install(args):
                 os.makedirs(os.path.dirname(os.path.join(prefix, dest)))
             except:
                 pass
-            os.system("msgfmt po/%s -o %s" % (item, os.path.join(prefix, dest)))
+            path = os.path.join(prefix, dest)
+            print "compiling '%s' translation '%s'" % (lang, path)
+            os.system("msgfmt po/%s -o %s" % (item, path))
 
 def usage():
     print "setup.py install [prefix]"
