@@ -247,7 +247,7 @@ class UI:
         print self.UNICODE_MAGIC
         if os.path.exists("/etc/pardus-release"):
             release = loadFile("/etc/pardus-release").rstrip("\n")
-            print "\x1b[1m  %s, \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m" % release
+            print "\x1b[1m  %s  \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m" % release
         else:
             print "%s * %s" % (self.BAD, _("Cannot find /etc/pardus-release"))
         print
@@ -479,10 +479,27 @@ def checkFS():
         ui.info(_("Filesystem errors corrected"))
     else:
         ui.info(_("Fsck could not correct all errors, manual repair needed"))
+        run_full("/sbin/sulogin")
 
 def localMount():
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,noshm")
+    
+    if os.path.exists("/proc/modules") and not os.path.exists("/proc/bus/usb"):
+        run_quiet("/sbin/modprobe", "usbcore")
+    
+    if os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
+        gid = None
+        for line in file("/etc/group"):
+            if line.startswith("usb:"):
+                gid = line.split(":")[2]
+                break
+        ui.info(_("Mounting USB filesystem"))
+        if gid:
+            run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb", "-o", "devmode=0664,devgid=%s" % gid)
+        else:
+            run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
+    
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
 
