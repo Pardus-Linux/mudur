@@ -38,6 +38,18 @@ def loadFile(path):
     f.close()
     return data
 
+def loadConfig(path):
+    dict = {}
+    for line in file(path):
+        if line != "" and not line.startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip()
+            if value.startswith('"') or value.startswith("'"):
+                value = value[1:-1]
+            dict[key] = value
+    return dict
+
 def ensureDirs(path):
     """Create missing directories in the path"""
     if not os.path.exists(path):
@@ -164,18 +176,8 @@ class Config:
         }
         # load config file if exists
         if os.path.exists("/etc/conf.d/mudur.conf"):
-            data = loadFile("/etc/conf.d/mudur.conf")
-            for line in data.split("\n"):
-                if not line.startswith("#"):
-                    t = line.split("=", 1)
-                    if len(t) == 2:
-                        key = t[0].strip()
-                        value = t[1].strip()
-                        if self.opts.has_key(key):
-                            self.opts[key] = value
-                        else:
-                            print "Unknown option '%s' in mudur.conf!" % key
-                            time.sleep(3)
+            for key in loadConfig("/etc/conf.d/mudur.conf"):
+                self.opts[key] = dict[key]
     
     def get_opt(self, cmdopt):
         if not self.cmdline:
@@ -503,6 +505,25 @@ def localMount():
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
 
+def hdparm():
+    if not os.path.exists("/sbin/hdparm") or not os.path.exists("/etc/conf.d/hdparm"):
+        return
+    
+    dict = loadConfig("/etc/conf.d/hdparm")
+    if len(dict) > 0:
+        ui.info(_("Setting disk parameters"))
+        if dict.has_key("all"):
+            for name in os.listdir("/dev"):
+                if name.startswith("hd") and len(name) == 3 and not dict.has_key(name):
+                    args = [ "/sbin/hdparm", "/dev/%s" % name ]
+                    args.extend(dict["all"].split())
+                    run_quiet(*args)
+        for key in dict:
+            if key != "all":
+                args = [ "/sbin/hdparm", "/dev/%s" % key ]
+                args.extend(dict[key].split())
+                run_quiet(*args)
+
 def setClock():
     if config.is_virtual():
         return
@@ -698,6 +719,8 @@ if sys.argv[1] == "sysinit":
     checkFS()
     localMount()
     
+    hdparm()
+    
     ui.info(_("Starting Coldplug"))
     subprocess.Popen(["/sbin/muavin.py", "--coldplug"])
     
@@ -725,16 +748,13 @@ elif sys.argv[1] == "boot":
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
-
+    
     ui.info(_("Cleaning up /var"))
     for root,dirs,files in os.walk("/var/run"):
         for f in files:
             if f != "utmp" and f != "random-seed":
                 os.unlink(os.path.join(root, f))
- 
-    # set some disk parameters
-    # run("/sbin/hdparm", "-d1", "-Xudma5", "-c3", "-u1", "-a8192", "/dev/hda")
-
+    
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
         # FIXME: convert this script to python
