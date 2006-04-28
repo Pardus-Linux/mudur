@@ -19,6 +19,7 @@ import gettext
 import time
 import signal
 import fcntl
+import socket
 
 #
 # i18n
@@ -142,6 +143,20 @@ def delete(path, match=False, no_error=False):
     except Exception, e:
         if no_error == False:
             raise
+
+def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
+    if stream:
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    else:
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+    while timeout > 0:
+        try:
+            sock.connect(unix_name)
+            return True
+        except:
+            timeout -= wait
+        time.sleep(wait)
+    return False
 
 #
 
@@ -363,13 +378,17 @@ def startComar():
 def startServices():
     ui.info(_("Starting services"))
     import comar
-    go = True
-    while go:
-        try:
-            link = comar.Link()
-            go = False
-        except comar.Error:
-            time.sleep(0.1)
+    waitBus("/var/run/comar.socket")
+    try:
+        link = comar.Link()
+    except:
+        ui.error(_("Cannot connect to COMAR, services won't be started"))
+        return
+    # Almost everything depends on logger, so start manually
+    link.call_package("System.Service.start", "sysklogd")
+    if not waitBus("/dev/log", stream=False):
+        ui.warn(_("Cannot start system logger"))
+    # Give login screen a headstart
     link.call_package("System.Service.ready", "kdebase")
     time.sleep(1.5)
     link.call("System.Service.ready")
