@@ -234,9 +234,6 @@ class Config:
     
     def is_virtual(self):
         return False
-    
-    def is_livecd(self):
-        return False
 
 
 class UI:
@@ -410,32 +407,34 @@ def setupUdev():
     write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
 
 def checkRoot():
-    ui.info(_("Remounting root filesystem read-only"))
-    run("/bin/mount", "-n", "-o", "remount,ro", "/")
-    
-    ent = config.get_mount("/")
-    if len(ent) > 5 and ent[5] != "0":
-        ui.info(_("Checking root filesystem"))
-        t = run_full("/sbin/fsck", "-C", "-T", "-a", "/")
-        if t == 0:
-            pass
-        elif t == 2 or t == 3:
-            ui.info(_("Filesystem repaired, but reboot needed!"))
-            for i in range(4):
-                print "\07"
-                time.sleep(1)
-            ui.info(_("Rebooting in 10 seconds ..."))
-            time.sleep(10)
-            ui.info(_("Rebooting..."))
-            run("/sbin/reboot", "-f")
+    if not config.get("livecd"):
+        ui.info(_("Remounting root filesystem read-only"))
+        run("/bin/mount", "-n", "-o", "remount,ro", "/")
+        
+        ent = config.get_mount("/")
+        if len(ent) > 5 and ent[5] != "0":
+            ui.info(_("Checking root filesystem"))
+            t = run_full("/sbin/fsck", "-C", "-T", "-a", "/")
+            if t == 0:
+                pass
+            elif t == 2 or t == 3:
+                ui.warn(_("Filesystem repaired, but reboot needed!"))
+                for i in range(4):
+                    print "\07"
+                    time.sleep(1)
+                ui.warn(_("Rebooting in 10 seconds ..."))
+                time.sleep(10)
+                ui.warn(_("Rebooting..."))
+                run("/sbin/reboot", "-f")
+            else:
+                ui.error(_("Filesystem couldn't be fixed :("))
+                run_full("/sbin/sulogin")
         else:
-            ui.info(_("Filesystem couldn't be fixed :("))
-    else:
-        ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
+            ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
     
     ui.info(_("Remounting root filesystem read/write"))
     if run_quiet("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
-        ui.info(_("Root filesystem could not be mounted read/write :("))
+        ui.error(_("Root filesystem could not be mounted read/write :("))
     
     # Fix mtab
     write("/etc/mtab", "")
@@ -500,14 +499,17 @@ def modules():
             run("/sbin/modprobe", "-q", mod)
 
 def checkFS():
+    if config.get("livecd"):
+        return
+    
     ui.info(_("Checking all filesystems"))
     t = run_full("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
     if t == 0:
         pass
     elif t >= 2 and t <= 3:
-        ui.info(_("Filesystem errors corrected"))
+        ui.warn(_("Filesystem errors corrected"))
     else:
-        ui.info(_("Fsck could not correct all errors, manual repair needed"))
+        ui.error(_("Fsck could not correct all errors, manual repair needed"))
         run_full("/sbin/sulogin")
 
 def localMount():
@@ -573,6 +575,9 @@ def setClock():
         ui.error(_("Failed to set system clock to hardware clock"))
 
 def cleanupTmp():
+    if config.get("livecd"):
+        return
+    
     ui.info(_("Cleaning up /tmp"))
     delete("/tmp/.X*-lock", match=True, no_error=True)
     delete("/tmp/kio*", match=True, no_error=True)
@@ -592,7 +597,7 @@ def cleanupTmp():
     os.chmod("/tmp/.ICE-unix", 01777)
 
 def saveClock():
-    if config.is_livecd() or config.is_virtual():
+    if config.get("livecd") or config.is_virtual():
         return
     
     opts = "--utc"
@@ -778,11 +783,12 @@ elif sys.argv[1] == "boot":
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
     
-    ui.info(_("Cleaning up /var"))
-    for root,dirs,files in os.walk("/var/run"):
-        for f in files:
-            if f != "utmp" and f != "random-seed":
-                os.unlink(os.path.join(root, f))
+    if not config.get("livecd"):
+        ui.info(_("Cleaning up /var"))
+        for root,dirs,files in os.walk("/var/run"):
+            for f in files:
+                if f != "utmp" and f != "random-seed":
+                    os.unlink(os.path.join(root, f))
     
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
