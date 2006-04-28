@@ -194,6 +194,11 @@ class Config:
         return None
     
     def parse_kernel_opts(self):
+        # old style option
+        lang = self.get_kernel_opt("lang")
+        if lang:
+            self.opts["language"] = lang
+        
         opts = self.get_kernel_opt("mudur")
         if opts:
             opts = opts.split(",")
@@ -206,11 +211,6 @@ class Config:
                     self.opts["language"] = opt[5:]
                 elif opt.startswith("keymap:"):
                     self.opts["keymap"] = opt[7:]
-        
-        # old style option
-        lang = self.get_kernel_opt("lang")
-        if lang:
-            self.opts["language"] = lang
     
     def get(self, key):
         try:
@@ -280,33 +280,64 @@ class UI:
 
 
 #
+# Language and keymap
+#
 
 class Language:
-    def __init__(self, data):
-        self.keymap = data[0]
-        self.font = data[1]
-        self.trans = data[2]
-        self.locale = data[3]
-    
-    def setConsole(self):
-        run("/usr/bin/kbd_mode", "-u")
-        run_quiet("/bin/loadkeys", self.keymap)
-        run("/usr/bin/setfont", "-f", self.font, "-m", self.trans)
+    def __init__(self, keymap, font, trans, locale):
+        self.keymap = keymap
+        self.font = font
+        self.trans = trans
+        self.locale = locale
 
 
 languages = {
-    "en": Language(("us", "iso01.16", "8859-1", "en_US.UTF-8")),
-    "tr": Language(("trq", "iso09.16", "8859-9", "tr_TR.UTF-8"))
+    "en": Language("us", "iso01.16", "8859-1", "en_US.UTF-8"),
+    "tr": Language("trq", "iso09.16", "8859-9", "tr_TR.UTF-8")
 }
 
+def setConsole():
+    """Setup encoding, font and mapping for console"""
+    lang = config.get("language")
+    keymap = config.get("keymap")
+    # If language is unknown, default to English
+    # Default language is Turkish, so this only used if someone
+    # selected a language which isn't Turkish or English, and
+    # in that case it is more likely they'll prefer English.
+    if not languages.has_key(lang):
+        lang = "en"
+    language = languages[lang]
+    # Given keymap can override language's default
+    if not keymap:
+        keymap = language.keymap
+    # Now actually set the values
+    run("/usr/bin/kbd_mode", "-u")
+    run_quiet("/bin/loadkeys", keymap)
+    run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
+
 def setTranslation():
+    """Load translation"""
     global __trans
     global _
     lang = config.get("language")
     if not languages.has_key(lang):
-        lang = "tr"
+        # See the comment in setConsole
+        lang = "en"
     __trans = gettext.translation('mudur', languages=[lang], fallback=True)
     _ = __trans.ugettext
+
+def ttyUnicode():
+    # constants from linux/kd.h
+    KDSKBMODE = 0x4B45
+    K_UNICODE = 0x03
+    for i in range(1, 13):
+        try:
+            f = file("/dev/tty" + str(i), "w")
+            fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
+            f.write(UI.UNICODE_MAGIC)
+            f.close()
+        except:
+            ui.error(_("Could not set unicode mode on tty %d") % i)
 
 #
 
@@ -377,19 +408,6 @@ def setupUdev():
     touch("/dev/.udev")
     # Avast!
     write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
-
-def ttyUnicode():
-    # constants from linux/kd.h
-    KDSKBMODE = 0x4B45
-    K_UNICODE = 0x03
-    for i in range(1, 13):
-        try:
-            f = file("/dev/tty" + str(i), "w")
-            fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
-            f.write(UI.UNICODE_MAGIC)
-            f.close()
-        except:
-            ui.error(_("Could not set unicode mode on tty %d") % i)
 
 def checkRoot():
     ui.info(_("Remounting root filesystem read-only"))
@@ -685,33 +703,34 @@ signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 sys.excepthook = except_hook
 os.umask(022)
 
+# Setup path just in case
+os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
+
+# Setup output and load configuration
 logger = Logger()
 config = Config()
 ui = UI()
 
 logger.log("(((o) mudur %s" % sys.argv[1])
 
-# Setup path just in case
-os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
+if sys.argv[1] == "sysinit":
+    # This is who we are...
+    ui.greet()
+    # Mount /proc
+    mount("/proc", "-t proc proc /proc")
+    # We need /proc mounted before accessing kernel boot options
+    config.parse_kernel_opts()
+    # Setup font and keymap
+    setConsole()
+else:
+    config.parse_kernel_opts()
+
+
+logger.uptime()
+setTranslation()
+
 
 if sys.argv[1] == "sysinit":
-    # This is who we are
-    ui.greet()
-    
-    # mount /proc
-    mount("/proc", "-t proc proc /proc")
-    # those need /proc
-    logger.uptime()
-    config.parse_kernel_opts()
-    
-    # Setup encoding, font and mapping for console
-    lang = config.get("language")
-    if not languages.has_key(lang):
-        lang = "tr"
-    languages[lang].setConsole()
-    
-    setTranslation()
-    
     ui.info(_("Mounting /sys"))
     mount("/sys", "-t sysfs sysfs /sys")
     
@@ -754,9 +773,6 @@ if sys.argv[1] == "sysinit":
 
 
 elif sys.argv[1] == "boot":
-    logger.uptime()
-    setTranslation()
-    
     ui.info(_("Setting up localhost"))
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
@@ -787,20 +803,16 @@ elif sys.argv[1] == "boot":
     startComar()
 
 elif sys.argv[1] == "reboot":
-    setTranslation()
     stopSystem()
     run("/sbin/reboot", "-idp")
     run("/sbin/reboot", "-f")
 
 elif sys.argv[1] == "shutdown":
-    setTranslation()
     stopSystem()
     run("/sbin/halt", "-ihdp")
     run("/sbin/halt", "-f")
 
 elif sys.argv[1] == "default":
-    setTranslation()
-    logger.uptime()
     startServices()
 
 logger.uptime()
