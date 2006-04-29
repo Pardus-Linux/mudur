@@ -13,6 +13,7 @@ import sys
 import os
 import glob
 import shutil
+import parser
 
 version = "0.5"
 
@@ -68,6 +69,10 @@ def install(args):
         prefix = "/"
     else:
         prefix = args[0]
+    
+    # Make sure that there isn't a syntax error in mudur.py
+    code = file("bin/mudur.py").read()
+    parser.suite(code).compile()
     
     install_file("bin/mudur.py", prefix, "sbin/mudur.py")
     install_file("bin/muavin.py", prefix, "sbin/muavin.py")

@@ -165,15 +165,16 @@ class Logger:
         self.lines = []
     
     def log(self, msg):
-        self.lines.append(msg)
-    
-    def uptime(self):
-        tmp = "uptime %s seconds." % loadFile("/proc/uptime").split()[0]
-        self.lines.append(tmp)
+        stamp = time.strftime("%b %d %H:%M:%S")
+        try:
+            up = loadFile("/proc/uptime").split()[0]
+        except:
+            up = "..."
+        self.lines.append("%s (up %s) %s\n" % (stamp, up, msg))
     
     def sync(self):
         f = file("/var/log/mudur.log", "a")
-        map(lambda x: f.write("%s\n" % x), self.lines)
+        map(f.write, self.lines)
         f.close()
 
 
@@ -260,15 +261,6 @@ class UI:
         self.BAD = '\x1b[31;01m'
         self.NORMAL = '\x1b[0m'
     
-    def _echo(self, msg, colour=None):
-        logger.log(msg)
-        
-        if colour:
-            sys.stdout.write(" %s*%s %s\n" % (colour, self.NORMAL, msg.encode("utf-8")))
-        else:
-            sys.stdout.write(msg.encode("utf-8"))
-            sys.stdout.write("\n")
-    
     def greet(self):
         print self.UNICODE_MAGIC
         if os.path.exists("/etc/pardus-release"):
@@ -279,16 +271,21 @@ class UI:
         print
     
     def info(self, msg):
-        self._echo(msg, self.GOOD)
+        if config.get("debug"):
+            logger.log(msg)
+        sys.stdout.write(" %s*%s %s\n" % (self.GOOD, self.NORMAL, msg.encode("utf-8")))
     
     def warn(self, msg):
-        self._echo(msg, self.WARN)
+        logger.log(msg)
+        sys.stdout.write(" %s*%s %s\n" % (self.WARN, self.NORMAL, msg.encode("utf-8")))
     
     def error(self, msg):
-        self._echo(msg, self.BAD)
+        logger.log(msg)
+        sys.stdout.write(" %s*%s %s\n" % (self.BAD, self.NORMAL, msg.encode("utf-8")))
     
     def debug(self, msg):
-        logger.log(msg)
+        if config.get("debug"):
+            logger.log(msg)
 
 
 #
@@ -735,8 +732,6 @@ logger = Logger()
 config = Config()
 ui = UI()
 
-logger.log("(((o) mudur %s" % sys.argv[1])
-
 if sys.argv[1] == "sysinit":
     # This is who we are...
     ui.greet()
@@ -744,13 +739,15 @@ if sys.argv[1] == "sysinit":
     mount("/proc", "-t proc proc /proc")
     # We need /proc mounted before accessing kernel boot options
     config.parse_kernel_opts()
-    # Setup font and keymap
+    # Now we know which language and keymap to use
     setConsole()
 else:
     config.parse_kernel_opts()
 
+# We can log the event with uptime information now
+logger.log("/sbin/mudur.py %s" % sys.argv[1])
 
-logger.uptime()
+# Activate i18n, we can print localized messages from now on
 setTranslation()
 
 
@@ -832,18 +829,19 @@ elif sys.argv[1] == "boot":
     
     startComar()
 
-elif sys.argv[1] == "reboot":
-    stopSystem()
-    run("/sbin/reboot", "-idp")
-    run("/sbin/reboot", "-f")
-
-elif sys.argv[1] == "shutdown":
-    stopSystem()
-    run("/sbin/halt", "-ihdp")
-    run("/sbin/halt", "-f")
-
 elif sys.argv[1] == "default":
     startServices()
 
-logger.uptime()
+elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
+    # Log the operation before unmounting file systems
+    logger.sync()
+    stopSystem()
+    if sys.argv[1] == "reboot":
+        run("/sbin/reboot", "-idp")
+        run("/sbin/reboot", "-f")
+    else:
+        run("/sbin/halt", "-ihdp")
+        run("/sbin/halt", "-f")
+    # Control never reaches here
+
 logger.sync()
