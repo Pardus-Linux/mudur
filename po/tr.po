@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Görkem Çetin <gorkem@uludag.org.tr>, 2006.
+# Görkem Çetin <gorkem@pardus.org.tr>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-30 17:36+0300\n"
 "PO-Revision-Date: 2006-03-06 16:05+0200\n"
-"Last-Translator: Görkem Çetin <gorkem@uludag.org.tr>\n"
+"Last-Translator: Görkem Çetin <gorkem@pardus.org.tr>\n"
 "Language-Team:  <yerellestirme@kde.org.tr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: bin/mudur.py:270
 msgid "Cannot find /etc/pardus-release"
-msgstr ""
+msgstr "/etc/pardus-release dosyası bulunamadı"
 
 #: bin/mudur.py:349
 #, python-format
@@ -35,11 +35,11 @@ msgstr "Servisler başlatılıyor"
 
 #: bin/mudur.py:382
 msgid "Cannot connect to COMAR, services won't be started"
-msgstr ""
+msgstr "ÇOMAR'a bağlanılamadı, servisler başlatılamayacak"
 
 #: bin/mudur.py:387
 msgid "Cannot start system logger"
-msgstr ""
+msgstr "Sistem kütük servisi başlatılamadı"
 
 #: bin/mudur.py:401
 msgid "Mounting /dev"
@@ -63,7 +63,7 @@ msgstr "Kök dosya sistemi denetleniyor"
 
 #: bin/mudur.py:437
 msgid "Filesystem repaired, but reboot needed!"
-msgstr "Dosya sistemi düzeltildi, sistemin yeniden başlatılması gerekiyor."
+msgstr "Dosya sistemi düzeltildi, sistemin yeniden başlatılması gerekiyor!"
 
 #: bin/mudur.py:441
 msgid "Rebooting in 10 seconds ..."
@@ -117,9 +117,8 @@ msgid "Mounting local filesystems"
 msgstr "Yerel dosya sistemleri bağlanıyor"
 
 #: bin/mudur.py:544
-#, fuzzy
 msgid "Mounting USB filesystem"
-msgstr "Yerel dosya sistemleri bağlanıyor"
+msgstr "USB dosya sistemi bağlanıyor"
 
 #: bin/mudur.py:550
 msgid "Activating swap"
@@ -127,7 +126,7 @@ msgstr "Takas alanı etkinleştiriliyor"
 
 #: bin/mudur.py:559
 msgid "Setting disk parameters"
-msgstr ""
+msgstr "Disk parametreleri ayarlanıyor"
 
 #: bin/mudur.py:582
 msgid "Setting system clock to hardware clock"
@@ -155,7 +154,7 @@ msgstr "Servisler durduruluyor"
 
 #: bin/mudur.py:636
 msgid "Stopping COMAR"
-msgstr "COMAR durduruluyor"
+msgstr "ÇOMAR durduruluyor"
 
 #: bin/mudur.py:641
 msgid "Deactivating swap"
@@ -174,7 +173,7 @@ msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
-"Bir hata oluştu. Lütfen bu hatayı bugs.uludag.org.tr'ye girin. Hata girişi "
+"Bir hata oluştu. Lütfen bu hatayı hata.pardus.org.tr'ye girin. Hata girişi "
 "yaparken aşağıdaki çıktıyı da yazın."
 
 #: bin/mudur.py:755
@@ -187,11 +186,11 @@ msgstr "/dev/pts dizini bağlanıyor"
 
 #: bin/mudur.py:777
 msgid "Starting Coldplug"
-msgstr "Coldplug başlatılıyor"
+msgstr "Donanım tanıma başlatılıyor"
 
 #: bin/mudur.py:802
 msgid "Setting up localhost"
-msgstr "Localhost ayarlanıyor"
+msgstr "Yerel ağ ayarlanıyor"
 
 #: bin/mudur.py:808
 msgid "Cleaning up /var"
