@@ -590,6 +590,14 @@ def setClock():
     if t[1] != '' or t2[1] != '':
         ui.error(_("Failed to set system clock to hardware clock"))
 
+def cleanupVar():
+    if not config.get("livecd"):
+        ui.info(_("Cleaning up /var"))
+        for root,dirs,files in os.walk("/var/run"):
+            for f in files:
+                if f != "utmp" and f != "random-seed":
+                    os.unlink(os.path.join(root, f))
+
 def cleanupTmp():
     if config.get("livecd"):
         return
@@ -611,6 +619,21 @@ def cleanupTmp():
     os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.ICE-unix", 01777)
     os.chmod("/tmp/.X11-unix", 01777)
+
+def resetConPerms():
+    # reset console permissions if we are actually using it
+    if os.path.exists("/sbin/pam_console_apply"):
+        for pamd in os.listdir("/etc/pam.d"):
+            data = loadFile(os.path.join("/etc/pam.d", pamd)).split("\n")
+            m = filter(lambda x: "pam_console" in x and not x.startswith("#"), data)
+            if len(m) > 0:
+                run("/sbin/pam_console_apply", "-r")
+                break
+
+
+#
+# Finalization functions
+#
 
 def saveClock():
     if config.get("livecd") or config.is_virtual():
@@ -804,25 +827,13 @@ elif sys.argv[1] == "boot":
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
     
-    if not config.get("livecd"):
-        ui.info(_("Cleaning up /var"))
-        for root,dirs,files in os.walk("/var/run"):
-            for f in files:
-                if f != "utmp" and f != "random-seed":
-                    os.unlink(os.path.join(root, f))
+    cleanupVar()
     
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
         run("/sbin/update-environment")
     
-    # reset console permissions if we are actually using it
-    if os.path.exists("/sbin/pam_console_apply"):
-        for pamd in os.listdir("/etc/pam.d"):
-            data = loadFile(os.path.join("/etc/pam.d", pamd)).split("\n")
-            m = filter(lambda x: "pam_console" in x and not x.startswith("#"), data)
-            if len(m) > 0:
-                run("/sbin/pam_console_apply", "-r")
-                break
+    resetConPerms()
     
     cleanupTmp()
     
