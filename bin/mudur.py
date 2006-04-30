@@ -813,8 +813,7 @@ elif sys.argv[1] == "boot":
     
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
-        # FIXME: convert this script to python
-        run("/sbin/env-update.sh")
+        run("/sbin/update-environment")
     
     # reset console permissions if we are actually using it
     if os.path.exists("/sbin/pam_console_apply"):
