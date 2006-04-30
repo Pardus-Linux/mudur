@@ -610,7 +610,7 @@ def cleanupTmp():
     os.chown("/tmp/.ICE-unix", 0, 0)
     os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.ICE-unix", 01777)
-    os.chmod("/tmp/.ICE-unix", 01777)
+    os.chmod("/tmp/.X11-unix", 01777)
 
 def saveClock():
     if config.get("livecd") or config.is_virtual():
