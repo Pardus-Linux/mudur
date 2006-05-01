@@ -324,6 +324,22 @@ def setConsole():
     run_quiet("/bin/loadkeys", keymap)
     run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
 
+def setSplash(splashTheme = "pardus"):
+    """Setup console splash and proper encodings for consoles"""
+    lang = config.get("language")
+
+    # If language is unknown, default to English
+    # Default language is Turkish, so this only used if someone
+    # selected a language which isn't Turkish or English, and
+    # in that case it is more likely they'll prefer English.
+    if not languages.has_key(lang):
+        lang = "en"
+    language = languages[lang]
+
+    for i in range(1, 13):
+        run("/usr/bin/splash_manager", "-m", "v", "--theme=%s" % splashTheme, "--cmd=set", "--tty=%s" % i)
+        run("/usr/bin/setfont", "-f", language.font, "-m", language.trans, "-C", "/dev/tty%s" %i)
+
 def setTranslation():
     """Load translation"""
     global __trans
@@ -404,7 +420,37 @@ def setupUdev():
     if os.path.exists(udev_backup):
         run("/bin/tar", "-jxpf", udev_backup, "-C" "/dev")
     ui.info(_("Starting udev"))
-    run("/sbin/udevstart")
+    run("/sbin/udevd", "--daemon")
+
+    ui.info("Populating /dev")
+
+    # FIXME: Seperate this one and call with subprocess to achieve faster boot, but probably race will occur!!!
+
+    list = []
+    first = []
+    default = []
+    last = []
+
+    list = glob.glob("/sys/class/*/*/uevent") + \
+        glob.glob("/sys/block/*/uevent") + \
+        glob.glob("/sys/block/*/*/uevent")
+
+    for sysfsEntry in list:
+        if sysfsEntry.__contains__("/device/uevent"):
+            continue
+        elif sysfsEntry.__contains__("/class/mem/") or sysfsEntry.__contains__("/class/tty/"):
+            first.append(sysfsEntry)
+        elif sysfsEntry.__contains__("/block/md"):
+            last.append(sysfsEntry)
+        else:
+            default.append(sysfsEntry)
+
+    list = first + default + last
+    for destionationFile in list:
+        f = open(destionationFile, "w")
+        f.write("add\n")
+        f.close()
+
     # Not provided by sysfs but needed
     symLink("/dev/fd", "/proc/self/fd")
     symLink("/dev/stdin", "fd/0")
@@ -419,8 +465,8 @@ def setupUdev():
     ensureDirs("/dev/shm")
     # Mark the /dev management system type
     touch("/dev/.udev")
-    # Avast!
-    write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
+    # Using netlink for hotplug events...
+    write("/proc/sys/kernel/hotplug", " ")
 
 def checkRoot():
     if not config.get("livecd"):
@@ -828,7 +874,7 @@ elif sys.argv[1] == "boot":
         "gw", "127.0.0.1", "dev", "lo")
     
     cleanupVar()
-    
+
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
         run("/sbin/update-environment")
@@ -838,6 +884,8 @@ elif sys.argv[1] == "boot":
     cleanupTmp()
     
     startComar()
+
+    setSplash()
 
 elif sys.argv[1] == "default":
     startServices()
