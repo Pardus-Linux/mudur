@@ -419,12 +419,14 @@ def setupUdev():
     ui.info(_("Restoring saved device states"))
     if os.path.exists(udev_backup):
         run("/bin/tar", "-jxpf", udev_backup, "-C" "/dev")
+
+    # disable hotplug helper, udevd listens to netlink
+    write("/proc/sys/kernel/hotplug", " ")
+
     ui.info(_("Starting udev"))
     run("/sbin/udevd", "--daemon")
 
     ui.info("Populating /dev")
-
-    # FIXME: Seperate this one and call with subprocess to achieve faster boot, but probably race will occur!!!
 
     list = []
     first = []
@@ -465,8 +467,6 @@ def setupUdev():
     ensureDirs("/dev/shm")
     # Mark the /dev management system type
     touch("/dev/.udev")
-    # Using netlink for hotplug events...
-    write("/proc/sys/kernel/hotplug", " ")
 
 def checkRoot():
     if not config.get("livecd"):
