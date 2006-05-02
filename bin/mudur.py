@@ -412,11 +412,13 @@ def startServices():
 #
 
 def setupUdev():
-    udev_backup = "/lib/udev-state/devices.tar.bz2"
-    # many video drivers require exec access in /dev
     ui.info(_("Mounting /dev"))
+    # many video drivers require exec access in /dev
     mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755 udev /dev")
-    ui.info(_("Restoring saved device states"))
+    
+    if os.path.exists("/lib/udev/devices"):
+        ui.info(_("Restoring saved device states"))
+        run_quiet("cp -ar /lib/udev/devices/* /dev")
     if os.path.exists(udev_backup):
         run("/bin/tar", "-jxpf", udev_backup, "-C" "/dev")
 
@@ -426,7 +428,7 @@ def setupUdev():
     ui.info(_("Starting udev"))
     run("/sbin/udevd", "--daemon")
 
-    ui.info("Populating /dev")
+    ui.info(_("Populating /dev"))
 
     list = []
     first = []
