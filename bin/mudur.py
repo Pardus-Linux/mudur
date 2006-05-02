@@ -190,6 +190,7 @@ class Config:
             "clock": "local",
             "debug": False,
             "livecd": False,
+            "safe": False,
         }
         # load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
@@ -223,6 +224,8 @@ class Config:
                     self.opts["livecd"] = True
                 elif opt == "debug":
                     self.opts["debug"] = True
+                elif opt == "safe":
+                    self.opts["safe"] = True
                 elif opt.startswith("lang:"):
                     self.opts["language"] = opt[5:]
                 elif opt.startswith("keymap:"):
@@ -403,8 +406,9 @@ def startServices():
         ui.warn(_("Cannot start system logger"))
     # Give login screen a headstart
     link.call_package("System.Service.ready", "kdebase")
-    time.sleep(1.5)
-    link.call("System.Service.ready")
+    if not config.get("safe"):
+        time.sleep(1.5)
+        link.call("System.Service.ready")
 
 
 #
@@ -419,8 +423,6 @@ def setupUdev():
     if os.path.exists("/lib/udev/devices"):
         ui.info(_("Restoring saved device states"))
         run_quiet("cp -ar /lib/udev/devices/* /dev")
-    if os.path.exists(udev_backup):
-        run("/bin/tar", "-jxpf", udev_backup, "-C" "/dev")
 
     # disable hotplug helper, udevd listens to netlink
     write("/proc/sys/kernel/hotplug", " ")
@@ -599,6 +601,9 @@ def localMount():
     run("/sbin/swapon", "-a")
 
 def hdparm():
+    if config.get("safe"):
+        return
+    
     if not os.path.exists("/sbin/hdparm") or not os.path.exists("/etc/conf.d/hdparm"):
         return
     
