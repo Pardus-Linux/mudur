@@ -422,7 +422,7 @@ def setupUdev():
     
     if os.path.exists("/lib/udev/devices"):
         ui.info(_("Restoring saved device states"))
-        run_quiet("cp -ar /lib/udev/devices/* /dev")
+        run_quiet("cp", "-ar", "/lib/udev/devices/*", "/dev")
 
     # disable hotplug helper, udevd listens to netlink
     write("/proc/sys/kernel/hotplug", " ")
