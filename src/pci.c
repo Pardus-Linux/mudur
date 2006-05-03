@@ -73,11 +73,14 @@ pci_probe_modules(const char *mapname)
 		char *tmp;
 		unsigned int vals[6];
 		int i;
+
 		if (line[0] == '#' || line[0] == '\n' || line[0] == '\0')
 			continue;
 		strtok(line, " \t");
 		for (i = 0; i < 6; i++) {
 			tmp = strtok(NULL, " \t");
+			while (tmp != NULL && tmp[0] == '\0')
+				tmp = strtok(NULL, " \t");
 			if (!tmp) break;
 			vals[i] = strtoul(tmp, NULL, 16);
 		}

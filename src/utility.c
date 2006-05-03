@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 void *
 zalloc(size_t size)
@@ -40,18 +41,23 @@ concat(const char *str, const char *append)
 char *
 my_readlink(const char *path)
 {
+	char *pathdir;
+	char *tmp;
 	char buf[512];
 	size_t size;
-	printf("[%s]\n", path);
+
 	size = readlink(path, buf, 510);
 	if (size == -1) {
 		buf[0] = '\0';
-		printf("e[%s]\n", buf);
 		return strdup(buf);
 	}
 	buf[size] = '\0';
-	printf("f[%s]\n", buf);
-	return strdup(buf);
+	pathdir = strdup(path);
+	tmp = pathdir + strlen(path) - 1;
+	while (*tmp != '/') --tmp;
+	++tmp;
+	*tmp = '\0';
+	return concat(pathdir, buf);
 }
 
 char *

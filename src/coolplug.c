@@ -19,9 +19,9 @@ int
 main(int argc, char *argv[])
 {
 	puts("pci");
-	pci_probe_modules("/lib/modules/2.6.16.11-36/modules.pcimap");
+	pci_probe_modules("/lib/modules/2.6.16.12-37/modules.pcimap");
 	puts("usb");
-	usb_probe_modules("/lib/modules/2.6.16.11-36/modules.usbmap");
+	usb_probe_modules("/lib/modules/2.6.16.12-37/modules.usbmap");
 	puts("scsi");
 	scsi_probe_modules();
 

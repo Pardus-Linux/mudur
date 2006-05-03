@@ -104,10 +104,14 @@ usb_probe_modules(const char *mapname)
 			continue;
 		strtok(line, " \t");
 		tmp = strtok(NULL, " \t");
+		while (tmp != NULL && tmp[0] == '\0')
+			tmp = strtok(NULL, " \t");
 		if (!tmp) continue;
 		flags = strtoul(tmp, NULL, 16);
 		for (i = 0; i < 10; i++) {
 			tmp = strtok(NULL, " \t");
+			while (tmp != NULL && tmp[0] == '\0')
+				tmp = strtok(NULL, " \t");
 			if (!tmp) break;
 			vals[i] = strtoul(tmp, NULL, 16);
 		}
