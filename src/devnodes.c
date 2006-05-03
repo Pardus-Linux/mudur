@@ -48,7 +48,7 @@ devnodes_populate(void)
 			if (minor) {
 				char buf[512];
 				sprintf(buf, "/sbin/mknod /dev/%s b %s %s", tmp, major, minor);
-				printf("%s\n", buf);
+				system(buf);
 			}
 		}
 	}

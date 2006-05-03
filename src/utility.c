@@ -124,8 +124,7 @@ modlist_probe(struct modlist *list)
 	struct modlist *item;
 
 	for (item = list; item; item = item->next) {
-		printf("lala[%s]\n", item->name);
-		//system(concat("/sbin/modprobe ", item->name));
+		system(concat("/sbin/modprobe -q ", item->name));
 	}
 	return 0;
 }
