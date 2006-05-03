@@ -10,6 +10,11 @@
 ** option) any later version. Please read the COPYING file.
 */
 
+#include <stddef.h>
+#include <sys/utsname.h>
+
+#include "utility.h"
+
 int pci_probe_modules(const char *mappath);
 int usb_probe_modules(const char *mappath);
 int scsi_probe_modules(void);
@@ -18,8 +23,13 @@ int devnodes_populate(void);
 int
 main(int argc, char *argv[])
 {
-	pci_probe_modules("/lib/modules/2.6.16.12-37/modules.pcimap");
-	usb_probe_modules("/lib/modules/2.6.16.12-37/modules.usbmap");
+	struct utsname name;
+	char *mappath;
+
+	uname(&name);
+	mappath = concat("/lib/modules/", name.release);
+	pci_probe_modules(concat(mappath, "/modules.pcimap"));
+	usb_probe_modules(concat(mappath, "/modules.usbmap"));
 	scsi_probe_modules();
 
 	devnodes_populate();
