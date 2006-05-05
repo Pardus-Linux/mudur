@@ -42,11 +42,21 @@ def sysHexValue(path, value):
 
 def blackList():
     blacks = set()
-    for line in file("/etc/hotplug/blacklist"):
-        line = line.rstrip('\n')
-        if line == '' or line.startswith('#'):
-            continue
-        blacks.add(line)
+    # Unlike env.d and modules.d, blacklist is not generated
+    # from blacklist.d, they all used together
+    if os.path.exists("/etc/hotplug/blacklist"):
+        for line in file("/etc/hotplug/blacklist"):
+            line = line.rstrip('\n')
+            if line == '' or line.startswith('#'):
+                continue
+            blacks.add(line)
+    if os.path.exists("/etc/hotplug/blacklist.d"):
+        for name in os.listdir("/etc/hotplug/blacklist.d"):
+            for line in file(os.path.join("/etc/hotplug/blacklist.d", name)):
+                line = line.rstrip('\n')
+                if line == '' or line.startswith('#'):
+                    continue
+                blacks.add(line)
     return blacks
 
 def tryModule(modname):
