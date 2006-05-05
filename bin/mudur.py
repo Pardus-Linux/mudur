@@ -626,7 +626,7 @@ def hdparm():
     if len(dict) > 0:
         ui.info(_("Setting disk parameters"))
         if dict.has_key("all"):
-            for name in os.listdir("/dev"):
+            for name in os.listdir("/sys/block/"):
                 if name.startswith("hd") and len(name) == 3 and not dict.has_key(name):
                     args = [ "/sbin/hdparm", "/dev/%s" % name ]
                     args.extend(dict["all"].split())
