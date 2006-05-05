@@ -1,0 +1,13 @@
+muavin:
+    ieee1394
+    input
+    /etc/hotplug/usb/*.usermap desteği
+
+mudur:
+    sistem dili set et, /etc/env.d/03locale
+    splash sorunlarını çöz
+    single ve nonetwork runlevels
+
+update-modules:
+    tam çalışır hale getir
+
