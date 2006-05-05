@@ -6,7 +6,7 @@ muavin:
 mudur:
     sistem dili set et, /etc/env.d/03locale
     splash sorunlarını çöz
-    single ve nonetwork runlevels
+    nonetwork runlevel
 
 update-modules:
     tam çalışır hale getir
