@@ -327,14 +327,21 @@ def setConsole():
     run_quiet("/bin/loadkeys", keymap)
     run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
 
+def setLanguage():
+    lang = config.get("language")
+    # See the comment in setConsole
+    if not languages.has_key(lang):
+        lang = "en"
+    language = languages[lang]
+    # Update environment if necessary
+    content = "LANG=%s\nLC_ALL=%s\n" % (language.locale, language.locale)
+    if content != loadFile("/etc/env.d/03locale"):
+        write("/etc/env.d/03locale", content)
+
 def setSplash(splashTheme = "pardus"):
     """Setup console splash and proper encodings for consoles"""
     lang = config.get("language")
-
-    # If language is unknown, default to English
-    # Default language is Turkish, so this only used if someone
-    # selected a language which isn't Turkish or English, and
-    # in that case it is more likely they'll prefer English.
+    # See the comment in setConsole
     if not languages.has_key(lang):
         lang = "en"
     language = languages[lang]
@@ -859,6 +866,8 @@ if sys.argv[1] == "sysinit":
     subprocess.Popen(["/sbin/muavin.py", "--coldplug"])
     
     setClock()
+    
+    setLanguage()
     
     # better performance for SMP systems, /var/run must be mounted rw before this
     if os.path.exists("/sbin/irqbalance"):
