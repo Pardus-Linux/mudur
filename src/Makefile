@@ -8,3 +8,6 @@ LDFLAGS=
 $(EXE): $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $(EXE) $(OBJS)
 	strip -s --remove-section=.note --remove-section=.comment $(EXE)
+
+clean:
+	rm -f $(EXE)
