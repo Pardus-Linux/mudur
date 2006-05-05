@@ -410,6 +410,14 @@ def startServices():
         time.sleep(1.5)
         link.call("System.Service.ready")
 
+def stopServices():
+    ui.info(_("Stopping services"))
+    run_quiet("/usr/bin/hav", "call", "System.Service.stop")
+
+def stopComar():
+    ui.info(_("Stopping COMAR"))
+    run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/comar.pid")
+
 
 #
 # Initialization functions
@@ -706,11 +714,8 @@ def stopSystem():
         """sort helper"""
         return x[1]
     
-    ui.info(_("Stopping services"))
-    run_quiet("/usr/bin/hav", "call", "System.Service.stop")
-    
-    ui.info(_("Stopping COMAR"))
-    run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/comar.pid")
+    stopServices()
+    stopComar()
     
     saveClock()
     
@@ -873,7 +878,6 @@ if sys.argv[1] == "sysinit":
     run("/usr/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
     run("/usr/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
-
 elif sys.argv[1] == "boot":
     ui.info(_("Setting up localhost"))
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
@@ -896,6 +900,9 @@ elif sys.argv[1] == "boot":
 
 elif sys.argv[1] == "default":
     startServices()
+
+elif sys.argv[1] == "single":
+    stopServices()
 
 elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
     # Log the operation before unmounting file systems
