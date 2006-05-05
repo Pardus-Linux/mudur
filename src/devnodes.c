@@ -16,6 +16,39 @@
 #include "utility.h"
 
 int
+mknod_parts(char *dev)
+{
+	char *path;
+	DIR *dir;
+	struct dirent *dirent;
+	char *tmp;
+	char *major;
+	char *minor;
+	char buf[512];
+
+	path = concat("/sys/block/", dev);
+	dir = opendir(path);
+	if (!dir) return -1;
+	while((dirent = readdir(dir))) {
+		char *name = dirent->d_name;
+		if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0 || strlen(name) < 3)
+			continue;
+		if (strncmp(name, dev, strlen(dev)) != 0)
+			continue;
+		tmp = concat(concat(path, "/"), name);
+		tmp = sys_value(tmp, "dev");
+		major = strtok(tmp, ":");
+		minor = strtok(NULL, "");
+		if (minor) {
+			sprintf(buf, "/bin/mknod /dev/%s b %s %s", name, major, minor);
+			system(buf);
+		}
+	}
+	closedir(dir);
+	return 0;
+}
+
+int
 devnodes_populate(void)
 {
 	DIR *dir;
@@ -49,6 +82,7 @@ devnodes_populate(void)
 				char buf[512];
 				sprintf(buf, "/bin/mknod /dev/%s b %s %s", tmp, major, minor);
 				system(buf);
+				mknod_parts(tmp);
 			}
 		}
 	}
