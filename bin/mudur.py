@@ -347,8 +347,8 @@ def setSplash(splashTheme = "pardus"):
     language = languages[lang]
 
     for i in range(1, 13):
-        run("/usr/bin/splash_manager", "-m", "v", "--theme=%s" % splashTheme, "--cmd=set", "--tty=%s" % i)
         run("/usr/bin/setfont", "-f", language.font, "-m", language.trans, "-C", "/dev/tty%s" %i)
+        run("/usr/bin/splash_manager", "--mode=v", "--theme=%s" % splashTheme, "--cmd=set", "--tty=%s" % i)
 
 def setTranslation():
     """Load translation"""
@@ -367,7 +367,7 @@ def ttyUnicode():
     K_UNICODE = 0x03
     for i in range(1, 13):
         try:
-            f = file("/dev/tty" + str(i), "w")
+            f = file("/dev/tty%s" % i, "w")
             fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
             f.write(UI.UNICODE_MAGIC)
             f.close()
@@ -852,8 +852,6 @@ if sys.argv[1] == "sysinit":
     # only panic messages will be printed
     run("/bin/dmesg", "-n", "1")
     
-    ttyUnicode()
-    
     checkRoot()
     setHostname()
     modules()
@@ -906,6 +904,8 @@ elif sys.argv[1] == "boot":
     startComar()
 
     setSplash()
+
+    ttyUnicode()
 
 elif sys.argv[1] == "default":
     startServices()
