@@ -73,6 +73,7 @@ def parse_line(modulesd_line):
     op, name = line.split(None, 1)
     if " " in name or "\t" in name:
         name, rest = name.split(None, 1)
+        rest = rest.rstrip()
     
     return (op, name, rest)
 
@@ -103,11 +104,14 @@ class ModOp:
         out.write("%s %s " % (op, self.name))
         if self.pre:
             out.write("{ %s; } ; " % self.pre)
-        if op == "install":
-            tmp = "--first-time --ignore-install"
+        if self.op:
+            out.write(self.op)
         else:
-            tmp = "-r --first-time --ignore-remove"
-        out.write("{/sbin/modprobe %s %s}" % (tmp, self.name))
+            if op == "install":
+                tmp = "--first-time --ignore-install"
+            else:
+                tmp = "-r --first-time --ignore-remove"
+            out.write("/sbin/modprobe %s %s" % (tmp, self.name))
         if self.post:
             out.write(" && { %s; }" % self.post)
         out.write("\n")
@@ -131,7 +135,7 @@ def find_alias_name(name):
 
 def generate_modprobe_conf(out, modulesd):
     lines = join_modulesd(modulesd)
-    aliases = []
+    aliases = {}
     options = []
     install_ops = {}
     remove_ops = {}
@@ -159,9 +163,12 @@ def generate_modprobe_conf(out, modulesd):
         op, name, rest = parse_line(line)
         
         if op == "alias":
-            name = find_alias_name(name)
-            dest = find_alias_dest(rest, lines)
-            aliases.append("alias %s %s" % (name, dest))
+            if rest == "off" or rest == "null":
+                set_op(name, "install", "/bin/true");
+            else:
+                name = find_alias_name(name)
+                dest = find_alias_dest(rest, lines)
+                aliases[name] = dest
         
         elif op == "options":
             # FIXME: separate install opts
@@ -169,16 +176,16 @@ def generate_modprobe_conf(out, modulesd):
         
         elif op == "above":
             rest = rest.split()
-            tmp = ";".join(map(lambda x: "/sbin/modprobe %s" % x, rest))
+            tmp = "; ".join(map(lambda x: "/sbin/modprobe %s" % x, rest))
             set_op(name, "post_install", tmp + "; /bin/true")
-            tmp = ";".join(map(lambda x: "/sbin/modprobe -r %s" % x, rest))
+            tmp = "; ".join(map(lambda x: "/sbin/modprobe -r %s" % x, rest))
             set_op(name, "pre_remove", tmp)
         
         elif op == "below":
             rest = rest.split()
-            tmp = ";".join(map(lambda x: "/sbin/modprobe %s" % x, rest))
+            tmp = "; ".join(map(lambda x: "/sbin/modprobe %s" % x, rest))
             set_op(name, "pre_install", tmp)
-            tmp = ";".join(map(lambda x: "/sbin/modprobe -r %s" % x, rest))
+            tmp = "; ".join(map(lambda x: "/sbin/modprobe -r %s" % x, rest))
             set_op(name, "post_remove", tmp + "; /bin/true")
         
         elif op == "install":
@@ -203,7 +210,9 @@ def generate_modprobe_conf(out, modulesd):
     
     out.write(header)
     out.write(header_note)
-    out.write("\n".join(aliases))
+    keys = aliases.keys()
+    keys.sort()
+    out.write("\n".join(map(lambda x: "alias %s %s" % (x, aliases[x]), keys)))
     out.write("\n\n")
     out.write("\n".join(options))
     out.write("\n\n")
