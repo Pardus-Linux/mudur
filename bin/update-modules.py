@@ -113,9 +113,12 @@ class ModOp:
         out.write("\n")
 
 
-def find_alias_dest(rest, lines):
-    # FIXME: find and recurse
-    return rest
+def find_alias_dest(dest, lines):
+    for line in lines:
+        op, name, rest = parse_line(line)
+        if op == "alias" and name == dest:
+            return find_alias_dest(rest, lines)
+    return dest
 
 def find_alias_name(name):
     tmp = name.split("-")
