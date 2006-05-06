@@ -43,6 +43,9 @@ def read_modules_d():
         # skip backup and version control files
         if name.endswith("~") or name.endswith(".bak") or name.endswith(",v"):
             continue
+        # skip pisi oldconfig files
+        if name.endswith(".oldconfig"):
+            continue
         
         f = file(path)
         data.append((path, f.read()))
@@ -171,8 +174,24 @@ def generate_modprobe_conf(out, modulesd):
                 aliases[name] = dest
         
         elif op == "options":
-            # FIXME: separate install opts
-            options.append("options %s %s" % (name, rest))
+            opts = []
+            modopts = []
+            next = False
+            for opt in rest.split():
+                if opt == "-o":
+                    modopts.append("-o")
+                    next = True
+                else:
+                    if next:
+                        modopts.append(opt)
+                    else:
+                        opts.append(opt)
+                    next = False
+            if len(modopts) > 0:
+                set_op(name, "install", "/sbin/modprobe %s --ignore-install %s" % (
+                    " ".join(modopts), find_alias_dest(name, lines)))
+            if len(opts) > 0:
+                options.append("options %s %s" % (name, " ".join(opts)))
         
         elif op == "above":
             rest = rest.split()
@@ -206,7 +225,17 @@ def generate_modprobe_conf(out, modulesd):
         elif op == "post-remove":
             set_op(name, "post_remove", rest)
         
-        # FIXME: probe, probeall, other crap
+        elif op == "probe":
+            rest = rest.split()
+            tmp = " || ".join(map(lambda x: "/sbin/modprobe %s" % x, rest))
+            set_op(name, "install", tmp)
+        
+        elif op == "probeall":
+            rest = rest.split()
+            tmp = "; ".join(map(lambda x: "/sbin/modprobe %s" % x, rest))
+            set_op(name, "install", tmp + "; /bin/true")
+        
+        # prune, ifdef, othercrap not converted
     
     out.write(header)
     out.write(header_note)
