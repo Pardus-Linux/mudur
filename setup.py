@@ -78,6 +78,8 @@ def install(args):
     install_file("bin/mudur.py", prefix, "sbin/mudur.py")
     install_file("bin/muavin.py", prefix, "sbin/muavin.py")
     install_file("bin/update-environment.py", prefix, "sbin/update-environment")
+    install_file("bin/update-modules.py", prefix, "sbin/update-modules")
+    os.symlink("update-modules", os.path.join(prefix, "sbin/modules-update"))
     install_file("bin/service.py", prefix, "bin/service")
     install_file("etc/udev-mudur.rules", prefix, "etc/udev/rules.d/51-mudur.rules")
     install_file("etc/blacklist", prefix, "etc/hotplug/blacklist")
