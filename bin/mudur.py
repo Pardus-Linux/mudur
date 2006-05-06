@@ -565,8 +565,7 @@ def modules():
     if not os.path.exists("/proc/modules"):
         return
     
-    if mdirdate("/etc/modules.d") > mdate("/etc/modules.conf"):
-        # FIXME: convert this script to python
+    if mdirdate("/etc/modules.d") > mdate("/etc/modprobe.conf"):
         ui.info(_("Calculating module dependencies"))
         run_quiet("/sbin/modules-update")
     
