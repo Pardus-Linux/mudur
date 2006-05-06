@@ -4,9 +4,5 @@ muavin:
     /etc/hotplug/usb/*.usermap desteği
 
 mudur:
-    splash sorunlarını çöz
     nonetwork runlevel
-
-update-modules:
-    tam çalışır hale getir
 
