@@ -59,13 +59,13 @@ def make_dist():
 
 def install_file(source, prefix, dest):
     dest = os.path.join(prefix, dest)
+    if os.path.islink(dest):
+        os.unlink(dest)
     try:
         os.makedirs(os.path.dirname(dest))
     except:
         pass
     print "installing '%s' to '%s'" % (source, dest)
-    if os.path.exists(dest):
-        os.unlink(dest)
     os.system("cp %s %s" % (source, dest))
 
 def install(args):
@@ -83,7 +83,7 @@ def install(args):
     install_file("bin/update-environment.py", prefix, "sbin/update-environment")
     install_file("bin/update-modules.py", prefix, "sbin/update-modules")
     dest = os.path.join(prefix, "sbin/modules-update")
-    if os.path.exists(dest):
+    if os.path.exists(dest) or os.path.islink(dest):
         os.unlink(dest)
     os.symlink("update-modules", dest)
     install_file("bin/service.py", prefix, "bin/service")
