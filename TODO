@@ -1,5 +1,4 @@
 muavin:
-    ieee1394
     input
     /etc/hotplug/usb/*.usermap desteği
 

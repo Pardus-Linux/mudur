@@ -123,6 +123,45 @@ class PCI:
 
 #
 
+class FireWire:
+    def deviceInfo(self, devpath):
+        return (
+            int(sysValue(path, "vendor_id"), 16),
+            int(sysValue(path, "model_id"), 16),
+            int(sysValue(path, "specifier_id"), 16),
+            int(sysValue(path, "version"), 16),
+        )
+    
+    def findModules(self, devpath):
+        dev = self.deviceInfo(devpath)
+        modules = set()
+        for line in file("/lib/modules/%s/modules.ieee1394map" % os.uname()[2]):
+            if line == '' or line.startswith('#'):
+                continue
+            
+            mod, rest = line.split(None, 1)
+            vals = map(lambda x: int(x, 16), rest.split())
+            
+            if vals[0] & 1 and vals[1] != dev[0]:
+                continue
+            
+            if vals[0] & 4 and vals[3] != dev[2]:
+                continue
+            
+            if vals[0] & 8 and vals[4] != dev[3]:
+                continue
+            
+            modules.add(mod)
+        
+        return modules
+    
+    def hotPlug(self, action, devpath, env):
+        if action != "add" or not devpath:
+            return
+        loadModules(self.findModules(devpath))
+
+#
+
 class USB:
     def deviceInfo(self, path):
         dev = [
@@ -327,6 +366,7 @@ cold_pluggers = ( PNP, PCI, USB )
 hot_pluggers = {
     "pci": PCI,
     "usb": USB,
+    "ieee1394": FireWire,
     "scsi": SCSI,
     "firmware": Firmware,
 }
