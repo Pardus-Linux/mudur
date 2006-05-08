@@ -194,8 +194,9 @@ class Config:
         }
         # load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
-            for key in loadConfig("/etc/conf.d/mudur"):
-                self.opts[key] = dict[key]
+            dict_ = loadConfig("/etc/conf.d/mudur")
+            for key in dict_:
+                self.opts[key] = dict_[key]
     
     def get_kernel_opt(self, cmdopt):
         if not self.cmdline:
