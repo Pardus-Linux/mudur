@@ -124,7 +124,8 @@ modlist_probe(struct modlist *list)
 	struct modlist *item;
 
 	for (item = list; item; item = item->next) {
-		system(concat("/sbin/modprobe -q ", item->name));
+		// system(concat("/sbin/modprobe -q ", item->name));
+		system(concat("/sbin/modprobe ", item->name));
 	}
 	return 0;
 }
