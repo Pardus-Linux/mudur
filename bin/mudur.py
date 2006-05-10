@@ -328,7 +328,7 @@ def setConsole():
     run_quiet("/bin/loadkeys", keymap)
     run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
 
-def setLanguage():
+def setSystemLanguage():
     lang = config.get("language")
     # See the comment in setConsole
     if not languages.has_key(lang):
@@ -338,6 +338,26 @@ def setLanguage():
     content = "LANG=%s\nLC_ALL=%s\n" % (language.locale, language.locale)
     if content != loadFile("/etc/env.d/03locale"):
         write("/etc/env.d/03locale", content)
+    # Update PAM language
+    data = []
+    found = False
+    for line in file("/etc/login.defs"):
+        if line.startswith("RC_LC_ALL"):
+            found = True
+            key, old = line.split()
+            old = old.rstrip("\n")
+            if old == language.locale:
+                data.append(line)
+            else:
+                data.append("RC_LC_ALL\t%s\n" % language.locale)
+        else:
+            data.append(line)
+    if not found:
+        data.append("\n\nRC_LC_ALL\t%s\n" % language.locale)
+    data = "".join(data)
+    olddata = loadFile("/etc/login.defs")
+    if data != olddata:
+        write("/etc/login.defs", data)
 
 def setSplash(splashTheme = "pardus"):
     """Setup console splash and proper encodings for consoles"""
@@ -865,7 +885,7 @@ if sys.argv[1] == "sysinit":
     
     setClock()
     
-    setLanguage()
+    setSystemLanguage()
     
     # better performance for SMP systems, /var/run must be mounted rw before this
     if os.path.exists("/sbin/irqbalance"):
