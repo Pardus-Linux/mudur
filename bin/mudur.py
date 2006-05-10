@@ -531,12 +531,13 @@ def checkRoot():
 def setHostname():
     khost = capture("/bin/hostname")[0].rstrip("\n")
     uhost = None
-    data = loadFile("/etc/env.d/01hostname")
-    i = data.find('HOSTNAME="')
-    if i != -1:
-        j = data.find('"',i+10)
-        if j != -1:
-            uhost = data[i+10:j]
+    if os.path.exists("/etc/env.d/01hostname"):
+        data = loadFile("/etc/env.d/01hostname")
+        i = data.find('HOSTNAME="')
+        if i != -1:
+            j = data.find('"',i+10)
+            if j != -1:
+                uhost = data[i+10:j]
     
     if khost != "" and khost != "(none)":
         # kernel already got a hostname (pxeboot or something)
