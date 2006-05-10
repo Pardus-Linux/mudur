@@ -338,26 +338,6 @@ def setSystemLanguage():
     content = "LANG=%s\nLC_ALL=%s\n" % (language.locale, language.locale)
     if content != loadFile("/etc/env.d/03locale"):
         write("/etc/env.d/03locale", content)
-    # Update PAM language
-    data = []
-    found = False
-    for line in file("/etc/login.defs"):
-        if line.startswith("RC_LC_ALL"):
-            found = True
-            key, old = line.split()
-            old = old.rstrip("\n")
-            if old == language.locale:
-                data.append(line)
-            else:
-                data.append("RC_LC_ALL\t%s\n" % language.locale)
-        else:
-            data.append(line)
-    if not found:
-        data.append("\n\nRC_LC_ALL\t%s\n" % language.locale)
-    data = "".join(data)
-    olddata = loadFile("/etc/login.defs")
-    if data != olddata:
-        write("/etc/login.defs", data)
 
 def setSplash(splashTheme = "pardus"):
     """Setup console splash and proper encodings for consoles"""
