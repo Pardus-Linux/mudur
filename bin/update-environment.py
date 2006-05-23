@@ -115,10 +115,24 @@ def update_file(path, content):
     f.close()
     return True
 
+def update_environment(prefix):
+    join = os.path.join
+    
+    env = read_env_d(join(prefix, "etc/env.d"))
+    update_file(join(prefix, "etc/profile.env"), generate_profile_env(env))
+    update_file(join(prefix, "etc/csh.env"), generate_profile_env(env, 'setenv %s %s\n'))
+    if env.has_key("LDPATH"):
+        update_file(join(prefix, "etc/ld.so.conf"), generate_ld_so_conf(env))
+        subprocess.call(["/sbin/ldconfig", "-X", "-r", prefix])
+
+#
+# Command line driver
+#
+
 def usage():
     print "update-environment [--destdir <prefix>]"
 
-def update_environment(argv):
+def main(argv):
     prefix = "/"
     
     try:
@@ -133,17 +147,7 @@ def update_environment(argv):
         if o in ("--destdir"):
             prefix = a
     
-    join = os.path.join
-    
-    env = read_env_d(join(prefix, "etc/env.d"))
-    update_file(join(prefix, "etc/profile.env"), generate_profile_env(env))
-    update_file(join(prefix, "etc/csh.env"), generate_profile_env(env, 'setenv %s %s\n'))
-    if env.has_key("LDPATH"):
-        if update_file(join(prefix, "etc/ld.so.conf"), generate_ld_so_conf(env)):
-            if prefix == "/":
-                subprocess.call(["/sbin/ldconfig", "-X"])
-            else:
-                subprocess.call(["/sbin/ldconfig", "-X", "-r", prefix])
+    update_environment(prefix)
 
 if __name__ == "__main__":
-    update_environment(sys.argv[1:])
+    main(sys.argv[1:])
