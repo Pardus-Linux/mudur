@@ -629,13 +629,15 @@ def hdparm():
         if dict.has_key("all"):
             for name in os.listdir("/sys/block/"):
                 if name.startswith("hd") and len(name) == 3 and not dict.has_key(name):
-                    args = [ "/sbin/hdparm", "/dev/%s" % name ]
+                    args = [ "/sbin/hdparm" ]
                     args.extend(dict["all"].split())
+                    args.append("/dev/%s" % name)
                     run_quiet(*args)
         for key in dict:
             if key != "all":
-                args = [ "/sbin/hdparm", "/dev/%s" % key ]
+                args = [ "/sbin/hdparm" ]
                 args.extend(dict[key].split())
+                args.append("/dev/%s" % name)
                 run_quiet(*args)
 
 def setClock():
