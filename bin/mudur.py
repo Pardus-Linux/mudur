@@ -637,7 +637,7 @@ def hdparm():
             if key != "all":
                 args = [ "/sbin/hdparm" ]
                 args.extend(dict[key].split())
-                args.append("/dev/%s" % name)
+                args.append("/dev/%s" % key)
                 run_quiet(*args)
 
 def setClock():
