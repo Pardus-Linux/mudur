@@ -51,6 +51,7 @@ class CPU:
     
     def findModules(self):
         modules = set()
+        
         if self.vendor == "GenuineIntel":
             # Pentium M, Enhanced SpeedStep
             if "est" in self.flags:
@@ -63,6 +64,7 @@ class CPU:
                 # SpeedStep ICH, PIII-M and P4-M with ICH2/3/4 southbridges
                 if self._detect_ich():
                     modules.add("speedstep-ich")
+        
         elif self.vendor == "AuthenticAMD":
             # Mobile K6-1/2 CPUs
             if self.family == 5 and (self.model == 12 or self.model == 13):
@@ -70,17 +72,21 @@ class CPU:
             # Mobile Athlon/Duron
             elif self.family == 6:
                 modules.add("powernow-k7")
+            # AMD Opteron/Athlon64
             #elif lala:
             #    modules.add("powernow-k8")
+        
         elif self.vendor == "CentaurHauls":
             # VIA Cyrix III Longhaul
             if self.family == 6:
                 if self.model >= 6 and self.model <= 9:
                     modules.add("longhaul")
+        
         elif self.vendor == "GenuineTMx86":
             # Transmeta LongRun
             if "longrun" in self.flags:
                 modules.add("longrun")
+        
         return modules
 
 
