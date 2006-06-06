@@ -72,6 +72,15 @@ class CPU:
                 modules.add("powernow-k7")
             #elif lala:
             #    modules.add("powernow-k8")
+        elif self.vendor == "CentaurHauls":
+            # VIA Cyrix III Longhaul
+            if self.family == 6:
+                if self.model >= 6 and self.model <= 9:
+                    modules.add("longhaul")
+        elif self.vendor == "GenuineTMx86":
+            # Transmeta LongRun
+            if "longrun" in self.flags:
+                modules.add("longrun")
         return modules
 
 
