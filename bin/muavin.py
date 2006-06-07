@@ -363,7 +363,7 @@ class CPU:
         return None
     
     def _detect_speedstep(self):
-        #Â FIXME: implement this
+        # FIXME: implement this
         return 0
     
     def _detect_ich(self):
@@ -420,6 +420,11 @@ class CPU:
                 modules.add("longrun")
         
         return modules
+    
+    def coldModules(self):
+        if os.path.exists("/sys/devices/system/cpu/cpu0/cpufreq/"):
+            return set()
+        return self.findModules()
 
 
 #
@@ -467,7 +472,11 @@ def coldPlug():
     modules = set()
     for class_ in cold_pluggers:
         plug = class_()
-        modules = modules.union(plug.findModules())
+        try:
+            tmp = plug.coldModules()
+        except:
+            tmp = plug.findModules()
+        modules = modules.union(tmp)
     modules = modules.difference(blackList())
     for mod in modules:
         tryModule(mod)
