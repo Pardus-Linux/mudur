@@ -342,6 +342,7 @@ class CPU:
         self.vendor = "unknown"
         self.family = None
         self.model = None
+        self.name = ""
         self.flags = []
         for line in file("/proc/cpuinfo"):
             if line.startswith("vendor_id"):
@@ -350,6 +351,8 @@ class CPU:
                 self.family = int(line.split(":")[1].strip())
             elif not self.model and line.startswith("model"):
                 self.model = int(line.split(":")[1].strip())
+            elif line.startswith("model name"):
+                self.name = line.split(":")[1].strip()
             elif line.startswith("flags"):
                 self.flags = line.split(":", 1)[1].strip().split()
     
@@ -361,10 +364,6 @@ class CPU:
             if ven == vendor and dev == device:
                 return item
         return None
-    
-    def _detect_speedstep(self):
-        # FIXME: implement this
-        return 0
     
     def _detect_ich(self):
         ich = 0
@@ -381,6 +380,15 @@ class CPU:
                 ich = 2
         return ich
     
+    def _detect_acpi_pps(self):
+        # NOTE: This may not be a correct way to detect this
+        if os.path.exists("/proc/acpi/processor/CPU0/info"):
+            for line in file("/proc/acpi/processor/CPU0/info"):
+                if line.startswith("power management"):
+                    if line.split(":")[1].strip() == "yes":
+                        return True
+        return False
+    
     def findModules(self):
         modules = set()
         
@@ -388,14 +396,19 @@ class CPU:
             # Pentium M, Enhanced SpeedStep
             if "est" in self.flags:
                 modules.add("speedstep-centrino")
-            # P4 and XEON processors with thermal control
-            elif "acpi" in self.flags and "tm" in self.flags:
-                modules.add("p4-clockmod")
-            # SpeedStep
-            elif self._detect_speedstep():
+            # Some kind of Mobile Pentium
+            elif self.name.find("Mobile") != -1:
+                # ACPI Processor Performance States
+                if self._detect_acpi_pps():
+                    modules.add("acpi-cpufreq")
                 # SpeedStep ICH, PIII-M and P4-M with ICH2/3/4 southbridges
-                if self._detect_ich():
+                elif self._detect_ich():
                     modules.add("speedstep-ich")
+                # P4 and XEON processors with thermal control
+                # NOTE: Disabled for now, I'm not sure if this does more
+                # harm than good
+                #elif "acpi" in self.flags and "tm" in self.flags:
+                #    modules.add("p4-clockmod")
         
         elif self.vendor == "AuthenticAMD":
             # Mobile K6-1/2 CPUs
