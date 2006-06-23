@@ -43,8 +43,9 @@ def read_modules_d():
         # skip backup and version control files
         if name.endswith("~") or name.endswith(".bak") or name.endswith(",v"):
             continue
-        # skip pisi oldconfig files
-        if name.endswith(".oldconfig"):
+        # skip pisi's config file backups
+        # .oldconfig is obsolete, but checked anyway cause it may still exist at old systems
+        if name.endswith(".oldconfig") or name.endswith(".newconfig"):
             continue
         
         f = file(path)
