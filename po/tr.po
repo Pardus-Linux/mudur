@@ -104,7 +104,7 @@ msgstr "Kök dizini oku-yaz olarak bağlanamadı"
 #: bin/mudur.py:562
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr "Makine adı '%s' olarak ayarlanıyor"
+msgstr "Sistem adı '%s' olarak ayarlanıyor"
 
 #: bin/mudur.py:571
 msgid "Calculating module dependencies"
