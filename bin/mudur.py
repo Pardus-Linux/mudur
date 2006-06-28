@@ -888,9 +888,6 @@ if sys.argv[1] == "sysinit":
     if os.path.exists("/sbin/irqbalance"):
         run("/sbin/irqbalance")
     
-    # improve responsiveness
-    write("/proc/sys/dev/rtc/max-user-freq", "1024")
-    
     # Change inittab for live cd autologin
     if config.get("livecd") and os.path.exists("/etc/inittab.livecd"):
         write("/etc/inittab", loadFile("/etc/inittab.livecd"))
@@ -907,6 +904,8 @@ elif sys.argv[1] == "boot":
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
+    
+    run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
     
     cleanupVar()
 
