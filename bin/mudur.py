@@ -198,6 +198,16 @@ class Config:
             for key in dict_:
                 self.opts[key] = dict_[key]
     
+    def kernel_ge(self, vers):
+        vers = vers.split(".")
+        if int(self.kernel[0]) < int(vers[0]):
+            return False
+        if int(self.kernel[1]) < int(vers[1]):
+            return False
+        if int(self.kernel[2]) < int(vers[2]):
+            return False
+        return True
+    
     def get_kernel_opt(self, cmdopt):
         if not self.cmdline:
             self.cmdline = loadFile("/proc/cmdline").split()
@@ -439,40 +449,48 @@ def setupUdev():
     if os.path.exists("/lib/udev/devices"):
         ui.info(_("Restoring saved device states"))
         run_quiet("cp", "-ar", "/lib/udev/devices/*", "/dev")
-
-    # disable hotplug helper, udevd listens to netlink
-    write("/proc/sys/kernel/hotplug", " ")
-
+    
+    if config.kernel_ge("2.6.16"):
+        # disable hotplug helper, new udevd listens to netlink
+        write("/proc/sys/kernel/hotplug", " ")
+    else:
+        # no netlink support in old kernels
+        write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
+    
     ui.info(_("Starting udev"))
-    run("/sbin/udevd", "--daemon")
 
-    ui.info(_("Populating /dev"))
-
-    list = []
-    first = []
-    default = []
-    last = []
-
-    list = glob.glob("/sys/class/*/*/uevent") + \
-        glob.glob("/sys/block/*/uevent") + \
-        glob.glob("/sys/block/*/*/uevent")
-
-    for sysfsEntry in list:
-        if sysfsEntry.__contains__("/device/uevent"):
-            continue
-        elif sysfsEntry.__contains__("/class/mem/") or sysfsEntry.__contains__("/class/tty/"):
-            first.append(sysfsEntry)
-        elif sysfsEntry.__contains__("/block/md"):
-            last.append(sysfsEntry)
-        else:
-            default.append(sysfsEntry)
-
-    list = first + default + last
-    for destionationFile in list:
-        f = open(destionationFile, "w")
-        f.write("add\n")
-        f.close()
-
+    if config.kernel_ge("2.6.16"):
+        run("/sbin/udevd", "--daemon")
+        
+        ui.info(_("Populating /dev"))
+        
+        list = []
+        first = []
+        default = []
+        last = []
+        
+        list = glob.glob("/sys/class/*/*/uevent") + \
+            glob.glob("/sys/block/*/uevent") + \
+            glob.glob("/sys/block/*/*/uevent")
+        
+        for sysfsEntry in list:
+            if sysfsEntry.__contains__("/device/uevent"):
+                continue
+            elif sysfsEntry.__contains__("/class/mem/") or sysfsEntry.__contains__("/class/tty/"):
+                first.append(sysfsEntry)
+            elif sysfsEntry.__contains__("/block/md"):
+                last.append(sysfsEntry)
+            else:
+                default.append(sysfsEntry)
+        
+        list = first + default + last
+        for destionationFile in list:
+            f = open(destionationFile, "w")
+            f.write("add\n")
+            f.close()
+    else:
+        run("/sbin/udevstart")
+    
     # Not provided by sysfs but needed
     symLink("/dev/fd", "/proc/self/fd")
     symLink("/dev/stdin", "fd/0")
