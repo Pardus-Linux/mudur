@@ -552,7 +552,7 @@ def setHostname():
     if uhost and host != uhost:
         i = data.find('HOSTNAME="')
         if i != -1:
-            j = data.find('"',i+10)
+            j = data.find('"', i+10)
             if j != -1:
                 data = data[:i+10] + host + data[j:]
         else:
@@ -567,7 +567,15 @@ def modules():
     if not os.path.exists("/proc/modules"):
         return
     
+    do_modup = False
+    if os.path.exists("/etc/modprobe.mudur"):
+        depkernel = loadFile("/etc/modprobe.mudur")
+        curkernel = os.uname()[2]
+        if depkernel != curkernel:
+            do_modup = True
     if mdirdate("/etc/modules.d") > mdate("/etc/modprobe.conf"):
+        do_modup = True
+    if do_modup:
         ui.info(_("Calculating module dependencies"))
         run_quiet("/sbin/modules-update")
     

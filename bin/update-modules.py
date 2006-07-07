@@ -273,6 +273,9 @@ def update_modules():
     #generate_modules_conf(sys.stdout, modulesd)
     generate_modprobe_conf(file("/etc/modprobe.conf", "w"), modulesd)
     update_depmod()
+    # Keep kernel version of generated depmap
+    # mudur.py will call us when this isnt same as running kernel
+    file("/etc/modprobe.mudur", "w").write(os.uname()[2])
 
 def main(args):
     # FIXME: check prefix,force,help arguments
