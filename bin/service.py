@@ -13,6 +13,7 @@ import sys
 import os
 import locale
 import comar
+import time
 
 # i18n
 
@@ -71,16 +72,31 @@ def list():
         info = item[2].split("\n")
         print color(info[1]), item[3].ljust(size), info[0].ljust(6), onoff(info[1]).ljust(3), info[2], '\x1b[0m'
 
+def checkDaemon(pidfile):
+    if not os.path.exists(pidfile):
+        return False
+    pid = file(pidfile).read().rstrip("\n")
+    if not os.path.exists("/proc/%s" % pid):
+        return False
+    return True
+
 def manage_comar(op):
     if os.getuid() != 0:
         print _("You should be the root user in order to control the comar service.")
         sys.exit(1)
     
+    comar_pid = "/var/run/comar.pid"
+    
     if op == "stop" or op == "restart":
-        os.system("/sbin/start-stop-daemon --stop --pidfile /var/run/comar.pid")
+        os.system("/sbin/start-stop-daemon --stop --pidfile %s" % comar_pid)
+    
+    timeout = 5
+    while checkDaemon(comar_pid) and timeout > 0:
+        time.sleep(0.2)
+        timeout -= 0.2
     
     if op == "start" or op == "restart":
-        os.system("/sbin/start-stop-daemon -b --start --pidfile /var/run/comar.pid --make-pidfile --exec /usr/bin/comar")
+        os.system("/sbin/start-stop-daemon -b --start --pidfile %s --make-pidfile --exec /usr/bin/comar" % comar_pid)
 
 def start(service):
     c = comlink()
