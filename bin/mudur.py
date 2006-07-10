@@ -237,8 +237,8 @@ class Config:
                     self.opts["debug"] = True
                 elif opt == "safe":
                     self.opts["safe"] = True
-                elif opt.startswith("lang:"):
-                    self.opts["language"] = opt[5:]
+                elif opt.startswith("language:"):
+                    self.opts["language"] = opt[9:]
                 elif opt.startswith("keymap:"):
                     self.opts["keymap"] = opt[7:]
     
