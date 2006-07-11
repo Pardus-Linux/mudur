@@ -180,9 +180,19 @@ class Logger:
 
 class Config:
     def __init__(self):
-        self.kernel = os.uname()[2].split(".")
         self.fstab = None
         self.cmdline = None
+        # parse kernel version
+        self.kernel = []
+        vers = os.uname()[2]
+        vpart = ""
+        for c in vers:
+            if c == "." or c == "_" or c == "-":
+                self.kernel.append(vpart)
+                vpart = ""
+            else:
+                vpart += c
+        self.kernel.append(vpart)
         # default options
         self.opts = {
             "language": "tr",
