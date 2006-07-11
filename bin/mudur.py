@@ -597,7 +597,7 @@ def modules():
     
     do_modup = False
     if os.path.exists("/etc/modprobe.mudur"):
-        depkernel = loadFile("/etc/modprobe.mudur")
+        depkernel = loadFile("/etc/modprobe.mudur").rstrip("\n")
         curkernel = os.uname()[2]
         if depkernel != curkernel:
             do_modup = True
