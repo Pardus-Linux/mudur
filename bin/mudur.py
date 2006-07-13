@@ -367,7 +367,7 @@ def setSplash(splashTheme = "pardus"):
         lang = "en"
     language = languages[lang]
 
-    for i in range(1, 6):
+    for i in range(1, 7):
         run("/usr/bin/setfont", "-f", language.font, "-m", language.trans, "-C", "/dev/tty%s" %i)
         run("/usr/bin/splash_manager", "--mode=v", "--theme=%s" % splashTheme, "--cmd=set", "--tty=%s" % i)
 
