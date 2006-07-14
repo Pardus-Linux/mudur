@@ -198,6 +198,7 @@ class Config:
             "language": "tr",
             "keymap": None,
             "clock": "local",
+            "tty_number": "6",
             "debug": False,
             "livecd": False,
             "safe": False,
@@ -367,7 +368,7 @@ def setSplash(splashTheme = "pardus"):
         lang = "en"
     language = languages[lang]
 
-    for i in range(1, 7):
+    for i in range(1, int(config.get("tty_number")) + 1):
         run("/usr/bin/setfont", "-f", language.font, "-m", language.trans, "-C", "/dev/tty%s" %i)
         run("/usr/bin/splash_manager", "--mode=v", "--theme=%s" % splashTheme, "--cmd=set", "--tty=%s" % i)
 
@@ -386,7 +387,7 @@ def ttyUnicode():
     # constants from linux/kd.h
     KDSKBMODE = 0x4B45
     K_UNICODE = 0x03
-    for i in range(1, 13):
+    for i in range(1, int(config.get("tty_number")) + 1):
         try:
             f = file("/dev/tty%s" % i, "w")
             fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
