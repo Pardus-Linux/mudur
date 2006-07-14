@@ -360,17 +360,26 @@ def setSystemLanguage():
     if content != loadFile("/etc/env.d/03locale"):
         write("/etc/env.d/03locale", content)
 
-def setSplash(splashTheme = "pardus"):
+def setSplash():
     """Setup console splash and proper encodings for consoles"""
+    splash = config.get_kernel_opt("splash")
+    if not splash or not os.path.exists("/dev/fb0"):
+        return
+    
+    theme = "default"
+    for arg in splash.split(","):
+        if arg.startswith("theme:"):
+            theme = arg[6:]
+    
     lang = config.get("language")
     # See the comment in setConsole
     if not languages.has_key(lang):
         lang = "en"
     language = languages[lang]
-
+    
     for i in range(1, int(config.get("tty_number")) + 1):
         run("/usr/bin/setfont", "-f", language.font, "-m", language.trans, "-C", "/dev/tty%s" %i)
-        run("/usr/bin/splash_manager", "--mode=v", "--theme=%s" % splashTheme, "--cmd=set", "--tty=%s" % i)
+        run("/usr/bin/splash_manager", "--mode=v", "--theme=%s" % theme, "--cmd=set", "--tty=%s" % i)
 
 def setTranslation():
     """Load translation"""
