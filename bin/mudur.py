@@ -470,16 +470,12 @@ def setupUdev():
         ui.info(_("Restoring saved device states"))
         run_quiet("cp", "-ar", "/lib/udev/devices/*", "/dev")
     
-    if config.kernel_ge("2.6.16"):
-        # disable hotplug helper, new udevd listens to netlink
-        write("/proc/sys/kernel/hotplug", " ")
-    else:
-        # no netlink support in old kernels
-        write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
-    
     ui.info(_("Starting udev"))
 
     if config.kernel_ge("2.6.16"):
+        # disable hotplug helper, new udevd listens to netlink
+        write("/proc/sys/kernel/hotplug", " ")
+
         run("/sbin/udevd", "--daemon")
         
         ui.info(_("Populating /dev"))
@@ -489,7 +485,8 @@ def setupUdev():
         default = []
         last = []
         
-        list = glob.glob("/sys/class/*/*/uevent") + \
+        list = glob.glob("/sys/bus/*/devices/*/uevent") + \
+            glob.glob("/sys/class/*/*/uevent") + \
             glob.glob("/sys/block/*/uevent") + \
             glob.glob("/sys/block/*/*/uevent")
         
@@ -508,7 +505,13 @@ def setupUdev():
             f = open(destionationFile, "w")
             f.write("add\n")
             f.close()
+
+        # wait for the events queue to finish
+        while os.path.exists("/dev/.udev/queue"):
+            time.sleep(0.1)
     else:
+        # no netlink support in old kernels
+        write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
         run("/sbin/udevstart")
     
     # Not provided by sysfs but needed
@@ -641,13 +644,6 @@ def checkFS():
         run_full("/sbin/sulogin")
 
 def localMount():
-    def devsReady():
-        for ent in config.fstab:
-            if ent[0].startswith("/dev/"):
-                if not os.path.exists(ent[0]):
-                    return False
-        return True
-    
     if os.path.exists("/proc/modules") and not os.path.exists("/proc/bus/usb"):
         run_quiet("/sbin/modprobe", "usbcore")
     
@@ -662,13 +658,6 @@ def localMount():
             run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb", "-o", "devmode=0664,devgid=%s" % gid)
         else:
             run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
-    
-    timeout = 3
-    while timeout > 0 and not devsReady():
-        time.sleep(0.1)
-        timeout -= 0.1
-    if timeout <= 0:
-        ui.error(_("Device nodes are not ready for some local filesystems"))
     
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,noshm")
