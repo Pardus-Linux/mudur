@@ -473,59 +473,29 @@ def setupUdev():
     ui.info(_("Starting udev"))
 
     if config.kernel_ge("2.6.16"):
-        # disable hotplug helper, new udevd listens to netlink
-        write("/proc/sys/kernel/hotplug", " ")
+        # disable uevent helper, udevd listens to netlink
+        write("/sys/kernel/uevent_helper", " ")
 
         run("/sbin/udevd", "--daemon")
-        
-        ui.info(_("Populating /dev"))
-        
-        list = []
-        first = []
-        default = []
-        last = []
-        
-        list = glob.glob("/sys/bus/*/devices/*/uevent") + \
-            glob.glob("/sys/class/*/*/uevent") + \
-            glob.glob("/sys/block/*/uevent") + \
-            glob.glob("/sys/block/*/*/uevent")
-        
-        for sysfsEntry in list:
-            if sysfsEntry.__contains__("/device/uevent"):
-                continue
-            elif sysfsEntry.__contains__("/class/mem/") or sysfsEntry.__contains__("/class/tty/"):
-                first.append(sysfsEntry)
-            elif sysfsEntry.__contains__("/block/md"):
-                last.append(sysfsEntry)
-            else:
-                default.append(sysfsEntry)
-        
-        list = first + default + last
-        for destionationFile in list:
-            f = open(destionationFile, "w")
-            f.write("add\n")
-            f.close()
 
-        # wait for the events queue to finish
-        while os.path.exists("/dev/.udev/queue"):
-            time.sleep(0.1)
+        ui.info(_("Populating /dev"))
+
+        # trigger events for all devices
+        run("/sbin/udevtrigger")
+
+        # wait for events to finish
+        run("/sbin/udevsettle", "--timeout=180")
     else:
         # no netlink support in old kernels
         write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
         run("/sbin/udevstart")
-    
-    # Not provided by sysfs but needed
-    symLink("/dev/fd", "/proc/self/fd")
-    symLink("/dev/stdin", "fd/0")
-    symLink("/dev/stdout", "fd/1")
-    symLink("/dev/stderr", "fd/2")
-    symLink("/dev/core", "/proc/kcore")
-    
+
     # NOTE: handle lvm here when used by pardus
-    
+
     # Create problematic directories
     ensureDirs("/dev/pts")
     ensureDirs("/dev/shm")
+
     # Mark the /dev management system type
     touch("/dev/.udev")
 
