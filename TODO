@@ -1,6 +1,5 @@
 muavin:
     input
-    /etc/hotplug/usb/*.usermap desteği
 
 mudur:
     nonetwork runlevel
