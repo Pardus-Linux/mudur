@@ -444,6 +444,15 @@ class CPU:
     def coldModules(self):
         if os.path.exists("/sys/devices/system/cpu/cpu0/cpufreq/"):
             return set()
+        if os.path.exists("/usr/sbin/dmidecode"):
+            cmd = subprocess.Popen(
+                [ "/usr/sbin/dmidecode", "-s", "chassis-type" ],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            )
+            a = cmd.communicate()
+            print a
+            if not a[0].startswith("Notebook"):
+                return set()
         return self.findModules()
 
 
