@@ -349,6 +349,14 @@ def setConsole():
     run("/usr/bin/kbd_mode", "-u")
     run_quiet("/bin/loadkeys", keymap)
     run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
+    # Put them in /etc, so other programs like kdm can use them
+    # without duplicating default->mudur.conf->kernel-option logic
+    # we do here. Note that these are system-wide not per user,
+    # and only for reading.
+    ensureDirs("/etc/mudur")
+    write("/etc/mudur/language", "%s\n", lang)
+    write("/etc/mudur/keymap", "%s\n", keymap)
+    write("/etc/mudur/locale", "%s\n", locale)
 
 def setSystemLanguage():
     lang = config.get("language")
