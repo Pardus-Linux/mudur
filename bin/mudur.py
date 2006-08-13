@@ -247,17 +247,25 @@ class Config:
                 elif opt == "safe":
                     self.opts["safe"] = True
                 elif opt.startswith("language:"):
-                    lang = opt[9:]
-                    # If language is unknown, default to English
-                    # Default language is Turkish, so this only used if someone
-                    # selected a language which isn't Turkish or English, and
-                    # in that case it is more likely they'll prefer English.
-                    if not languages.has_key(lang):
-                        print "Unknown language option '%s'" % lang
-                        lang = "en"
-                    self.opts["language"] = lang
+                    self.opts["language"] = opt[9:]
                 elif opt.startswith("keymap:"):
                     self.opts["keymap"] = opt[7:]
+        
+        # Normalize options
+        
+        # If language is unknown, default to English
+        # Default language is Turkish, so this only used if someone
+        # selected a language which isn't Turkish or English, and
+        # in that case it is more likely they'll prefer English.
+        lang = self.opts["language"]
+        if not languages.has_key(lang):
+            print "Unknown language option '%s'" % lang
+            lang = "en"
+            self.opts["language"] = lang
+        
+        # If no keymap is given, use the language's default
+        if not self.opts["keymap"]:
+            self.opts["keymap"] = languages[lang].keymap
     
     def get(self, key):
         try:
@@ -342,25 +350,23 @@ def setConsole():
     lang = config.get("language")
     keymap = config.get("keymap")
     language = languages[lang]
-    # Given keymap can override language's default
-    if not keymap:
-        keymap = language.keymap
     # Now actually set the values
     run("/usr/bin/kbd_mode", "-u")
     run_quiet("/bin/loadkeys", keymap)
     run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
+
+def setSystemLanguage():
+    lang = config.get("language")
+    keymap = config.get("keymap")
+    language = languages[lang]
     # Put them in /etc, so other programs like kdm can use them
     # without duplicating default->mudur.conf->kernel-option logic
     # we do here. Note that these are system-wide not per user,
     # and only for reading.
     ensureDirs("/etc/mudur")
-    write("/etc/mudur/language", "%s\n", lang)
-    write("/etc/mudur/keymap", "%s\n", keymap)
-    write("/etc/mudur/locale", "%s\n", locale)
-
-def setSystemLanguage():
-    lang = config.get("language")
-    language = languages[lang]
+    write("/etc/mudur/language", "%s\n" % lang)
+    write("/etc/mudur/keymap", "%s\n" % keymap)
+    write("/etc/mudur/locale", "%s\n" % language.locale)
     # Update environment if necessary
     content = "LANG=%s\nLC_ALL=%s\n" % (language.locale, language.locale)
     if content != loadFile("/etc/env.d/03locale"):
