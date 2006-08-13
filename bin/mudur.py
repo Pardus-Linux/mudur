@@ -233,11 +233,9 @@ class Config:
         return None
     
     def parse_kernel_opts(self):
-        # old style option
-        lang = self.get_kernel_opt("lang")
-        if lang:
-            self.opts["language"] = lang
-        
+        # We need to mount /proc before accessing kernel options
+        # This function is called after that, and finish parsing options
+        # We dont print any messages before, cause language is not known
         opts = self.get_kernel_opt("mudur")
         if opts:
             opts = opts.split(",")
@@ -249,7 +247,15 @@ class Config:
                 elif opt == "safe":
                     self.opts["safe"] = True
                 elif opt.startswith("language:"):
-                    self.opts["language"] = opt[9:]
+                    lang = opt[9:]
+                    # If language is unknown, default to English
+                    # Default language is Turkish, so this only used if someone
+                    # selected a language which isn't Turkish or English, and
+                    # in that case it is more likely they'll prefer English.
+                    if not languages.has_key(lang):
+                        print "Unknown language option '%s'" % lang
+                        lang = "en"
+                    self.opts["language"] = lang
                 elif opt.startswith("keymap:"):
                     self.opts["keymap"] = opt[7:]
     
@@ -274,6 +280,7 @@ class Config:
         return None
     
     def is_virtual(self):
+        # FIXME: detect vmware and co. here
         return False
 
 
@@ -334,12 +341,6 @@ def setConsole():
     """Setup encoding, font and mapping for console"""
     lang = config.get("language")
     keymap = config.get("keymap")
-    # If language is unknown, default to English
-    # Default language is Turkish, so this only used if someone
-    # selected a language which isn't Turkish or English, and
-    # in that case it is more likely they'll prefer English.
-    if not languages.has_key(lang):
-        lang = "en"
     language = languages[lang]
     # Given keymap can override language's default
     if not keymap:
@@ -351,9 +352,6 @@ def setConsole():
 
 def setSystemLanguage():
     lang = config.get("language")
-    # See the comment in setConsole
-    if not languages.has_key(lang):
-        lang = "en"
     language = languages[lang]
     # Update environment if necessary
     content = "LANG=%s\nLC_ALL=%s\n" % (language.locale, language.locale)
@@ -372,9 +370,6 @@ def setSplash():
             theme = arg[6:]
     
     lang = config.get("language")
-    # See the comment in setConsole
-    if not languages.has_key(lang):
-        lang = "en"
     language = languages[lang]
     
     for i in range(1, int(config.get("tty_number")) + 1):
@@ -386,9 +381,6 @@ def setTranslation():
     global __trans
     global _
     lang = config.get("language")
-    if not languages.has_key(lang):
-        # See the comment in setConsole
-        lang = "en"
     __trans = gettext.translation('mudur', languages=[lang], fallback=True)
     _ = __trans.ugettext
 
