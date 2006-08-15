@@ -450,7 +450,6 @@ class CPU:
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE
             )
             a = cmd.communicate()
-            print a
             if not a[0].startswith("Notebook"):
                 return set()
         return self.findModules()
