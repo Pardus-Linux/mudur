@@ -1,5 +1,4 @@
-ACTION=="add",SUBSYSTEM=="pci",RUN+="/sbin/muavin.py"
-ACTION=="add",SUBSYSTEM=="usb",RUN+="/sbin/muavin.py"
-ACTION=="add",SUBSYSTEM=="scsi",RUN+="/sbin/muavin.py"
-ACTION=="add",SUBSYSTEM=="firmware",RUN+="/sbin/muavin.py"
-
+ACTION=="add",SUBSYSTEM=="pci",RUN+="/sbin/muavin.py $env{SUBSYSTEM}"
+ACTION=="add",SUBSYSTEM=="usb",RUN+="/sbin/muavin.py $env{SUBSYSTEM}"
+ACTION=="add",SUBSYSTEM=="scsi",RUN+="/sbin/muavin.py $env{SUBSYSTEM}"
+ACTION=="add",SUBSYSTEM=="firmware",RUN+="/sbin/muavin.py $env{SUBSYSTEM}"
