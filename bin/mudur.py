@@ -472,11 +472,18 @@ def setupUdev():
     ui.info(_("Mounting /dev"))
     # many video drivers require exec access in /dev
     mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755 udev /dev")
-
-#    FIXME: There is problem here
-#    if os.path.exists("/lib/udev/devices"):
-#        ui.info(_("Restoring saved device states"))
-#        run_quiet("/usr/bin/cp", "-ar", "/lib/udev/devices/*", "/dev/")
+    
+    # At this point, an empty /dev is mounted on ramdisk
+    # We need /dev/null for calling run_quiet
+    os.mknod("/dev/null", 0666 | stat.S_IFCHR, os.makedev(1, 3))
+    
+    if os.path.exists("/lib/udev/devices"):
+        ui.info(_("Restoring saved device states"))
+        run_quiet(
+            "/usr/bin/cp",
+            "--preserve=all", "--recursive", "--update",
+            "/lib/udev/devices/*", "/dev/"
+        )
     
     ui.info(_("Starting udev"))
 
