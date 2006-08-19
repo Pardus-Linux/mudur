@@ -535,4 +535,4 @@ if __name__ == "__main__":
         coldPlug()
     
     else:
-        hotPlug(sys.argv[1], os.environ)
+        hotPlug(os.environ["SUBSYSTEM"], os.environ)
