@@ -56,12 +56,6 @@ def ensureDirs(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def symLink(linkname, destname):
-    """Create a soft link"""
-    if os.path.exists(linkname):
-        os.unlink(linkname)
-    os.symlink(destname, linkname)
-
 def write(filename, data):
     """Write data to file"""
     f = file(filename, "w")
@@ -485,32 +479,41 @@ def setupUdev():
             "/lib/udev/devices/*", "/dev/"
         )
     
+    # When these files are missing, lots of trouble happens
+    # so we double check that they are there
+    ensureDirs("/dev/pts")
+    ensureDirs("/dev/shm")
+    devlinks = (
+        ("/dev/fd", "/proc/self/fd"),
+        ("/dev/stdin", "fd/0"),
+        ("/dev/stdout", "fd/1"),
+        ("/dev/stderr", "fd/2"),
+        ("/dev/core", "/proc/kcore"),
+    )
+    for link in devlinks:
+        if not os.path.lexists(link[0]):
+            os.symlink(link[1], link[0])
+    
     ui.info(_("Starting udev"))
-
+    
     if config.kernel_ge("2.6.16"):
         # disable uevent helper, udevd listens to netlink
         write("/sys/kernel/uevent_helper", " ")
-
         run("/sbin/udevd", "--daemon")
-
+        
         ui.info(_("Populating /dev"))
-
+        
         # trigger events for all devices
         run("/sbin/udevtrigger")
-
         # wait for events to finish
         run("/sbin/udevsettle", "--timeout=180")
     else:
         # no netlink support in old kernels
         write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
         run("/sbin/udevstart")
-
+    
     # NOTE: handle lvm here when used by pardus
-
-    # Create problematic directories
-    ensureDirs("/dev/pts")
-    ensureDirs("/dev/shm")
-
+    
     # Mark the /dev management system type
     touch("/dev/.udev")
 
