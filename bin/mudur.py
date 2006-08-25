@@ -399,10 +399,11 @@ def ttyUnicode():
     K_UNICODE = 0x03
     for i in range(1, int(config.get("tty_number")) + 1):
         try:
-            f = file("/dev/tty%s" % i, "w")
-            fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
-            f.write(UI.UNICODE_MAGIC)
-            f.close()
+            if.os.path.exists("/dev/tty%" % i):
+                f = file("/dev/tty%s" % i, "w")
+                fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
+                f.write(UI.UNICODE_MAGIC)
+                f.close()
         except:
             ui.error(_("Could not set unicode mode on tty %d") % i)
 
