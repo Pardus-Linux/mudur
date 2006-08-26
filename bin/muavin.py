@@ -280,14 +280,11 @@ class PNP:
     
     def coldDevices(self):
         devices = []
-        if os.path.exists("/sys/bus/pnp"):
-            for dev in os.listdir("/sys/bus/pnp/devices"):
-                devids = sysValue("/sys/bus/pnp/devices/" + dev, "id").split('\n')
-                for id in devids:
-                    devices.append(self.deviceInfo(id))
-            return devices
-        else:
-            return []
+        for dev in os.listdir("/sys/bus/pnp/devices"):
+            devids = sysValue("/sys/bus/pnp/devices/" + dev, "id").split('\n')
+            for id in devids:
+                devices.append(self.deviceInfo(id))
+        return devices
     
     def findModules(self, devpath=None):
         if devpath:
