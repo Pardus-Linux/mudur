@@ -399,7 +399,7 @@ def ttyUnicode():
     K_UNICODE = 0x03
     for i in range(1, int(config.get("tty_number")) + 1):
         try:
-            if os.path.exists("/dev/tty%" % i):
+            if os.path.exists("/dev/tty%s" % i):
                 f = file("/dev/tty%s" % i, "w")
                 fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
                 f.write(UI.UNICODE_MAGIC)
