@@ -297,7 +297,7 @@ class PNP:
             devices = self.coldDevices()
         
         modules = set()
-        for line in file("/lib/modules/%s/modules.usbmap" % os.uname()[2]):
+        for line in file("/lib/modules/%s/modules.isapnpmap" % os.uname()[2]):
             if line == '' or line.startswith('#'):
                 continue
             
