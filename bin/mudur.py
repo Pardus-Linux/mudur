@@ -378,11 +378,7 @@ def setSplash():
         if arg.startswith("theme:"):
             theme = arg[6:]
     
-    lang = config.get("language")
-    language = languages[lang]
-    
     for i in range(1, int(config.get("tty_number")) + 1):
-        run("/usr/bin/setfont", "-f", language.font, "-m", language.trans, "-C", "/dev/tty%s" %i)
         run("/usr/bin/splash_manager", "--mode=v", "--theme=%s" % theme, "--cmd=set", "--tty=%s" % i)
 
 def setTranslation():
@@ -394,6 +390,9 @@ def setTranslation():
     _ = __trans.ugettext
 
 def ttyUnicode():
+    lang = config.get("language")
+    language = languages[lang]
+
     # constants from linux/kd.h
     KDSKBMODE = 0x4B45
     K_UNICODE = 0x03
@@ -404,6 +403,7 @@ def ttyUnicode():
                 fcntl.ioctl(f, KDSKBMODE, K_UNICODE)
                 f.write(UI.UNICODE_MAGIC)
                 f.close()
+                run("/usr/bin/setfont", "-f", language.font, "-m", language.trans, "-C", "/dev/tty%s" %i)
         except:
             ui.error(_("Could not set unicode mode on tty %d") % i)
 
