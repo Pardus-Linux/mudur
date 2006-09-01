@@ -11,341 +11,196 @@
 
 import sys
 import os
-import string
-import subprocess
-import gettext
 import time
+import subprocess
 
-#
-# Utility functions
-#
 
-def loadFile(path):
-    """Read contents of a file"""
-    f = file(path)
-    data = f.read()
-    f.close()
-    return data
-
-#
-
-def sysValue(path, value):
-    return loadFile("%s/%s" % (path, value)).rstrip("\n")
-
-def sysHexValue(path, value):
-    tmp = loadFile("%s/%s" % (path, value)).rstrip("\n")
-    if tmp.startswith("0x"):
-        tmp = tmp[2:]
-    return tmp
-
-#
-
-def blackList():
-    blacks = set()
-    # Unlike env.d and modules.d, blacklist is not generated
-    # from blacklist.d, they all used together
-    if os.path.exists("/etc/hotplug/blacklist"):
-        for line in file("/etc/hotplug/blacklist"):
-            line = line.rstrip('\n')
-            if line == '' or line.startswith('#'):
-                continue
-            blacks.add(line)
-    if os.path.exists("/etc/hotplug/blacklist.d"):
-        for name in os.listdir("/etc/hotplug/blacklist.d"):
-            # skip backup and version control files
-            if name.endswith("~") or name.endswith(".bak") or name.endswith(",v"):
-                continue
-            # skip pisi's config file backups
-            # .oldconfig is obsolete, but checked anyway cause it may still exist at old systems
-            if name.endswith(".oldconfig") or name.endswith(".newconfig"):
-                continue
-            for line in file(os.path.join("/etc/hotplug/blacklist.d", name)):
+class Blacklist:
+    def blacklist(self):
+        blacks = set()
+        # Unlike env.d and modules.d, blacklist is not generated
+        # from blacklist.d, they all used together
+        if os.path.exists("/etc/hotplug/blacklist"):
+            for line in file("/etc/hotplug/blacklist"):
                 line = line.rstrip('\n')
                 if line == '' or line.startswith('#'):
                     continue
                 blacks.add(line)
-    return blacks
-
-def tryModule(modname):
-    f = file("/dev/null", "w")
-    ret = subprocess.call(["/sbin/modprobe", "-n", modname], stdout=f, stderr=f)
-    if ret == 0:
-        ret = subprocess.call(["/sbin/modprobe", "-q", modname], stdout=f, stderr=f)
-
-def loadModules(modules):
-    blacks = blackList()
-    for mod in modules:
-        if not mod in blacks:
-            tryModule(mod)
-
-
-#
-# Plugger classes
-#
-
-class PCI:
-    def deviceInfo(self, path):
-        return (
-                sysHexValue(path, "vendor"),
-                sysHexValue(path, "device"),
-                sysHexValue(path, "subsystem_vendor"),
-                sysHexValue(path, "subsystem_device"),
-                sysValue(path, "class")
-        )
+        if os.path.exists("/etc/hotplug/blacklist.d"):
+            for name in os.listdir("/etc/hotplug/blacklist.d"):
+                # skip backup and version control files
+                if name.endswith("~") or name.endswith(".bak") or name.endswith(",v"):
+                    continue
+                # skip pisi's config file backups
+                # .oldconfig is obsolete, but checked anyway cause it may still exist at old systems
+                if name.endswith(".oldconfig") or name.endswith(".newconfig"):
+                    continue
+                for line in file(os.path.join("/etc/hotplug/blacklist.d", name)):
+                    line = line.rstrip('\n')
+                    if line == '' or line.startswith('#'):
+                        continue
+                    blacks.add(line)
+        return blacks
     
-    def coldDevices(self):
-        devices = []
-        for dev in os.listdir("/sys/bus/pci/devices"):
-            devices.append(self.deviceInfo("/sys/bus/pci/devices/%s" % dev))
-        return devices
+    def plug(self, current, env=None):
+        mods = self.blacklist()
+        current.difference_update(mods)
     
-    def findModules(self, devpath=None):
-        if devpath:
-            devices = (self.deviceInfo(devpath), )
-        else:
-            devices = self.coldDevices()
-        
-        PCI_ANY = '0xffffffff'
-        
+    def debug(self):
+        mods = self.blacklist()
+        print "Blacklist: %s" % ", ".join(mods)
+
+
+class Modalias:
+    def coldAliases(self):
+        aliases = []
+        for root, dirs, files in os.walk("/sys", topdown=False):
+            if "modalias" in files:
+                path = os.path.join(root, "modalias")
+                aliases.append(file(path).read().rstrip("\n"))
+        return aliases
+    
+    def _match(self, match, alias, mod):
+        # bu garip fonksiyon pythonun re ve fnmatch modullerinin
+        # acayip yavas olmasindan turedi, 5 sn yerine 0.5 saniyede
+        # islememizi sagliyor
+        # C library deki fnmatch'i direk kullanabilsek daha hizli
+        # ve temiz olacak bu isler
+        i = 0
+        while True:
+            if i >= len(match):
+                return alias == ""
+            part = match[i]
+            if not alias.startswith(part):
+                return False
+            alias = alias[len(part):]
+            i += 1
+            if i >= len(match):
+                return alias == ""
+            part = match[i]
+            if part == "" and i + 1 == len(match):
+                return True
+            j = alias.find(part)
+            if j == -1:
+                return False
+            alias = alias[j:]
+    
+    def aliasModules(self, aliases):
         modules = set()
-        for line in file("/lib/modules/%s/modules.pcimap" % os.uname()[2]):
-            if line == '' or line.startswith('#'):
+        if len(aliases) == 0:
+            return modules
+        path = "/lib/modules/%s/modules.alias" % os.uname()[2]
+        if not os.path.exists(path):
+            # FIXME: log this as error somewhere
+            return modules
+        for line in file(path):
+            try:
+                cmd, match, mod = line.split()
+            except ValueError:
                 continue
-            
-            mod, values = line.split(None, 1)
-            values = values.split()
-            for dev in devices:
-                t = filter(lambda x: values[x] == PCI_ANY or values[x].endswith(dev[x]), range(4))
-                if len(t) != 4:
-                    continue
-                if int(dev[4], 16) & int(values[5], 16) != int(values[4], 16):
-                    continue
-                modules.add(mod)
+            a = match.split("*")
+            for alias in aliases:
+                if self._match(a, alias, mod):
+                    modules.add(mod)
         return modules
     
-    def hotPlug(self, action, devpath, env):
-        if action != "add" or not devpath:
-            return
-        loadModules(self.findModules("/sys" + devpath))
-
-#
-
-class FireWire:
-    def deviceInfo(self, devpath):
-        return (
-            int(sysValue(path, "vendor_id"), 16),
-            int(sysValue(path, "model_id"), 16),
-            int(sysValue(path, "specifier_id"), 16),
-            int(sysValue(path, "version"), 16),
-        )
-    
-    def findModules(self, devpath):
-        dev = self.deviceInfo(devpath)
-        modules = set()
-        for line in file("/lib/modules/%s/modules.ieee1394map" % os.uname()[2]):
-            if line == '' or line.startswith('#'):
-                continue
-            
-            mod, rest = line.split(None, 1)
-            vals = map(lambda x: int(x, 16), rest.split())
-            
-            if vals[0] & 1 and vals[1] != dev[0]:
-                continue
-            
-            if vals[0] & 4 and vals[3] != dev[2]:
-                continue
-            
-            if vals[0] & 8 and vals[4] != dev[3]:
-                continue
-            
-            modules.add(mod)
-        
-        return modules
-    
-    def hotPlug(self, action, devpath, env):
-        if action != "add" or not devpath:
-            return
-        loadModules(self.findModules(devpath))
-
-#
-
-class USB:
-    def deviceInfo(self, path):
-        dev = [
-            "0x%s" % sysValue(path, "../idVendor"),
-            "0x%s" % sysValue(path, "../idProduct"),
-            "0x%s" % sysValue(path, "../bcdDevice"),
-        ]
-        
-        if os.path.exists(path + "/bDeviceClass"):
-            dev.extend((
-                "0x%s" % sysValue(path, "bDeviceClass"),
-                "0x%s" % sysValue(path, "bDeviceSubClass"),
-                "0x%s" % sysValue(path, "bDeviceProtocol"),
-            ))
+    def plug(self, current, env=None):
+        aliases = []
+        if env:
+            if env.has_key("MODALIAS"):
+                aliases = [env["MODALIAS"]]
+            else:
+                return
         else:
-            # out-of-range values
-            dev.extend(('0x1000', '0x1000', '0x1000'))
-        
-        if os.path.exists(path + "/bInterfaceClass"):
-            dev.extend((
-                "0x%s" % sysValue(path, "bInterfaceClass"),
-                "0x%s" % sysValue(path, "bInterfaceSubClass"),
-                "0x%s" % sysValue(path, "bInterfaceProtocol"),
-            ))
-        else:
-            # out-of-range values
-            dev.extend(('0x1000', '0x1000', '0x1000'))
-        
-        return dev
+            aliases = self.coldAliases()
+        mods = self.aliasModules(aliases)
+        current.update(mods)
     
-    def coldDevices(self):
-        devices = []
-        for dev in os.listdir("/sys/bus/usb/devices"):
-            if dev[0] in string.digits:
-                path = os.path.realpath("/sys/bus/usb/devices/" + dev)
-                if os.path.exists(os.path.join(path, "../idVendor")):
-                    devices.append(self.deviceInfo(path))
-        return devices
-    
-    def findModules(self, devpath=None):
-        if not os.path.exists("/sys/bus/usb/devices"):
-            return set()
-        
-        if devpath:
-            devices = (self.deviceInfo(devpath), )
-        else:
-            devices = self.coldDevices()
-        
-        mVendor = 0x0001
-        mProduct = 0x0002
-        mDevLo = 0x0004
-        mDevHi = 0x0008
-        mDevClass = 0x0010
-        mDevSubClass = 0x0020
-        mDevProto = 0x0040
-        mIntClass = 0x0080
-        mIntSubClass = 0x0100
-        mIntProto = 0x0200
-        
-        modules = set()
-        for line in file("/lib/modules/%s/modules.usbmap" % os.uname()[2]):
-            if line == '' or line.startswith('#'):
-                continue
-            
-            mod, flags, values = line.split(None, 2)
-            flags = int(flags, 16)
-            values = values.split()
-            for dev in devices:
-                if flags & mVendor and dev[0] != values[0]:
-                    continue
-                if flags & mProduct and dev[1] != values[1]:
-                    continue
-                if flags & mDevLo and int(dev[2], 16) < int(values[2], 16):
-                    continue
-                if flags & mDevHi and int(dev[2], 16) < int(values[3], 16):
-                    continue
-                if flags & mDevClass and dev[3] != values[4]:
-                    continue
-                if flags & mDevSubClass and dev[4] != values[5]:
-                    continue
-                if flags & mDevProto and dev[5] != values[6]:
-                    continue
-                if flags & mIntClass and dev[6] != values[7]:
-                    continue
-                if flags & mIntSubClass and dev[7] != values[8]:
-                    continue
-                if flags & mIntProto and dev[8] != values[9]:
-                    continue
-                modules.add(mod)
-        return modules
-    
-    def hotPlug(self, action, devpath, env):
-        if action != "add" or not devpath:
-            return
-        loadModules(self.findModules("/sys" + devpath))
+    def debug(self):
+        aliases = self.coldAliases()
+        mods = self.aliasModules(aliases)
+        print "Modules: %s" % ", ".join(mods)
 
-#
 
 class PNP:
-    def deviceInfo(self, sysid):
-        vendor = sysid[:3]
-        vendor = hex((ord(vendor[0]) & 0x3f) << 2 |
-            (ord(vendor[1]) & 0x18) >> 3 |
-            (ord(vendor[1]) & 0x07) << 13 |
-            (ord(vendor[2]) & 0x1f) << 8)
-        device = sysid[3:]
-        device = "0x" + device[2:] + device[:2]
-        return (device, vendor)
+    def detect(self):
+        path = "/sys/bus/pnp/devices"
+        if os.path.exists(path):
+            for dev in os.listdir(path):
+                # For now, just a special case for parallel port driver
+                # ISAPNP probing is trickier than it seems
+                devids = file(os.path.join(path, dev, "id")).read().rstrip("\n")
+                for id in devids.split("\n"):
+                    if id == "PNP0400" or id == "PNP0401":
+                        return [ "parport_pc" ]
+        return []
     
-    def coldDevices(self):
-        devices = []
-        if os.path.exists("/sys/bus/pnp"):
-            for dev in os.listdir("/sys/bus/pnp/devices"):
-                devids = sysValue("/sys/bus/pnp/devices/" + dev, "id").split('\n')
-                for id in devids:
-                    devices.append(self.deviceInfo(id))
-            return devices
-        else:
-            return []
-    
-    def findModules(self, devpath=None):
-        if devpath:
-            # no hotplug for PNP
-            return []
-        else:
-            devices = self.coldDevices()
+    def plug(self, current, env=None):
+        if env:
+            # ISA bus doesn't support hotplugging
+            return
         
-        modules = set()
-        for line in file("/lib/modules/%s/modules.isapnpmap" % os.uname()[2]):
-            if line == '' or line.startswith('#'):
-                continue
-            
-            mod, vendor, device, rest = line.split(None, 3)
-            for dev in devices:
-                if vendor == dev[1] and device == dev[0]:
-                    modules.append(mod)
-        
-        return modules
+        current.update(self.detect())
     
-    def hotPlug(self, action, devpath, env):
-        # No hotplug possibility for ISA PNP devices
-        pass
+    def debug(self):
+        print "ISAPNP: %s" % ", ".join(self.detect())
 
-#
 
 class SCSI:
-    def findModules(self, devpath):
-        modules = set()
-        while not os.path.exists("/sys" + devpath + "/type"):
+    # Type constants from <scsi/scsi.h>
+    modmap = {
+        "0": ["sd_mod"],
+        "1": ["st"],
+        "4": ["sr_mod"],
+        "5": ["sr_mod"],
+        "7": ["sd_mod"],
+    }
+    
+    def detect(self, devpath):
+        path = os.path.join("/sys", devpath, "type")
+        while not os.path.exists(path):
             time.sleep(0.1)
         
         # constants from scsi/scsi.h
-        type = loadFile("/sys" + devpath + "/type").rstrip("\n")
-        if type == "0":
-            # disk
-            modules.add("sd_mod")
-        elif type == "1":
-            # tape
-            modules.add("st")
-        elif type == "4":
-            # worm
-            modules.add("sr_mod")
-        elif type == "5":
-            # cdrom
-            modules.add("sr_mod")
-        elif type == "7":
-            # mod
-            modules.add("sd_mod")
-        
-        return modules
+        type = file(path).read().rstrip("\n")
+        return self.modmap.get(type, [])
     
-    def hotPlug(self, action, devpath, env):
-        if action != "add" or not devpath:
+    def plug(self, current, env=None):
+        if not env or env.get("ACTION", "") != "add" or env.get("SUBSYSTEM", "") != "scsi":
             return
-        loadModules(self.findModules(devpath))
+        current.update(self.detect(env["DEVPATH"]))
+    
+    def debug(self):
+        pass
 
-#
+
+class Firmware:
+    def plug(self, current, env=None):
+        if not env or env.get("SUBSYSTEM", "") != "firmware":
+            return
+        # FIXME: lame code, almost copied directly from firmware.agent
+        devpath = "/sys" + env["DEVPATH"]
+        firm = "/lib/firmware/" + env["FIRMWARE"]
+        loading = devpath + "/loading"
+        if not os.path.exists(loading):
+            time.sleep(1)
+        
+        f = file(loading, "w")
+        if not os.path.exists(firm):
+            f.write("-1\n")
+            f.close()
+            return
+        f.write("1\n")
+        f.close()
+        import shutil
+        shutil.copy(firm, devpath + "/data")
+        f = file(loading, "w")
+        f.write("0\n")
+        f.close()
+    
+    def debug(self):
+        pass
+
 
 class CPU:
     def __init__(self):
@@ -359,7 +214,7 @@ class CPU:
                 self.vendor = line.split(":")[1].strip()
             elif line.startswith("cpu family"):
                 self.family = int(line.split(":")[1].strip())
-            elif not self.model and line.startswith("model"):
+            elif line.startswith("model") and not line.startswith("model name"):
                 self.model = int(line.split(":")[1].strip())
             elif line.startswith("model name"):
                 self.name = line.split(":")[1].strip()
@@ -399,9 +254,8 @@ class CPU:
                         return True
         return False
     
-    def findModules(self):
+    def detect(self):
         modules = set()
-        
         if self.vendor == "GenuineIntel":
             # Pentium M, Enhanced SpeedStep
             if "est" in self.flags:
@@ -444,86 +298,63 @@ class CPU:
         
         return modules
     
-    def coldModules(self):
-        if os.path.exists("/sys/devices/system/cpu/cpu0/cpufreq/"):
-            return set()
+    def isLaptop(self):
         if os.path.exists("/usr/sbin/dmidecode"):
             cmd = subprocess.Popen(
                 [ "/usr/sbin/dmidecode", "-s", "chassis-type" ],
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE
             )
             a = cmd.communicate()
-            if not a[0].startswith("Notebook"):
-                return set()
-        return self.findModules()
-
-
-#
-
-class Firmware:
-    def hotPlug(self, action, devpath, env):
-        # FIXME: lame code, almost copied directly from firmware.agent
-        devpath = "/sys" + devpath
-        firm = "/lib/firmware/" + env["FIRMWARE"]
-        loading = devpath + "/loading"
-        if not os.path.exists(loading):
-            time.sleep(1)
-        
-        f = file(loading, "w")
-        if not os.path.exists(firm):
-            f.write("-1\n")
-            f.close()
+            if a[0].startswith("Notebook"):
+                return True
+        return False
+    
+    def plug(self, current, env=None):
+        if env:
             return
-        f.write("1\n")
-        f.close()
-        import shutil
-        shutil.copy(firm, devpath + "/data")
-        f = file(loading, "w")
-        f.write("0\n")
-        f.close()
-
-
-# List of plugger classes, in coldstart order
-cold_pluggers = ( CPU, PNP, PCI, USB )
-# Mapping of hot plugger classes
-hot_pluggers = {
-    "pci": PCI,
-    "usb": USB,
-    "ieee1394": FireWire,
-    "scsi": SCSI,
-    "firmware": Firmware,
-}
+        if os.path.exists("/sys/devices/system/cpu/cpu0/cpufreq/"):
+            # User already specified a frequency module in
+            # modules.autoload.d or compiled it into the kernel
+            return
+        if self.isLaptop():
+            current.update(self.detect())
+    
+    def debug(self):
+        print "CPU: %s" % ", ".join(self.detect())
 
 
 #
-# Main Functions
+# Main functions
 #
 
-def coldPlug():
+# Order of pluggers is important!
+pluggers = (
+    CPU,
+    PNP,
+    Modalias,
+    SCSI,
+    Firmware,
+    Blacklist,  # Blacklist should be at the end
+)
+
+def tryModule(modname):
+    f = file("/dev/null", "w")
+    ret = subprocess.call(["/sbin/modprobe", "-n", modname], stdout=f, stderr=f)
+    if ret == 0:
+        ret = subprocess.call(["/sbin/modprobe", "-q", modname], stdout=f, stderr=f)
+
+def plug(env=None):
     modules = set()
-    for class_ in cold_pluggers:
-        plug = class_()
-        try:
-            tmp = plug.coldModules()
-        except:
-            tmp = plug.findModules()
-        modules = modules.union(tmp)
-    modules = modules.difference(blackList())
+    for plugger in pluggers:
+        p = plugger()
+        p.plug(modules, env)
     for mod in modules:
         tryModule(mod)
 
-def hotPlug(type, env):
-    if hot_pluggers.has_key(type):
-        if env.has_key("DEVPATH") and env.has_key("ACTION"):
-            plugger = hot_pluggers[type]()
-            plugger.hotPlug(env["ACTION"], env["DEVPATH"], env)
-
 def debug():
-    for class_ in cold_pluggers:
-        plug = class_()
-        print list(plug.findModules())
-    
-    print "Blacklist:", list(blackList())
+    for plugger in pluggers:
+        p = plugger()
+        p.debug()
 
 
 #
@@ -535,7 +366,12 @@ if __name__ == "__main__":
         debug()
     
     elif len(sys.argv) == 2 and sys.argv[1] == "--coldplug":
-        coldPlug()
+        plug()
     
     else:
-        hotPlug(os.environ["SUBSYSTEM"], os.environ)
+        # This file is written by mudur, after loading of modules in the
+        # modules.autoload.d finishes, thus preventing udevtrigger events
+        # from loading of other modules first. Triggered events are
+        # needed to populate /dev way before module loading phase.
+        if os.path.exists("/dev/.muavin"):
+            plug(os.environ)
