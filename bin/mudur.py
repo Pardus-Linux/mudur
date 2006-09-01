@@ -946,9 +946,9 @@ elif sys.argv[1] == "boot":
     
     startComar()
 
-    setSplash()
-
     ttyUnicode()
+
+    setSplash()
 
 elif sys.argv[1] == "default":
     startServices()
