@@ -369,4 +369,9 @@ if __name__ == "__main__":
         plug()
     
     else:
-        plug(os.environ)
+        # This file is written by mudur, after loading of modules in the
+        # modules.autoload.d finishes, thus preventing udevtrigger events
+        # from loading of other modules first. Triggered events are
+        # needed to populate /dev way before module loading phase.
+        if os.path.exists("/dev/.muavin"):
+            plug(os.environ)
