@@ -895,14 +895,17 @@ if sys.argv[1] == "sysinit":
     
     checkRoot()
     setHostname()
+    
     modules()
+    ui.info(_("Starting Coldplug"))
+    # First activate the module hotplugging
+    touch("/dev/.muavin")
+    subprocess.Popen(["/sbin/muavin.py", "--coldplug"])
+    
     checkFS()
     localMount()
     
     hdparm()
-    
-    ui.info(_("Starting Coldplug"))
-    subprocess.Popen(["/sbin/muavin.py", "--coldplug"])
     
     setClock()
     
