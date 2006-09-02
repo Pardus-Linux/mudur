@@ -157,18 +157,22 @@ class SCSI:
     }
     
     def detect(self, devpath):
-        path = os.path.join("/sys", devpath, "type")
-        while not os.path.exists(path):
+        path = "/sys" + devpath + "/type"
+        # If type information is not ready, wait a bit
+        timeout = 3
+        while timeout > 0 and not os.path.exists(path):
             time.sleep(0.1)
+            timeout -= 0.1
         
-        # constants from scsi/scsi.h
         type = file(path).read().rstrip("\n")
-        return self.modmap.get(type, [])
+        return self.modmap.get(type, None)
     
     def plug(self, current, env=None):
         if not env or env.get("ACTION", "") != "add" or env.get("SUBSYSTEM", "") != "scsi":
             return
-        current.update(self.detect(env["DEVPATH"]))
+        mods = self.detect(env["DEVPATH"])
+        if mods:
+            current.update(mods)
     
     def debug(self):
         pass
