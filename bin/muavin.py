@@ -14,6 +14,11 @@ import os
 import time
 import subprocess
 
+def log(msg):
+    path = "/dev/muavin.debug"
+    if os.path.exists(path):
+        file(path, "a").write(msg)
+
 
 class Blacklist:
     def blacklist(self):
@@ -348,10 +353,12 @@ def tryModule(modname):
         ret = subprocess.call(["/sbin/modprobe", "-q", modname], stdout=f, stderr=f)
 
 def plug(env=None):
+    log("*** Hotplug event:\n%s\n" % env)
     modules = set()
     for plugger in pluggers:
         p = plugger()
         p.plug(modules, env)
+    log("*** Modules loading:\n%s\n" % modules)
     for mod in modules:
         tryModule(mod)
 
