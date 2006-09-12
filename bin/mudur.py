@@ -167,10 +167,12 @@ class Logger:
         self.lines.append("%s (up %s) %s\n" % (stamp, up, msg))
     
     def sync(self):
-        f = file("/var/log/mudur.log", "a")
-        map(f.write, self.lines)
-        f.close()
-
+        try:
+            f = file("/var/log/mudur.log", "a")
+            map(f.write, self.lines)
+            f.close()
+        except IOError:
+            ui.error(_("Cannot write mudur.log, read-only file system"))
 
 class Config:
     def __init__(self):
