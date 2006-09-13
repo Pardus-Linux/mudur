@@ -326,7 +326,11 @@ class CPU:
             # modules.autoload.d or compiled it into the kernel
             return
         if self.isLaptop():
-            current.update(self.detect())
+            mods = self.detect()
+            if len(mods) > 0:
+                mods.add("cpufreq_userspace")
+                mods.add("cpufreq_ondemand")
+            current.update(mods)
     
     def debug(self):
         print "CPU: %s" % ", ".join(self.detect())
