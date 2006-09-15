@@ -516,9 +516,6 @@ def setupUdev():
         run("/sbin/udevstart")
     
     # NOTE: handle lvm here when used by pardus
-    
-    # Mark the /dev management system type
-    touch("/dev/.udev")
 
 def checkRoot():
     if not config.get("livecd"):
