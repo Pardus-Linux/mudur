@@ -449,7 +449,7 @@ def startServices():
     # Give login screen a headstart
     link.call_package("System.Service.ready", "kdebase")
     if not config.get("safe"):
-        time.sleep(1.5)
+        waitBus("/tmp/.X11-unix/X0", timeout=3)
         link.call("System.Service.ready")
 
 def stopServices():
