@@ -911,8 +911,8 @@ if sys.argv[1] == "sysinit":
     setSystemLanguage()
     
     # better performance for SMP systems, /var/run must be mounted rw before this
-    if os.path.exists("/sbin/irqbalance"):
-        run("/sbin/irqbalance")
+    if os.path.exists("/usr/sbin/irqbalance"):
+        run("/usr/sbin/irqbalance")
     
     # Change inittab for live cd autologin
     if config.get("livecd") and os.path.exists("/etc/inittab.livecd"):
