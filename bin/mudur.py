@@ -516,6 +516,10 @@ def setupUdev():
         run("/sbin/udevstart")
     
     # NOTE: handle lvm here when used by pardus
+    
+    if config.get("debug"):
+        # Set muavin into teh debug mode too
+        touch("/dev/muavin.debug")
 
 def checkRoot():
     if not config.get("livecd"):
