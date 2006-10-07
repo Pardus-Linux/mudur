@@ -236,7 +236,7 @@ class Config:
         if opts:
             opts = opts.split(",")
             for opt in opts:
-                if opt == "livecd":
+                if opt == "livecd" or opt == "livedisk":
                     self.opts["livecd"] = True
                 elif opt == "debug":
                     self.opts["debug"] = True
