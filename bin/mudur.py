@@ -288,13 +288,9 @@ class Config:
         if os.path.exists("/proc/xen/capabilities"):
             dom0 = loadFile("/proc/xen/capabilities").rstrip("\n")
             # if we are in dom0 then no extra work needed boot normally
-            if dom0 == "control_d":
-                return False
-            # if we are in domU then no need to set/sync clock and others
-            else:
+            if dom0 != "control_d":
+                # if we are in domU then no need to set/sync clock and others
                 return True
-
-        # FIXME: detect vmware and co. here
         return False
 
 class UI:
