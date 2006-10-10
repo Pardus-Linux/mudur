@@ -708,17 +708,13 @@ def setClock():
         ui.error(_("Failed to set system clock to hardware clock"))
 
 def cleanupVar():
-    if not config.get("livecd"):
-        ui.info(_("Cleaning up /var"))
-        for root,dirs,files in os.walk("/var/run"):
-            for f in files:
-                if f != "utmp" and f != "random-seed":
-                    os.unlink(os.path.join(root, f))
+    ui.info(_("Cleaning up /var"))
+    for root,dirs,files in os.walk("/var/run"):
+        for f in files:
+            if f != "utmp" and f != "random-seed":
+                os.unlink(os.path.join(root, f))
 
 def cleanupTmp():
-    if config.get("livecd"):
-        return
-    
     ui.info(_("Cleaning up /tmp"))
     delete("/tmp/.X*-lock", match=True, no_error=True)
     delete("/tmp/kio*", match=True, no_error=True)
