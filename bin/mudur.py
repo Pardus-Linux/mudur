@@ -349,6 +349,10 @@ languages = {
 
 def setConsole():
     """Setup encoding, font and mapping for console"""
+    if config.is_virtual():
+        """Xen is a just a serial console """
+        return
+
     lang = config.get("language")
     keymap = config.get("keymap")
     language = languages[lang]
