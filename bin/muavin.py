@@ -291,8 +291,8 @@ class CPU:
             elif self.family == 6:
                 modules.add("powernow-k7")
             # AMD Opteron/Athlon64
-            #elif lala:
-            #    modules.add("powernow-k8")
+            elif self.family == 15:
+                modules.add("powernow-k8")
         
         elif self.vendor == "CentaurHauls":
             # VIA Cyrix III Longhaul
