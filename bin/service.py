@@ -98,6 +98,14 @@ def manage_comar(op):
     if op == "start" or op == "restart":
         os.system("/sbin/start-stop-daemon -b --start --pidfile %s --make-pidfile --exec /usr/bin/comar" % comar_pid)
 
+def service_info(service):
+    c = comlink()
+    c.call_package("System.Service.info", service)
+    reply = c.read_cmd()
+    info = reply[2].split("\n")
+    return info[1]
+
+
 def start(service):
     c = comlink()
     c.call_package("System.Service.start", service)
@@ -105,7 +113,10 @@ def start(service):
     if reply[0] == c.RESULT:
         print _("Service '%s' started.") % service
     else:
-        print _("Error: %s") % reply[2]
+        if service_info(service) == "on":
+            print _("Service '%s' already started") % service
+        else:
+            print _("Error: %s") % reply[2]
 
 def stop(service):
     c = comlink()
@@ -114,7 +125,10 @@ def stop(service):
     if reply[0] == c.RESULT:
         print _("Service '%s' stopped.") % service
     else:
-        print _("Error: %s") % reply[2]
+        if service_info(service) == "stopped":
+            print _("Service '%s' is not running") % service
+        else:
+            print _("Error: %s") % reply[2]
 
 def restart(service):
     stop(service)
