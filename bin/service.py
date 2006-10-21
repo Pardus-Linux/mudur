@@ -23,8 +23,16 @@ _ = __trans.ugettext
 
 # Utilities
 
+def languageCode():
+    lang = locale.setlocale(locale.LC_MESSAGES)
+    if "_" in lang:
+        return lang.split("_")[0]
+    return "en"
+
 def comlink():
-    return comar.Link()
+    com = comar.Link()
+    com.localize(languageCode())
+    return com
 
 def collect(c):
     reply = c.read_cmd()
@@ -40,37 +48,80 @@ def collect(c):
 
 # Operations
 
-def list():
-    def onoff(state):
-        if state in ("on", "stopped"):
-            return "on"
-        if state in ("off", "started"):
-            return "off"
-    def color(state):
-        if os.environ.has_key("TERM") and os.environ["TERM"] == "xterm":
-            colors = {"on": '[0;32m',
-                      "started": '[1;32m',
-                      "stopped": '[0;31m',
-                      "off": '[0m'}
-        else:
-            colors = {"on": '[1;32m',
-                      "started": '[0;32m',
-                      "stopped": '[1;31m',
-                      "off": '[0m'}
+class Service:
+    types = {
+        "local": _("local"),
+        "script": _("script"),
+        "server": _("server"),
+    }
+    
+    def __init__(self, name, info=None):
+        self.name = name
+        self.running = ""
+        self.autostart = ""
+        if info:
+            type, state, self.description = info.split("\n")
+            self.state = state
+            self.type = self.types[type]
+            if state in ("on", "started"):
+                self.running = _("running")
+            if state in ("on", "stopped"):
+                self.autostart = _("yes")
 
-        return "\x1b%s" % colors[state]
+
+def format_service_list(services):
+    if os.environ.get("TERM", "") == "xterm":
+        colors = {
+            "on": '[0;32m',
+            "started": '[1;32m',
+            "stopped": '[0;31m',
+            "off": '[0m'
+        }
+    else:
+        colors = {
+            "on": '[1;32m',
+            "started": '[0;32m',
+            "stopped": '[1;31m',
+            "off": '[0m'
+        }
+    name_title = _("Service")
+    run_title = _("Status")
+    auto_title = _("Autostart")
+    desc_title = _("Description")
+    
+    name_size = max(max(map(lambda x: len(x.name), services)), len(name_title)) + 1
+    run_size = max(max(map(lambda x: len(x.running), services)), len(run_title)) + 1
+    auto_size = max(max(map(lambda x: len(x.autostart), services)), len(auto_title)) + 1
+    desc_size = len(desc_title)
+    
+    print "", \
+        name_title.ljust(name_size), \
+        run_title.ljust(run_size), \
+        auto_title.ljust(auto_size), \
+        desc_title
+    print "-" * (name_size + run_size + auto_size + desc_size + 4)
+    
+    for service in services:
+        print "\x1b%s" % colors[service.state], \
+            service.name.ljust(name_size), \
+            service.running.center(run_size), \
+            service.autostart.center(auto_size), \
+            service.description, \
+            '\x1b[0m'
+
+def list():
     c = comlink()
     c.call("System.Service.info")
     data = collect(c)
     services = filter(lambda x: x[0] == c.RESULT, data)
     errors = filter(lambda x: x[0] != c.RESULT, data)
     
-    size = max(map(lambda x: len(x[3]), services))
-    
     services.sort(key=lambda x: x[3])
+    lala = []
     for item in services:
-        info = item[2].split("\n")
-        print color(info[1]), item[3].ljust(size), info[0].ljust(6), onoff(info[1]).ljust(3), info[2], '\x1b[0m'
+        lala.append(Service(item[3], item[2]))
+    
+    format_service_list(lala)
 
 def checkDaemon(pidfile):
     if not os.path.exists(pidfile):
@@ -98,68 +149,44 @@ def manage_comar(op):
     if op == "start" or op == "restart":
         os.system("/sbin/start-stop-daemon -b --start --pidfile %s --make-pidfile --exec /usr/bin/comar" % comar_pid)
 
-def service_info(service):
+def manage_service(service, op):
     c = comlink()
-    c.call_package("System.Service.info", service)
+    
+    if op == "start":
+        c.call_package("System.Service.start", service)
+    elif op == "stop":
+        c.call_package("System.Service.stop", service)
+    elif op == "reload":
+        c.call_package("System.Service.reload", service)
+    elif op == "on":
+        c.call_package("System.Service.setState", service, ["state", "on"])
+    elif op == "off":
+        c.call_package("System.Service.setState", service, ["state", "off"])
+    elif op == "info":
+        c.call_package("System.Service.info", service)
+    elif op == "restart":
+        manage_service(service, "stop")
+        manage_service(service, "start")
+        return
+    
     reply = c.read_cmd()
-    info = reply[2].split("\n")
-    return info[1]
-
-
-def start(service):
-    c = comlink()
-    c.call_package("System.Service.start", service)
-    reply = c.read_cmd()
-    if reply[0] == c.RESULT:
+    if reply[0] != c.RESULT:
+        print _("Error: %s" % reply[2])
+        return
+    
+    if op == "start":
         print _("Service '%s' started.") % service
-    else:
-        if service_info(service) == "on":
-            print _("Service '%s' already started") % service
-        else:
-            print _("Error: %s") % reply[2]
-
-def stop(service):
-    c = comlink()
-    c.call_package("System.Service.stop", service)
-    reply = c.read_cmd()
-    if reply[0] == c.RESULT:
+    elif op == "stop":
         print _("Service '%s' stopped.") % service
-    else:
-        if service_info(service) == "stopped":
-            print _("Service '%s' is not running") % service
-        else:
-            print _("Error: %s") % reply[2]
-
-def restart(service):
-    stop(service)
-    start(service)
-
-def reload(service):
-    c = comlink()
-    c.call_package("System.Service.reload", service)
-    reply = c.read_cmd()
-    if reply[0] == c.RESULT:
+    elif op == "info":
+        s = Service(reply[3], reply[2])
+        format_service_list([s])
+    elif op == "reload":
         print _("Service '%s' reloaded.") % service
-    else:
-        print _("Error: %s") % reply[2]
-
-def on(service):
-    c = comlink()
-    c.call_package("System.Service.setState", service, ["state", "on"])
-    reply = c.read_cmd()
-    if reply[0] == c.RESULT:
-        print _("Service '%s' turned on.") % service
-    else:
-        print _("Error: %s") % reply[2]
-
-def off(service):
-    c = comlink()
-    c.call_package("System.Service.setState", service, ["state", "off"])
-    reply = c.read_cmd()
-    if reply[0] == c.RESULT:
-        print _("Service '%s' turned off.") % service
-    else:
-        print _("Error: %s") % reply[2]
+    elif op == "on":
+        print _("Service '%s' will be auto started.") % service
+    elif op == "off":
+        print _("Service '%s' won't be auto started.") % service
 
 # Usage
 
@@ -167,8 +194,9 @@ def usage():
     print _("""usage: service [<service>] <command>
 where command is:
  list    Display service list
- on      Turn on the service permamently
- off     Turn off the service permamently
+ info    Display service status
+ on      Auto start the service
+ off     Don't auto start the service
  start   Start the service
  stop    Stop the service
  restart Stop the service, then start again
@@ -177,6 +205,8 @@ where command is:
 # Main
 
 def main(args):
+    operations = ("start", "stop", "info", "restart", "reload", "on", "off")
+    
     if args == []:
         list()
     
@@ -192,23 +222,8 @@ def main(args):
     elif args[0] == "comar":
         manage_comar(args[1])
     
-    elif args[1] == "start":
-        start(args[0])
-    
-    elif args[1] == "stop":
-        stop(args[0])
-    
-    elif args[1] == "restart":
-        restart(args[0])
-    
-    elif args[1] == "reload":
-        reload(args[0])
-    
-    elif args[1] == "on":
-        on(args[0])
-    
-    elif args[1] == "off":
-        off(args[0])
+    elif args[1] in operations:
+        manage_service(args[0], args[1])
     
     else:
         usage()
