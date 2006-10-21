@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-01 17:50+0300\n"
+"POT-Creation-Date: 2006-10-22 00:11+0300\n"
 "PO-Revision-Date: 2006-03-06 16:05+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@pardus.org.tr>\n"
 "Language-Team:  <yerellestirme@kde.org.tr>\n"
@@ -16,167 +16,171 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11\n"
 
-#: bin/mudur.py:304
+#: bin/mudur.py:175
+msgid "Cannot write mudur.log, read-only file system"
+msgstr "Mudur kayıtları yazılamıyor, dosya sistemi sadece okunabilir durumda"
+
+#: bin/mudur.py:311
 msgid "Cannot find /etc/pardus-release"
 msgstr "/etc/pardus-release dosyası bulunamadı"
 
-#: bin/mudur.py:408
+#: bin/mudur.py:419
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "tty %d unicode moduna alınamadı"
 
-#: bin/mudur.py:424
+#: bin/mudur.py:435
 msgid "Starting COMAR"
 msgstr "ÇOMAR başlatılıyor"
 
-#: bin/mudur.py:435
+#: bin/mudur.py:446
 msgid "Starting services"
 msgstr "Servisler başlatılıyor"
 
-#: bin/mudur.py:441
+#: bin/mudur.py:452
 msgid "Cannot connect to COMAR, services won't be started"
 msgstr "ÇOMAR'a bağlanılamadı, servisler başlatılamayacak"
 
-#: bin/mudur.py:446
+#: bin/mudur.py:457
 msgid "Cannot start system logger"
 msgstr "Sistem kütük servisi başlatılamadı"
 
-#: bin/mudur.py:454
+#: bin/mudur.py:465
 msgid "Stopping services"
 msgstr "Servisler durduruluyor"
 
-#: bin/mudur.py:458
+#: bin/mudur.py:469
 msgid "Stopping COMAR"
 msgstr "ÇOMAR durduruluyor"
 
-#: bin/mudur.py:467
+#: bin/mudur.py:478
 msgid "Mounting /dev"
 msgstr "/dev dizini bağlanıyor"
 
-#: bin/mudur.py:476
+#: bin/mudur.py:487
 msgid "Restoring saved device states"
 msgstr "Kayıtlı aygıt durumları okunuyor"
 
-#: bin/mudur.py:498
+#: bin/mudur.py:509
 msgid "Starting udev"
 msgstr "Udev servisi başlatılıyor"
 
-#: bin/mudur.py:505
+#: bin/mudur.py:516
 msgid "Populating /dev"
 msgstr "/dev içeriği dolduruluyor"
 
-#: bin/mudur.py:523
+#: bin/mudur.py:535
 msgid "Remounting root filesystem read-only"
 msgstr "Kök dosya sistemi salt okunur halde yeniden bağlanıyor"
 
-#: bin/mudur.py:528
+#: bin/mudur.py:540
 msgid "Checking root filesystem"
 msgstr "Kök dosya sistemi denetleniyor"
 
-#: bin/mudur.py:533
+#: bin/mudur.py:545
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Dosya sistemi düzeltildi, sistemin yeniden başlatılması gerekiyor!"
 
-#: bin/mudur.py:537
+#: bin/mudur.py:549
 msgid "Rebooting in 10 seconds ..."
 msgstr "10 saniye içinde yeniden başlatılıyor..."
 
-#: bin/mudur.py:539
+#: bin/mudur.py:551
 msgid "Rebooting..."
 msgstr "Yeniden başlatılıyor..."
 
-#: bin/mudur.py:542
+#: bin/mudur.py:554
 msgid "Filesystem couldn't be fixed :("
 msgstr "Dosya sistemindeki sorun düzeltilemedi."
 
-#: bin/mudur.py:545
+#: bin/mudur.py:557
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Kök dosya sistemi denetimi atlandı (fstab pass değeri = 0)"
 
-#: bin/mudur.py:547
+#: bin/mudur.py:559
 msgid "Remounting root filesystem read/write"
 msgstr "Kök dosya sistemi okunur/yazılır halde yeniden bağlanıyor"
 
-#: bin/mudur.py:549
+#: bin/mudur.py:561
 msgid "Root filesystem could not be mounted read/write :("
 msgstr "Kök dizini oku-yaz olarak bağlanamadı"
 
-#: bin/mudur.py:592
+#: bin/mudur.py:604
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Sistem adı '%s' olarak ayarlanıyor"
 
-#: bin/mudur.py:609
+#: bin/mudur.py:621
 msgid "Calculating module dependencies"
 msgstr "Modül bağımlılıkları hesaplanıyor"
 
-#: bin/mudur.py:625
+#: bin/mudur.py:637
 msgid "Checking all filesystems"
 msgstr "Tüm dosya sistemleri denetleniyor"
 
-#: bin/mudur.py:630
+#: bin/mudur.py:642
 msgid "Filesystem errors corrected"
 msgstr "Dosya sistemindeki hatalar düzeltildi"
 
-#: bin/mudur.py:632
+#: bin/mudur.py:644
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 "Fsck programı tüm hataları düzeltemedi. Düzeltme işleminin elle yapılması "
 "gerekiyor"
 
-#: bin/mudur.py:645
+#: bin/mudur.py:657
 msgid "Mounting USB filesystem"
 msgstr "USB dosya sistemi bağlanıyor"
 
-#: bin/mudur.py:651
+#: bin/mudur.py:663
 msgid "Mounting local filesystems"
 msgstr "Yerel dosya sistemleri bağlanıyor"
 
-#: bin/mudur.py:654
+#: bin/mudur.py:666
 msgid "Activating swap"
 msgstr "Takas alanı etkinleştiriliyor"
 
-#: bin/mudur.py:666
+#: bin/mudur.py:678
 msgid "Setting disk parameters"
 msgstr "Disk parametreleri ayarlanıyor"
 
-#: bin/mudur.py:691
+#: bin/mudur.py:703
 msgid "Setting system clock to hardware clock"
 msgstr "Sistem saati donanım saatinden ayarlanıyor"
 
-#: bin/mudur.py:700
+#: bin/mudur.py:712
 msgid "Failed to set system clock to hardware clock"
 msgstr "Sistem saati donanım saatine göre ayarlanamadı"
 
-#: bin/mudur.py:704
+#: bin/mudur.py:715
 msgid "Cleaning up /var"
 msgstr "/var dizini temizleniyor"
 
-#: bin/mudur.py:714
+#: bin/mudur.py:722
 msgid "Cleaning up /tmp"
 msgstr "/tmp dizini temizleniyor"
 
-#: bin/mudur.py:755
+#: bin/mudur.py:763
 msgid "Syncing system clock to hardware clock"
 msgstr "Donanım saati sistem saati ile senkronize ediliyor"
 
-#: bin/mudur.py:758
+#: bin/mudur.py:766
 msgid "Failed to sync clocks"
 msgstr "Saatler senkronize edilemedi"
 
-#: bin/mudur.py:770
+#: bin/mudur.py:778
 msgid "Deactivating swap"
 msgstr "Takas alanı bırakılıyor"
 
-#: bin/mudur.py:791
+#: bin/mudur.py:799
 msgid "Unmounting filesystems"
 msgstr "Dosya sistemleri ayrılıyor"
 
-#: bin/mudur.py:823
+#: bin/mudur.py:831
 msgid "Remounting remaining filesystems readonly"
 msgstr "Diğer dosya sistemleri salt okunur şekilde yeniden bağlanıyor"
 
-#: bin/mudur.py:837
+#: bin/mudur.py:845
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -184,69 +188,105 @@ msgstr ""
 "Bir hata oluştu. Lütfen bu hatayı hata.pardus.org.tr'ye girin. Hata girişi "
 "yaparken aşağıdaki çıktıyı da yazın."
 
-#: bin/mudur.py:884
+#: bin/mudur.py:892
 msgid "Mounting /sys"
 msgstr "/sys dizini bağlanıyor"
 
-#: bin/mudur.py:889
+#: bin/mudur.py:897
 msgid "Mounting /dev/pts"
 msgstr "/dev/pts dizini bağlanıyor"
 
-#: bin/mudur.py:900
+#: bin/mudur.py:908
 msgid "Starting Coldplug"
 msgstr "Donanım tanıma başlatılıyor"
 
-#: bin/mudur.py:930
+#: bin/mudur.py:938
 msgid "Setting up localhost"
 msgstr "Yerel ağ ayarlanıyor"
 
-#: bin/mudur.py:940
+#: bin/mudur.py:948
 msgid "Updating environment variables"
 msgstr "Çevresel değişkenler güncelleniyor"
 
-#: bin/service.py:85
+#: bin/service.py:53
+msgid "local"
+msgstr "yerel"
+
+#: bin/service.py:54
+msgid "script"
+msgstr "betik"
+
+#: bin/service.py:55
+msgid "server"
+msgstr "sunucu"
+
+#: bin/service.py:67
+msgid "running"
+msgstr "çalışıyor"
+
+#: bin/service.py:69
+msgid "yes"
+msgstr "evet"
+
+#: bin/service.py:87
+msgid "Service"
+msgstr "Servis"
+
+#: bin/service.py:88
+msgid "Status"
+msgstr "Durum"
+
+#: bin/service.py:89
+msgid "Autostart"
+msgstr "Otobaşla"
+
+#: bin/service.py:90
+msgid "Description"
+msgstr "Açıklama"
+
+#: bin/service.py:136
 msgid "You should be the root user in order to control the comar service."
 msgstr ""
 "ÇOMAR servisini denetlemek için sistem yöneticisi haklarına ihtiyacınız var."
 
-#: bin/service.py:106
-#, python-format
-msgid "Service '%s' started."
-msgstr "'%s' servisi başlatıldı."
-
-#: bin/service.py:108 bin/service.py:117 bin/service.py:130 bin/service.py:139
-#: bin/service.py:148
+#: bin/service.py:174
 #, python-format
 msgid "Error: %s"
 msgstr "Hata. %s"
 
-#: bin/service.py:115
+#: bin/service.py:178
+#, python-format
+msgid "Service '%s' started."
+msgstr "'%s' servisi başlatıldı."
+
+#: bin/service.py:180
 #, python-format
 msgid "Service '%s' stopped."
 msgstr "'%s' servisi durduruldu."
 
-#: bin/service.py:128
+#: bin/service.py:185
 #, python-format
 msgid "Service '%s' reloaded."
 msgstr "'%s' servisi yeniden yüklendi."
 
-#: bin/service.py:137
+#: bin/service.py:187
 #, python-format
-msgid "Service '%s' turned on."
-msgstr "'%s' servisi etkin hale getirildi"
+msgid "Service '%s' will be auto started."
+msgstr "'%s' servisi otomatik başlatılacak."
 
-#: bin/service.py:146
+#: bin/service.py:189
 #, python-format
-msgid "Service '%s' turned off."
-msgstr "'%s' servisi etkisiz hale getirildi"
+msgid "Service '%s' won't be auto started."
+msgstr "'%s' servisi otomatik başlatılmayacak."
 
-#: bin/service.py:153
+#: bin/service.py:194
 msgid ""
 "usage: service [<service>] <command>\n"
 "where command is:\n"
 " list    Display service list\n"
-" on      Turn on the service permamently\n"
-" off     Turn off the service permamently\n"
+" info    Display service status\n"
+" on      Auto start the service\n"
+" off     Don't auto start the service\n"
 " start   Start the service\n"
 " stop    Stop the service\n"
 " restart Stop the service, then start again\n"
@@ -255,8 +295,9 @@ msgstr ""
 "kullanım: service [<servis adı>] <komut>\n"
 "komut aşağıdakilerden birisi olabilir:\n"
 " list    Servis listesini görüntüle\n"
-" on      Servisi açılışta başlatacak şekilde ayarla\n"
-" off     Servisi açılışta başlamayacak şekilde ayarla\n"
+" info    Servis durumunu göster\n"
+" on      Servisi açılışta otomatik başlat\n"
+" off     Servisi açılışta başlatma\n"
 " start   Servisi başlat\n"
 " stop    Servisi durdur\n"
 " restart Servisi durdur, sonra yeniden başlat\n"
