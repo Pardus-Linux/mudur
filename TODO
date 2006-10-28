@@ -1,6 +1,5 @@
 service komutu için:
     start iken start, stop iken stop deyince çıkan mesajlar
-    -no-color seçeneği lazım
     sadece server tiplileri göster mesajı
     belki sıralama seçenekleri?
 

@@ -69,7 +69,7 @@ class Service:
                 self.autostart = _("yes")
 
 
-def format_service_list(services):
+def format_service_list(services, use_color=True):
     if os.environ.get("TERM", "") == "xterm":
         colors = {
             "on": '[0;32m',
@@ -94,22 +94,31 @@ def format_service_list(services):
     auto_size = max(max(map(lambda x: len(x.autostart), services)), len(auto_title)) + 1
     desc_size = len(desc_title)
     
-    print "", \
+    print \
         name_title.ljust(name_size), \
         run_title.ljust(run_size), \
         auto_title.ljust(auto_size), \
         desc_title
     print "-" * (name_size + run_size + auto_size + desc_size + 4)
     
+    cstart = ""
+    cend = ""
+    if use_color:
+        cend = "\x1b[0m"
     for service in services:
-        print "\x1b%s" % colors[service.state], \
-            service.name.ljust(name_size), \
-            service.running.center(run_size), \
-            service.autostart.center(auto_size), \
-            service.description, \
-            '\x1b[0m'
+        if use_color:
+            cstart = "\x1b%s" % colors[service.state]
+        line = "%s%s %s %s %s%s" % (
+            cstart,
+            service.name.ljust(name_size),
+            service.running.center(run_size),
+            service.autostart.center(auto_size),
+            service.description,
+            cend
+        )
+        print line
 
-def list():
+def list(use_color=True):
     c = comlink()
     c.call("System.Service.info")
     data = collect(c)
@@ -121,7 +130,7 @@ def list():
     for item in services:
         lala.append(Service(item[3], item[2]))
     
-    format_service_list(lala)
+    format_service_list(lala, use_color)
 
 def checkDaemon(pidfile):
     if not os.path.exists(pidfile):
@@ -149,7 +158,7 @@ def manage_comar(op):
     if op == "start" or op == "restart":
         os.system("/sbin/start-stop-daemon -b --start --pidfile %s --make-pidfile --exec /usr/bin/comar" % comar_pid)
 
-def manage_service(service, op):
+def manage_service(service, op, use_color=True):
     c = comlink()
     
     if op == "start":
@@ -180,7 +189,7 @@ def manage_service(service, op):
         print _("Service '%s' stopped.") % service
     elif op == "info":
         s = Service(reply[3], reply[2])
-        format_service_list([s])
+        format_service_list([s], use_color)
     elif op == "reload":
         print _("Service '%s' reloaded.") % service
     elif op == "on":
@@ -206,12 +215,22 @@ where command is:
 
 def main(args):
     operations = ("start", "stop", "info", "restart", "reload", "on", "off")
+    use_color = True
     
+    # Parameters
+    if "--no-color" in args:
+        args.remove("--no-color")
+        use_color = False
+    if "-N" in args:
+        args.remove("-N")
+        use_color = False
+    
+    # Operations
     if args == []:
-        list()
+        list(use_color)
     
     elif args[0] == "list":
-        list()
+        list(use_color)
     
     elif args[0] == "help":
         usage()
@@ -223,7 +242,7 @@ def main(args):
         manage_comar(args[1])
     
     elif args[1] in operations:
-        manage_service(args[0], args[1])
+        manage_service(args[0], args[1], use_color)
     
     else:
         usage()
