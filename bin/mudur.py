@@ -923,11 +923,6 @@ if sys.argv[1] == "sysinit":
     if os.path.exists("/usr/sbin/irqbalance"):
         run("/usr/sbin/irqbalance")
     
-    # Change inittab for live cd autologin
-    if config.get("livecd") and os.path.exists("/etc/inittab.livecd"):
-        write("/etc/inittab", loadFile("/etc/inittab.livecd"))
-        run_quiet("/sbin/telinit", "q")
-    
     # when we exit this runlevel, init will write a boot record to utmp
     write("/var/run/utmp", "")
     touch("/var/log/wtmp")
