@@ -1,3 +1,4 @@
+# translation of nl.po to Nederlands
 # translation of mudur.po to
 # translation of tr.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -5,14 +6,15 @@
 #
 # Willem Gielen <w.gielen@gmail.com>, 2006.
 # Rinse de Vries <RinseDeVries@home.nl>, 2006.
+# W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: mudur\n"
+"Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-22 00:11+0300\n"
-"PO-Revision-Date: 2006-08-13 02:52+0200\n"
-"Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
-"Language-Team:  <nl@li.org>\n"
+"PO-Revision-Date: 2006-10-29 01:29+0300\n"
+"Last-Translator: W.P.M.H.I.A. Gielen <w.gielen@gmail.com>\n"
+"Language-Team: Nederlands <http://liste.pardus.org.tr/pardus-translation-nl/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +22,7 @@ msgstr ""
 
 #: bin/mudur.py:175
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
+msgstr "Kan mudur.log niet schrijven, alleen-lezen bestandssysteem"
 
 #: bin/mudur.py:311
 msgid "Cannot find /etc/pardus-release"
@@ -105,8 +107,7 @@ msgstr "Hoofdbestandssysteem opnieuw koppelen als lezen/schrijven"
 
 #: bin/mudur.py:561
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Hoofdbestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' "
+msgstr "Hoofdbestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' "
 
 #: bin/mudur.py:604
 #, python-format
@@ -127,8 +128,7 @@ msgstr "Fouten in het systeembestanden gecorrigeerd"
 
 #: bin/mudur.py:644
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:657
 msgid "Mounting USB filesystem"
@@ -186,9 +186,7 @@ msgstr "Bestandssystemen opnieuw aankoppelen als alleen-lezen"
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
-msgstr ""
-"Er is een fout opgetreden. Meld de foutmelding aan bugs.pardus.org.tr met de "
-"volgende informatie:"
+msgstr "Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs.pardus.org.tr met de  volgende informatie:"
 
 #: bin/mudur.py:892
 msgid "Mounting /sys"
@@ -212,39 +210,39 @@ msgstr "Omgevingsvariabelen bijwerken"
 
 #: bin/service.py:53
 msgid "local"
-msgstr ""
+msgstr "lokaal"
 
 #: bin/service.py:54
 msgid "script"
-msgstr ""
+msgstr "script"
 
 #: bin/service.py:55
 msgid "server"
-msgstr ""
+msgstr "server"
 
 #: bin/service.py:67
 msgid "running"
-msgstr ""
+msgstr "wordt uitgevoerd"
 
 #: bin/service.py:69
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: bin/service.py:87
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: bin/service.py:88
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: bin/service.py:89
 msgid "Autostart"
-msgstr ""
+msgstr "Autostart"
 
 #: bin/service.py:90
 msgid "Description"
-msgstr ""
+msgstr "Beschrijving"
 
 #: bin/service.py:136
 msgid "You should be the root user in order to control the comar service."
@@ -270,17 +268,17 @@ msgstr "Service '%s' is gestopt."
 #: bin/service.py:185
 #, python-format
 msgid "Service '%s' reloaded."
-msgstr "Service '%s' is herstart."
+msgstr "Service '%s' is opnieuw geladen."
 
 #: bin/service.py:187
-#, fuzzy, python-format
+#, python-format
 msgid "Service '%s' will be auto started."
-msgstr "Service '%s' is gestart."
+msgstr "Service '%s' wordt  automatische gestart."
 
 #: bin/service.py:189
-#, fuzzy, python-format
+#, python-format
 msgid "Service '%s' won't be auto started."
-msgstr "Service '%s' is gestart."
+msgstr "Service '%s' zal niet automatische worden gestart."
 
 #: bin/service.py:194
 #, fuzzy
@@ -306,12 +304,3 @@ msgstr ""
 " restart service stoppen en dan weer starten\n"
 " reload  de configuratie herladen (als de service dit ondersteunt)"
 
-#~ msgid "Service '%s' turned on."
-#~ msgstr "Service '%s' is ingeschakeld."
-
-#~ msgid "Service '%s' turned off."
-#~ msgstr "Service '%s' is uitgeschakeld."
-
-#~ msgid "Device nodes are not ready for some local filesystems"
-#~ msgstr ""
-#~ "Apparaatknooppunten zijn niet gereed voor enkele lokale bestandssystemen"
