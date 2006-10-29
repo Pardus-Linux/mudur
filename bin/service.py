@@ -94,12 +94,13 @@ def format_service_list(services, use_color=True):
     auto_size = max(max(map(lambda x: len(x.autostart), services)), len(auto_title)) + 1
     desc_size = len(desc_title)
     
-    print \
-        name_title.ljust(name_size), \
-        run_title.ljust(run_size), \
-        auto_title.ljust(auto_size), \
-        desc_title
-    print "-" * (name_size + run_size + auto_size + desc_size + 4)
+    line = "%s | %s | %s | %s" % \
+        (name_title.center(name_size), \
+        run_title.center(run_size), \
+        auto_title.center(auto_size), \
+        desc_title.center(desc_size))
+    print line
+    print "-" * (len(line))
     
     cstart = ""
     cend = ""
@@ -108,7 +109,7 @@ def format_service_list(services, use_color=True):
     for service in services:
         if use_color:
             cstart = "\x1b%s" % colors[service.state]
-        line = "%s%s %s %s %s%s" % (
+        line = "%s%s | %s | %s | %s%s" % (
             cstart,
             service.name.ljust(name_size),
             service.running.center(run_size),
