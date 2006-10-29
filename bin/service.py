@@ -89,16 +89,17 @@ def format_service_list(services, use_color=True):
     auto_title = _("Autostart")
     desc_title = _("Description")
     
-    name_size = max(max(map(lambda x: len(x.name), services)), len(name_title)) + 1
-    run_size = max(max(map(lambda x: len(x.running), services)), len(run_title)) + 1
-    auto_size = max(max(map(lambda x: len(x.autostart), services)), len(auto_title)) + 1
+    name_size = max(max(map(lambda x: len(x.name), services)), len(name_title))
+    run_size = max(max(map(lambda x: len(x.running), services)), len(run_title))
+    auto_size = max(max(map(lambda x: len(x.autostart), services)), len(auto_title))
     desc_size = len(desc_title)
     
-    line = "%s | %s | %s | %s" % \
-        (name_title.center(name_size), \
-        run_title.center(run_size), \
-        auto_title.center(auto_size), \
-        desc_title.center(desc_size))
+    line = "%s | %s | %s | %s" % (
+        name_title.center(name_size),
+        run_title.center(run_size),
+        auto_title.center(auto_size),
+        desc_title.center(desc_size)
+    )
     print line
     print "-" * (len(line))
     
