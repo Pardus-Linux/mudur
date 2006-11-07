@@ -45,6 +45,8 @@ class Blacklist:
                     if line == '' or line.startswith('#'):
                         continue
                     blacks.add(line)
+        # Normalize names
+        blacks = map(lambda x: x.replace("-", "_"), blacks)
         return blacks
     
     def plug(self, current, env=None):
@@ -268,15 +270,15 @@ class CPU:
         if self.vendor == "GenuineIntel":
             # Pentium M, Enhanced SpeedStep
             if "est" in self.flags:
-                modules.add("speedstep-centrino")
+                modules.add("speedstep_centrino")
             # Some kind of Mobile Pentium
             elif self.name.find("Mobile") != -1:
                 # ACPI Processor Performance States
                 if self._detect_acpi_pps():
-                    modules.add("acpi-cpufreq")
+                    modules.add("acpi_cpufreq")
                 # SpeedStep ICH, PIII-M and P4-M with ICH2/3/4 southbridges
                 elif self._detect_ich():
-                    modules.add("speedstep-ich")
+                    modules.add("speedstep_ich")
                 # P4 and XEON processors with thermal control
                 # NOTE: Disabled for now, I'm not sure if this does more
                 # harm than good
@@ -286,13 +288,13 @@ class CPU:
         elif self.vendor == "AuthenticAMD":
             # Mobile K6-1/2 CPUs
             if self.family == 5 and (self.model == 12 or self.model == 13):
-                modules.add("powernow-k6")
+                modules.add("powernow_k6")
             # Mobile Athlon/Duron
             elif self.family == 6:
-                modules.add("powernow-k7")
+                modules.add("powernow_k7")
             # AMD Opteron/Athlon64
             elif self.family == 15:
-                modules.add("powernow-k8")
+                modules.add("powernow_k8")
         
         elif self.vendor == "CentaurHauls":
             # VIA Cyrix III Longhaul
