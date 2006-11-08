@@ -173,7 +173,7 @@ def manage_service(service, op, use_color=True):
         c.call_package("System.Service.setState", service, ["state", "on"])
     elif op == "off":
         c.call_package("System.Service.setState", service, ["state", "off"])
-    elif op == "info":
+    elif op == "info" or op == "list":
         c.call_package("System.Service.info", service)
     elif op == "restart":
         manage_service(service, "stop")
@@ -189,7 +189,7 @@ def manage_service(service, op, use_color=True):
         print _("Service '%s' started.") % service
     elif op == "stop":
         print _("Service '%s' stopped.") % service
-    elif op == "info":
+    elif op == "info" or op == "list":
         s = Service(reply[3], reply[2])
         format_service_list([s], use_color)
     elif op == "reload":
@@ -216,7 +216,7 @@ where command is:
 # Main
 
 def main(args):
-    operations = ("start", "stop", "info", "restart", "reload", "on", "off")
+    operations = ("start", "stop", "info", "list", "restart", "reload", "on", "off")
     use_color = True
     
     # Parameters
@@ -231,7 +231,7 @@ def main(args):
     if args == []:
         list(use_color)
     
-    elif args[0] == "list":
+    elif args[0] == "list" and len(args) == 1:
         list(use_color)
     
     elif args[0] == "help":
