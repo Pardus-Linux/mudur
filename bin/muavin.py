@@ -331,6 +331,7 @@ class CPU:
             mods = self.detect()
             if len(mods) > 0:
                 mods.add("cpufreq_userspace")
+                mods.add("cpufreq_powersave")
                 mods.add("cpufreq_ondemand")
             current.update(mods)
     
