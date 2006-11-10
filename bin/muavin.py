@@ -139,7 +139,7 @@ class PNP:
                 devids = file(os.path.join(path, dev, "id")).read().rstrip("\n")
                 for id in devids.split("\n"):
                     if id == "PNP0400" or id == "PNP0401":
-                        return [ "parport_pc" ]
+                        return [ "parport_pc", "lp" ]
         return []
     
     def plug(self, current, env=None):
