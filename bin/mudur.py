@@ -344,7 +344,8 @@ class Language:
 languages = {
     "en": Language("us", "iso01.16", "8859-1", "en_US.UTF-8"),
     "tr": Language("trq", "iso09.16", "8859-9", "tr_TR.UTF-8"),
-    "nl": Language("nl", "iso01.16", "8859-1", "nl_NL.UTF-8")
+    "nl": Language("nl", "iso01.16", "8859-1", "nl_NL.UTF-8"),
+    "de": Language("de", "iso01.16", "8859-1", "de_DE.UTF-8")
 }
 
 def setConsole():
