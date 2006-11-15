@@ -26,7 +26,7 @@ int fnmatch(const char *p, const char *s);
 char *my_readlink(const char *path);
 char *sys_value(const char *path, const char *value);
 
-struct list *module_get_list(void);
+struct list *module_get_list(const char *syspath);
 int module_probe(const char *name);
 
 struct list *scsi_get_list(void);

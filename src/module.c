@@ -16,11 +16,12 @@
 #include "common.h"
 
 static struct list *
-find_aliases(const char *syspath, struct list *aliases)
+find_aliases(const char *syspath)
 {
 	FILE *f;
 	DIR *dir;
 	struct dirent *dirent;
+	struct list *aliases = NULL;
 	char modalias[256];
 	size_t size;
 	char *path;
@@ -83,7 +84,7 @@ find_modules(const char *mapfile, struct list *aliases)
 }
 
 struct list *
-module_get_list(void)
+module_get_list(const char *syspath)
 {
 	struct list *aliases;
 	struct utsname name;
@@ -93,9 +94,7 @@ module_get_list(void)
 	mapfile = concat("/lib/modules/", name.release);
 	mapfile = concat(mapfile, "/modules.alias");
 
-	aliases = find_aliases("/sys/bus/pci/devices/", NULL);
-	aliases = find_aliases("/sys/bus/usb/devices/", aliases);
-
+	aliases = find_aliases(syspath);
 	return find_modules(mapfile, aliases);
 }
 
