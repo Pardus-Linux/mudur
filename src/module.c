@@ -104,4 +104,5 @@ int
 module_probe(const char *name)
 {
 	system(concat("modprobe ", name));
+	return 0;
 }

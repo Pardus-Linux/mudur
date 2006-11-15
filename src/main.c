@@ -21,5 +21,12 @@ main(int argc, char *argv[])
 	for (; modules; modules = modules->next)
 		printf("%s\n", modules->data);
 
+	puts("lala");
+	modules = scsi_get_list();
+	for (; modules; modules = modules->next)
+		printf("%s\n", modules->data);
+
+	devnode_populate();
+
 	return 0;
 }

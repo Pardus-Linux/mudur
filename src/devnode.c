@@ -16,6 +16,17 @@
 #include "common.h"
 
 int
+devnode_mknod(const char *name, const char *major, const char *minor)
+{
+	char buf[512];
+
+	sprintf(buf, "/bin/mknod /dev/%s b %s %s", name, major, minor);
+	printf("[%s]\n", buf);
+//system(buf);
+	return 0;
+}
+
+static int
 mknod_parts(char *dev)
 {
 	char *path;
@@ -24,7 +35,6 @@ mknod_parts(char *dev)
 	char *tmp;
 	char *major;
 	char *minor;
-	char buf[512];
 
 	path = concat("/sys/block/", dev);
 	dir = opendir(path);
@@ -39,17 +49,14 @@ mknod_parts(char *dev)
 		tmp = sys_value(tmp, "dev");
 		major = strtok(tmp, ":");
 		minor = strtok(NULL, "");
-		if (minor) {
-			sprintf(buf, "/bin/mknod /dev/%s b %s %s", name, major, minor);
-			system(buf);
-		}
+		if (minor) devnode_mknod(name, major, minor);
 	}
 	closedir(dir);
 	return 0;
 }
 
 int
-devnodes_populate(void)
+devnode_populate(void)
 {
 	DIR *dir;
 	struct dirent *dirent;
@@ -78,9 +85,7 @@ devnodes_populate(void)
 			major = strtok(dev, ":");
 			minor = strtok(NULL, "");
 			if (minor) {
-				char buf[512];
-				sprintf(buf, "/bin/mknod /dev/%s b %s %s", tmp, major, minor);
-				system(buf);
+				devnode_mknod(name, major, minor);
 				mknod_parts(tmp);
 			}
 		}

@@ -15,15 +15,15 @@
 
 #include "common.h"
 
-int
-scsi_probe_modules(void)
+struct list *
+scsi_get_list(void)
 {
 	DIR *dir;
 	struct dirent *dirent;
-	struct modlist *modules = NULL;
+	struct list *modules = NULL;
 
 	dir = opendir("/sys/bus/scsi/devices");
-	if (!dir) return -1;
+	if (!dir) return NULL;
 	while((dirent = readdir(dir))) {
 		char *path;
 		char *tmp;
@@ -37,14 +37,14 @@ scsi_probe_modules(void)
 		tmp = sys_value(path, "type");
 		if (tmp) {
 			if (strcmp(tmp, "0") == 0 || strcmp(tmp, "7") == 0)
-				modules = modlist_add(modules, "sd_mod");
+				modules = list_add(modules, "sd_mod");
 			if (strcmp(tmp, "1") == 0)
-				modules = modlist_add(modules, "st");
+				modules = list_add(modules, "st");
 			if (strcmp(tmp, "4") == 0 || strcmp(tmp, "5") == 0)
-				modules = modlist_add(modules, "sr_mod");
+				modules = list_add(modules, "sr_mod");
 		}
 	}
 	closedir(dir);
 
-	return modlist_probe(modules);
+	return modules;
 }

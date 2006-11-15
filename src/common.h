@@ -22,9 +22,10 @@ int fnmatch(const char *p, const char *s);
 char *my_readlink(const char *path);
 char *sys_value(const char *path, const char *value);
 
-struct modlist;
-struct modlist *modlist_add(struct modlist *list, const char *name);
-int modlist_probe(struct modlist *list);
-
 struct list *module_get_list(void);
 int module_probe(const char *name);
+
+struct list *scsi_get_list(void);
+
+int devnode_mknod(const char *name, const char *major, const char *minor);
+int devnode_populate(void);
