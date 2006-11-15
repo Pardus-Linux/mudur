@@ -8,23 +8,32 @@
 */
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "common.h"
+
+int
+list_has(struct list *listptr, const char *data)
+{
+	struct list *tmp;
+
+	// Our lists arent big, so simple iteration isnt slow
+	for (tmp = listptr; tmp; tmp = tmp->next) {
+		if (0 == strcmp(tmp->data, data))
+			return 1;
+	}
+	return 0;
+}
 
 struct list *
 list_add(struct list *listptr, const char *data)
 {
 	struct list *tmp;
 
-	// We dont want duplicate module names, etc in our lists
-	// Lists arent too big either, so no need to use a hash or something
-	for (tmp = listptr; tmp; tmp = tmp->next) {
-		if (0 == strcmp(tmp->data, data))
-			return listptr;
-	}
+	// We dont want duplicate module names in our lists
+	if (list_has(listptr, data))
+		return listptr;
 
 	tmp = zalloc(sizeof(struct list));
 	tmp->next = listptr;

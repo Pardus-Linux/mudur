@@ -8,6 +8,7 @@
 */
 
 #include <stddef.h>
+#include <string.h>
 
 extern int cfg_debug;
 
@@ -16,6 +17,7 @@ struct list {
 	char *data;
 };
 
+int list_has(struct list *listptr, const char *data);
 struct list *list_add(struct list *listptr, const char *data);
 
 void *zalloc(size_t size);
