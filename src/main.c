@@ -15,8 +15,6 @@
 
 #include "common.h"
 
-int pci_probe_modules(const char *mappath);
-int usb_probe_modules(const char *mappath);
 int scsi_probe_modules(void);
 int devnodes_populate(void);
 

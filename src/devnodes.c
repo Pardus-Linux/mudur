@@ -53,7 +53,6 @@ devnodes_populate(void)
 {
 	DIR *dir;
 	struct dirent *dirent;
-	struct modlist *modules = NULL;
 
 	dir = opendir("/sys/block");
 	if (!dir) return -1;
@@ -88,5 +87,5 @@ devnodes_populate(void)
 	}
 	closedir(dir);
 
-	return modlist_probe(modules);
+	return 0;
 }

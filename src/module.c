@@ -1,9 +1,6 @@
 /*
 ** Copyright (c) 2006, TUBITAK/UEKAE
 **
-** Coldplug program for initrd
-** Unfortunately we cant use muavin.py there
-**
 ** This program is free software; you can redistribute it and/or modify it
 ** under the terms of the GNU General Public License as published by the
 ** Free Software Foundation; either version 2 of the License, or (at your
@@ -17,29 +14,6 @@
 #include <dirent.h>
 
 #include "common.h"
-
-struct list {
-	struct list *next;
-	char *data;
-};
-
-struct list *
-list_add(struct list *listptr, const char *data)
-{
-	struct list *tmp;
-
-	// We dont want duplicate module names, etc in our lists
-	// Lists arent too big either, so no need to use a hash or something
-	for (tmp = listptr; tmp; tmp = tmp->next) {
-		if (0 == strcmp(tmp->data, data))
-			return listptr;
-	}
-
-	tmp = zalloc(sizeof(struct list));
-	tmp->next = listptr;
-	tmp->data = strdup(data);
-	return tmp;
-}
 
 struct list *
 find_aliases(const char *syspath)

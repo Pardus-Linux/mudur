@@ -7,6 +7,13 @@
 ** option) any later version. Please read the COPYING file.
 */
 
+struct list {
+	struct list *next;
+	char *data;
+};
+
+struct list *list_add(struct list *listptr, const char *data);
+
 void *zalloc(size_t size);
 char *concat(const char *str, const char *append);
 int fnmatch(const char *p, const char *s);
