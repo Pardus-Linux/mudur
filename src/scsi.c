@@ -13,7 +13,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-#include "utility.h"
+#include "common.h"
 
 int
 scsi_probe_modules(void)

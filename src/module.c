@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <dirent.h>
 
-#include "utility.h"
+#include "common.h"
 
 struct list {
 	struct list *next;

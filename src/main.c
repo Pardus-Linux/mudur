@@ -13,7 +13,7 @@
 #include <stddef.h>
 #include <sys/utsname.h>
 
-#include "utility.h"
+#include "common.h"
 
 int pci_probe_modules(const char *mappath);
 int usb_probe_modules(const char *mappath);

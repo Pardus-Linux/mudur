@@ -1,11 +1,12 @@
 
 CC= klcc
 EXE= coolplug
-OBJS= coolplug.c utility.c module.c scsi.c devnodes.c
+OBJS= main.c utility.c module.c scsi.c devnodes.c
+INCLUDES= common.h
 CFLAGS= -Os -Wall
 LDFLAGS=
 
-$(EXE): $(OBJS)
+$(EXE): $(OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $(EXE) $(OBJS)
 	strip -s --remove-section=.note --remove-section=.comment $(EXE)
 
