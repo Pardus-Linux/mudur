@@ -28,11 +28,13 @@ main(int argc, char *argv[])
 
 	uname(&name);
 	mappath = concat("/lib/modules/", name.release);
-	pci_probe_modules(concat(mappath, "/modules.pcimap"));
-	usb_probe_modules(concat(mappath, "/modules.usbmap"));
-	scsi_probe_modules();
-
-	devnodes_populate();
+	mappath = concat(mappath, "/modules.alias");
+//	pci_probe_modules(concat(mappath, "/modules.pcimap"));
+//	usb_probe_modules(concat(mappath, "/modules.usbmap"));
+//	scsi_probe_modules();
+load_modules(mappath, "/sys/bus/pci/devices/");
+load_modules(mappath, "/sys/bus/usb/devices/");
+//	devnodes_populate();
 
 	return 0;
 }

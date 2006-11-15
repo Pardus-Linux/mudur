@@ -9,6 +9,7 @@
 
 void *zalloc(size_t size);
 char *concat(const char *str, const char *append);
+int fnmatch(const char *p, const char *s);
 char *my_readlink(const char *path);
 char *sys_value(const char *path, const char *value);
 
