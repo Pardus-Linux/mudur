@@ -99,3 +99,9 @@ module_get_list(void)
 
 	return find_modules(mapfile, aliases);
 }
+
+int
+module_probe(const char *name)
+{
+	system(concat("modprobe ", name));
+}

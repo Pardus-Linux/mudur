@@ -27,3 +27,4 @@ struct modlist *modlist_add(struct modlist *list, const char *name);
 int modlist_probe(struct modlist *list);
 
 struct list *module_get_list(void);
+int module_probe(const char *name);

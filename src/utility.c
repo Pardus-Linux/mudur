@@ -168,37 +168,3 @@ sys_value(const char *path, const char *value)
 		valbuf[size-1] = '\0';
 	return valbuf;
 }
-
-struct modlist {
-	struct modlist *next;
-	char *name;
-};
-
-struct modlist *
-modlist_add(struct modlist *list, const char *name)
-{
-	struct modlist *item;
-
-	for (item = list; item; item = item->next) {
-		if (strcmp(name, item->name) == 0)
-			return list;
-	}
-
-	item = zalloc(sizeof(struct modlist));
-	item->name = strdup(name);
-
-	item->next = list;
-	return item;
-}
-
-int
-modlist_probe(struct modlist *list)
-{
-	struct modlist *item;
-
-	for (item = list; item; item = item->next) {
-		// system(concat("/sbin/modprobe -q ", item->name));
-		system(concat("/sbin/modprobe ", item->name));
-	}
-	return 0;
-}
