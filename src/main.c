@@ -19,7 +19,10 @@ main(int argc, char *argv[])
 {
 	struct list *modules;
 	struct list *item;
-cfg_debug = 1;
+
+	if (argc == 2 && strcmp(argv[1], "--debug") == 0)
+		cfg_debug = 1;
+
 	modules = module_get_list();
 	for (item = modules; item; item = item->next)
 		module_probe(item->data);
