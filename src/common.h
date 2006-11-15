@@ -7,6 +7,8 @@
 ** option) any later version. Please read the COPYING file.
 */
 
+#include <stddef.h>
+
 struct list {
 	struct list *next;
 	char *data;
@@ -23,3 +25,5 @@ char *sys_value(const char *path, const char *value);
 struct modlist;
 struct modlist *modlist_add(struct modlist *list, const char *name);
 int modlist_probe(struct modlist *list);
+
+struct list *module_get_list(void);

@@ -12,11 +12,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <sys/utsname.h>
 
 #include "common.h"
 
-struct list *
-find_aliases(const char *syspath)
+static struct list *
+find_aliases(const char *syspath, struct list *aliases)
 {
 	FILE *f;
 	DIR *dir;
@@ -24,7 +25,6 @@ find_aliases(const char *syspath)
 	char modalias[256];
 	size_t size;
 	char *path;
-	struct list *aliases = NULL;
 
 	dir = opendir(syspath);
 	if (!dir) return NULL;
@@ -52,7 +52,7 @@ find_aliases(const char *syspath)
 	return aliases;
 }
 
-struct list *
+static struct list *
 find_modules(const char *mapfile, struct list *aliases)
 {
 	FILE *f;
@@ -60,6 +60,8 @@ find_modules(const char *mapfile, struct list *aliases)
 	struct list *alias;
 	char line[256];
 	char *modalias, *modname;
+
+	if (!aliases) return NULL;
 
 	f = fopen(mapfile, "rb");
 	while (fgets(line, 255, f)) {
@@ -81,16 +83,19 @@ find_modules(const char *mapfile, struct list *aliases)
 	return modules;
 }
 
-int
-load_modules(char *mapfile, char *path)
+struct list *
+module_get_list(void)
 {
 	struct list *aliases;
+	struct utsname name;
+	char *mapfile;
 
-	aliases = find_aliases(path);
-	aliases = find_modules(mapfile, aliases);
-	while (aliases) {
-		printf("la [%s]\n", aliases->data);
-		aliases = aliases->next;
-	}
-	return 0;
+	uname(&name);
+	mapfile = concat("/lib/modules/", name.release);
+	mapfile = concat(mapfile, "/modules.alias");
+
+	aliases = find_aliases("/sys/bus/pci/devices/", NULL);
+	aliases = find_aliases("/sys/bus/usb/devices/", aliases);
+
+	return find_modules(mapfile, aliases);
 }

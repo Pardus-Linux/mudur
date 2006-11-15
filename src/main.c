@@ -10,29 +10,16 @@
 ** option) any later version. Please read the COPYING file.
 */
 
-#include <stddef.h>
-#include <sys/utsname.h>
-
 #include "common.h"
-
-int scsi_probe_modules(void);
-int devnodes_populate(void);
 
 int
 main(int argc, char *argv[])
 {
-	struct utsname name;
-	char *mappath;
+	struct list *modules;
 
-	uname(&name);
-	mappath = concat("/lib/modules/", name.release);
-	mappath = concat(mappath, "/modules.alias");
-//	pci_probe_modules(concat(mappath, "/modules.pcimap"));
-//	usb_probe_modules(concat(mappath, "/modules.usbmap"));
-//	scsi_probe_modules();
-load_modules(mappath, "/sys/bus/pci/devices/");
-load_modules(mappath, "/sys/bus/usb/devices/");
-//	devnodes_populate();
+	modules = module_get_list();
+	for (; modules; modules = modules->next)
+		printf("%s\n", modules->data);
 
 	return 0;
 }
