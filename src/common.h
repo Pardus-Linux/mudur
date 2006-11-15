@@ -9,6 +9,8 @@
 
 #include <stddef.h>
 
+extern int cfg_debug;
+
 struct list {
 	struct list *next;
 	char *data;

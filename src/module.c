@@ -103,6 +103,12 @@ module_get_list(void)
 int
 module_probe(const char *name)
 {
-	system(concat("modprobe ", name));
+	char *cmd;
+
+	cmd = concat("modprobe ", name);
+	if (cfg_debug)
+		puts(cmd);
+	else
+		system(cmd);
 	return 0;
 }

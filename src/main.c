@@ -12,19 +12,21 @@
 
 #include "common.h"
 
+int cfg_debug = 0;
+
 int
 main(int argc, char *argv[])
 {
 	struct list *modules;
-
+	struct list *item;
+cfg_debug = 1;
 	modules = module_get_list();
-	for (; modules; modules = modules->next)
-		printf("%s\n", modules->data);
+	for (item = modules; item; item = item->next)
+		module_probe(item->data);
 
-	puts("lala");
 	modules = scsi_get_list();
-	for (; modules; modules = modules->next)
-		printf("%s\n", modules->data);
+	for (item = modules; item; item = item->next)
+		module_probe(item->data);
 
 	devnode_populate();
 

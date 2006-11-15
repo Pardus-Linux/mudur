@@ -20,9 +20,11 @@ devnode_mknod(const char *name, const char *major, const char *minor)
 {
 	char buf[512];
 
-	sprintf(buf, "/bin/mknod /dev/%s b %s %s", name, major, minor);
-	printf("[%s]\n", buf);
-//system(buf);
+	sprintf(buf, "mknod /dev/%s b %s %s", name, major, minor);
+	if (cfg_debug)
+		puts(buf);
+	else
+		system(buf);
 	return 0;
 }
 
