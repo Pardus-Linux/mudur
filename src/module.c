@@ -18,12 +18,10 @@
 static struct list *
 find_aliases(const char *syspath)
 {
-	FILE *f;
 	DIR *dir;
 	struct dirent *dirent;
 	struct list *aliases = NULL;
-	char modalias[256];
-	size_t size;
+	char *modalias;
 	char *path;
 
 	dir = opendir(syspath);
@@ -33,18 +31,9 @@ find_aliases(const char *syspath)
 		if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0)
 			continue;
 		path = concat(syspath, name);
-		path = concat(path, "/modalias");
-		f = fopen(path, "rb");
-		if (f) {
-			size = fread(modalias, 1, 254, f);
-			if (size < 1) return NULL;
-			modalias[size] = '\0';
-			if (modalias[size-1] == '\n')
-				modalias[size-1] = '\0';
-
+		modalias = sys_value(path, "modalias");
+		if (modalias) {
 			aliases = list_add(aliases, modalias);
-
-			fclose(f);
 		}
 	}
 	closedir(dir);

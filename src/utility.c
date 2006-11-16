@@ -145,7 +145,7 @@ my_readlink(const char *path)
 char *
 sys_value(const char *path, const char *value)
 {
-	static char valbuf[32];
+	static char valbuf[128];
 	static char *buf = NULL;
 	static size_t buf_size = 0;
 	FILE *f;
@@ -166,13 +166,13 @@ sys_value(const char *path, const char *value)
 
 	f = fopen(buf, "rb");
 	if (!f) return NULL;
-	size = fread(valbuf, 1, 30, f);
+	size = fread(valbuf, 1, 126, f);
 	if (size < 1) {
 		fclose(f);
 		return NULL;
 	}
 	fclose(f);
-	valbuf[30] = '\0';
+	valbuf[size] = '\0';
 	if (valbuf[size-1] == '\n')
 		valbuf[size-1] = '\0';
 	return valbuf;
