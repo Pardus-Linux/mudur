@@ -14,6 +14,7 @@ import os
 import locale
 import comar
 import time
+import grp
 
 # i18n
 
@@ -216,6 +217,10 @@ where command is:
 # Main
 
 def main(args):
+    if not os.getgroups().__contains__(grp.getgrnam("wheel")[2]):
+        print _("You should be in the wheel group in order to control the comar service.")
+        sys.exit(1)
+
     operations = ("start", "stop", "info", "list", "restart", "reload", "on", "off")
     use_color = True
     
