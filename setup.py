@@ -81,6 +81,7 @@ def install(args):
     install_file("bin/mudur.py", prefix, "sbin/mudur.py")
     install_file("bin/muavin.py", prefix, "sbin/muavin.py")
     install_file("bin/update-environment.py", prefix, "sbin/update-environment")
+    install_file("bin/update-fstab.py", prefix, "sbin/update-fstab")
     install_file("bin/update-modules.py", prefix, "sbin/update-modules")
     dest = os.path.join(prefix, "sbin/modules-update")
     if os.path.exists(dest) or os.path.islink(dest):
