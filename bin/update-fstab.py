@@ -15,6 +15,12 @@ import copy
 import glob
 import parted
 
+
+comment="""# See the manpage fstab(5) for more information.
+#
+# <fs>      <mountpoint>         <type>    <opts>               <dump/pass>
+"""
+
 class DeviceError(Exception):
     pass
 
@@ -112,6 +118,7 @@ class Fstab:
                 print "Unable to write: %s" % File
                 sys.exit(1)
 
+            f.write(comment)
             for line in self.content:
                 f.write(line)
             f.close()
