@@ -163,37 +163,17 @@ def manage_comar(op):
 
 def manage_service(service, op, use_color=True):
     c = comlink()
-
-    c.call_package("System.Service.info", service)
-    reply = c.read_cmd()
-    type, state, description = str(reply).split("\n")
-
+    
     if op == "start":
-        if state in ("on", "started"):
-            print _("Service %s already running..." % service)
-            sys.exit()
-        else:
-            c.call_package("System.Service.start", service)
+        c.call_package("System.Service.start", service)
     elif op == "stop":
-        if state in ("off", "stopped"):
-            print _("Service %s already stopped..." % service)
-            sys.exit()
-        else:
-            c.call_package("System.Service.stop", service)
+        c.call_package("System.Service.stop", service)
     elif op == "reload":
         c.call_package("System.Service.reload", service)
     elif op == "on":
-        if state in ("on", "stopped"):
-            print _("Service %s already changed for to start on next boot..." % service)
-            sys.exit()
-        else:
-            c.call_package("System.Service.setState", service, ["state", "on"])
+        c.call_package("System.Service.setState", service, ["state", "on"])
     elif op == "off":
-        if state in ("off", "started"):
-            print _("Service %s already changed for not to start on next boot..." % service)
-            sys.exit()
-        else:
-            c.call_package("System.Service.setState", service, ["state", "off"])
+        c.call_package("System.Service.setState", service, ["state", "off"])
     elif op == "info" or op == "list":
         c.call_package("System.Service.info", service)
     elif op == "restart":
