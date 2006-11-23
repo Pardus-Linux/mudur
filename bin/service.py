@@ -23,32 +23,26 @@ _ = __trans.ugettext
 
 # Utilities
 
-def languageCode():
-    lang = locale.setlocale(locale.LC_MESSAGES)
-    if "_" in lang:
-        return lang.split("_")[0]
-    return "en"
-
 def comlink():
     com = comar.Link()
-    com.localize(languageCode())
+    com.localize()
     return com
 
 def report_error(reply):
-    if reply[0] == comar.Link.DENIED:
+    if reply.command == "denied":
         print _("You dont have permission to do this operation")
-    elif reply[0] == comar.Link.NONE:
+    elif reply.command == "none":
         print _("Service doesn't provide this operation")
     else:
         print _("%s error: %s") % (reply.script, reply.data)
 
 def collect(c):
     reply = c.read_cmd()
-    if reply[0] == c.RESULT_START:
+    if reply.command == "start":
         replies = []
         while True:
             reply = c.read_cmd()
-            if reply[0] == c.RESULT_END:
+            if reply.command == "end":
                 return replies
             replies.append(reply)
     else:
@@ -132,14 +126,14 @@ def list(use_color=True):
     c = comlink()
     c.call("System.Service.info")
     data = collect(c)
-    services = filter(lambda x: x[0] == c.RESULT, data)
-    errors = filter(lambda x: x[0] != c.RESULT, data)
+    services = filter(lambda x: x.command == "result", data)
+    errors = filter(lambda x: x.command != "result", data)
     
     if len(services) > 0:
-        services.sort(key=lambda x: x[3])
+        services.sort(key=lambda x: x.script)
         lala = []
         for item in services:
-            lala.append(Service(item[3], item[2]))
+            lala.append(Service(item.script, item.data))
         format_service_list(lala, use_color)
     
     if len(errors) > 0:
@@ -176,24 +170,24 @@ def manage_service(service, op, use_color=True):
     c = comlink()
     
     if op == "start":
-        c.call_package("System.Service.start", service)
+        c.System.Service[service].start()
     elif op == "stop":
-        c.call_package("System.Service.stop", service)
+        c.System.Service[service].stop()
     elif op == "reload":
-        c.call_package("System.Service.reload", service)
+        c.System.Service[service].reload()
     elif op == "on":
-        c.call_package("System.Service.setState", service, ["state", "on"])
+        c.System.Service[service].setState(state="on")
     elif op == "off":
-        c.call_package("System.Service.setState", service, ["state", "off"])
+        c.System.Service[service].setState(state="off")
     elif op == "info" or op == "list":
-        c.call_package("System.Service.info", service)
+        c.System.Service[service].info()
     elif op == "restart":
         manage_service(service, "stop")
         manage_service(service, "start")
         return
     
     reply = c.read_cmd()
-    if reply[0] != c.RESULT:
+    if reply.command != "result":
         report_error(reply)
         return
     
@@ -202,7 +196,7 @@ def manage_service(service, op, use_color=True):
     elif op == "stop":
         print _("Service '%s' stopped.") % service
     elif op == "info" or op == "list":
-        s = Service(reply[3], reply[2])
+        s = Service(reply.script, reply.data)
         format_service_list([s], use_color)
     elif op == "reload":
         print _("Service '%s' reloaded.") % service
