@@ -30,9 +30,9 @@ def comlink():
 
 def report_error(reply):
     if reply.command == "denied":
-        print _("You dont have permission to do this operation")
+        print _("You dont have permission to do this operation.")
     elif reply.command == "none":
-        print _("Service doesn't provide this operation")
+        print _("Service doesn't provide this operation.")
     else:
         print _("%s error: %s") % (reply.script, reply.data)
 
