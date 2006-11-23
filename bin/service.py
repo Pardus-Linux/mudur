@@ -14,7 +14,6 @@ import os
 import locale
 import comar
 import time
-import grp
 
 # i18n
 
@@ -34,6 +33,14 @@ def comlink():
     com = comar.Link()
     com.localize(languageCode())
     return com
+
+def report_error(reply):
+    if reply[0] == comar.Link.DENIED:
+        print _("You dont have permission to do this operation")
+    elif reply[0] == comar.Link.NONE:
+        print _("Service doesn't provide this operation")
+    else:
+        print _("%s error: %s") % (reply.script, reply.data)
 
 def collect(c):
     reply = c.read_cmd()
@@ -128,12 +135,16 @@ def list(use_color=True):
     services = filter(lambda x: x[0] == c.RESULT, data)
     errors = filter(lambda x: x[0] != c.RESULT, data)
     
-    services.sort(key=lambda x: x[3])
-    lala = []
-    for item in services:
-        lala.append(Service(item[3], item[2]))
+    if len(services) > 0:
+        services.sort(key=lambda x: x[3])
+        lala = []
+        for item in services:
+            lala.append(Service(item[3], item[2]))
+        format_service_list(lala, use_color)
     
-    format_service_list(lala, use_color)
+    if len(errors) > 0:
+        print
+        map(report_error, errors)
 
 def checkDaemon(pidfile):
     if not os.path.exists(pidfile):
@@ -183,7 +194,7 @@ def manage_service(service, op, use_color=True):
     
     reply = c.read_cmd()
     if reply[0] != c.RESULT:
-        print _("Error: %s" % reply[2])
+        report_error(reply)
         return
     
     if op == "start":
@@ -217,10 +228,6 @@ where command is:
 # Main
 
 def main(args):
-    if not os.getgroups().__contains__(grp.getgrnam("wheel")[2]):
-        print _("You should be in the wheel group in order to control the comar service.")
-        sys.exit(1)
-
     operations = ("start", "stop", "info", "list", "restart", "reload", "on", "off")
     use_color = True
     
