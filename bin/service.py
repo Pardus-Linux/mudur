@@ -112,11 +112,14 @@ def format_service_list(services, use_color=True):
     for service in services:
         if use_color:
             cstart = "\x1b%s" % colors[service.state]
-        line = "%s%s | %s | %s | %s%s" % (
+        line = "%s%s%s | %s%s%s | %s%s%s | %s%s%s" % (
             cstart,
             service.name.ljust(name_size),
+            cend, cstart,
             service.running.center(run_size),
+            cend, cstart,
             service.autostart.center(auto_size),
+            cend, cstart,
             service.description,
             cend
         )
