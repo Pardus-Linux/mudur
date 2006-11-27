@@ -43,8 +43,7 @@ def getPartitionsOfDevice(device_path):
     try:
         disk = parted.PedDisk.new(dev)
     except:
-        label = archinfo['x86']["disklabel"]
-        disk_type = parted.disk_type_get(label)
+        disk_type = parted.disk_type_get("msdos")
         disk = dev.disk_new_fresh(disk_type)
 
     part = disk.next_partition()
