@@ -339,6 +339,17 @@ class CPU:
         print "CPU: %s" % ", ".join(self.detect())
 
 
+class DVB:
+    def plug(self, current, env=None):
+        if "bttv" in current:
+            # This card is detected over bttv module's api
+            # If we have a bttv hardware, give the module a chance
+            current.add("dvb_bt8xx")
+    
+    def debug(self):
+        pass
+
+
 #
 # Main functions
 #
@@ -349,6 +360,7 @@ pluggers = (
     PNP,
     Modalias,
     SCSI,
+    DVB,
     Firmware,
     Blacklist,  # Blacklist should be at the end
 )
