@@ -65,7 +65,9 @@ def getBlockDevices():
         sysfs_devs = glob.glob("/sys/block/" + dev_type)
         for sysfs_dev in sysfs_devs:
             if not int(open(sysfs_dev + "/removable").read().strip()):
-                devices.append("/dev/" + os.path.basename(sysfs_dev))
+                devlink = os.readlink(sysfs_dev + "/device")
+                if not "/usb" in devlink:
+                    devices.append("/dev/" + os.path.basename(sysfs_dev))
     return devices
 
 
