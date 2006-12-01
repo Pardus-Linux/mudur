@@ -542,7 +542,7 @@ def checkRoot():
         ent = config.get_mount("/")
         if len(ent) > 5 and ent[5] != "0":
             ui.info(_("Checking root filesystem"))
-            t = run_full("/sbin/fsck", "-C", "-T", "-a", "/")
+            t = os.system("LC_ALL=C /sbin/fsck -C -T -a /")
             if t == 0:
                 pass
             elif t == 2 or t == 3:
@@ -639,7 +639,7 @@ def checkFS():
         return
     
     ui.info(_("Checking all filesystems"))
-    t = run_full("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
+    t = os.system("LC_ALL=C /sbin/fsck -C -T -R -A -a")
     if t == 0:
         pass
     elif t >= 2 and t <= 3:
