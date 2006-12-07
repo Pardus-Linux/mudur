@@ -1,195 +1,196 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of yeni.po to Deutsch
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Mustafa M. Ölcerman <oelcerman@fussballkreis.org>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: mudur\n"
+"Project-Id-Version: yeni\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-29 11:50+0200\n"
-"PO-Revision-Date: 2006-11-23 16:30+0200\n"
-"Last-Translator: de <de@ADDRESS>\n"
-"Language-Team: de <de@li.org>\n"
+"PO-Revision-Date: 2006-12-04 21:12+0200\n"
+"Last-Translator: Mustafa M. Ölcerman <oelcerman@fussballkreis.org>\n"
+"Language-Team: Deutsch <http://liste.uludag.org.tr/mailman/listinfo/pardus-translation-de>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: bin/mudur.py:175
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
+msgstr "Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
 
 #: bin/mudur.py:311
 msgid "Cannot find /etc/pardus-release"
-msgstr ""
+msgstr "/etc/pardus-release kann nicht gefunden werden"
 
 #: bin/mudur.py:423
 #, python-format
 msgid "Could not set unicode mode on tty %d"
-msgstr ""
+msgstr "Unicode konnte nicht an tty %d gesetzt werden"
 
 #: bin/mudur.py:439
 msgid "Starting COMAR"
-msgstr ""
+msgstr "COMAR wird gestartet"
 
 #: bin/mudur.py:450
 msgid "Starting services"
-msgstr ""
+msgstr "Dienste werden gestartet"
 
 #: bin/mudur.py:456
 msgid "Cannot connect to COMAR, services won't be started"
-msgstr ""
+msgstr "Kann nicht an COMAR verbunden werden, Dienste werden nicht gestartet"
 
 #: bin/mudur.py:461
 msgid "Cannot start system logger"
-msgstr ""
+msgstr "System-Register kann nicht gestartet werden"
 
 #: bin/mudur.py:469
 msgid "Stopping services"
-msgstr ""
+msgstr "Dienste werden angehalten"
 
 #: bin/mudur.py:473
 msgid "Stopping COMAR"
-msgstr ""
+msgstr "COMAR wird angehalten"
 
 #: bin/mudur.py:482
 msgid "Mounting /dev"
-msgstr ""
+msgstr "/dev wird gemountet"
 
 #: bin/mudur.py:491
 msgid "Restoring saved device states"
-msgstr ""
+msgstr "Gespeicherte Laufwerk-Zustände werden wiederhergestellt"
 
 #: bin/mudur.py:513
 msgid "Starting udev"
-msgstr ""
+msgstr "udev wird gestartet"
 
 #: bin/mudur.py:520
 msgid "Populating /dev"
-msgstr ""
+msgstr "/dev wird gefüllt"
 
 #: bin/mudur.py:539
 msgid "Remounting root filesystem read-only"
-msgstr ""
+msgstr "Root Dateisystem wird mit Lese-Zugriff erneut gemountet"
 
 #: bin/mudur.py:544
 msgid "Checking root filesystem"
-msgstr ""
+msgstr "Root-Dateisystem wird überprüft"
 
 #: bin/mudur.py:549
 msgid "Filesystem repaired, but reboot needed!"
-msgstr ""
+msgstr "Dateisystem wurde repariert"
 
 #: bin/mudur.py:553
 msgid "Rebooting in 10 seconds ..."
-msgstr ""
+msgstr "Computer wird in 10 Sekunden neugestartet ..."
 
 #: bin/mudur.py:555
 msgid "Rebooting..."
-msgstr ""
+msgstr "Wird neugestartet..."
 
 #: bin/mudur.py:558
 msgid "Filesystem couldn't be fixed :("
-msgstr ""
+msgstr "Dateisystem konnte nicht fixiert werden"
 
 #: bin/mudur.py:561
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr ""
+msgstr "Root Dateisystem Überprüfung (fstab's passno == 0) wird übersprungen"
 
 #: bin/mudur.py:563
 msgid "Remounting root filesystem read/write"
-msgstr ""
+msgstr "Root Dateisystem wird neu mit Lese-/Schreibzugriff gemountet"
 
 #: bin/mudur.py:565
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
+msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden :("
 
 #: bin/mudur.py:608
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr ""
+msgstr "Hostname wird als '%s' eingestellt"
 
 #: bin/mudur.py:625
 msgid "Calculating module dependencies"
-msgstr ""
+msgstr "Module Abhängigkeiten werden berechnet"
 
 #: bin/mudur.py:641
 msgid "Checking all filesystems"
-msgstr ""
+msgstr "Alle Dateisysteme werden überprüft"
 
 #: bin/mudur.py:646
 msgid "Filesystem errors corrected"
-msgstr ""
+msgstr "Dateisystem Fehler korrigiert"
 
 #: bin/mudur.py:648
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
+msgstr "Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
 
 #: bin/mudur.py:661
 msgid "Mounting USB filesystem"
-msgstr ""
+msgstr "USB Dateisystem wird gemountet"
 
 #: bin/mudur.py:667
 msgid "Mounting local filesystems"
-msgstr ""
+msgstr "Lokale Dateisysteme werden gemountet"
 
 #: bin/mudur.py:670
 msgid "Activating swap"
-msgstr ""
+msgstr "SWAP wird aktiviert"
 
 #: bin/mudur.py:682
 msgid "Setting disk parameters"
-msgstr ""
+msgstr "Festplatten-Parameter werden gesetzt"
 
 #: bin/mudur.py:707
 msgid "Setting system clock to hardware clock"
-msgstr ""
+msgstr "Systemuhr wird von der Hardwareuhr gesetzt"
 
 #: bin/mudur.py:716
 msgid "Failed to set system clock to hardware clock"
-msgstr ""
+msgstr "Einstellen der Systemuhr von der Hardwareuhr ist fehlgeschlagen"
 
 #: bin/mudur.py:719
 msgid "Cleaning up /var"
-msgstr ""
+msgstr "/var wird gesäubert"
 
 #: bin/mudur.py:726
 msgid "Cleaning up /tmp"
-msgstr ""
+msgstr "/tmp wird gesäubert"
 
 #: bin/mudur.py:767
 msgid "Syncing system clock to hardware clock"
-msgstr ""
+msgstr "Systemuhr wird mit der Hardwareuhr synchronisiert"
 
 #: bin/mudur.py:770
 msgid "Failed to sync clocks"
-msgstr ""
+msgstr "Synchronisation der Uhr ist fehlgeschlagen"
 
 #: bin/mudur.py:782
 msgid "Deactivating swap"
-msgstr ""
+msgstr "SWAP wird deaktiviert"
 
 #: bin/mudur.py:803
 msgid "Unmounting filesystems"
-msgstr ""
+msgstr "Unmounten der Dateisysteme"
 
 #: bin/mudur.py:835
 msgid "Remounting remaining filesystems readonly"
-msgstr ""
+msgstr "Restliche Dateisysteme werden mit Lesezugriff erneut gemountet"
 
 #: bin/mudur.py:849
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
-msgstr ""
+msgstr "Ein Interner Fehler ist vorgekommen. Bitte an bugs.pardus.org.tr mit der folgenden Information melden:"
 
 #: bin/mudur.py:896
 msgid "Mounting /sys"
-msgstr ""
+msgstr "/sys wird gemountet"
 
 #: bin/mudur.py:901
 msgid "Mounting /dev/pts"
-msgstr ""
+msgstr "/dev/pts wird gemountet"
 
 #: bin/mudur.py:912
 msgid "Starting Coldplug"
@@ -197,89 +198,89 @@ msgstr ""
 
 #: bin/mudur.py:937
 msgid "Setting up localhost"
-msgstr ""
+msgstr "Localhost wird eingestellt"
 
 #: bin/mudur.py:947
 msgid "Updating environment variables"
-msgstr ""
+msgstr "Umgebungsvariablen werden aktualisiert"
 
 #: bin/service.py:33
 msgid "You dont have permission to do this operation."
-msgstr ""
+msgstr "Sie sind nicht berechtigt, diesen Vorgang auszuführen."
 
 #: bin/service.py:35
 msgid "Service doesn't provide this operation."
-msgstr ""
+msgstr "Dienst kann diese Operation nicht bereitstellen"
 
 #: bin/service.py:37
 #, python-format
 msgid "%s error: %s"
-msgstr ""
+msgstr "%s Fehler: %s"
 
 #: bin/service.py:55
 msgid "local"
-msgstr ""
+msgstr "Lokal"
 
 #: bin/service.py:56
 msgid "script"
-msgstr ""
+msgstr "Skript"
 
 #: bin/service.py:57
 msgid "server"
-msgstr ""
+msgstr "Server"
 
 #: bin/service.py:69
 msgid "running"
-msgstr ""
+msgstr "wird ausgeführt"
 
 #: bin/service.py:71
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: bin/service.py:89
 msgid "Service"
-msgstr ""
+msgstr "Dienst"
 
 #: bin/service.py:90
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: bin/service.py:91
 msgid "Autostart"
-msgstr ""
+msgstr "Autostart"
 
 #: bin/service.py:92
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: bin/service.py:156
 msgid "You should be the root user in order to control the comar service."
-msgstr ""
+msgstr "Sie sollten root-Benutzer sein, um die Comar-Dienste zu steuern."
 
 #: bin/service.py:198
 #, python-format
 msgid "Service '%s' started."
-msgstr ""
+msgstr "Dienst '%s'  gestartet."
 
 #: bin/service.py:200
 #, python-format
 msgid "Service '%s' stopped."
-msgstr ""
+msgstr "Dienst '%s' angehalten."
 
 #: bin/service.py:205
 #, python-format
 msgid "Service '%s' reloaded."
-msgstr ""
+msgstr "Dienst '%s' erneut geladen."
 
 #: bin/service.py:207
 #, python-format
 msgid "Service '%s' will be auto started."
-msgstr ""
+msgstr "Dienst '%s' wird automatisch gestartet."
 
 #: bin/service.py:209
 #, python-format
 msgid "Service '%s' won't be auto started."
-msgstr ""
+msgstr "Dienst '%s' wird nicht automatisch gestartet."
 
 #: bin/service.py:214
 msgid ""
@@ -294,3 +295,4 @@ msgid ""
 " restart Stop the service, then start again\n"
 " reload  Reload the configuration (if service supports this)"
 msgstr ""
+
