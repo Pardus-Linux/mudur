@@ -216,7 +216,7 @@ class MMC:
     def plug(self, current, env=None):
         if not env or env.get("SUBSYSTEM", "") != "mmc":
             return
-        return "mmc_block"
+        current.add("mmc_block")
 
     def debug(self):
         pass
