@@ -212,6 +212,14 @@ class Firmware:
     def debug(self):
         pass
 
+class MMC:
+    def plug(self, current, env=None):
+        if not env or env.get("SUBSYSTEM", "") != "mmc":
+            return
+        return "mmc_block"
+
+    def debug(self):
+        pass
 
 class CPU:
     def __init__(self):
@@ -361,6 +369,7 @@ pluggers = (
     Modalias,
     SCSI,
     DVB,
+    MMC,
     Firmware,
     Blacklist,  # Blacklist should be at the end
 )
