@@ -1,14 +1,14 @@
-# translation of yeni.po to Deutsch
+# translation of de.po to Deutsch
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Mustafa M. Ölcerman <oelcerman@fussballkreis.org>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: yeni\n"
+"Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-29 11:50+0200\n"
-"PO-Revision-Date: 2006-12-04 21:12+0200\n"
+"PO-Revision-Date: 2006-12-11 00:46+0200\n"
 "Last-Translator: Mustafa M. Ölcerman <oelcerman@fussballkreis.org>\n"
 "Language-Team: Deutsch <http://liste.uludag.org.tr/mailman/listinfo/pardus-translation-de>\n"
 "MIME-Version: 1.0\n"
@@ -194,7 +194,7 @@ msgstr "/dev/pts wird gemountet"
 
 #: bin/mudur.py:912
 msgid "Starting Coldplug"
-msgstr ""
+msgstr "Coldplug wird gestartet"
 
 #: bin/mudur.py:937
 msgid "Setting up localhost"
@@ -295,4 +295,14 @@ msgid ""
 " restart Stop the service, then start again\n"
 " reload  Reload the configuration (if service supports this)"
 msgstr ""
+"Verwendung: service [<Dienst>]<Kommando>\n"
+"wo Kommando folgendes ist:\n"
+" list    Anzeigedienst-Liste\n"
+" info    Anzeigedienst-Status\n"
+" on      Dienst automatisch starten\n"
+" off      Dienst nicht automatisch starten\n"
+" start   Dienst starten\n"
+" stop   Dienst anhalten\n"
+" restart Dienst anhalten und anschliessen erneut starten\n"
+" reload Konfiguration wird neugeladen (wenn der Dienst das erfordert)"
 
