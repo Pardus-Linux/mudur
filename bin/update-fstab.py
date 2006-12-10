@@ -242,7 +242,7 @@ class Fstab:
             return -1
         else:
             for c in range(0, len(self.content)):
-                if self.content[c].split()[0] == partition:
+                if self.content[c].split()[0] == partition and self.content[c].split()[1] != "/":
                     self.content.remove(self.content[c])
                     self.update()
                     return 0
