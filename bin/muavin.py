@@ -324,8 +324,9 @@ class CPU:
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE
             )
             a = cmd.communicate()
-            if a[0].startswith("Notebook") or a[0].startswith("Portable"):
-                return True
+            for item in ("Notebook", "Portable", "Laptop", "Docking Station", "Sub Notebook"):
+                if a[0].startswith(item):
+                    return True
         return False
     
     def plug(self, current, env=None):
