@@ -117,26 +117,14 @@ def run_quiet(*cmd):
     f = file("/dev/null", "w")
     return subprocess.call(cmd, stdout=f, stderr=f)
 
-def delete(path, match=False, no_error=False):
-    """Delete files and dirs recursively"""
-    try:
-        if match:
-            path = glob.glob(path)
+def delete(pattern):
+    """rmdir with glob support"""
+    for path in glob.glob(pattern):
+        mode = os.lstat(item).st_mode
+        if stat.S_ISDIR(mode):
+            run("rm", "-rf", path)
         else:
-            path = [ path ]
-        for item in path:
-            for root, dirs, files in os.walk(item, topdown=False):
-                for name in files:
-                    os.unlink(os.path.join(root, name))
-                for name in dirs:
-                    os.rmdir(os.path.join(root, name))
-            if stat.S_ISDIR(os.stat(item).st_mode):
-                os.rmdir(item)
-            else:
-                os.unlink(item)
-    except Exception, e:
-        if no_error == False:
-            raise
+            run("rm", "-f", path)
 
 def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
     if stream:
@@ -440,8 +428,8 @@ def startComar():
     # If a job crashes before finishing a transaction, Berkeley DB halts.
     # We are deleting DB log files before starting Comar, so a reboot fixes
     # the problem if it ever happens.
-    delete("/var/db/comar/__*", match=True)
-    delete("/var/db/comar/log*", match=True)
+    delete("/var/db/comar/__*")
+    delete("/var/db/comar/log*")
     run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
         "--pidfile", "/var/run/comar.pid", "--make-pidfile",
         "--exec", "/usr/bin/comar")
@@ -724,21 +712,23 @@ def cleanupVar():
 
 def cleanupTmp():
     ui.info(_("Cleaning up /tmp"))
-    delete("/tmp/.X*-lock", match=True, no_error=True)
-    delete("/tmp/kio*", match=True, no_error=True)
-    delete("/tmp/ssh-*", match=True, no_error=True)
-    delete("/tmp/kio*", match=True, no_error=True)
-    delete("/tmp/ksocket-*", match=True, no_error=True)
-    delete("/tmp/.*-unix", match=True, no_error=True)
-    try:
-        os.mkdir("/tmp/.ICE-unix")
-        os.mkdir("/tmp/.X11-unix")
-    except OSError, e:
-        if e.errno != 17:
-            raise
+    
+    cleanup_list = (
+        "/tmp/.X*-lock",
+        "/tmp/kio*",
+        "/tmp/ssh-*",
+        "/tmp/kio*",
+        "/tmp/ksocket-*",
+        "/tmp/.*-unix"
+    )
+    map(delete, cleanup_list)
+    
+    ensureDirs("/tmp/.ICE-unix")
     os.chown("/tmp/.ICE-unix", 0, 0)
-    os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.ICE-unix", 01777)
+    
+    ensureDirs("/tmp/.X11-unix")
+    os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.X11-unix", 01777)
 
 def resetConPerms():
