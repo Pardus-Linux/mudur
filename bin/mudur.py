@@ -120,7 +120,7 @@ def run_quiet(*cmd):
 def delete(pattern):
     """rmdir with glob support"""
     for path in glob.glob(pattern):
-        mode = os.lstat(item).st_mode
+        mode = os.lstat(path).st_mode
         if stat.S_ISDIR(mode):
             run("rm", "-rf", path)
         else:
