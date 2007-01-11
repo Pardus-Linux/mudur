@@ -318,7 +318,7 @@ class UI:
 
 
 #
-# Language and keymap
+# Language and keymap
 #
 
 class Language:
