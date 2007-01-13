@@ -182,7 +182,7 @@ def manage_service(service, op, use_color=True):
         c.System.Service[service].setState(state="on")
     elif op == "off":
         c.System.Service[service].setState(state="off")
-    elif op == "info" or op == "list":
+    elif op in ["info", "status", "list"]:
         c.System.Service[service].info()
     elif op == "restart":
         manage_service(service, "stop")
@@ -198,7 +198,7 @@ def manage_service(service, op, use_color=True):
         print _("Service '%s' started.") % service
     elif op == "stop":
         print _("Service '%s' stopped.") % service
-    elif op == "info" or op == "list":
+    elif op in ["info", "status", "list"]:
         s = Service(reply.script, reply.data)
         format_service_list([s], use_color)
     elif op == "reload":
@@ -214,6 +214,7 @@ def usage():
     print _("""usage: service [<service>] <command>
 where command is:
  list    Display service list
+ status  Display service status
  info    Display service status
  on      Auto start the service
  off     Don't auto start the service
@@ -225,7 +226,7 @@ where command is:
 # Main
 
 def main(args):
-    operations = ("start", "stop", "info", "list", "restart", "reload", "on", "off")
+    operations = ("start", "stop", "info", "list", "restart", "reload", "status", "on", "off")
     use_color = True
     
     # Parameters
