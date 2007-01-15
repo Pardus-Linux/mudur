@@ -186,12 +186,16 @@ class Config:
             "debug": False,
             "livecd": False,
             "safe": False,
+            "forcefsck": False,
         }
         # load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
             dict_ = loadConfig("/etc/conf.d/mudur")
             for key in dict_:
                 self.opts[key] = dict_[key]
+        # file system check can be requested with a file
+        if os.path.exists("/forcefsck"):
+            self.opts["forcefsck"] = True
     
     def kernel_ge(self, vers):
         vers = vers.split(".")
@@ -234,6 +238,8 @@ class Config:
                     self.opts["language"] = opt[9:]
                 elif opt.startswith("keymap:"):
                     self.opts["keymap"] = opt[7:]
+                elif opt == "forcefsck":
+                    self.opts["forcefsck"] = True
         
         # Normalize options
         
