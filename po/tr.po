@@ -74,9 +74,8 @@ msgid "Remounting root filesystem read-only"
 msgstr "Kök dosya sistemi salt okunur halde yeniden bağlanıyor"
 
 #: bin/mudur.py:541
-#, fuzzy
 msgid "Checking root filesystem (full check forced)"
-msgstr "Kök dosya sistemi denetleniyor"
+msgstr "Kök dosya sistemi denetleniyor (tam kontrol istendi)"
 
 #: bin/mudur.py:544
 msgid "Checking root filesystem"
