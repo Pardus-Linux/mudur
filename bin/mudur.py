@@ -475,13 +475,15 @@ def setupUdev():
     # We need /dev/null for calling run_quiet
     os.mknod("/dev/null", 0666 | stat.S_IFCHR, os.makedev(1, 3))
     
-    if os.path.exists("/lib/udev/devices"):
+    devpath = "/lib/udev/devices"
+    if os.path.exists(devpath):
         ui.info(_("Restoring saved device states"))
-        run_quiet(
-            "/usr/bin/cp",
-            "--preserve=all", "--recursive", "--update",
-            "/lib/udev/devices/*", "/dev/"
-        )
+        for name in os.listdir(devpath):
+            run_quiet(
+                "/usr/bin/cp",
+                "--preserve=all", "--recursive", "--update",
+                "%s/%s" % (devpath, name), "/dev/"
+            )
     
     # When these files are missing, lots of trouble happens
     # so we double check that they are there

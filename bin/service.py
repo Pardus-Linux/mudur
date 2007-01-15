@@ -211,17 +211,19 @@ def manage_service(service, op, use_color=True):
 # Usage
 
 def usage():
-    print _("""usage: service [<service>] <command>
+    print _("""usage: service [<options>] [<service>] <command>
 where command is:
- list    Display service list
- status  Display service status
- info    Display service status
- on      Auto start the service
- off     Don't auto start the service
- start   Start the service
- stop    Stop the service
- restart Stop the service, then start again
- reload  Reload the configuration (if service supports this)""")
+ list     Display service list
+ status   Display service status
+ info     Display service status
+ on       Auto start the service
+ off      Don't auto start the service
+ start    Start the service
+ stop     Stop the service
+ restart  Stop the service, then start again
+ reload   Reload the configuration (if service supports this)
+and option is:
+ -N, --no-color  Don't use color in output""")
 
 # Main
 
