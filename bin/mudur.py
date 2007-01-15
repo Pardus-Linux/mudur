@@ -536,9 +536,13 @@ def checkRoot():
         run("/bin/mount", "-n", "-o", "remount,ro", "/")
         
         ent = config.get_mount("/")
-        if len(ent) > 5 and ent[5] != "0":
-            ui.info(_("Checking root filesystem"))
-            t = os.system("LC_ALL=C /sbin/fsck -C -T -a /")
+        if config.get("forcefsck") or (len(ent) > 5 and ent[5] != "0"):
+            if config.get("forcefsck"):
+                ui.info(_("Checking root filesystem (full check forced)"))
+                t = os.system("LC_ALL=C /sbin/fsck -C -a -f /")
+            else:
+                ui.info(_("Checking root filesystem"))
+                t = os.system("LC_ALL=C /sbin/fsck -C -T -a /")
             if t == 0:
                 pass
             elif t == 2 or t == 3:
