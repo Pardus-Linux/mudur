@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-29 11:50+0200\n"
+"POT-Creation-Date: 2007-01-15 13:55+0200\n"
 "PO-Revision-Date: 2006-12-05 21:25+0200\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
@@ -20,169 +20,171 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: bin/mudur.py:175
+#: bin/mudur.py:163
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "Kan niet schrijven in mudur.log, alleen-lezen bestandssysteem"
 
-#: bin/mudur.py:311
+#: bin/mudur.py:299
 msgid "Cannot find /etc/pardus-release"
 msgstr "Kan /etc/pardus-release niet vinden"
 
-#: bin/mudur.py:423
+#: bin/mudur.py:411
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "Kan 'unicode mode' niet instellen op tty %d"
 
-#: bin/mudur.py:439
+#: bin/mudur.py:427
 msgid "Starting COMAR"
 msgstr "Opstarten COMAR"
 
-#: bin/mudur.py:450
+#: bin/mudur.py:438
 msgid "Starting services"
 msgstr "Opstarten diensten"
 
-#: bin/mudur.py:456
+#: bin/mudur.py:444
 msgid "Cannot connect to COMAR, services won't be started"
 msgstr "Kan geen verbinding maken met COMAR, diensten worden niet gestart."
 
-#: bin/mudur.py:461
+#: bin/mudur.py:449
 msgid "Cannot start system logger"
 msgstr "Kan systeemlogger niet starten"
 
-#: bin/mudur.py:469
+#: bin/mudur.py:457
 msgid "Stopping services"
 msgstr "Stoppen diensten"
 
-#: bin/mudur.py:473
+#: bin/mudur.py:461
 msgid "Stopping COMAR"
 msgstr "Stoppen COMAR"
 
-#: bin/mudur.py:482
+#: bin/mudur.py:470
 msgid "Mounting /dev"
 msgstr "Aankoppelen /dev"
 
-#: bin/mudur.py:491
+#: bin/mudur.py:480
 msgid "Restoring saved device states"
 msgstr "Herstellen opgeslagen apparaatstatussen"
 
-#: bin/mudur.py:513
+#: bin/mudur.py:503
 msgid "Starting udev"
 msgstr "Opstarten udev"
 
-#: bin/mudur.py:520
+#: bin/mudur.py:510
 msgid "Populating /dev"
 msgstr "Opvulen /dev"
 
-#: bin/mudur.py:539
+#: bin/mudur.py:529
 msgid "Remounting root filesystem read-only"
 msgstr "Opnieuw aankoppelen hoofdbestandsysteem als alleen-lezen"
 
-#: bin/mudur.py:544
+#: bin/mudur.py:534
 msgid "Checking root filesystem"
 msgstr "Controleren hoofdbestandssysteem"
 
-#: bin/mudur.py:549
+#: bin/mudur.py:539
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Bestandsysteem gerepareerd. Start het systeem opnieuw op!"
 
-#: bin/mudur.py:553
+#: bin/mudur.py:543
 msgid "Rebooting in 10 seconds ..."
 msgstr "Herstart na 10 seconden..."
 
-#: bin/mudur.py:555
+#: bin/mudur.py:545
 msgid "Rebooting..."
 msgstr "Herstarten..."
 
-#: bin/mudur.py:558
+#: bin/mudur.py:548
 msgid "Filesystem couldn't be fixed :("
 msgstr "Bestandsysteem kon niet gerepareerd worden :("
 
-#: bin/mudur.py:561
+#: bin/mudur.py:551
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Overslaan controle van hoofdbestandssysteem (fstab's overslagno == 0)"
 
-#: bin/mudur.py:563
+#: bin/mudur.py:553
 msgid "Remounting root filesystem read/write"
 msgstr "Opnieuw aankoppelen hoofdbestandssysteem als lezen/schrijven"
 
-#: bin/mudur.py:565
+#: bin/mudur.py:555
 msgid "Root filesystem could not be mounted read/write :("
-msgstr "Hoofdbestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr ""
+"Hoofdbestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
-#: bin/mudur.py:608
+#: bin/mudur.py:598
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Hostnaam instellen als '%s'"
 
-#: bin/mudur.py:625
+#: bin/mudur.py:615
 msgid "Calculating module dependencies"
 msgstr "Berekenen moduleafhankelijkheden"
 
-#: bin/mudur.py:641
+#: bin/mudur.py:631
 msgid "Checking all filesystems"
 msgstr "Controleren alle bestandssystemen"
 
-#: bin/mudur.py:646
+#: bin/mudur.py:636
 msgid "Filesystem errors corrected"
 msgstr "Fouten in het systeembestanden gecorrigeerd"
 
-#: bin/mudur.py:648
+#: bin/mudur.py:638
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr ""
+"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
-#: bin/mudur.py:661
+#: bin/mudur.py:651
 msgid "Mounting USB filesystem"
 msgstr "Aankoppelen USB-bestandssysteem"
 
-#: bin/mudur.py:667
+#: bin/mudur.py:657
 msgid "Mounting local filesystems"
 msgstr "Aankoppelen lokale bestandssystemen"
 
-#: bin/mudur.py:670
+#: bin/mudur.py:660
 msgid "Activating swap"
 msgstr "Activeren swap"
 
-#: bin/mudur.py:682
+#: bin/mudur.py:672
 msgid "Setting disk parameters"
 msgstr "Instellen schijfparameters"
 
-#: bin/mudur.py:707
+#: bin/mudur.py:697
 msgid "Setting system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok"
 
-#: bin/mudur.py:716
+#: bin/mudur.py:706
 msgid "Failed to set system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok is mislukt"
 
-#: bin/mudur.py:719
+#: bin/mudur.py:709
 msgid "Cleaning up /var"
 msgstr "Opschonen /var"
 
-#: bin/mudur.py:726
+#: bin/mudur.py:716
 msgid "Cleaning up /tmp"
 msgstr "Opschonen /tmp"
 
-#: bin/mudur.py:767
+#: bin/mudur.py:759
 msgid "Syncing system clock to hardware clock"
 msgstr "Systeemklok synchroniseren met hardwareklok"
 
-#: bin/mudur.py:770
+#: bin/mudur.py:762
 msgid "Failed to sync clocks"
 msgstr "Synchroniseren van klokken is mislukt"
 
-#: bin/mudur.py:782
+#: bin/mudur.py:774
 msgid "Deactivating swap"
 msgstr "Deactiveren swap"
 
-#: bin/mudur.py:803
+#: bin/mudur.py:795
 msgid "Unmounting filesystems"
 msgstr "Afkoppelen bestandssystemen"
 
-#: bin/mudur.py:835
+#: bin/mudur.py:827
 msgid "Remounting remaining filesystems readonly"
 msgstr "Opnieuw aankoppelen bestandssystemen als alleen-lezen"
 
-#: bin/mudur.py:849
+#: bin/mudur.py:841
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -190,23 +192,23 @@ msgstr ""
 "Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs."
 "pardus.org.tr met de  volgende informatie:"
 
-#: bin/mudur.py:896
+#: bin/mudur.py:888
 msgid "Mounting /sys"
 msgstr "Aankoppelen /sys"
 
-#: bin/mudur.py:901
+#: bin/mudur.py:893
 msgid "Mounting /dev/pts"
 msgstr "Aankoppelen /dev/pts"
 
-#: bin/mudur.py:912
+#: bin/mudur.py:904
 msgid "Starting Coldplug"
 msgstr "Starten coldplug"
 
-#: bin/mudur.py:937
+#: bin/mudur.py:929
 msgid "Setting up localhost"
 msgstr "Instellen localhost"
 
-#: bin/mudur.py:947
+#: bin/mudur.py:939
 msgid "Updating environment variables"
 msgstr "Bijwerken omgevingsvariabelen"
 
@@ -261,7 +263,9 @@ msgstr "Beschrijving"
 
 #: bin/service.py:156
 msgid "You should be the root user in order to control the comar service."
-msgstr "U dient een 'root' gebruiker te zijn als u gebruik wil maken van de COMAR dienst."
+msgstr ""
+"U dient een 'root' gebruiker te zijn als u gebruik wil maken van de COMAR "
+"dienst."
 
 #: bin/service.py:198
 #, python-format
@@ -289,17 +293,21 @@ msgid "Service '%s' won't be auto started."
 msgstr "Service '%s' zal niet automatische worden gestart."
 
 #: bin/service.py:214
+#, fuzzy
 msgid ""
-"usage: service [<service>] <command>\n"
+"usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
-" list    Display service list\n"
-" info    Display service status\n"
-" on      Auto start the service\n"
-" off     Don't auto start the service\n"
-" start   Start the service\n"
-" stop    Stop the service\n"
-" restart Stop the service, then start again\n"
-" reload  Reload the configuration (if service supports this)"
+" list     Display service list\n"
+" status   Display service status\n"
+" info     Display service status\n"
+" on       Auto start the service\n"
+" off      Don't auto start the service\n"
+" start    Start the service\n"
+" stop     Stop the service\n"
+" restart  Stop the service, then start again\n"
+" reload   Reload the configuration (if service supports this)\n"
+"and option is:\n"
+" -N, --no-color  Don't use color in output"
 msgstr ""
 "gebruik: service [<dienst>] <commando>\n"
 "waar commando's zijn:\n"
@@ -311,4 +319,3 @@ msgstr ""
 " stop    Stop dienst\n"
 " restart Dienst stoppen en herstarten\n"
 " reload  Herladen van de configuratie (als de dienst dit ondersteunt)"
-
