@@ -1,19 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of es.po to spanish
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Klemens Häckel <click3d_at_linuxmail_org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: mudur\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 11:44+0200\n"
-"PO-Revision-Date: 2006-11-28 19:49-0400\n"
-"Last-Translator: Klemens Häckel <click3d@linuxmail.org>\n"
+"PO-Revision-Date: 2007-02-04 08:17+0200\n"
+"Last-Translator: Klemens Häckel <click3d_at_linuxmail_org>\n"
 "Language-Team: spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: bin/mudur.py:163
 msgid "Cannot write mudur.log, read-only file system"
@@ -73,9 +74,8 @@ msgid "Remounting root filesystem read-only"
 msgstr "Montando de nuevo sistema de archivos root solo-lectura"
 
 #: bin/mudur.py:541
-#, fuzzy
 msgid "Checking root filesystem (full check forced)"
-msgstr "Verificando sistema de archivos root"
+msgstr "Verificando sistema de archivos root (verificación completa forzada)"
 
 #: bin/mudur.py:544
 msgid "Checking root filesystem"
@@ -112,7 +112,7 @@ msgstr "Sistema de archivos Root no pudo montarse read/write :("
 #: bin/mudur.py:608
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr "Estableciendo nombre de hostname como '%s'"
+msgstr "Estableciendo hostname como '%s'"
 
 #: bin/mudur.py:625
 msgid "Calculating module dependencies"
@@ -168,7 +168,7 @@ msgstr "Sincronizando reloj del sistema a reloj de hardware"
 
 #: bin/mudur.py:772
 msgid "Failed to sync clocks"
-msgstr "no posible sincronizar relojes"
+msgstr "No posible sincronizar relojes"
 
 #: bin/mudur.py:784
 msgid "Deactivating swap"
@@ -219,9 +219,9 @@ msgid "Service doesn't provide this operation."
 msgstr "Esta operación no posible para este servicio"
 
 #: bin/service.py:37
-#, fuzzy, python-format
+#, python-format
 msgid "%s error: %s"
-msgstr "Error: %s"
+msgstr "%s error: %s"
 
 #: bin/service.py:55
 msgid "local"
@@ -289,7 +289,6 @@ msgid "Service '%s' won't be auto started."
 msgstr "Servicio '%s' no se iniciará automaticamente."
 
 #: bin/service.py:214
-#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -305,7 +304,7 @@ msgid ""
 "and option is:\n"
 " -N, --no-color  Don't use color in output"
 msgstr ""
-"usage: service [<service>] <command>\n"
+"usage: service [<options>] [<service>] <command>\n"
 "command puede ser:\n"
 " list    Mostrar lista de servicio\n"
 " info    Mostrar estado de servicio\n"
@@ -314,4 +313,7 @@ msgstr ""
 " start   Iniciar el servicio\n"
 " stop    Parar el servicio\n"
 " restart Parar el servicio, luego iniciar de nuevo\n"
-" reload  Recargar la configuración (si el servicio lo soporta)"
+" reload  Recargar la configuración (si el servicio lo soporta)\n"
+"y option es:\n"
+" -N, --no-color  No usar color en la salida"
+
