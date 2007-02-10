@@ -276,6 +276,9 @@ class CPU:
     def detect(self):
         modules = set()
         if self.vendor == "GenuineIntel":
+            # FIXME: For kernel's 2.6.19+ speedstep_centrino merged with acpi_cpufreq
+            # speedstep-centrino with X86_SPEEDSTEP_CENTRINO_ACPI config is deprecated.
+            # Use X86_ACPI_CPUFREQ (acpi-cpufreq) instead.
             # Pentium M, Enhanced SpeedStep
             if "est" in self.flags:
                 modules.add("speedstep_centrino")
