@@ -1,0 +1,318 @@
+# Translation of mudur.po to Brazillian Portuguese
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Pedro Leite <pedro.leite@gmail.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: mudur\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-07 21:36+0200\n"
+"PO-Revision-Date: 2007-02-06 11:53-0300\n"
+"Last-Translator: Pedro Leite <pedro.leite@gmail.com>\n"
+"Language-Team: Brazillian Portuguese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: bin/mudur.py:163
+msgid "Cannot write mudur.log, read-only file system"
+msgstr "Não é possível escrever mudur.log, sistema de arquivos somente-leitura."
+
+#: bin/mudur.py:305
+msgid "Cannot find /etc/pardus-release"
+msgstr "Não é possível achar /etc/pardus-release"
+
+#: bin/mudur.py:417
+#, python-format
+msgid "Could not set unicode mode on tty %d"
+msgstr "Não foi possível modificar o modo unicode no tty %d"
+
+#: bin/mudur.py:433
+msgid "Starting COMAR"
+msgstr "Iniciando COMAR"
+
+#: bin/mudur.py:444
+msgid "Starting services"
+msgstr "Iniciando os serviços"
+
+#: bin/mudur.py:450
+msgid "Cannot connect to COMAR, services won't be started"
+msgstr "Não é possível se conectar ao COMAR, os serviços não serão iniciados"
+
+#: bin/mudur.py:455
+msgid "Cannot start system logger"
+msgstr "Não é possível iniciar o logger do sistema"
+
+#: bin/mudur.py:463
+msgid "Stopping services"
+msgstr "Parando os serviços"
+
+#: bin/mudur.py:467
+msgid "Stopping COMAR"
+msgstr "Parando COMAR"
+
+#: bin/mudur.py:476
+msgid "Mounting /dev"
+msgstr "Montando /dev"
+
+#: bin/mudur.py:486
+msgid "Restoring saved device states"
+msgstr "Recuperando os estados de dispositivo salvos"
+
+#: bin/mudur.py:509
+msgid "Starting udev"
+msgstr "Iniciando udev"
+
+#: bin/mudur.py:516
+msgid "Populating /dev"
+msgstr "Populando /dev"
+
+#: bin/mudur.py:535
+msgid "Remounting root filesystem read-only"
+msgstr "Remontando o sistema de arquivos raiz como somente-leitura"
+
+#: bin/mudur.py:541
+msgid "Checking root filesystem (full check forced)"
+msgstr "Checando o sistema de arquivos raiz (checagem completa forçada)"
+
+#: bin/mudur.py:544
+msgid "Checking root filesystem"
+msgstr "Checando o sistema de arquivos raiz"
+
+#: bin/mudur.py:549
+msgid "Filesystem repaired, but reboot needed!"
+msgstr "Sistema de arquivos reparado, porém é necessário reiniciar!"
+
+#: bin/mudur.py:553
+msgid "Rebooting in 10 seconds ..."
+msgstr "Reiniciando em 10 segundos..."
+
+#: bin/mudur.py:555
+msgid "Rebooting..."
+msgstr "Reiniciando..."
+
+#: bin/mudur.py:558
+msgid "Filesystem couldn't be fixed :("
+msgstr "Sistema de arquivos não pôde ser consertado :("
+
+#: bin/mudur.py:561
+msgid "Skipping root filesystem check (fstab's passno == 0)"
+msgstr "Pulando a checagem do sistema de arquivos raiz (passno == 0 no fstab)"
+
+#: bin/mudur.py:563
+msgid "Remounting root filesystem read/write"
+msgstr "Remontando o sistema de arquivos raiz como leitura/escrita"
+
+#: bin/mudur.py:565
+msgid "Root filesystem could not be mounted read/write :("
+msgstr "Sistema de arquivos raiz não pôde ser montado como leitura/escrita :("
+
+#: bin/mudur.py:608
+#, python-format
+msgid "Setting up hostname as '%s'"
+msgstr "Configurando o nome do host como '%s'"
+
+#: bin/mudur.py:625
+msgid "Calculating module dependencies"
+msgstr "Calculando as dependências dos módulos"
+
+#: bin/mudur.py:641
+msgid "Checking all filesystems"
+msgstr "Checando todos os sistemas de arquivos"
+
+#: bin/mudur.py:646
+msgid "Filesystem errors corrected"
+msgstr "Erros do sistema de arquivos corrigidos"
+
+#: bin/mudur.py:648
+msgid "Fsck could not correct all errors, manual repair needed"
+msgstr "Fsck não corrigiu todos os erros, reparo manual requerido"
+
+#: bin/mudur.py:661
+msgid "Mounting USB filesystem"
+msgstr "Montando sistema de arquivos USB"
+
+#: bin/mudur.py:667
+msgid "Mounting local filesystems"
+msgstr "Montando sistemas de arquivos locais"
+
+#: bin/mudur.py:670
+msgid "Activating swap"
+msgstr "Ativando a memória de troca"
+
+#: bin/mudur.py:682
+msgid "Setting disk parameters"
+msgstr "Ajustando parâmetros do disco"
+
+#: bin/mudur.py:707
+msgid "Setting system clock to hardware clock"
+msgstr "Ajustando o relógio do sistema para no relógio do hardware"
+
+#: bin/mudur.py:716
+msgid "Failed to set system clock to hardware clock"
+msgstr "Falhou em ajustar o relógio do sistema no relógio do hardware"
+
+#: bin/mudur.py:719
+msgid "Cleaning up /var"
+msgstr "Limpando /var"
+
+#: bin/mudur.py:726
+msgid "Cleaning up /tmp"
+msgstr "Limpando /tmp"
+
+#: bin/mudur.py:769
+msgid "Syncing system clock to hardware clock"
+msgstr "Sincronizando o relógio do sistema para o relógio do hardware"
+
+#: bin/mudur.py:772
+msgid "Failed to sync clocks"
+msgstr "Falhou em sincronizar relógios"
+
+#: bin/mudur.py:784
+msgid "Deactivating swap"
+msgstr "Desativando a memória de troca"
+
+#: bin/mudur.py:805
+msgid "Unmounting filesystems"
+msgstr "Desmontando sistemas de arquivos"
+
+#: bin/mudur.py:837
+msgid "Remounting remaining filesystems readonly"
+msgstr "Remontando sistemas de arquivos remanescentes como somente-leitura"
+
+#: bin/mudur.py:851
+msgid ""
+"An internal error occured. Please report to the bugs.pardus.org.tr with "
+"following information:"
+msgstr "Um erro interno ocorreu. Por favor, reporte este erro em bugs.pardus.org.tr com a seguinte informação:"
+
+#: bin/mudur.py:898
+msgid "Mounting /sys"
+msgstr "Montando /sys"
+
+#: bin/mudur.py:903
+msgid "Mounting /dev/pts"
+msgstr "Montando /dev/pts"
+
+#: bin/mudur.py:914
+msgid "Starting Coldplug"
+msgstr "Iniciando Coldplug"
+
+#: bin/mudur.py:939
+msgid "Setting up localhost"
+msgstr "Configurando localhost"
+
+#: bin/mudur.py:949
+msgid "Updating environment variables"
+msgstr "Atualizando variáveis de ambiente"
+
+#: bin/service.py:33
+msgid "You dont have permission to do this operation."
+msgstr "Você não tem permissão para realizar esta operação."
+
+#: bin/service.py:35
+msgid "Service doesn't provide this operation."
+msgstr "Serviço não fornece esta operação."
+
+#: bin/service.py:37
+#, python-format
+msgid "%s error: %s"
+msgstr "%s erro: %s"
+
+#: bin/service.py:55
+msgid "local"
+msgstr "local"
+
+#: bin/service.py:56
+msgid "script"
+msgstr "script"
+
+#: bin/service.py:57
+msgid "server"
+msgstr "servidor"
+
+#: bin/service.py:69
+msgid "running"
+msgstr "executando"
+
+#: bin/service.py:71
+msgid "yes"
+msgstr "sim"
+
+#: bin/service.py:89
+msgid "Service"
+msgstr "Serviço"
+
+#: bin/service.py:90
+msgid "Status"
+msgstr "Status"
+
+#: bin/service.py:91
+msgid "Autostart"
+msgstr "Iniciar automaticamente"
+
+#: bin/service.py:92
+msgid "Description"
+msgstr "Descrição"
+
+#: bin/service.py:156
+msgid "You should be the root user in order to control the comar service."
+msgstr "Você deve ser o usuário root para controlar o serviço comar."
+
+#: bin/service.py:198
+#, python-format
+msgid "Service '%s' started."
+msgstr "Serviço '%s' iniciado."
+
+#: bin/service.py:200
+#, python-format
+msgid "Service '%s' stopped."
+msgstr "Serviço '%s' parado."
+
+#: bin/service.py:205
+#, python-format
+msgid "Service '%s' reloaded."
+msgstr "Serviço '%s' recarregado."
+
+#: bin/service.py:207
+#, python-format
+msgid "Service '%s' will be auto started."
+msgstr "Serviço '%s' será iniciado automaticamente."
+
+#: bin/service.py:209
+#, python-format
+msgid "Service '%s' won't be auto started."
+msgstr "Serviço '%s' não será iniciado automaticamente."
+
+#: bin/service.py:214
+msgid ""
+"usage: service [<options>] [<service>] <command>\n"
+"where command is:\n"
+" list     Display service list\n"
+" status   Display service status\n"
+" info     Display service status\n"
+" on       Auto start the service\n"
+" off      Don't auto start the service\n"
+" start    Start the service\n"
+" stop     Stop the service\n"
+" restart  Stop the service, then start again\n"
+" reload   Reload the configuration (if service supports this)\n"
+"and option is:\n"
+" -N, --no-color  Don't use color in output"
+msgstr ""
+"uso: service [<opções>] [<serviço>] <comando>\n"
+"onde o comando é:\n"
+" list     Mostra a lista de serviços\n"
+" status   Mostra o status do serviço\n"
+" info     Mostra informações do serviço\n"
+" on       Inicia automaticamente o serviço\n"
+" off      Não inicia automaticamente o serviço\n"
+" start    Inicia o serviço\n"
+" stop     Pára o serviço\n"
+" restart  Pára o serviço e então o inicia de novo\n"
+" reload   Recarrega a configuração (caso o serviço suporte isto)\n"
+"e a opção é:\n"
+" -N, --no-color  Não usar cor na saída"
+
