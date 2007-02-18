@@ -83,6 +83,12 @@ class Fstab:
         else:
             self.content = []
 
+        # basic syntax check of the content - gonna be improved in the future.
+        try:
+            assert([x for x in self.content if len(x.split()) != 6] == [])
+        except:
+            raise FstabError, "Syntax of the fstab file doesn't seem to be correct"
+
         self.defaultMountDir = "/mnt"
         self.excludedFilesystems = ["proc", "tmpfs", "swap"]
         self.allDevices = getBlockDevices()
@@ -254,7 +260,12 @@ if __name__ == "__main__":
     else:
         dbg = False
 
-    f = Fstab(File = "/etc/fstab", debug = dbg)
+    try:
+        f = Fstab(File = "/etc/fstab", debug = dbg)
+    except FstabError, e:
+        print e
+        sys.exit(-1)
+
     f.delDepartedPartitions()
     f.addAvailablePartitions()
     f.writeContent()
