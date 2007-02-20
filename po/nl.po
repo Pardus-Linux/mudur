@@ -4,7 +4,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Willem Gielen <w.gielen@gmail.com>, 2006.
+# Willem Gielen <w.gielen@gmail.com>, 2006, 2007.
 # Rinse de Vries <RinseDeVries@home.nl>, 2006.
 # W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2006.
 msgid ""
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 11:44+0200\n"
-"PO-Revision-Date: 2006-12-05 21:25+0200\n"
+"PO-Revision-Date: 2007-02-20 21:53+0200\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Kan /etc/pardus-release niet vinden"
 #: bin/mudur.py:417
 #, python-format
 msgid "Could not set unicode mode on tty %d"
-msgstr "Kan 'unicode mode' niet instellen op tty %d"
+msgstr "Kan unicode modus niet instellen op tty %d"
 
 #: bin/mudur.py:433
 msgid "Starting COMAR"
@@ -78,17 +78,16 @@ msgid "Remounting root filesystem read-only"
 msgstr "Opnieuw aankoppelen hoofdbestandsysteem als alleen-lezen"
 
 #: bin/mudur.py:541
-#, fuzzy
 msgid "Checking root filesystem (full check forced)"
-msgstr "Controleren hoofdbestandssysteem"
+msgstr "Controleren root bestandssysteem (volledige contrôle geforceerd)"
 
 #: bin/mudur.py:544
 msgid "Checking root filesystem"
-msgstr "Controleren hoofdbestandssysteem"
+msgstr "Controleren root bestandssysteem"
 
 #: bin/mudur.py:549
 msgid "Filesystem repaired, but reboot needed!"
-msgstr "Bestandsysteem gerepareerd. Start het systeem opnieuw op!"
+msgstr "Bestandsysteem gerepareerd, herstarten is nodig!"
 
 #: bin/mudur.py:553
 msgid "Rebooting in 10 seconds ..."
@@ -104,16 +103,15 @@ msgstr "Bestandsysteem kon niet gerepareerd worden :("
 
 #: bin/mudur.py:561
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr "Overslaan controle van hoofdbestandssysteem (fstab's overslagno == 0)"
+msgstr "Overslaan contrôle van root bestandssysteem (fstab's overslagno == 0)"
 
 #: bin/mudur.py:563
 msgid "Remounting root filesystem read/write"
-msgstr "Opnieuw aankoppelen hoofdbestandssysteem als lezen/schrijven"
+msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:565
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Hoofdbestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:608
 #, python-format
@@ -130,12 +128,11 @@ msgstr "Controleren alle bestandssystemen"
 
 #: bin/mudur.py:646
 msgid "Filesystem errors corrected"
-msgstr "Fouten in het systeembestanden gecorrigeerd"
+msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:648
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:661
 msgid "Mounting USB filesystem"
@@ -159,7 +156,7 @@ msgstr "Systeemklok instellen op hardwareklok"
 
 #: bin/mudur.py:716
 msgid "Failed to set system clock to hardware clock"
-msgstr "Systeemklok instellen op hardwareklok is mislukt"
+msgstr "Systeemklok instellen op hardwareklok mislukt"
 
 #: bin/mudur.py:719
 msgid "Cleaning up /var"
@@ -175,7 +172,7 @@ msgstr "Systeemklok synchroniseren met hardwareklok"
 
 #: bin/mudur.py:772
 msgid "Failed to sync clocks"
-msgstr "Synchroniseren van klokken is mislukt"
+msgstr "Synchroniseren van klokken mislukt"
 
 #: bin/mudur.py:784
 msgid "Deactivating swap"
@@ -194,8 +191,8 @@ msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
-"Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs."
-"pardus.org.tr met de  volgende informatie:"
+"Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs.pardus.org.tr met "
+"de volgende informatie:"
 
 #: bin/mudur.py:898
 msgid "Mounting /sys"
@@ -244,7 +241,7 @@ msgstr "server"
 
 #: bin/service.py:69
 msgid "running"
-msgstr "wordt uitgevoerd"
+msgstr "actief"
 
 #: bin/service.py:71
 msgid "yes"
@@ -269,36 +266,35 @@ msgstr "Beschrijving"
 #: bin/service.py:156
 msgid "You should be the root user in order to control the comar service."
 msgstr ""
-"U dient een 'root' gebruiker te zijn als u gebruik wil maken van de COMAR "
+"U dient een root gebruiker te zijn als u gebruik wil maken van de COMAR "
 "dienst."
 
 #: bin/service.py:198
 #, python-format
 msgid "Service '%s' started."
-msgstr "Service '%s' is gestart."
+msgstr "Dienst '%s' is gestart."
 
 #: bin/service.py:200
 #, python-format
 msgid "Service '%s' stopped."
-msgstr "Service '%s' is gestopt."
+msgstr "Dienst '%s' is gestopt."
 
 #: bin/service.py:205
 #, python-format
 msgid "Service '%s' reloaded."
-msgstr "Service '%s' is opnieuw geladen."
+msgstr "Dienst '%s' is opnieuw geladen."
 
 #: bin/service.py:207
 #, python-format
 msgid "Service '%s' will be auto started."
-msgstr "Service '%s' wordt automatische gestart."
+msgstr "Dienst '%s' wordt automatische gestart."
 
 #: bin/service.py:209
 #, python-format
 msgid "Service '%s' won't be auto started."
-msgstr "Service '%s' zal niet automatische worden gestart."
+msgstr "Dienst '%s' zal niet automatische worden gestart."
 
 #: bin/service.py:214
-#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -314,7 +310,7 @@ msgid ""
 "and option is:\n"
 " -N, --no-color  Don't use color in output"
 msgstr ""
-"gebruik: service [<dienst>] <commando>\n"
+"gebruik: service [<opties>] <dienst>] <commando>\n"
 "waar commando's zijn:\n"
 " list    Weergeven dienstenlijst weergeven\n"
 " info    Weergeven dienst status\n"
@@ -322,5 +318,8 @@ msgstr ""
 " off     Dienst niet automatisch starten\n"
 " start   Start dienst\n"
 " stop    Stop dienst\n"
-" restart Dienst stoppen en herstarten\n"
-" reload  Herladen van de configuratie (als de dienst dit ondersteunt)"
+" restart  Stop dienst en herstart\n"
+" reload   Herladen van de configuratie (als de dienst dit ondersteunt)\n"
+"en optie is:\n"
+" -N, --no-color  Gebruik geen kleur in uitvoer"
+
