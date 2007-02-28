@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Pardus boot and initialization system
-# Copyright (C) 2006, TUBITAK/UEKAE
+# Copyright (C) 2006-2007, TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -342,7 +342,8 @@ languages = {
     "de": Language("de", "iso01.16", "8859-1", "de_DE.UTF-8"),
     "es": Language("es", "iso01.16", "8859-1", "es_ES.UTF-8"),
     "it": Language("it", "iso01.16", "8859-1", "it_IT.UTF-8"),
-    "fr": Language("fr", "iso01.16", "8859-1", "fr_FR.UTF-8")
+    "fr": Language("fr", "iso01.16", "8859-1", "fr_FR.UTF-8"),
+    "pt_BR": Language("br-abnt2", "iso01.16", "8859-1", "pt_BR.UTF-8"),
 }
 
 def setConsole():
