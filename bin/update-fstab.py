@@ -75,6 +75,7 @@ def getBlockDevices():
                 devlink = os.readlink(sysfs_dev + "/device")
                 if not "/usb" in devlink:
                     devices.append("/dev/" + os.path.basename(sysfs_dev))
+    devices.sort()
     return devices
 
 
