@@ -24,6 +24,13 @@ comment="""# See the manpage fstab(5) for more information.
 class DeviceError(Exception):
     pass
 
+def getBlocknameByLabel(_f):
+    f = os.path.join("/dev/disk/by-label/%s" % _f)
+    if os.path.islink(f):
+        return "/dev/%s" % os.readlink(f)[6:]
+    else:
+        return None
+
 def getPartitionsOfDevice(device_path):
     """Returns all partitions of a given device but swap partition"""
     def getPartitionInfo(part):
