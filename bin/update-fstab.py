@@ -116,8 +116,9 @@ class Fstab:
         self.update()
 
     def maplabels(self):
-        for f in os.listdir("/dev/disk/by-label/"):
-            self.Label[getBlocknameByLabel(f)] = f
+        if os.path.exists("/dev/disk/by-label"):
+            for f in os.listdir("/dev/disk/by-label/"):
+                self.Label[getBlocknameByLabel(f)] = f
 
     def update(self):
         self.__allPartitions, self.__fstabPartitions = {}, {}
