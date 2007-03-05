@@ -145,7 +145,7 @@ class Fstab:
 
     def __emergeAllPartitions(self):
         for dev in self.allDevices:
-            for info in [info for info in getPartitionsOfDevice(dev)]:
+            for info in getPartitionsOfDevice(dev):
                 self.__allPartitions[info[0]] = info[1]
 
     def __emergeFstabPartitions(self):
