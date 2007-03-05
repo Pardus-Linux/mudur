@@ -18,7 +18,7 @@ import parted
 
 comment="""# See the manpage fstab(5) for more information.
 #
-# <fs>      <mountpoint>         <type>    <opts>               <dump/pass>
+#   <fs>             <mountpoint>     <type>    <opts>               <dump/pass>
 """
 
 class DeviceError(Exception):
@@ -145,6 +145,7 @@ class Fstab:
                 f.write(line)
             f.close()
         else:
+            print comment
             for line in self.content:
                 print line.rstrip("\n")
 
@@ -181,7 +182,9 @@ class Fstab:
     def addAvailablePartitions(self):
         """Adds all partitions that have no entries in fstab, 
            into fstab with default parameters"""
-        for p in self.getAvailablePartitions():
+        tmplist = self.getAvailablePartitions().keys()
+        tmplist.sort()
+        for p in tmplist:
             self.addFstabEntry(p, self.__allPartitions[p])
 
     def getDepartedPartitions(self):
@@ -254,7 +257,7 @@ class Fstab:
         else:
             pass
 
-        self.content.append("%-11s %-20s %-9s %-20s %s %s\n" % (partition, 
+        self.content.append("%-20s %-16s %-9s %-20s %s %s\n" % (partition, 
                                                          attr_dict['mount_point'], 
                                                          attr_dict['file_system'], 
                                                          ','.join(attr_dict['options']), 
