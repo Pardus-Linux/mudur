@@ -170,7 +170,10 @@ class Fstab:
     def getAvailablePartitions(self):
         ap = {}
         for p in set(self.__allPartitions) - set(self.__fstabPartitions):
-            if not "LABEL=%s" % self.Label[p] in self.__fstabPartitions:
+            if p in self.Label:
+                if not "LABEL=%s" % self.Label[p] in self.__fstabPartitions:
+                    ap[p] = copy.deepcopy(self.__allPartitions[p])
+            else:
                 ap[p] = copy.deepcopy(self.__allPartitions[p])
         return ap
 
