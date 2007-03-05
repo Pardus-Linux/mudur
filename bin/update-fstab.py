@@ -85,6 +85,8 @@ class Fstab:
     def __init__(self, File = "/etc/fstab", debug = False):
         self.File = File
         self.Debug = debug
+        self.Label = {}
+
         if os.path.isfile(File):
             self.content = self.__emergeContent()
         else:
@@ -109,7 +111,12 @@ class Fstab:
         self.defaultFileSystemOptions["xfs"] = ["noatime", "nobarrier"]
         self.defaultFileSystemOptions["defaults"] = ["defaults"]
 
+        self.maplabels()
         self.update()
+
+    def maplabels(self):
+        for f in os.listdir("/dev/disk/by-label/"):
+            self.Label[getBlocknameByLabel(f)] = f
 
     def update(self):
         self.__allPartitions, self.__fstabPartitions = {}, {}
@@ -163,7 +170,8 @@ class Fstab:
     def getAvailablePartitions(self):
         ap = {}
         for p in set(self.__allPartitions) - set(self.__fstabPartitions):
-            ap[p] = copy.deepcopy(self.__allPartitions[p])
+            if not "LABEL=%s" % self.Label[p] in self.__fstabPartitions:
+                ap[p] = copy.deepcopy(self.__allPartitions[p])
         return ap
 
     def addAvailablePartitions(self):
@@ -177,7 +185,8 @@ class Fstab:
         they do not exist anymore"""
         dp = {}
         for p in set(self.__fstabPartitions) - set(self.__allPartitions):
-            dp[p] = copy.deepcopy(self.__fstabPartitions[p])
+            if not (p.startswith("LABEL=") and getBlocknameByLabel(p[6:]) in self.__allPartitions):
+                dp[p] = copy.deepcopy(self.__fstabPartitions[p])
         return dp
 
     def delDepartedPartitions(self):
