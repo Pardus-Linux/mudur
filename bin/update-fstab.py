@@ -193,7 +193,12 @@ class Fstab:
         they do not exist anymore"""
         dp = {}
         for p in set(self.__fstabPartitions) - set(self.__allPartitions):
-            if not (p.startswith("LABEL=") and getBlocknameByLabel(p[6:]) in self.__allPartitions):
+            #if not (p.startswith("LABEL=") and getBlocknameByLabel(p[6:]) in self.__allPartitions):
+            if p.startswith("LABEL=PARDUS_ROOT") or p.startswith("LABEL=PARDUS_HOME") or p.startswith("LABEL=PARDUS_SWAP"):
+                continue
+            elif p.startswith("LABEL=") and getBlocknameByLabel(p[6:]) in self.__allPartitions:
+                continue
+            else:
                 dp[p] = copy.deepcopy(self.__fstabPartitions[p])
         return dp
 
