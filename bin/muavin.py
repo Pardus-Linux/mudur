@@ -320,18 +320,6 @@ class CPU:
         
         return modules
     
-    def isLaptop(self):
-        if os.path.exists("/usr/sbin/dmidecode"):
-            cmd = subprocess.Popen(
-                [ "/usr/sbin/dmidecode", "-s", "chassis-type" ],
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE
-            )
-            a = cmd.communicate()
-            for item in ("Notebook", "Portable", "Laptop", "Docking Station", "Sub Notebook"):
-                if a[0].startswith(item):
-                    return True
-        return False
-    
     def plug(self, current, env=None):
         if env:
             return
@@ -339,13 +327,12 @@ class CPU:
             # User already specified a frequency module in
             # modules.autoload.d or compiled it into the kernel
             return
-        if self.isLaptop():
-            mods = self.detect()
-            if len(mods) > 0:
-                mods.add("cpufreq_userspace")
-                mods.add("cpufreq_powersave")
-                mods.add("cpufreq_ondemand")
-            current.update(mods)
+        mods = self.detect()
+        if len(mods) > 0:
+            mods.add("cpufreq_userspace")
+            mods.add("cpufreq_powersave")
+            mods.add("cpufreq_ondemand")
+        current.update(mods)
     
     def debug(self):
         print "CPU: %s" % ", ".join(self.detect())
