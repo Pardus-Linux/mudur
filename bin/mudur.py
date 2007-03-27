@@ -182,6 +182,7 @@ class Config:
             "language": "tr",
             "keymap": None,
             "clock": "local",
+            "clock_adjust": "no",
             "tty_number": "6",
             "debug": False,
             "livecd": False,
@@ -699,21 +700,24 @@ def setClock():
     if config.is_virtual():
         return
     
-    adj = "--adjust"
-    if not touch("/etc/adjtime"):
-        adj = "--noadjfile"
-    elif os.stat("/etc/adjtime").st_size == 0:
-        write("/etc/adjtime", "0.0 0 0.0\n")
-    
     ui.info(_("Setting system clock to hardware clock"))
     
     opts = "--utc"
     if config.get("clock") != "UTC":
         opts = "--localtime"
     
-    t = capture("/sbin/hwclock", adj, opts)
-    t2 = capture("/sbin/hwclock", "--hctosys", opts)
-    if t[1] != '' or t2[1] != '':
+    if config.get("clock_adjust") == "yes":
+        adj = "--adjust"
+        if not touch("/etc/adjtime"):
+            adj = "--noadjfile"
+        elif os.stat("/etc/adjtime").st_size == 0:
+            write("/etc/adjtime", "0.0 0 0.0\n")
+        t = capture("/sbin/hwclock", adj, opts)
+        if t[1] != '':
+            ui.error(_("Failed to adjust systematic drift of the hardware clock"))
+    
+    t = capture("/sbin/hwclock", "--hctosys", opts)
+    if t[1] != '':
         ui.error(_("Failed to set system clock to hardware clock"))
 
 def cleanupVar():
