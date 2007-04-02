@@ -1,290 +1,287 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translation to catalan,  mudur.po of Pardus
+# Copyright (C) 2007 Pardus
+# This file is distributed under the same license as the Pardus package.
+# Jaume Villalba <javstinet.cat>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 11:44+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2007-04-01 21:58+0100\n"
+"Last-Translator: Jaume Villalba <javs@tinet.cat>\n"
+"Language-Team: Catalan <Pardus-translation-ca@uludag.org.tr>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: bin/mudur.py:163
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
+msgstr "No s'ha pogut escriure el mudur.log, aquest és un sistema d'arxius només de lectura"
 
 #: bin/mudur.py:305
 msgid "Cannot find /etc/pardus-release"
-msgstr ""
+msgstr "No s'ha pogut trobar el /etc/pardus-release"
 
 #: bin/mudur.py:417
 #, python-format
 msgid "Could not set unicode mode on tty %d"
-msgstr ""
+msgstr "No s'ha pogut establir el mode unicode en el tty %d"
 
 #: bin/mudur.py:433
 msgid "Starting COMAR"
-msgstr ""
+msgstr "El COMAR s'està engegant"
 
 #: bin/mudur.py:444
 msgid "Starting services"
-msgstr ""
+msgstr "Els serveis s'estan engegant"
 
 #: bin/mudur.py:450
 msgid "Cannot connect to COMAR, services won't be started"
-msgstr ""
+msgstr "No s'ha pogut connectar amb el COMAR, els serveis no s'engegaran"
 
 #: bin/mudur.py:455
 msgid "Cannot start system logger"
-msgstr ""
+msgstr "No es pot engegar el registre del sistema"
 
 #: bin/mudur.py:463
 msgid "Stopping services"
-msgstr ""
+msgstr "Els serveis s'estan aturant"
 
 #: bin/mudur.py:467
 msgid "Stopping COMAR"
-msgstr ""
+msgstr "El COMAR s'està aturant"
 
 #: bin/mudur.py:476
 msgid "Mounting /dev"
-msgstr ""
+msgstr "El /dev s'està muntant"
 
 #: bin/mudur.py:486
 msgid "Restoring saved device states"
-msgstr ""
+msgstr "Restauració dels estats dels dispositiu desats"
 
 #: bin/mudur.py:509
 msgid "Starting udev"
-msgstr ""
+msgstr "L'udev s'està engegant"
 
 #: bin/mudur.py:516
 msgid "Populating /dev"
-msgstr ""
+msgstr "El /dev s'està omplint"
 
 #: bin/mudur.py:535
 msgid "Remounting root filesystem read-only"
-msgstr ""
+msgstr "El sistema d'arxius de l'arrel en mode de només lectura r'està tornant a muntar"
 
 #: bin/mudur.py:541
 msgid "Checking root filesystem (full check forced)"
-msgstr ""
+msgstr "La integritat del sistema d'arxius de l'arrel s'està comprovant"
 
 #: bin/mudur.py:544
 msgid "Checking root filesystem"
-msgstr ""
+msgstr "La integritat del sistema d'arxius de l'arrel s'està comprovant"
 
 #: bin/mudur.py:549
 msgid "Filesystem repaired, but reboot needed!"
-msgstr ""
+msgstr "El sistema d'arxius ha estat reparat, però cal reiniciar l'ordinador"
 
 #: bin/mudur.py:553
 msgid "Rebooting in 10 seconds ..."
-msgstr ""
+msgstr "Es reiniciarà en 10 segons..."
 
 #: bin/mudur.py:555
 msgid "Rebooting..."
-msgstr ""
+msgstr "S'està reiniciant..."
 
 #: bin/mudur.py:558
 msgid "Filesystem couldn't be fixed :("
-msgstr ""
+msgstr "No ha estat possible reparar el sistema d'arxius  :("
 
 #: bin/mudur.py:561
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr ""
+msgstr "Omissió de la comprovació del sistema d'arxius de l'arrel (fstab's passno == 0)"
 
 #: bin/mudur.py:563
 msgid "Remounting root filesystem read/write"
-msgstr ""
+msgstr "El sistema d'arxius de l'arrel en mode de lectura/escriptura s'està tornant a muntar "
 
 #: bin/mudur.py:565
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
+msgstr "No ha estat possible muntar el sistema d'arxius de l'arrel en mode de lectura/escriptura :("
 
 #: bin/mudur.py:608
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr ""
+msgstr "Com a nom de l'ordinador s'emprarà '%s'"
 
 #: bin/mudur.py:625
 msgid "Calculating module dependencies"
-msgstr ""
+msgstr "Càlcul del mòdul de dependències"
 
 #: bin/mudur.py:641
 msgid "Checking all filesystems"
-msgstr ""
+msgstr "Comprovació de tots els sistemes d'arxiu"
 
 #: bin/mudur.py:646
 msgid "Filesystem errors corrected"
-msgstr ""
+msgstr "Els errors del sistema d'arxius han estat corregits"
 
 #: bin/mudur.py:648
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
+msgstr "El Fsck no ha pogut corregir tots els errors, la reparació manual s'escau"
 
 #: bin/mudur.py:661
 msgid "Mounting USB filesystem"
-msgstr ""
+msgstr "El sistema d'arxius USB s'està muntant"
 
 #: bin/mudur.py:667
 msgid "Mounting local filesystems"
-msgstr ""
+msgstr "El sistema d'arxius local s'està muntant"
 
 #: bin/mudur.py:670
 msgid "Activating swap"
-msgstr ""
+msgstr "Activació de l'espai de bescanvi (swap)"
 
 #: bin/mudur.py:682
 msgid "Setting disk parameters"
-msgstr ""
+msgstr "Configuració els paràmetres de disc"
 
 #: bin/mudur.py:707
 msgid "Setting system clock to hardware clock"
-msgstr ""
+msgstr "L'hora del sistema s'està configurant d'acord amb la del maquinari"
 
 #: bin/mudur.py:716
 msgid "Failed to set system clock to hardware clock"
-msgstr ""
+msgstr "No s'ha pogut configurar l'hora del sistema d'acord amb la del maquinari"
 
 #: bin/mudur.py:719
 msgid "Cleaning up /var"
-msgstr ""
+msgstr "El /var s'està netejant"
 
 #: bin/mudur.py:726
 msgid "Cleaning up /tmp"
-msgstr ""
+msgstr "El /tmp s'està netejant"
 
 #: bin/mudur.py:769
 msgid "Syncing system clock to hardware clock"
-msgstr ""
+msgstr "Sincronització de l'hora del sistema d'acord amb la del maquinari"
 
 #: bin/mudur.py:772
 msgid "Failed to sync clocks"
-msgstr ""
+msgstr "No s'ha pogut sincronitzar l'hora"
 
 #: bin/mudur.py:784
 msgid "Deactivating swap"
-msgstr ""
+msgstr "Desactivació de l'espai de bescanvi (swap)"
 
 #: bin/mudur.py:805
 msgid "Unmounting filesystems"
-msgstr ""
+msgstr "El sistema d'arxius s'està desmuntant"
 
 #: bin/mudur.py:837
 msgid "Remounting remaining filesystems readonly"
-msgstr ""
+msgstr "S'estan tornant a muntar els sistemes d'arxius restants en mode de només lectura"
 
 #: bin/mudur.py:851
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.tr with "
-"following information:"
-msgstr ""
+msgid "An internal error occured. Please report to the bugs.pardus.org.tr with following information:"
+msgstr "S'ha produït un error intern. Si us plau, reporteu aquest error a bugs.pardus.org.tr amb la següent informació:"
 
 #: bin/mudur.py:898
 msgid "Mounting /sys"
-msgstr ""
+msgstr "El /sys s'està muntant"
 
 #: bin/mudur.py:903
 msgid "Mounting /dev/pts"
-msgstr ""
+msgstr "El /dev/pts s'està muntant"
 
 #: bin/mudur.py:914
 msgid "Starting Coldplug"
-msgstr ""
+msgstr "S'estan muntant els dispositius de muntatge fred (aquells per què cal reiniciar, coldplug)"
 
 #: bin/mudur.py:939
 msgid "Setting up localhost"
-msgstr ""
+msgstr "Configuració del nom de la màquina (localhost)"
 
 #: bin/mudur.py:949
 msgid "Updating environment variables"
-msgstr ""
+msgstr "Actualització de les variables de l'entorn"
 
 #: bin/service.py:33
 msgid "You dont have permission to do this operation."
-msgstr ""
+msgstr "No teniu permís per a realitzar aquesta operació"
 
 #: bin/service.py:35
 msgid "Service doesn't provide this operation."
-msgstr ""
+msgstr "El servei no inclou aquesta operació."
 
 #: bin/service.py:37
 #, python-format
 msgid "%s error: %s"
-msgstr ""
+msgstr "%s error: %s"
 
 #: bin/service.py:55
 msgid "local"
-msgstr ""
+msgstr "local"
 
 #: bin/service.py:56
 msgid "script"
-msgstr ""
+msgstr "seqüència"
 
 #: bin/service.py:57
 msgid "server"
-msgstr ""
+msgstr "servidor"
 
 #: bin/service.py:69
 msgid "running"
-msgstr ""
+msgstr "Està en marxa"
 
 #: bin/service.py:71
 msgid "yes"
-msgstr ""
+msgstr "sí"
 
 #: bin/service.py:89
 msgid "Service"
-msgstr ""
+msgstr "Servei"
 
 #: bin/service.py:90
 msgid "Status"
-msgstr ""
+msgstr "Estat"
 
 #: bin/service.py:91
 msgid "Autostart"
-msgstr ""
+msgstr "Inici automàtic"
 
 #: bin/service.py:92
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #: bin/service.py:156
 msgid "You should be the root user in order to control the comar service."
-msgstr ""
+msgstr "Per a poder controlar el servei COMAR heu d'estar connectat com a superusuari."
 
 #: bin/service.py:198
 #, python-format
 msgid "Service '%s' started."
-msgstr ""
+msgstr "El servei '%s' ha estat engegat."
 
 #: bin/service.py:200
 #, python-format
 msgid "Service '%s' stopped."
-msgstr ""
+msgstr "El servei '%s' ha estat aturat."
 
 #: bin/service.py:205
 #, python-format
 msgid "Service '%s' reloaded."
-msgstr ""
+msgstr "El servei '%s' s'ha tornat a carregar."
 
 #: bin/service.py:207
 #, python-format
 msgid "Service '%s' will be auto started."
-msgstr ""
+msgstr "El servei '%s' s'iniciarà automàticament."
 
 #: bin/service.py:209
 #, python-format
 msgid "Service '%s' won't be auto started."
-msgstr ""
+msgstr "El servei '%s' no s'iniciarà automàticament."
 
 #: bin/service.py:214
 msgid ""
@@ -302,3 +299,17 @@ msgid ""
 "and option is:\n"
 " -N, --no-color  Don't use color in output"
 msgstr ""
+"Sintaxi: service [<opcions>] [<servei>] <ordre>\n"
+"si enlloc d'<ordre> fiqueu:\n"
+" list     Mostra la llista de serveis\n"
+" status   Mostra l'estat del servei\n"
+" info     Mostra l'estat del servei\n"
+" on       Fa que el servei s'inicie automàticament\n"
+" off      Fa que el servei no s'inicie automàticament\n"
+" start    Inicia el servei\n"
+" stop     Atura el servei\n"
+" restart  Atura el servei i el torna a engegar després\n"
+" reload   Torna a carregar la configuració (en cas que el servei permeta aquesta funció)\n"
+"i si l'opció és:\n"
+" -N, --no-color  No fa servir colors en la sortida"
+
