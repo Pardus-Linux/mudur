@@ -211,7 +211,7 @@ msgstr "No teniu permís per a realitzar aquesta operació"
 
 #: bin/service.py:35
 msgid "Service doesn't provide this operation."
-msgstr "El servei no inclou aquesta operació."
+msgstr "El servei no ofereix aquesta operació."
 
 #: bin/service.py:37
 #, python-format
