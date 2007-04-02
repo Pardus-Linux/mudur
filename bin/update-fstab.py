@@ -11,63 +11,31 @@
 
 import os
 import sys
-import copy
 import glob
 import parted
 
+# Default options
 
-comment="""# See the manpage fstab(5) for more information.
-#
-#   <fs>             <mountpoint>     <type>    <opts>               <dump/pass>
-"""
+default_options = {
+    "vfat":     ("quiet", "shortname=mixed", "dmask=007", "fmask=117", "utf8", "gid=6"),
+    "ext3":     ("noatime", ),
+    "ext2":     ("noatime", ),
+    "ntfs-3g":  ("dmask=007", "fmask=117", "locale=tr_TR.UTF-8", "gid=6"),
+    "reiserfs": ("noatime", ),
+    "xfs":      ("noatime", "nobarrier"),
+    "defaults": ("defaults", ),
+}
 
-class DeviceError(Exception):
-    pass
+default_mount_dir = "/mnt"
 
-def getBlocknameByLabel(_f):
-    f = os.path.join("/dev/disk/by-label/%s" % _f)
-    if os.path.islink(f):
-        return "/dev/%s" % os.readlink(f)[6:]
-    else:
-        return None
+excluded_file_systems = ("proc", "tmpfs", "sysfs", "swap")
 
-def getPartitionsOfDevice(device_path):
-    """Returns all partitions of a given device but swap partition"""
-    def getPartitionInfo(part):
-        partition = {}
-        if part.num >= 1:
-            fs_name = ""
-            if part.fs_type and part.fs_type.name != 'linux-swap':
-                return (device_path + str(part.num), {"mount_point": None,
-                                                          "file_system": part.fs_type.name,
-                                                          "options": None,
-                                                          "dump_freq": None,
-                                                          "fs_pass_no": None})
-                return partition
+pardus_labels = ("PARDUS_ROOT", "PARDUS_HOME", "PARDUS_SWAP")
 
-    dev = parted.PedDevice.get(device_path)
+# Utility functions
 
-    try:
-        disk = parted.PedDisk.new(dev)
-    except:
-        disk_type = parted.disk_type_get("msdos")
-        disk = dev.disk_new_fresh(disk_type)
-
-    part = disk.next_partition()
-    while part:
-        info = getPartitionInfo(part)
-        if info:
-            yield info
-        part = disk.next_partition(part)
-
-def getBlockDevices():
-    """Returns a list of *non-removable* block devices attached to the system"""
-
-    if not os.path.exists("/sys/block"):
-        raise DeviceError, "sysfs not found!"
-
+def blockDevices():
     devices = []
-
     for dev_type in ["hd*", "sd*"]:
         sysfs_devs = glob.glob("/sys/block/" + dev_type)
         for sysfs_dev in sysfs_devs:
@@ -78,224 +46,193 @@ def getBlockDevices():
     devices.sort()
     return devices
 
+def blockPartitions(dev):
+    pdev = parted.PedDevice.get(dev)
+    try:
+        disk = parted.PedDisk.new(pdev)
+    except:
+        # FIXME: replace with what exception could we get here, bare except sucks
+        disk = pdev.disk_new_fresh(parted.disk_type_get("msdos"))
+    
+    part = disk.next_partition()
+    while part:
+        if part.fs_type and part.fs_type.name != "linux-swap":
+            yield dev + str(part.num), part.fs_type.name
+        part = disk.next_partition(part)
 
-class FstabError(Exception):
-    pass
+def blockNameByLabel(label):
+    path = os.path.join("/dev/disk/by-label/%s" % label)
+    if os.path.islink(path):
+        return "/dev/%s" % os.readlink(path)[6:]
+    else:
+        return None
+
+# Fstab classes
+
+
+class FstabEntry:
+    def __init__(self, line=None):
+        defaults = [ None, None, "auto", "defaults", 0, 0 ]
+        
+        args = []
+        if line:
+            args = line.split()
+        
+        args = args[:len(args)] + defaults[len(args):]
+        
+        self.device_node = args[0]
+        self.mount_point = args[1]
+        self.file_system = args[2]
+        self.options = args[3]
+        self.dump_freq = args[4]
+        self.pass_no = args[5]
+    
+    def __str__(self):
+        return "%-20s %-16s %-9s %-20s %s %s" % (
+            self.device_node,
+            self.mount_point,
+            self.file_system,
+            self.options,
+            self.dump_freq,
+            self.pass_no
+        )
+
 
 class Fstab:
-    def __init__(self, File = "/etc/fstab", debug = False):
-        self.File = File
-        self.Debug = debug
-        self.Label = {}
-
-        if os.path.isfile(File):
-            self.content = self.__emergeContent()
-        else:
-            self.content = []
-
-        # basic syntax check of the content - gonna be improved in the future.
-        try:
-            assert([x for x in self.content if len(x.split()) != 6] == [])
-        except:
-            raise FstabError, "Syntax of the fstab file doesn't seem to be correct"
-
-        self.defaultMountDir = "/mnt"
-        self.excludedFilesystems = ["proc", "tmpfs", "swap"]
-        self.allDevices = getBlockDevices()
-
-        self.defaultFileSystemOptions = {}
-        self.defaultFileSystemOptions["vfat"] = ["quiet", "shortname=mixed", "dmask=007", "fmask=117", "utf8", "gid=6"]
-        self.defaultFileSystemOptions["ext3"] = ["noatime"]
-        self.defaultFileSystemOptions["ext2"] = ["noatime"]
-        self.defaultFileSystemOptions["ntfs-3g"] = ["dmask=007", "fmask=117", "locale=tr_TR.UTF-8", "gid=6"]
-        self.defaultFileSystemOptions["reiserfs"] = ["noatime"]
-        self.defaultFileSystemOptions["xfs"] = ["noatime", "nobarrier"]
-        self.defaultFileSystemOptions["defaults"] = ["defaults"]
-
-        self.maplabels()
-        self.update()
-
-    def maplabels(self):
+    comment = """# See the manpage fstab(5) for more information.
+#
+#   <fs>             <mountpoint>     <type>    <opts>               <dump/pass>
+"""
+    
+    def __init__(self, path=None):
+        if not path:
+            path = "/etc/fstab"
+        self.path = path
+        self.entries = []
+        self.partitions = None
+        self.labels = {}
+        for line in file(path):
+            if line != "" and not line.startswith('#'):
+                self.entries.append(FstabEntry(line))
+    
+    def __str__(self):
+        return "\n".join(map(str, self.entries))
+    
+    def scan(self):
+        self.partitions = {}
+        for dev in blockDevices():
+            for part, fstype in blockPartitions(dev):
+                self.partitions[part] = fstype, dev
         if os.path.exists("/dev/disk/by-label"):
-            for f in os.listdir("/dev/disk/by-label/"):
-                self.Label[getBlocknameByLabel(f)] = f
-
-    def update(self):
-        self.__allPartitions, self.__fstabPartitions = {}, {}
-
-        self.__emergeAllPartitions()
-        self.__emergeFstabPartitions()
-
-        for p in self.__fstabPartitions.keys():
-            if self.__allPartitions.get(p):
-                self.__allPartitions[p].update(self.__fstabPartitions[p])
-
-    def writeContent(self, File = None):
-        if not self.Debug:
-            if not File:
-                File = self.File
-            try:
-                f = open(File, "w")
-            except IOError:
-                # raise FstabError, "Unable to write: %s"
-                print "Unable to write: %s" % File
-                sys.exit(1)
-
-            f.write(comment)
-            for line in self.content:
-                f.write(line)
-            f.close()
-        else:
-            print comment
-            for line in self.content:
-                print line.rstrip("\n")
-
-    def __emergeContent(self):
-        return [line for line in open(self.File).readlines() if not line.startswith('#') if not line.startswith("\n")]
-
-    def __emergeAllPartitions(self):
-        for dev in self.allDevices:
-            for info in getPartitionsOfDevice(dev):
-                self.__allPartitions[info[0]] = info[1]
-
-    def __emergeFstabPartitions(self):
-        for line in self.content:
-            if line.split()[2] not in self.excludedFilesystems:
-                self.__fstabPartitions[line.split()[0]] = {"mount_point": line.split()[1],
-                                                        "file_system": line.split()[2], 
-                                                        "options": line.split()[3].split(','), 
-                                                        "dump_freq": line. split()[4], 
-                                                        "fs_pass_no": line.split()[5]}
-
-    def getFstabPartitions(self):
-        return self.__fstabPartitions
-
-    def getAvailablePartitions(self):
-        ap = {}
-        for p in set(self.__allPartitions) - set(self.__fstabPartitions):
-            if p in self.Label:
-                if not "LABEL=%s" % self.Label[p] in self.__fstabPartitions:
-                    ap[p] = copy.deepcopy(self.__allPartitions[p])
-            else:
-                ap[p] = copy.deepcopy(self.__allPartitions[p])
-        return ap
-
-    def addAvailablePartitions(self):
-        """Adds all partitions that have no entries in fstab, 
-           into fstab with default parameters"""
-        tmplist = self.getAvailablePartitions().keys()
-        tmplist.sort()
-        for p in tmplist:
-            self.addFstabEntry(p, self.__allPartitions[p])
-
-    def getDepartedPartitions(self):
-        """Returns a list of partitions that have entries in fstab but also
-        they do not exist anymore"""
-        dp = {}
-        for p in set(self.__fstabPartitions) - set(self.__allPartitions):
-            #if not (p.startswith("LABEL=") and getBlocknameByLabel(p[6:]) in self.__allPartitions):
-            if p.startswith("LABEL=PARDUS_ROOT") or p.startswith("LABEL=PARDUS_HOME") or p.startswith("LABEL=PARDUS_SWAP"):
+            for label in os.listdir("/dev/disk/by-label/"):
+                self.labels[blockNameByLabel(label)] = label
+    
+    def write(self, path=None):
+        if not path:
+            path = self.path
+        
+        # Make sure mount points exist
+        for entry in self.entries:
+            if not os.path.exists(entry.mount_point):
+                os.makedirs(entry.mount_point)
+        
+        f = file(path, "w")
+        f.write(self.comment)
+        f.write(str(self))
+        f.write("\n")
+        f.close()
+    
+    def removeEntry(self, device_node):
+        for i, entry in enumerate(self.entries):
+            if entry.device_node == device_node and entry.mount_point != "/":
+                del self.entries[i]
+    
+    def addEntry(self, device_node, mount_point=None):
+        if not self.partitions:
+            self.scan()
+        
+        if not mount_point:
+            mount_point = os.path.join(default_mount_dir, os.path.basename(device_node))
+        
+        file_system = self.partitions.get(device_node)[0]
+        if file_system in ("fat16", "fat32"):
+            file_system = "vfat"
+        if file_system == "ntfs":
+            file_system = "ntfs-3g"
+        
+        options = default_options.get(file_system, None)
+        if not options:
+            options = default_options.get("defaults")
+        
+        entry = FstabEntry()
+        entry.device_node = device_node
+        entry.mount_point = mount_point
+        entry.file_system = file_system
+        entry.options = ",".join(options)
+        
+        self.entries.append(entry)
+        return entry
+    
+    def refresh(self):
+        if not self.partitions:
+            self.scan()
+        
+        # Carefully remove non existing partitions
+        removal = []
+        for i, entry in enumerate(self.entries):
+            node = entry.device_node
+            if entry.mount_point == "/":
+                # Root partition is never removed
                 continue
-            elif p.startswith("LABEL=") and getBlocknameByLabel(p[6:]) in self.__allPartitions:
+            elif entry.file_system in excluded_file_systems:
+                # Virtual file systems are never removed
                 continue
+            elif node.startswith("LABEL="):
+                label = node.split("=", 1)[1]
+                if label in pardus_labels:
+                    # Labelled Pardus system partitions are never removed
+                    continue
+                if not self.partitions.has_key(blockNameByLabel(label)):
+                    removal.append(node)
             else:
-                dp[p] = copy.deepcopy(self.__fstabPartitions[p])
-        return dp
-
-    def delDepartedPartitions(self):
-        """Removes partitions from fstab. These partitions have entries in fstab but also
-        they do not exist anymore"""
-        for p in self.getDepartedPartitions():
-            self.delFstabEntry(p)
-
-    def getAllPartitions(self):
-        return self.__allPartitions
-
-    def addFstabEntry(self, partition, attr_dict = {}):
-        """Adds an fstab entry for 'partition', with attributes given in 'attr_dict'"""
-
-        if not partition:
-            print "'partition' can not be null."
-            return -1
-
-        if attr_dict.get('mount_point') == None:
-            attr_dict['mount_point'] = self.defaultMountDir + '/' + os.path.basename(partition)
+                if not self.partitions.has_key(node):
+                    removal.append(node)
+        map(self.removeEntry, removal)
+        
+        # Append all other existing non-removable partitions
+        mounted = set(map(lambda x: x.device_node, self.entries))
+        for part in self.partitions:
+            if not part in mounted:
+                if part in self.labels:
+                    if "LABEL=%s" % self.labels[part] in mounted:
+                        continue
+                self.addEntry(part)
 
 
-        err = []
-        if not self.__allPartitions.get(partition):
-            err.append("'%s' is not an available partition.\n" % (partition))
-        if self.__fstabPartitions.get(partition):
-            err.append("'%s' is already in fstab\n" % (partition))
-        if [p for p in self.__fstabPartitions if self.__fstabPartitions[p]['mount_point'] == attr_dict['mount_point']]:
-            err.append("Mount point '%s' is already in use\n" % (attr_dict['mount_point']))
-        if err:
-            print err
-            return -1
+# Command line driver
 
+def refresh_fstab(path=None, debug=False):
+    f = Fstab(path)
+    if debug:
+        print "Fstab file:", f.path
+        print "--- Current table ---"
+        print f
+    f.refresh()
+    if debug:
+        print "--- Refreshed table ---"
+        print f
+    else:
+        f.write()
 
-        if attr_dict.get('file_system') == None:
-            attr_dict['file_system'] = self.__allPartitions[partition]['file_system']
-
-        if attr_dict.get('dump_freq') == None:
-            attr_dict['dump_freq'] = '0'
-
-        if attr_dict.get('fs_pass_no') == None: 
-            attr_dict['fs_pass_no'] = '0'
-
-        # convert fat16 and fat32 to vfat..
-        if attr_dict['file_system'] == 'fat16' or attr_dict['file_system'] == 'fat32':
-            attr_dict['file_system'] = 'vfat'
-
-        # convert ntfs to ntfs-3g
-        if attr_dict['file_system'] == 'ntfs':
-            attr_dict['file_system'] = 'ntfs-3g'
-
-        if attr_dict.get('options') == None:
-            attr_dict['options'] = self.defaultFileSystemOptions.get(attr_dict['file_system']) or self.defaultFileSystemOptions['defaults']
-
-        if not self.Debug:
-            if not os.path.exists(attr_dict['mount_point']):
-                try:
-                    os.mkdir(attr_dict['mount_point'])
-                except OSError:
-                    print ("Unable to create mount point: '%s' for '%s'" % (attr_dict['mount_point'], partition))
-        else:
-            pass
-
-        self.content.append("%-20s %-16s %-9s %-20s %s %s\n" % (partition, 
-                                                         attr_dict['mount_point'], 
-                                                         attr_dict['file_system'], 
-                                                         ','.join(attr_dict['options']), 
-                                                         attr_dict['dump_freq'], 
-                                                         attr_dict['fs_pass_no']))
-        self.update()
-
-    def delFstabEntry(self, partition):
-        if not self.__fstabPartitions.get(partition):
-            print("There is not any fstab record for '%s'.\n" % (partition))
-            return -1
-        else:
-            for c in range(0, len(self.content)):
-                if self.content[c].split()[0] == partition and self.content[c].split()[1] != "/":
-                    self.content.remove(self.content[c])
-                    self.update()
-                    return 0
-
+def main(args):
+    path = None
+    debug = False
+    if "--debug" in args:
+        args.remove("--debug")
+        debug = True
+    if len(args) > 0:
+        path = args[0]
+    refresh_fstab(path, debug)
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--debug":
-        dbg = True
-    else:
-        dbg = False
-
-    try:
-        f = Fstab(File = "/etc/fstab", debug = dbg)
-    except FstabError, e:
-        print e
-        sys.exit(-1)
-
-    f.delDepartedPartitions()
-    f.addAvailablePartitions()
-    f.writeContent()
-
+    main(sys.argv[1:])
