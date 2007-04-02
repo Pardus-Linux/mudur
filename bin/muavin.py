@@ -290,11 +290,9 @@ class CPU:
                 # SpeedStep ICH, PIII-M and P4-M with ICH2/3/4 southbridges
                 elif self._detect_ich():
                     modules.add("speedstep_ich")
-                # P4 and XEON processors with thermal control
-                # NOTE: Disabled for now, I'm not sure if this does more
-                # harm than good
-                #elif "acpi" in self.flags and "tm" in self.flags:
-                #    modules.add("p4-clockmod")
+            # P4 and XEON processors with thermal control
+            elif "acpi" in self.flags and "tm" in self.flags:
+                modules.add("p4-clockmod")
         
         elif self.vendor == "AuthenticAMD":
             # Mobile K6-1/2 CPUs
