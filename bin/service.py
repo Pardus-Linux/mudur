@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2006, TUBITAK/UEKAE
+# Copyright (C) 2006-2007, TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -32,7 +32,10 @@ def report_error(reply):
     if reply.command == "denied":
         print _("You dont have permission to do this operation.")
     elif reply.command == "none":
-        print _("Service doesn't provide this operation.")
+        if reply.data == "noapp":
+            print _("There is no such service.")
+        else:
+            print _("Service doesn't provide this operation.")
     else:
         print _("%s error: %s") % (reply.script, reply.data)
 
@@ -192,7 +195,10 @@ def manage_service(service, op, use_color=True):
     reply = c.read_cmd()
     if reply.command != "result":
         report_error(reply)
-        return
+        # LSB compliant exit codes
+        if op == "status":
+            sys.exit(4)
+        sys.exit(1)
     
     if op == "start":
         print _("Service '%s' started.") % service
@@ -201,6 +207,12 @@ def manage_service(service, op, use_color=True):
     elif op in ["info", "status", "list"]:
         s = Service(reply.script, reply.data)
         format_service_list([s], use_color)
+        if op in ["info", "status"]:
+            # LSB compliant status codes
+            if s.state in ["on", "started"]:
+                sys.exit(0)
+            else:
+                sys.exit(3)
     elif op == "reload":
         print _("Service '%s' reloaded.") % service
     elif op == "on":
