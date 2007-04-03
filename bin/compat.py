@@ -11,9 +11,11 @@
 
 import sys
 import os
+import subprocess
 
 def wrap_service(package, op):
-    os.system("service %s %s" % (package, op))
+    cmd = ["service", package, op]
+    return subprocess.call(cmd)
 
 if __name__ == "__main__":
-    wrap_service(os.path.basename(sys.argv[0]), sys.argv[1])
+    sys.exit(wrap_service(os.path.basename(sys.argv[0]), sys.argv[1]))
