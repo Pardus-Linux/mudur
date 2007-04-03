@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 11:44+0200\n"
+"POT-Creation-Date: 2007-04-03 14:29+0300\n"
 "PO-Revision-Date: 2007-02-20 21:53+0200\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
@@ -24,193 +24,200 @@ msgstr ""
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "Kan niet schrijven in mudur.log, alleen-lezen bestandssysteem"
 
-#: bin/mudur.py:305
+#: bin/mudur.py:306
 msgid "Cannot find /etc/pardus-release"
 msgstr "Kan /etc/pardus-release niet vinden"
 
-#: bin/mudur.py:417
+#: bin/mudur.py:419
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "Kan unicode modus niet instellen op tty %d"
 
-#: bin/mudur.py:433
+#: bin/mudur.py:435
 msgid "Starting COMAR"
 msgstr "Opstarten COMAR"
 
-#: bin/mudur.py:444
+#: bin/mudur.py:446
 msgid "Starting services"
 msgstr "Opstarten diensten"
 
-#: bin/mudur.py:450
+#: bin/mudur.py:452
 msgid "Cannot connect to COMAR, services won't be started"
 msgstr "Kan geen verbinding maken met COMAR, diensten worden niet gestart."
 
-#: bin/mudur.py:455
+#: bin/mudur.py:457
 msgid "Cannot start system logger"
 msgstr "Kan systeemlogger niet starten"
 
-#: bin/mudur.py:463
+#: bin/mudur.py:465
 msgid "Stopping services"
 msgstr "Stoppen diensten"
 
-#: bin/mudur.py:467
+#: bin/mudur.py:469
 msgid "Stopping COMAR"
 msgstr "Stoppen COMAR"
 
-#: bin/mudur.py:476
+#: bin/mudur.py:478
 msgid "Mounting /dev"
 msgstr "Aankoppelen /dev"
 
-#: bin/mudur.py:486
+#: bin/mudur.py:488
 msgid "Restoring saved device states"
 msgstr "Herstellen opgeslagen apparaatstatussen"
 
-#: bin/mudur.py:509
+#: bin/mudur.py:511
 msgid "Starting udev"
 msgstr "Opstarten udev"
 
-#: bin/mudur.py:516
+#: bin/mudur.py:518
 msgid "Populating /dev"
 msgstr "Opvulen /dev"
 
-#: bin/mudur.py:535
+#: bin/mudur.py:537
 msgid "Remounting root filesystem read-only"
 msgstr "Opnieuw aankoppelen hoofdbestandsysteem als alleen-lezen"
 
-#: bin/mudur.py:541
+#: bin/mudur.py:543
 msgid "Checking root filesystem (full check forced)"
 msgstr "Controleren root bestandssysteem (volledige contrôle geforceerd)"
 
-#: bin/mudur.py:544
+#: bin/mudur.py:546
 msgid "Checking root filesystem"
 msgstr "Controleren root bestandssysteem"
 
-#: bin/mudur.py:549
+#: bin/mudur.py:551
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Bestandsysteem gerepareerd, herstarten is nodig!"
 
-#: bin/mudur.py:553
+#: bin/mudur.py:555
 msgid "Rebooting in 10 seconds ..."
 msgstr "Herstart na 10 seconden..."
 
-#: bin/mudur.py:555
+#: bin/mudur.py:557
 msgid "Rebooting..."
 msgstr "Herstarten..."
 
-#: bin/mudur.py:558
+#: bin/mudur.py:560
 msgid "Filesystem couldn't be fixed :("
 msgstr "Bestandsysteem kon niet gerepareerd worden :("
 
-#: bin/mudur.py:561
+#: bin/mudur.py:563
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Overslaan contrôle van root bestandssysteem (fstab's overslagno == 0)"
 
-#: bin/mudur.py:563
+#: bin/mudur.py:565
 msgid "Remounting root filesystem read/write"
 msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
-#: bin/mudur.py:565
+#: bin/mudur.py:567
 msgid "Root filesystem could not be mounted read/write :("
-msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr ""
+"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
-#: bin/mudur.py:608
+#: bin/mudur.py:610
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Hostnaam instellen als '%s'"
 
-#: bin/mudur.py:625
+#: bin/mudur.py:627
 msgid "Calculating module dependencies"
 msgstr "Berekenen moduleafhankelijkheden"
 
-#: bin/mudur.py:641
+#: bin/mudur.py:643
 msgid "Checking all filesystems"
 msgstr "Controleren alle bestandssystemen"
 
-#: bin/mudur.py:646
+#: bin/mudur.py:648
 msgid "Filesystem errors corrected"
 msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
-#: bin/mudur.py:648
+#: bin/mudur.py:650
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr ""
+"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
-#: bin/mudur.py:661
+#: bin/mudur.py:663
 msgid "Mounting USB filesystem"
 msgstr "Aankoppelen USB-bestandssysteem"
 
-#: bin/mudur.py:667
+#: bin/mudur.py:669
 msgid "Mounting local filesystems"
 msgstr "Aankoppelen lokale bestandssystemen"
 
-#: bin/mudur.py:670
+#: bin/mudur.py:672
 msgid "Activating swap"
 msgstr "Activeren swap"
 
-#: bin/mudur.py:682
+#: bin/mudur.py:684
 msgid "Setting disk parameters"
 msgstr "Instellen schijfparameters"
 
-#: bin/mudur.py:707
+#: bin/mudur.py:703
 msgid "Setting system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok"
 
-#: bin/mudur.py:716
+#: bin/mudur.py:717
+#, fuzzy
+msgid "Failed to adjust systematic drift of the hardware clock"
+msgstr "Systeemklok instellen op hardwareklok mislukt"
+
+#: bin/mudur.py:721
 msgid "Failed to set system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok mislukt"
 
-#: bin/mudur.py:719
+#: bin/mudur.py:724
 msgid "Cleaning up /var"
 msgstr "Opschonen /var"
 
-#: bin/mudur.py:726
+#: bin/mudur.py:731
 msgid "Cleaning up /tmp"
 msgstr "Opschonen /tmp"
 
-#: bin/mudur.py:769
+#: bin/mudur.py:774
 msgid "Syncing system clock to hardware clock"
 msgstr "Systeemklok synchroniseren met hardwareklok"
 
-#: bin/mudur.py:772
+#: bin/mudur.py:777
 msgid "Failed to sync clocks"
 msgstr "Synchroniseren van klokken mislukt"
 
-#: bin/mudur.py:784
+#: bin/mudur.py:789
 msgid "Deactivating swap"
 msgstr "Deactiveren swap"
 
-#: bin/mudur.py:805
+#: bin/mudur.py:810
 msgid "Unmounting filesystems"
 msgstr "Afkoppelen bestandssystemen"
 
-#: bin/mudur.py:837
+#: bin/mudur.py:842
 msgid "Remounting remaining filesystems readonly"
 msgstr "Opnieuw aankoppelen bestandssystemen als alleen-lezen"
 
-#: bin/mudur.py:851
+#: bin/mudur.py:856
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
-"Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs.pardus.org.tr met "
-"de volgende informatie:"
+"Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs."
+"pardus.org.tr met de volgende informatie:"
 
-#: bin/mudur.py:898
+#: bin/mudur.py:903
 msgid "Mounting /sys"
 msgstr "Aankoppelen /sys"
 
-#: bin/mudur.py:903
+#: bin/mudur.py:908
 msgid "Mounting /dev/pts"
 msgstr "Aankoppelen /dev/pts"
 
-#: bin/mudur.py:914
+#: bin/mudur.py:919
 msgid "Starting Coldplug"
 msgstr "Starten coldplug"
 
-#: bin/mudur.py:939
+#: bin/mudur.py:944
 msgid "Setting up localhost"
 msgstr "Instellen localhost"
 
-#: bin/mudur.py:949
+#: bin/mudur.py:954
 msgid "Updating environment variables"
 msgstr "Bijwerken omgevingsvariabelen"
 
@@ -218,83 +225,87 @@ msgstr "Bijwerken omgevingsvariabelen"
 msgid "You dont have permission to do this operation."
 msgstr "U heeft geen toestemming voor deze handeling."
 
-#: bin/service.py:35
+#: bin/service.py:36
+msgid "There is no such service."
+msgstr ""
+
+#: bin/service.py:38
 msgid "Service doesn't provide this operation."
 msgstr "Dienst verzorgt deze operatie niet."
 
-#: bin/service.py:37
+#: bin/service.py:40
 #, python-format
 msgid "%s error: %s"
 msgstr "%s fout: %s"
 
-#: bin/service.py:55
+#: bin/service.py:58
 msgid "local"
 msgstr "lokaal"
 
-#: bin/service.py:56
+#: bin/service.py:59
 msgid "script"
 msgstr "script"
 
-#: bin/service.py:57
+#: bin/service.py:60
 msgid "server"
 msgstr "server"
 
-#: bin/service.py:69
+#: bin/service.py:72
 msgid "running"
 msgstr "actief"
 
-#: bin/service.py:71
+#: bin/service.py:74
 msgid "yes"
 msgstr "ja"
 
-#: bin/service.py:89
+#: bin/service.py:92
 msgid "Service"
 msgstr "Dienst"
 
-#: bin/service.py:90
+#: bin/service.py:93
 msgid "Status"
 msgstr "Status"
 
-#: bin/service.py:91
+#: bin/service.py:94
 msgid "Autostart"
 msgstr "Autostart"
 
-#: bin/service.py:92
+#: bin/service.py:95
 msgid "Description"
 msgstr "Beschrijving"
 
-#: bin/service.py:156
+#: bin/service.py:159
 msgid "You should be the root user in order to control the comar service."
 msgstr ""
 "U dient een root gebruiker te zijn als u gebruik wil maken van de COMAR "
 "dienst."
 
-#: bin/service.py:198
+#: bin/service.py:204
 #, python-format
 msgid "Service '%s' started."
 msgstr "Dienst '%s' is gestart."
 
-#: bin/service.py:200
+#: bin/service.py:206
 #, python-format
 msgid "Service '%s' stopped."
 msgstr "Dienst '%s' is gestopt."
 
-#: bin/service.py:205
+#: bin/service.py:217
 #, python-format
 msgid "Service '%s' reloaded."
 msgstr "Dienst '%s' is opnieuw geladen."
 
-#: bin/service.py:207
+#: bin/service.py:219
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "Dienst '%s' wordt automatische gestart."
 
-#: bin/service.py:209
+#: bin/service.py:221
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "Dienst '%s' zal niet automatische worden gestart."
 
-#: bin/service.py:214
+#: bin/service.py:226
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -322,4 +333,3 @@ msgstr ""
 " reload   Herladen van de configuratie (als de dienst dit ondersteunt)\n"
 "en optie is:\n"
 " -N, --no-color  Gebruik geen kleur in uitvoer"
-
