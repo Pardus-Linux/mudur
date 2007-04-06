@@ -184,6 +184,9 @@ class Fstab:
             if entry.mount_point == "/":
                 # Root partition is never removed
                 continue
+            if not entry.mount_point.startswith("/mnt"):
+                # Only remove partitions that were added in /mnt
+                continue
             elif entry.file_system in excluded_file_systems:
                 # Virtual file systems are never removed
                 continue
