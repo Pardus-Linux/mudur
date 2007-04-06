@@ -965,6 +965,8 @@ elif sys.argv[1] == "boot":
     setSplash()
 
 elif sys.argv[1] == "default":
+    if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
+        run("/bin/bash", "/etc/conf.d/local.start")
     startServices()
 
 elif sys.argv[1] == "single":
@@ -973,7 +975,12 @@ elif sys.argv[1] == "single":
 elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
     # Log the operation before unmounting file systems
     logger.sync()
+    
+    if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
+        run("/bin/bash", "/etc/conf.d/local.stop")
+    
     stopSystem()
+    
     if sys.argv[1] == "reboot":
         run("/sbin/reboot", "-idp")
         run("/sbin/reboot", "-f")
