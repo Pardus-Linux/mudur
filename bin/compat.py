@@ -21,7 +21,8 @@ def populate_initd():
     for name in os.listdir("/var/db/comar/code"):
         if name.startswith("System_Service_"):
             srvname = name[15:-3]
-            os.symlink("compat.py", "/etc/init.d/%s" % srvname)
+            if not os.path.exists("/etc/init.d/%s" % srvname):
+                os.symlink("compat.py", "/etc/init.d/%s" % srvname)
 
 if __name__ == "__main__":
     myname = os.path.basename(sys.argv[0])
