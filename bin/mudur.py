@@ -162,6 +162,7 @@ class Logger:
         except IOError:
             ui.error(_("Cannot write mudur.log, read-only file system"))
 
+
 class Config:
     def __init__(self):
         self.fstab = None
@@ -188,6 +189,7 @@ class Config:
             "livecd": False,
             "safe": False,
             "forcefsck": False,
+            "head_start": "kdebase",
         }
         # load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
@@ -229,7 +231,7 @@ class Config:
         if opts:
             opts = opts.split(",")
             for opt in opts:
-                if opt == "livecd" or opt == "livedisk":
+                if opt == "livecd" or opt == "livedisk" or opt == "thin":
                     self.opts["livecd"] = True
                 elif opt == "debug":
                     self.opts["debug"] = True
@@ -287,6 +289,7 @@ class Config:
                 # if we are in domU then no need to set/sync clock and others
                 return True
         return False
+
 
 class UI:
     UNICODE_MAGIC = "\x1b%G"
@@ -456,7 +459,7 @@ def startServices():
     if not waitBus("/dev/log", stream=False):
         ui.warn(_("Cannot start system logger"))
     # Give login screen a headstart
-    link.call_package("System.Service.ready", "kdebase")
+    link.call_package("System.Service.ready", config.get("head_start"))
     if not config.get("safe"):
         waitBus("/tmp/.X11-unix/X0", timeout=3)
         link.call("System.Service.ready")
