@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-03 14:29+0300\n"
-"PO-Revision-Date: 2007-02-20 21:53+0200\n"
+"PO-Revision-Date: 2007-04-24 00:08+0200\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -111,8 +111,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:567
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:610
 #, python-format
@@ -133,8 +132,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:650
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:663
 msgid "Mounting USB filesystem"
@@ -157,9 +155,8 @@ msgid "Setting system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok"
 
 #: bin/mudur.py:717
-#, fuzzy
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr "Systeemklok instellen op hardwareklok mislukt"
+msgstr "Aanpassen systematische afwijking van de hardware klok mislukt"
 
 #: bin/mudur.py:721
 msgid "Failed to set system clock to hardware clock"
@@ -227,7 +224,7 @@ msgstr "U heeft geen toestemming voor deze handeling."
 
 #: bin/service.py:36
 msgid "There is no such service."
-msgstr ""
+msgstr "Zulke dienst bestaat niet."
 
 #: bin/service.py:38
 msgid "Service doesn't provide this operation."
@@ -333,3 +330,4 @@ msgstr ""
 " reload   Herladen van de configuratie (als de dienst dit ondersteunt)\n"
 "en optie is:\n"
 " -N, --no-color  Gebruik geen kleur in uitvoer"
+
