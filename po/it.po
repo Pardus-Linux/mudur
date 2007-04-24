@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-03 14:29+0300\n"
-"PO-Revision-Date: 2007-03-13 21:31+0200\n"
+"PO-Revision-Date: 2007-04-24 10:55+0200\n"
 "Last-Translator: Andrea Decorte <adecorte@gmail.com>\n"
 "Language-Team: Italian <pardus-translation-it@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -153,7 +153,7 @@ msgstr "Impostazione dell'orologio di sistema al valore dell'orologio hardware"
 
 #: bin/mudur.py:717
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
+msgstr "Correzione dello scostamento automatico  dell'orologio hardware fallita"
 
 #: bin/mudur.py:721
 msgid "Failed to set system clock to hardware clock"
@@ -219,7 +219,7 @@ msgstr "Non hai i permessi necessari per eseguire questa operazione."
 
 #: bin/service.py:36
 msgid "There is no such service."
-msgstr ""
+msgstr "Questo servizio non esiste."
 
 #: bin/service.py:38
 msgid "Service doesn't provide this operation."
