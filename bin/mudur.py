@@ -734,12 +734,17 @@ def cleanupTmp():
     ui.info(_("Cleaning up /tmp"))
     
     cleanup_list = (
-        "/tmp/.X*-lock",
+        "/tmp/gpg-*",
+        "/tmp/kde-*",
         "/tmp/kio*",
-        "/tmp/ssh-*",
         "/tmp/kio*",
         "/tmp/ksocket-*",
+        "/tmp/mc-*",
+        "/tmp/pisi-*",
+        "/tmp/quilt.*",
+        "/tmp/ssh-*",
         "/tmp/.*-unix"
+        "/tmp/.X*-lock",
     )
     map(delete, cleanup_list)
     
