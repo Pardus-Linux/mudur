@@ -284,7 +284,7 @@ class Config:
         # Xen detection
         if os.path.exists("/proc/xen/capabilities"):
             dom0 = loadFile("/proc/xen/capabilities").rstrip("\n")
-            # if we are in dom0 then no extra work needed boot normally
+            # if we are in dom0 then no extra work needed, boot normally
             if dom0 != "control_d":
                 # if we are in domU then no need to set/sync clock and others
                 return True
@@ -353,7 +353,7 @@ languages = {
 def setConsole():
     """Setup encoding, font and mapping for console"""
     if config.is_virtual():
-        """Xen is a just a serial console """
+        """Xen is just a serial console """
         return
 
     lang = config.get("language")
