@@ -28,7 +28,7 @@ distfiles = """
     po/*.po
 """
 
-i18n_source_list = [ "bin/mudur.py", "bin/service.py" ]
+i18n_source_list = [ "bin/mudur.py", "bin/service.py", "bin/network.py" ]
 
 def update_messages():
     os.system("xgettext -o po/mudur.pot %s" % " ".join(i18n_source_list))
@@ -89,6 +89,7 @@ def install(args):
         os.unlink(dest)
     os.symlink("update-modules", dest)
     install_file("bin/service.py", prefix, "bin/service")
+    install_file("bin/network.py", prefix, "bin/network")
     install_file("etc/udev-mudur.rules", prefix, "etc/udev/rules.d/51-mudur.rules")
     install_file("etc/blacklist", prefix, "etc/hotplug/blacklist")
     install_file("etc/mudur.conf", prefix, "etc/conf.d/mudur")
