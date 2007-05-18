@@ -1,5 +1,5 @@
 /*
-** Copyright (c) 2006, TUBITAK/UEKAE
+** Copyright (c) 2006-2007, TUBITAK/UEKAE
 **
 ** This program is free software; you can redistribute it and/or modify it
 ** under the terms of the GNU General Public License as published by the
@@ -14,16 +14,51 @@
 
 #include "common.h"
 
+static void
+ensure_path(char *path)
+{
+	struct stat fs;
+	char *t, *cur;
+
+	path = strdup(path);
+	cur = path;
+	if (path[0] == '/') ++cur;
+	while (1) {
+		t = strchr(cur, '/');
+		if (!t) break;
+		*t = '\0';
+		if (stat(path, &fs) != 0) {
+			mkdir(path, 0755);
+		}
+		*t = '/';
+		cur = t + 1;
+	}
+}
+
 int
 devnode_mknod(const char *name, const char *major, const char *minor)
 {
+	struct stat fs;
 	char buf[512];
+	char *path;
+	char *t;
 
-	sprintf(buf, "mknod /dev/%s b %s %s", name, major, minor);
-	if (cfg_debug)
-		puts(buf);
-	else
-		system(buf);
+	path = concat("/dev/", name);
+	for (t=path; *t != '\0'; t++) {
+		 if (*t == '!') *t = '/';
+	}
+
+	if (stat(path, &fs) == 0) {
+		if (cfg_debug) printf("exists: mknod %s b %s %s\n", path, major, minor);
+	} else {
+		sprintf(buf, "mknod %s b %s %s", path, major, minor);
+		if (cfg_debug)
+			puts(buf);
+		else {
+			ensure_path(path);
+			system(buf);
+		}
+	}
 	return 0;
 }
 
@@ -42,7 +77,7 @@ mknod_parts(char *dev)
 	if (!dir) return -1;
 	while((dirent = readdir(dir))) {
 		char *name = dirent->d_name;
-		if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0 || strlen(name) < 3)
+		if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0)
 			continue;
 		if (strncmp(name, dev, strlen(dev)) != 0)
 			continue;
@@ -66,29 +101,20 @@ devnode_populate(void)
 	if (!dir) return -1;
 	while((dirent = readdir(dir))) {
 		char *path;
-		char *tmp;
 		char *dev;
 		char *major;
 		char *minor;
 		char *name = dirent->d_name;
-		if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0 || strlen(name) < 3)
+		if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0)
 			continue;
-		tmp = NULL;
-		if (name[0] == 'h' && name[1] == 'd')
-			tmp = name;
-		if (name[0] == 's' && name[1] == 'd')
-			tmp = name;
-		if (name[0] == 's' && name[1] == 'r')
-			tmp = name;
-		if (tmp) {
-			path = concat("/sys/block/", tmp);
-			dev = sys_value(path, "dev");
-			major = strtok(dev, ":");
-			minor = strtok(NULL, "");
-			if (minor) {
-				devnode_mknod(name, major, minor);
-				mknod_parts(tmp);
-			}
+		
+		path = concat("/sys/block/", name);
+		dev = sys_value(path, "dev");
+		major = strtok(dev, ":");
+		minor = strtok(NULL, "");
+		if (minor) {
+			devnode_mknod(name, major, minor);
+			mknod_parts(name);
 		}
 	}
 	closedir(dir);
