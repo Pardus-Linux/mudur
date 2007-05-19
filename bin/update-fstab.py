@@ -22,7 +22,7 @@ default_options = {
     "ext2":     ("noatime", ),
     "ntfs-3g":  ("dmask=007", "fmask=117", "locale=tr_TR.UTF-8", "gid=6"),
     "reiserfs": ("noatime", ),
-    "xfs":      ("noatime", "nobarrier"),
+    "xfs":      ("noatime", ),
     "defaults": ("defaults", ),
 }
 
