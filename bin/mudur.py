@@ -744,7 +744,7 @@ def cleanupTmp():
         "/tmp/quilt.*",
         "/tmp/ssh-*",
         "/tmp/.*-unix",
-        "/tmp/.X*-lock",
+        "/tmp/.X*-lock"
     )
     map(delete, cleanup_list)
     
