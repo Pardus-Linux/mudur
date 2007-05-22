@@ -155,6 +155,15 @@ def checkDaemon(pidfile):
     return True
 
 def manage_comar(op):
+    if op in ("status", "info"):
+        try:
+            c = comlink()
+        except comar.CannotConnect:
+            print _("Comar service is not running.")
+            sys.exit(3)
+        print _("Comar service is running.")
+        sys.exit(0)
+    
     if os.getuid() != 0:
         print _("You should be the root user in order to control the comar service.")
         sys.exit(1)
