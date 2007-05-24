@@ -47,6 +47,8 @@ class Link:
                 self.modes = value.split(",")
             elif key == "type":
                 self.type = value
+            elif key == "remote_name":
+                self.remote_name = value
 
 
 class Device:
@@ -88,6 +90,28 @@ class Profile:
                 return self.current
             return self.address
         return ""
+
+
+class Remote:
+    def __init__(self, data):
+        self.quality = 100
+        self.encryption = None
+        for arg in data.split("\t"):
+            key, value = arg.split("=", 1)
+            if key == "remote":
+                self.remote = value
+            elif key == "quality":
+                self.quality = int(value)
+            elif key == "encryption":
+                self.encryption = value
+    
+    def __str__(self):
+        if self.encryption and self.encryption != "none":
+            txt = ">-~"
+        else:
+            txt = "   "
+        txt += " %4s %s" % ("+" * (self.quality / 25), self.remote)
+        return txt
 
 
 def queryLinks(com):
@@ -192,6 +216,63 @@ def downProfile(args):
         if reply.command == "result":
             com.Net.Link[reply.script].setState(name=name, state="down")
 
+def createWizard(args):
+    com = comar.Link()
+    com.localize()
+    
+    # Ask connection type
+    links = queryLinks(com)
+    print _("Select connection type:")
+    for i, link in enumerate(links.values()):
+        print "%2d." % (i + 1), link.name
+    s = int(raw_input('-> '))
+    link = links.values()[s-1]
+    script = links.keys()[s-1]
+    
+    # Ask device
+    com.Net.Link[script].deviceList()
+    devs = []
+    for rep in collect(com):
+        if rep.data != "":
+            for line in rep.data.split("\n"):
+                devs.append(Device(rep.script, line))
+    if len(devs) == 1:
+        device = devs[0]
+        print _("Device '%s' selected.") % device.name
+    else:
+        print _("Select connection device:")
+        for i, dev in enumerate(devs):
+            print "%2d." % (i + 1), dev.name
+        s = int(raw_input('-> '))
+        device = devs[s-1]
+    
+    # Remote point
+    if "remote" in link.modes:
+        print
+        print link.remote_name
+        if "scan" in link.modes:
+            remotes = []
+            while True:
+                print " 1. %s" % _("Enter manually")
+                print " 2. %s" % _("Scan")
+                if remotes:
+                    for i, remote in enumerate(remotes):
+                        print "%2d." % (i + 3), str(remote)
+                s = int(raw_input('->'))
+                if s == 2:
+                    com.Net.Link[script].scanRemote(device=device.uid)
+                    remotes = []
+                    reply = com.read_cmd()
+                    if reply.data != "":
+                        for arg in reply.data.split("\n"):
+                            remotes.append(Remote(arg))
+                    print
+                    print link.remote_name
+    
+    # Network settings
+    
+    # Authentication
+
 #
 
 def usage(args=None):
@@ -199,6 +280,7 @@ def usage(args=None):
 where command is:
  devices      List network devices
  connections  List connections
+ create       Create a new connection
  up           Connect given connection
  down         Disconnect given connection""")
 
@@ -208,6 +290,7 @@ def main(args):
         "connections":  listProfiles,
         "up":           upProfile,
         "down":         downProfile,
+        "create":       createWizard,
     }
     
     if len(args) == 0:
