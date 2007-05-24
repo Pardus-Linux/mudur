@@ -128,7 +128,7 @@ def format_service_list(services, use_color=True):
         )
         print line
 
-def list(use_color=True):
+def list_services(use_color=True):
     c = comlink()
     c.call("System.Service.info")
     data = collect(c)
@@ -268,10 +268,10 @@ def main(args):
     
     # Operations
     if args == []:
-        list(use_color)
+        list_services(use_color)
     
     elif args[0] == "list" and len(args) == 1:
-        list(use_color)
+        list_services(use_color)
     
     elif args[0] == "help":
         usage()
