@@ -185,8 +185,10 @@ def manage_service(service, op, use_color=True):
     c = comlink()
     
     if op == "start":
+        c.ask_notify("System.Service.changed")
         c.System.Service[service].start()
     elif op == "stop":
+        c.ask_notify("System.Service.changed")
         c.System.Service[service].stop()
     elif op == "reload":
         c.System.Service[service].reload()
@@ -201,19 +203,23 @@ def manage_service(service, op, use_color=True):
         manage_service(service, "start")
         return
     
-    reply = c.read_cmd()
-    if reply.command != "result":
-        report_error(reply)
-        # LSB compliant exit codes
-        if op == "status":
-            sys.exit(4)
-        sys.exit(1)
+    while True:
+        reply = c.read_cmd()
+        if reply.command == "result":
+            break
+        elif reply.command == "notify":
+            if reply.data == "started":
+                print _("Service '%s' started.") % reply.script
+            else:
+                print _("Service '%s' stopped.") % reply.script
+        else:
+            report_error(reply)
+            # LSB compliant exit codes
+            if op == "status":
+                sys.exit(4)
+            sys.exit(1)
     
-    if op == "start":
-        print _("Service '%s' started.") % service
-    elif op == "stop":
-        print _("Service '%s' stopped.") % service
-    elif op in ["info", "status", "list"]:
+    if op in ["info", "status", "list"]:
         s = Service(reply.script, reply.data)
         format_service_list([s], use_color)
         if op in ["info", "status"]:
