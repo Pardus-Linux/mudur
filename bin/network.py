@@ -258,8 +258,11 @@ def createWizard(args):
                 if remotes:
                     for i, remote in enumerate(remotes):
                         print "%2d." % (i + 3), str(remote)
-                s = int(raw_input('->'))
-                if s == 2:
+                s = int(raw_input('-> '))
+                if s == 1:
+                    remote = raw_input('%s -> ' % link.remote_name)
+                    break
+                elif s == 2:
                     com.Net.Link[script].scanRemote(device=device.uid)
                     remotes = []
                     reply = com.read_cmd()
@@ -268,10 +271,33 @@ def createWizard(args):
                             remotes.append(Remote(arg))
                     print
                     print link.remote_name
+                else:
+                    remote = remotes[s-3].remote
+                    break
+        else:
+            remote = raw_input('-> ')
     
     # Network settings
+    if "net" in link.modes:
+        print
+        print _("Network settings:")
+        is_auto = False
+        if "auto" in link.modes:
+            print " 1. %s" % _("Automatic query (DHCP)")
+            print " 2. %s" % _("Manual configuration")
+            s = int(raw_input('-> '))
+            if s == 1:
+                is_auto = True
+        if not is_auto:
+            address = raw_input('%s -> ' % _("IP Address"))
+            mask = raw_input('%s -> ' % _("Network mask"))
+            gateway = raw_input('%s -> ' % _("Gateway"))
     
     # Authentication
+    # FIXME: ask
+    
+    # Create profile
+    # FIXME: create
 
 #
 
