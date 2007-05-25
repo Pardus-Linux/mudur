@@ -271,11 +271,11 @@ msgstr "Açıklama"
 
 #: bin/service.py:162
 msgid "Comar service is not running."
-msgstr ""
+msgstr "Comar servisi çalışmıyor."
 
 #: bin/service.py:164
 msgid "Comar service is running."
-msgstr ""
+msgstr "Comar servisi çalışıyor."
 
 #: bin/service.py:168
 msgid "You should be the root user in order to control the comar service."
@@ -339,19 +339,19 @@ msgstr ""
 
 #: bin/network.py:84
 msgid "Up"
-msgstr ""
+msgstr "Açık"
 
 #: bin/network.py:85
 msgid "Down"
-msgstr ""
+msgstr "Kapalı"
 
 #: bin/network.py:223
 msgid "Enter new connection name"
-msgstr ""
+msgstr "Yeni bağlantı ismi girin"
 
 #: bin/network.py:227
 msgid "Select connection type:"
-msgstr ""
+msgstr "Bağlantı tipi seçin:"
 
 #: bin/network.py:244
 #, fuzzy, python-format
@@ -360,39 +360,39 @@ msgstr "'%s' servisi durduruldu."
 
 #: bin/network.py:246
 msgid "Select connection device:"
-msgstr ""
+msgstr "Bağlantı aygıtı seçin:"
 
 #: bin/network.py:259
 msgid "Enter manually"
-msgstr ""
+msgstr "Elle gir"
 
 #: bin/network.py:260
 msgid "Scan"
-msgstr ""
+msgstr "Tara"
 
 #: bin/network.py:286
 msgid "Network settings:"
-msgstr ""
+msgstr "Ağ ayarları:"
 
 #: bin/network.py:289
 msgid "Automatic query (DHCP)"
-msgstr ""
+msgstr "Otomatik bulma (DHCP)"
 
 #: bin/network.py:290
 msgid "Manual configuration"
-msgstr ""
+msgstr "Elle ayarlama"
 
 #: bin/network.py:295
 msgid "IP Address"
-msgstr ""
+msgstr "IP Adresi"
 
 #: bin/network.py:296
 msgid "Network mask"
-msgstr ""
+msgstr "Ağ maskesi"
 
 #: bin/network.py:297
 msgid "Gateway"
-msgstr ""
+msgstr "Ağ geçidi"
 
 #: bin/network.py:315
 msgid ""
@@ -404,3 +404,11 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
+"kullanım: network <komut> <parametreler>\n"
+"komut aşağıdakilerden biri olabilir:\n"
+" devices      Ağ aygıtlarını listele\n"
+" connections  Bağlantıları listele\n"
+" create       Yeni bir bağlantı oluştur\n"
+" up           Verilen bağlantıyı aç\n"
+" down         Verilen bağlantıyı kapa\n"
+
