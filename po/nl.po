@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-24 11:17+0300\n"
+"POT-Creation-Date: 2007-05-25 09:55+0300\n"
 "PO-Revision-Date: 2007-04-24 00:08+0200\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
@@ -341,20 +341,70 @@ msgstr ""
 "en optie is:\n"
 " -N, --no-color  Gebruik geen kleur in uitvoer"
 
-#: bin/network.py:82
+#: bin/network.py:84
 msgid "Up"
 msgstr ""
 
-#: bin/network.py:83
+#: bin/network.py:85
 msgid "Down"
 msgstr ""
 
-#: bin/network.py:198
+#: bin/network.py:223
+msgid "Enter new connection name"
+msgstr ""
+
+#: bin/network.py:227
+msgid "Select connection type:"
+msgstr ""
+
+#: bin/network.py:244
+#, fuzzy, python-format
+msgid "Device '%s' selected."
+msgstr "Dienst '%s' is gestopt."
+
+#: bin/network.py:246
+msgid "Select connection device:"
+msgstr ""
+
+#: bin/network.py:259
+msgid "Enter manually"
+msgstr ""
+
+#: bin/network.py:260
+msgid "Scan"
+msgstr ""
+
+#: bin/network.py:286
+msgid "Network settings:"
+msgstr ""
+
+#: bin/network.py:289
+msgid "Automatic query (DHCP)"
+msgstr ""
+
+#: bin/network.py:290
+msgid "Manual configuration"
+msgstr ""
+
+#: bin/network.py:295
+msgid "IP Address"
+msgstr ""
+
+#: bin/network.py:296
+msgid "Network mask"
+msgstr ""
+
+#: bin/network.py:297
+msgid "Gateway"
+msgstr ""
+
+#: bin/network.py:315
 msgid ""
 "usage: network <command> <arguments>\n"
 "where command is:\n"
 " devices      List network devices\n"
 " connections  List connections\n"
+" create       Create a new connection\n"
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
