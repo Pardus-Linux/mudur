@@ -220,6 +220,8 @@ def createWizard(args):
     com = comar.Link()
     com.localize()
     
+    conn_name = raw_input('%s -> ' % _("Enter new connection name"))
+    
     # Ask connection type
     links = queryLinks(com)
     print _("Select connection type:")
@@ -228,9 +230,10 @@ def createWizard(args):
     s = int(raw_input('-> '))
     link = links.values()[s-1]
     script = links.keys()[s-1]
+    script_object = com.Net.Link[script]
     
     # Ask device
-    com.Net.Link[script].deviceList()
+    script_object.deviceList()
     devs = []
     for rep in collect(com):
         if rep.data != "":
@@ -263,7 +266,7 @@ def createWizard(args):
                     remote = raw_input('%s -> ' % link.remote_name)
                     break
                 elif s == 2:
-                    com.Net.Link[script].scanRemote(device=device.uid)
+                    script_object.scanRemote(device=device.uid)
                     remotes = []
                     reply = com.read_cmd()
                     if reply.data != "":
@@ -297,7 +300,14 @@ def createWizard(args):
     # FIXME: ask
     
     # Create profile
-    # FIXME: create
+    script_object.setConnection(name=conn_name, device=device.uid)
+    if "remote" in link.modes:
+        script_object.setRemote(name=conn_name, remote=remote)
+    if "net" in link.modes:
+        if is_auto:
+            script_object.setAddress(name=conn_name, mode="auto", address="", mask="", gateway="")
+        else:
+            script_object.setAddress(name=conn_name, mode="manual", address=address, mask=mask, gateway=gateway)
 
 #
 
