@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-25 09:55+0300\n"
-"PO-Revision-Date: 2007-04-06 00:49-0400\n"
+"PO-Revision-Date: 2007-05-27 17:07-0400\n"
 "Last-Translator: klemens <click3d at linuxmail org>\n"
 "Language-Team: spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "No posible grabar mudur.log, sistema de archivo solo-lectura"
 
 #: bin/mudur.py:309
 msgid "Cannot find /etc/pardus-release"
-msgstr "No posible hallar /etc/pardus-release"
+msgstr "Archivo /etc/pardus-release no encontrado"
 
 #: bin/mudur.py:422
 #, python-format
@@ -59,8 +59,9 @@ msgid "Mounting /dev"
 msgstr "Montando /dev"
 
 #: bin/mudur.py:491
+# i skipped out the word "saved", i hope it is ok
 msgid "Restoring saved device states"
-msgstr "Restaurando estado de dispositivos guardados"
+msgstr "Restaurando estados de dispositivos"
 
 #: bin/mudur.py:514
 msgid "Starting udev"
@@ -72,15 +73,15 @@ msgstr "Populando /dev"
 
 #: bin/mudur.py:540
 msgid "Remounting root filesystem read-only"
-msgstr "Montando de nuevo sistema de archivos root solo-lectura"
+msgstr "Montando de nuevo sistema de archivos raíz (root) solo-lectura"
 
 #: bin/mudur.py:546
 msgid "Checking root filesystem (full check forced)"
-msgstr "Verificando sistema de archivos root (verificación completa forzada)"
+msgstr "Verificando sistema de archivos raíz (verificación completa forzada)"
 
 #: bin/mudur.py:549
 msgid "Checking root filesystem"
-msgstr "Verificando sistema de archivos root"
+msgstr "Verificando sistema de archivos raíz (root)"
 
 #: bin/mudur.py:554
 msgid "Filesystem repaired, but reboot needed!"
@@ -96,7 +97,7 @@ msgstr "Rebooteando..."
 
 #: bin/mudur.py:563
 msgid "Filesystem couldn't be fixed :("
-msgstr "Sistema de archivos no pudo ser corregido :("
+msgstr "Sistema de archivos no se pudo corregir :("
 
 #: bin/mudur.py:566
 msgid "Skipping root filesystem check (fstab's passno == 0)"
@@ -104,11 +105,11 @@ msgstr "Saltando chequeo de sistema de archivos root (fstab's passno == 0)"
 
 #: bin/mudur.py:568
 msgid "Remounting root filesystem read/write"
-msgstr "Montando de nuevo sistema de archivos root lectura/escritura"
+msgstr "Montando de nuevo sistema de archivos raíz (root) lectura/escritura"
 
 #: bin/mudur.py:570
 msgid "Root filesystem could not be mounted read/write :("
-msgstr "Sistema de archivos Root no pudo montarse read/write :("
+msgstr "No posible montar sistema de archivos raíz (root) read/write :("
 
 #: bin/mudur.py:613
 #, python-format
@@ -117,15 +118,15 @@ msgstr "Estableciendo hostname como '%s'"
 
 #: bin/mudur.py:630
 msgid "Calculating module dependencies"
-msgstr "Calculando dependencias de modulos"
+msgstr "Calculando dependencias de módulos"
 
 #: bin/mudur.py:646
 msgid "Checking all filesystems"
-msgstr "Chequeando todos sistemas de archivos"
+msgstr "Verificando todos los sistemas de archivos"
 
 #: bin/mudur.py:651
 msgid "Filesystem errors corrected"
-msgstr "Errores de sistema de archivos corregidos"
+msgstr "Errores del sistema de archivos corregidos"
 
 #: bin/mudur.py:653
 msgid "Fsck could not correct all errors, manual repair needed"
@@ -153,7 +154,7 @@ msgstr "Seteando hora del sistema a hora de hardware"
 
 #: bin/mudur.py:720
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr "No posible fijar desajuste sistematico de la hora de hardware"
+msgstr "No posible sincronizar desajuste sistematico de la hora de hardware"
 
 #: bin/mudur.py:724
 msgid "Failed to set system clock to hardware clock"
@@ -220,12 +221,13 @@ msgid "You dont have permission to do this operation."
 msgstr "No tiene los permisos suficientes para esta operación"
 
 #: bin/service.py:36
+# translated as "not available"/"not exists"
 msgid "There is no such service."
-msgstr "Dispositivo no existe"
+msgstr "Servicio no disponible."
 
 #: bin/service.py:38
 msgid "Service doesn't provide this operation."
-msgstr "Esta operación no posible para este servicio"
+msgstr "Esta operación no posible para el servicio."
 
 #: bin/service.py:40
 #, python-format
@@ -270,15 +272,15 @@ msgstr "Descripción"
 
 #: bin/service.py:162
 msgid "Comar service is not running."
-msgstr ""
+msgstr "Servicio Comar no se está ejecutando"
 
 #: bin/service.py:164
 msgid "Comar service is running."
-msgstr ""
+msgstr "Servicio Comar se está ejecutando"
 
 #: bin/service.py:168
 msgid "You should be the root user in order to control the comar service."
-msgstr "Debes ser el usuario root para controlar los servicios comar."
+msgstr "Solamente el usuario root puede administrar al servicio comar."
 
 #: bin/service.py:212
 #, python-format
@@ -321,7 +323,7 @@ msgid ""
 "and option is:\n"
 " -N, --no-color  Don't use color in output"
 msgstr ""
-"usage: service [<options>] [<service>] <command>\n"
+"uso: service [<options>] [<service>] <command>\n"
 "command puede ser:\n"
 " list    Mostrar lista de servicio\n"
 " info    Mostrar estado de servicio\n"
@@ -336,60 +338,60 @@ msgstr ""
 
 #: bin/network.py:84
 msgid "Up"
-msgstr ""
+msgstr "Activo"
 
 #: bin/network.py:85
 msgid "Down"
-msgstr ""
+msgstr "Inactivo"
 
 #: bin/network.py:223
 msgid "Enter new connection name"
-msgstr ""
+msgstr "Ingrese nombre de nueva conexión"
 
 #: bin/network.py:227
 msgid "Select connection type:"
-msgstr ""
+msgstr "Seleccione tipo de conexión:"
 
 #: bin/network.py:244
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%s' selected."
-msgstr "Servicio '%s' parado."
+msgstr "Dispositivo '%s' seleccionado."
 
 #: bin/network.py:246
 msgid "Select connection device:"
-msgstr ""
+msgstr "Seleccione dispositivo de conexión:"
 
 #: bin/network.py:259
 msgid "Enter manually"
-msgstr ""
+msgstr "Ingrese manualmente"
 
 #: bin/network.py:260
 msgid "Scan"
-msgstr ""
+msgstr "Buscar"
 
 #: bin/network.py:286
 msgid "Network settings:"
-msgstr ""
+msgstr "Preferencias de Red:"
 
 #: bin/network.py:289
 msgid "Automatic query (DHCP)"
-msgstr ""
+msgstr "Asignación automática (DHCP)"
 
 #: bin/network.py:290
 msgid "Manual configuration"
-msgstr ""
+msgstr "Configuración manual"
 
 #: bin/network.py:295
 msgid "IP Address"
-msgstr ""
+msgstr "Dirección IP"
 
 #: bin/network.py:296
 msgid "Network mask"
-msgstr ""
+msgstr "Máscara de Red"
 
 #: bin/network.py:297
 msgid "Gateway"
-msgstr ""
+msgstr "Puerto de enlace"
 
 #: bin/network.py:315
 msgid ""
@@ -401,3 +403,11 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
+"uso: network <command> <arguments>\n"
+"command puede ser:\n"
+" devices      Listar dispositivos de red\n"
+" connections  Listar conexiones\n"
+" create       Crear una nueva conexión\n"
+" up           Conectar usando una conexión existente\n"
+" down         Desconectar una conexión"
+
