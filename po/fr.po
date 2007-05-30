@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-25 09:55+0300\n"
-"PO-Revision-Date: 2007-04-04 00:54+0200\n"
+"PO-Revision-Date: 2007-05-30 08:37+0200\n"
 "Last-Translator: Amine Chadly <amine.chadly@gmail.com>\n"
 "Language-Team: french <pardus-translators@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -39,8 +39,7 @@ msgstr "Démarrage des services"
 
 #: bin/mudur.py:455
 msgid "Cannot connect to COMAR, services won't be started"
-msgstr ""
-"Impossible de se connecter à COMAR, les services ne seront pas démarrés"
+msgstr "Impossible de se connecter à COMAR, les services ne seront pas démarrés"
 
 #: bin/mudur.py:460
 msgid "Cannot start system logger"
@@ -76,8 +75,7 @@ msgstr "Remontage du système de ficher racine (root) en lecture seule"
 
 #: bin/mudur.py:546
 msgid "Checking root filesystem (full check forced)"
-msgstr ""
-"Vérification du système de fichier racine (vérification complète forcée)"
+msgstr "Vérification du système de fichier racine (vérification complète forcée)"
 
 #: bin/mudur.py:549
 msgid "Checking root filesystem"
@@ -111,8 +109,7 @@ msgstr "Remontage du système de fichier racine en lecture/écriture"
 
 #: bin/mudur.py:570
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
+msgstr "Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
 
 #: bin/mudur.py:613
 #, python-format
@@ -159,8 +156,7 @@ msgstr "Établissement de l'horloge système à l'heure du matériel"
 
 #: bin/mudur.py:720
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Échec de l'ajustement du décalage systématique de l'horloge du matériel."
+msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
 #: bin/mudur.py:724
 msgid "Failed to set system clock to hardware clock"
@@ -277,11 +273,11 @@ msgstr "Description"
 
 #: bin/service.py:162
 msgid "Comar service is not running."
-msgstr ""
+msgstr "Le service Comar n'est pas en cours d'exécution."
 
 #: bin/service.py:164
 msgid "Comar service is running."
-msgstr ""
+msgstr "Le service Comar est en cours d'exécution."
 
 #: bin/service.py:168
 msgid "You should be the root user in order to control the comar service."
@@ -346,60 +342,60 @@ msgstr ""
 
 #: bin/network.py:84
 msgid "Up"
-msgstr ""
+msgstr "Démarré"
 
 #: bin/network.py:85
 msgid "Down"
-msgstr ""
+msgstr "Arrêté"
 
 #: bin/network.py:223
 msgid "Enter new connection name"
-msgstr ""
+msgstr "Entrer le nom d'une nouvelle connexion "
 
 #: bin/network.py:227
 msgid "Select connection type:"
-msgstr ""
+msgstr "Sélectionner un type de connexion :"
 
 #: bin/network.py:244
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%s' selected."
-msgstr "Service '%s' demarré."
+msgstr "Périphérique '%s' demarré."
 
 #: bin/network.py:246
 msgid "Select connection device:"
-msgstr ""
+msgstr "Sélectionner le périphérique de connexion :"
 
 #: bin/network.py:259
 msgid "Enter manually"
-msgstr ""
+msgstr "Entrer manuellement"
 
 #: bin/network.py:260
 msgid "Scan"
-msgstr ""
+msgstr "Scanner"
 
 #: bin/network.py:286
 msgid "Network settings:"
-msgstr ""
+msgstr "Paramètres réseau :"
 
 #: bin/network.py:289
 msgid "Automatic query (DHCP)"
-msgstr ""
+msgstr "Requête automatique (DHCP)"
 
 #: bin/network.py:290
 msgid "Manual configuration"
-msgstr ""
+msgstr "Configuration manuelle"
 
 #: bin/network.py:295
 msgid "IP Address"
-msgstr ""
+msgstr "Adresse IP"
 
 #: bin/network.py:296
 msgid "Network mask"
-msgstr ""
+msgstr "Masque réseau"
 
 #: bin/network.py:297
 msgid "Gateway"
-msgstr ""
+msgstr "Passerelle"
 
 #: bin/network.py:315
 msgid ""
@@ -411,3 +407,11 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
+"usage : network <commande> <arguments>\n"
+"où commande peut-être:\n"
+" devices      Liste les périphériques réseau\n"
+" connections  Liste les connexions\n"
+" create        Crée une nouvelle connexion\n"
+" up          Établit la connexion donnée\n"
+" down        Déconnecte la connexion donnée"
+
