@@ -446,7 +446,8 @@ def startComar():
         "--exec", "/usr/bin/comar")
 
 def startServices(extras=None):
-    ui.info(_("Starting services"))
+    if extras is None:
+        ui.info(_("Starting services"))
     import comar
     waitBus("/var/run/comar.socket")
     try:
