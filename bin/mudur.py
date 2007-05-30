@@ -445,7 +445,7 @@ def startComar():
         "--pidfile", "/var/run/comar.pid", "--make-pidfile",
         "--exec", "/usr/bin/comar")
 
-def startServices():
+def startServices(extras=None):
     ui.info(_("Starting services"))
     import comar
     waitBus("/var/run/comar.socket")
@@ -458,6 +458,10 @@ def startServices():
     link.call_package("System.Service.start", "sysklogd")
     if not waitBus("/dev/log", stream=False):
         ui.warn(_("Cannot start system logger"))
+    if extras:
+        for service in extras:
+            link.System.Service[service].start()
+        return
     # Give login screen a headstart
     link.call_package("System.Service.ready", config.get("head_start"))
     if not config.get("safe"):
@@ -670,7 +674,7 @@ def localMount():
             run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
     
     ui.info(_("Mounting local filesystems"))
-    run("/bin/mount", "-at", "noproc,noshm,nocifs,nonfs,nosmbfs")
+    run("/bin/mount", "-at", "noproc,noshm,nocifs,nonfs,nonfs4")
     
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
@@ -679,12 +683,18 @@ def remoteMount():
     data = loadFile("/etc/fstab").split("\n")
     data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     fstab = map(lambda x: x.split(), data)
-    netmounts = filter(lambda x: len(x) > 2 and x[2] in ("cifs", "nfs", "smbfs"), fstab)
+    netmounts = filter(lambda x: len(x) > 2 and x[2] in ("cifs", "nfs", "nfs4"), fstab)
     if len(netmounts) == 0:
         return
     # If user has set some network filesystems in fstab, we should wait
     # until they are mounted, otherwise several programs can fail if
     # /home or /var is on a network share.
+    
+    fs_types = map(lambda x: x[2], netmounts)
+    if "nfs" in fs_types or "nfs4" in fs_types:
+        ui.info(_("Starting portmap service for NFS"))
+        startServices(["portmap"])
+    
     ui.info(_("Mounting remote filesystems"))
     while True:
         next_set = []
