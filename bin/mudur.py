@@ -670,10 +670,31 @@ def localMount():
             run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
     
     ui.info(_("Mounting local filesystems"))
-    run("/bin/mount", "-at", "noproc,noshm")
+    run("/bin/mount", "-at", "noproc,noshm,nocifs,nonfs,nosmbfs")
     
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
+
+def remoteMount():
+    data = loadFile("/etc/fstab").split("\n")
+    data = filter(lambda x: not (x.startswith("#") or x == ""), data)
+    fstab = map(lambda x: x.split(), data)
+    netmounts = filter(lambda x: len(x) > 2 and x[2] in ("cifs", "nfs", "smbfs"), fstab)
+    if len(netmounts) == 0:
+        return
+    # If user has set some network filesystems in fstab, we should wait
+    # until they are mounted, otherwise several programs can fail if
+    # /home or /var is on a network share.
+    ui.info(_("Mounting remote filesystems"))
+    while True:
+        next_set = []
+        for item in netmounts:
+            ret = run_quiet("/bin/mount", item[1])
+            if ret != 0:
+                next_set.append(item)
+        if len(next_set) == 0:
+            break
+        netmounts = next_set
 
 def hdparm():
     if config.get("safe"):
@@ -969,7 +990,9 @@ elif sys.argv[1] == "boot":
     startComar()
 
     ttyUnicode()
-
+    
+    remoteMount()
+    
     setSplash()
 
 elif sys.argv[1] == "default":
