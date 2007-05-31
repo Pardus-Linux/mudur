@@ -680,7 +680,7 @@ def localMount():
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
 
-def remoteMount():
+def remoteMount(old_handler):
     data = loadFile("/etc/fstab").split("\n")
     data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     fstab = map(lambda x: x.split(), data)
@@ -696,16 +696,23 @@ def remoteMount():
         ui.info(_("Starting portmap service for NFS"))
         startServices(["portmap"])
     
-    ui.info(_("Mounting remote filesystems"))
-    while True:
-        next_set = []
-        for item in netmounts:
-            ret = run_quiet("/bin/mount", item[1])
-            if ret != 0:
-                next_set.append(item)
-        if len(next_set) == 0:
-            break
-        netmounts = next_set
+    ui.info(_("Mounting remote filesystems (CTRL-C stops trying)"))
+    try:
+        signal.signal(signal.SIGINT, old_handler)
+        while True:
+            next_set = []
+            for item in netmounts:
+                ret = run_quiet("/bin/mount", item[1])
+                if ret != 0:
+                    next_set.append(item)
+            if len(next_set) == 0:
+                break
+            netmounts = next_set
+            time.sleep(0.5)
+    except KeyboardInterrupt:
+        ui.error(_("Mounting skipped with CTRL-C, remote shares are not accessible!"))
+        time.sleep(1)
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 def hdparm():
     if config.get("safe"):
@@ -906,7 +913,7 @@ def except_hook(eType, eValue, eTrace):
 # Main program
 #
 
-signal.signal(signal.SIGINT, signal.SIG_IGN)
+old_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
 signal.signal(signal.SIGQUIT, signal.SIG_IGN)
 signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 sys.excepthook = except_hook
@@ -1002,7 +1009,7 @@ elif sys.argv[1] == "boot":
 
     ttyUnicode()
     
-    remoteMount()
+    remoteMount(old_handler)
     
     setSplash()
 
