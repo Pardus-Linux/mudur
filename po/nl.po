@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-25 09:55+0300\n"
-"PO-Revision-Date: 2007-04-24 00:08+0200\n"
+"PO-Revision-Date: 2007-06-03 21:07+0200\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -111,8 +111,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:570
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:613
 #, python-format
@@ -133,8 +132,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:653
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:666
 msgid "Mounting USB filesystem"
@@ -275,17 +273,17 @@ msgstr "Beschrijving"
 
 #: bin/service.py:162
 msgid "Comar service is not running."
-msgstr ""
+msgstr "Comar dienst is niet actief."
 
 #: bin/service.py:164
 msgid "Comar service is running."
-msgstr ""
+msgstr "Comar dienst is actief"
 
 #: bin/service.py:168
 msgid "You should be the root user in order to control the comar service."
 msgstr ""
-"U dient een root gebruiker te zijn als u gebruik wil maken van de COMAR "
-"dienst."
+"U dient een root gebruiker te zijn om de COMAR "
+"dienst te gebruiken."
 
 #: bin/service.py:212
 #, python-format
@@ -343,60 +341,60 @@ msgstr ""
 
 #: bin/network.py:84
 msgid "Up"
-msgstr ""
+msgstr "Omhoog"
 
 #: bin/network.py:85
 msgid "Down"
-msgstr ""
+msgstr "Omlaag"
 
 #: bin/network.py:223
 msgid "Enter new connection name"
-msgstr ""
+msgstr "Geef naam nieuwe verbinding"
 
 #: bin/network.py:227
 msgid "Select connection type:"
-msgstr ""
+msgstr "Selecteer verbindingstype:"
 
 #: bin/network.py:244
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%s' selected."
-msgstr "Dienst '%s' is gestopt."
+msgstr "Dienst '%s' geselecteerd."
 
 #: bin/network.py:246
 msgid "Select connection device:"
-msgstr ""
+msgstr "Selecteer verbindingsapparaat:"
 
 #: bin/network.py:259
 msgid "Enter manually"
-msgstr ""
+msgstr "Met de hand invoeren"
 
 #: bin/network.py:260
 msgid "Scan"
-msgstr ""
+msgstr "Scan"
 
 #: bin/network.py:286
 msgid "Network settings:"
-msgstr ""
+msgstr "Netwerkinstellingen:"
 
 #: bin/network.py:289
 msgid "Automatic query (DHCP)"
-msgstr ""
+msgstr "Automatische opvragen (DHCP)"
 
 #: bin/network.py:290
 msgid "Manual configuration"
-msgstr ""
+msgstr "Met de hand configureren"
 
 #: bin/network.py:295
 msgid "IP Address"
-msgstr ""
+msgstr "IP adres"
 
 #: bin/network.py:296
 msgid "Network mask"
-msgstr ""
+msgstr "Netwerkmasker"
 
 #: bin/network.py:297
 msgid "Gateway"
-msgstr ""
+msgstr "Poort"
 
 #: bin/network.py:315
 msgid ""
@@ -408,3 +406,11 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
+"gebruik: netwerk <commando> <argumenten>\n"
+"waar commando is:\n"
+" devices      Lijst van netwerkapparaten\n"
+" connections  lijst vab verbindingen\n"
+" create       Maak een nieuwe verbinding\n"
+" up           Opgegeven verbinding verbinden\n"
+" down         Opgegeven verbinding verbreken"
+
