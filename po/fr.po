@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-04 13:57+0300\n"
-"PO-Revision-Date: 2007-05-30 08:37+0200\n"
+"PO-Revision-Date: 2007-06-05 00:23+0200\n"
 "Last-Translator: Amine Chadly <amine.chadly@gmail.com>\n"
 "Language-Team: french <pardus-translators@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -39,8 +39,7 @@ msgstr "Démarrage des services"
 
 #: bin/mudur.py:456
 msgid "Cannot connect to COMAR, services won't be started"
-msgstr ""
-"Impossible de se connecter à COMAR, les services ne seront pas démarrés"
+msgstr "Impossible de se connecter à COMAR, les services ne seront pas démarrés"
 
 #: bin/mudur.py:461
 msgid "Cannot start system logger"
@@ -76,8 +75,7 @@ msgstr "Remontage du système de ficher racine (root) en lecture seule"
 
 #: bin/mudur.py:551
 msgid "Checking root filesystem (full check forced)"
-msgstr ""
-"Vérification du système de fichier racine (vérification complète forcée)"
+msgstr "Vérification du système de fichier racine (vérification complète forcée)"
 
 #: bin/mudur.py:554
 msgid "Checking root filesystem"
@@ -111,8 +109,7 @@ msgstr "Remontage du système de fichier racine en lecture/écriture"
 
 #: bin/mudur.py:575
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
+msgstr "Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
 
 #: bin/mudur.py:618
 #, python-format
@@ -150,18 +147,16 @@ msgid "Activating swap"
 msgstr "Activation du système de fichier d'échange (swap)"
 
 #: bin/mudur.py:696
-#, fuzzy
 msgid "Starting portmap service for NFS"
-msgstr "Démarrage des services"
+msgstr "Démarrage du service portmap pour NFS"
 
 #: bin/mudur.py:699
-#, fuzzy
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr "Remontage du système de ficher racine (root) en lecture seule"
+msgstr "Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
 
 #: bin/mudur.py:713
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
+msgstr "Montage désactivé avec CTRL-C, les partages distants ne sont pas accessibles !"
 
 #: bin/mudur.py:726
 msgid "Setting disk parameters"
@@ -173,8 +168,7 @@ msgstr "Établissement de l'horloge système à l'heure du matériel"
 
 #: bin/mudur.py:759
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Échec de l'ajustement du décalage systématique de l'horloge du matériel."
+msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
 #: bin/mudur.py:763
 msgid "Failed to set system clock to hardware clock"
@@ -432,3 +426,4 @@ msgstr ""
 " create        Crée une nouvelle connexion\n"
 " up          Établit la connexion donnée\n"
 " down        Déconnecte la connexion donnée"
+
