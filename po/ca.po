@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-25 09:55+0300\n"
+"POT-Creation-Date: 2007-06-04 13:57+0300\n"
 "PO-Revision-Date: 2007-04-01 21:58+0100\n"
 "Last-Translator: Jaume Villalba <javs@tinet.cat>\n"
 "Language-Team: Catalan <Pardus-translation-ca@uludag.org.tr>\n"
@@ -34,174 +34,190 @@ msgstr "No s'ha pogut establir el mode unicode en el tty %d"
 msgid "Starting COMAR"
 msgstr "El COMAR s'està engegant"
 
-#: bin/mudur.py:449
+#: bin/mudur.py:450
 msgid "Starting services"
 msgstr "Els serveis s'estan engegant"
 
-#: bin/mudur.py:455
+#: bin/mudur.py:456
 msgid "Cannot connect to COMAR, services won't be started"
 msgstr "No s'ha pogut connectar amb el COMAR, els serveis no s'engegaran"
 
-#: bin/mudur.py:460
+#: bin/mudur.py:461
 msgid "Cannot start system logger"
 msgstr "No es pot engegar el registre del sistema"
 
-#: bin/mudur.py:468
+#: bin/mudur.py:473
 msgid "Stopping services"
 msgstr "Els serveis s'estan aturant"
 
-#: bin/mudur.py:472
+#: bin/mudur.py:477
 msgid "Stopping COMAR"
 msgstr "El COMAR s'està aturant"
 
-#: bin/mudur.py:481
+#: bin/mudur.py:486
 msgid "Mounting /dev"
 msgstr "El /dev s'està muntant"
 
-#: bin/mudur.py:491
+#: bin/mudur.py:496
 msgid "Restoring saved device states"
 msgstr "Restauració dels estats dels dispositiu desats"
 
-#: bin/mudur.py:514
+#: bin/mudur.py:519
 msgid "Starting udev"
 msgstr "L'udev s'està engegant"
 
-#: bin/mudur.py:521
+#: bin/mudur.py:526
 msgid "Populating /dev"
 msgstr "El /dev s'està omplint"
 
-#: bin/mudur.py:540
+#: bin/mudur.py:545
 msgid "Remounting root filesystem read-only"
 msgstr ""
 "El sistema d'arxius de l'arrel en mode de només lectura r'està tornant a "
 "muntar"
 
-#: bin/mudur.py:546
+#: bin/mudur.py:551
 msgid "Checking root filesystem (full check forced)"
 msgstr "La integritat del sistema d'arxius de l'arrel s'està comprovant"
 
-#: bin/mudur.py:549
+#: bin/mudur.py:554
 msgid "Checking root filesystem"
 msgstr "La integritat del sistema d'arxius de l'arrel s'està comprovant"
 
-#: bin/mudur.py:554
+#: bin/mudur.py:559
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "El sistema d'arxius ha estat reparat, però cal reiniciar l'ordinador"
 
-#: bin/mudur.py:558
+#: bin/mudur.py:563
 msgid "Rebooting in 10 seconds ..."
 msgstr "Es reiniciarà en 10 segons..."
 
-#: bin/mudur.py:560
+#: bin/mudur.py:565
 msgid "Rebooting..."
 msgstr "S'està reiniciant..."
 
-#: bin/mudur.py:563
+#: bin/mudur.py:568
 msgid "Filesystem couldn't be fixed :("
 msgstr "No ha estat possible reparar el sistema d'arxius  :("
 
-#: bin/mudur.py:566
+#: bin/mudur.py:571
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr ""
 "Omissió de la comprovació del sistema d'arxius de l'arrel (fstab's passno == "
 "0)"
 
-#: bin/mudur.py:568
+#: bin/mudur.py:573
 msgid "Remounting root filesystem read/write"
 msgstr ""
 "El sistema d'arxius de l'arrel en mode de lectura/escriptura s'està tornant "
 "a muntar "
 
-#: bin/mudur.py:570
+#: bin/mudur.py:575
 msgid "Root filesystem could not be mounted read/write :("
 msgstr ""
 "No ha estat possible muntar el sistema d'arxius de l'arrel en mode de "
 "lectura/escriptura :("
 
-#: bin/mudur.py:613
+#: bin/mudur.py:618
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Com a nom de l'ordinador s'emprarà '%s'"
 
-#: bin/mudur.py:630
+#: bin/mudur.py:635
 msgid "Calculating module dependencies"
 msgstr "Càlcul del mòdul de dependències"
 
-#: bin/mudur.py:646
+#: bin/mudur.py:651
 msgid "Checking all filesystems"
 msgstr "Comprovació de tots els sistemes d'arxiu"
 
-#: bin/mudur.py:651
+#: bin/mudur.py:656
 msgid "Filesystem errors corrected"
 msgstr "Els errors del sistema d'arxius han estat corregits"
 
-#: bin/mudur.py:653
+#: bin/mudur.py:658
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 "El Fsck no ha pogut corregir tots els errors, la reparació manual s'escau"
 
-#: bin/mudur.py:666
+#: bin/mudur.py:671
 msgid "Mounting USB filesystem"
 msgstr "El sistema d'arxius USB s'està muntant"
 
-#: bin/mudur.py:672
+#: bin/mudur.py:677
 msgid "Mounting local filesystems"
 msgstr "El sistema d'arxius local s'està muntant"
 
-#: bin/mudur.py:675
+#: bin/mudur.py:680
 msgid "Activating swap"
 msgstr "Activació de l'espai de bescanvi (swap)"
 
-#: bin/mudur.py:687
+#: bin/mudur.py:696
+#, fuzzy
+msgid "Starting portmap service for NFS"
+msgstr "Els serveis s'estan engegant"
+
+#: bin/mudur.py:699
+#, fuzzy
+msgid "Mounting remote filesystems (CTRL-C stops trying)"
+msgstr ""
+"El sistema d'arxius de l'arrel en mode de només lectura r'està tornant a "
+"muntar"
+
+#: bin/mudur.py:713
+msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
+msgstr ""
+
+#: bin/mudur.py:726
 msgid "Setting disk parameters"
 msgstr "Configuració els paràmetres de disc"
 
-#: bin/mudur.py:706
+#: bin/mudur.py:745
 msgid "Setting system clock to hardware clock"
 msgstr "L'hora del sistema s'està configurant d'acord amb la del maquinari"
 
-#: bin/mudur.py:720
+#: bin/mudur.py:759
 #, fuzzy
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr ""
 "No s'ha pogut configurar l'hora del sistema d'acord amb la del maquinari"
 
-#: bin/mudur.py:724
+#: bin/mudur.py:763
 msgid "Failed to set system clock to hardware clock"
 msgstr ""
 "No s'ha pogut configurar l'hora del sistema d'acord amb la del maquinari"
 
-#: bin/mudur.py:727
+#: bin/mudur.py:766
 msgid "Cleaning up /var"
 msgstr "El /var s'està netejant"
 
-#: bin/mudur.py:734
+#: bin/mudur.py:773
 msgid "Cleaning up /tmp"
 msgstr "El /tmp s'està netejant"
 
-#: bin/mudur.py:782
+#: bin/mudur.py:821
 msgid "Syncing system clock to hardware clock"
 msgstr "Sincronització de l'hora del sistema d'acord amb la del maquinari"
 
-#: bin/mudur.py:785
+#: bin/mudur.py:824
 msgid "Failed to sync clocks"
 msgstr "No s'ha pogut sincronitzar l'hora"
 
-#: bin/mudur.py:797
+#: bin/mudur.py:836
 msgid "Deactivating swap"
 msgstr "Desactivació de l'espai de bescanvi (swap)"
 
-#: bin/mudur.py:818
+#: bin/mudur.py:857
 msgid "Unmounting filesystems"
 msgstr "El sistema d'arxius s'està desmuntant"
 
-#: bin/mudur.py:850
+#: bin/mudur.py:889
 msgid "Remounting remaining filesystems readonly"
 msgstr ""
 "S'estan tornant a muntar els sistemes d'arxius restants en mode de només "
 "lectura"
 
-#: bin/mudur.py:864
+#: bin/mudur.py:903
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -209,25 +225,25 @@ msgstr ""
 "S'ha produït un error intern. Si us plau, reporteu aquest error a bugs."
 "pardus.org.tr amb la següent informació:"
 
-#: bin/mudur.py:911
+#: bin/mudur.py:950
 msgid "Mounting /sys"
 msgstr "El /sys s'està muntant"
 
-#: bin/mudur.py:916
+#: bin/mudur.py:955
 msgid "Mounting /dev/pts"
 msgstr "El /dev/pts s'està muntant"
 
-#: bin/mudur.py:927
+#: bin/mudur.py:966
 msgid "Starting Coldplug"
 msgstr ""
 "S'estan muntant els dispositius de muntatge fred (aquells per què cal "
 "reiniciar, coldplug)"
 
-#: bin/mudur.py:952
+#: bin/mudur.py:991
 msgid "Setting up localhost"
 msgstr "Configuració del nom de la màquina (localhost)"
 
-#: bin/mudur.py:962
+#: bin/mudur.py:1001
 msgid "Updating environment variables"
 msgstr "Actualització de les variables de l'entorn"
 

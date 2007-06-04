@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-25 09:55+0300\n"
+"POT-Creation-Date: 2007-06-04 13:57+0300\n"
 "PO-Revision-Date: 2007-05-30 08:37+0200\n"
 "Last-Translator: Amine Chadly <amine.chadly@gmail.com>\n"
 "Language-Team: french <pardus-translators@pardus.org.tr>\n"
@@ -33,164 +33,182 @@ msgstr "Impossible d'établire le mode unicode sur le terminal (tty) %d"
 msgid "Starting COMAR"
 msgstr "Démarrage de COMAR"
 
-#: bin/mudur.py:449
+#: bin/mudur.py:450
 msgid "Starting services"
 msgstr "Démarrage des services"
 
-#: bin/mudur.py:455
+#: bin/mudur.py:456
 msgid "Cannot connect to COMAR, services won't be started"
-msgstr "Impossible de se connecter à COMAR, les services ne seront pas démarrés"
+msgstr ""
+"Impossible de se connecter à COMAR, les services ne seront pas démarrés"
 
-#: bin/mudur.py:460
+#: bin/mudur.py:461
 msgid "Cannot start system logger"
 msgstr "Impossible de démarrer l'archiveur du système"
 
-#: bin/mudur.py:468
+#: bin/mudur.py:473
 msgid "Stopping services"
 msgstr "Arrêt des services"
 
-#: bin/mudur.py:472
+#: bin/mudur.py:477
 msgid "Stopping COMAR"
 msgstr "Arrêt de COMAR"
 
-#: bin/mudur.py:481
+#: bin/mudur.py:486
 msgid "Mounting /dev"
 msgstr "Montage de /dev"
 
-#: bin/mudur.py:491
+#: bin/mudur.py:496
 msgid "Restoring saved device states"
 msgstr "Restauration des états sauvegardés des périphériques"
 
-#: bin/mudur.py:514
+#: bin/mudur.py:519
 msgid "Starting udev"
 msgstr "Démarrage d'udev"
 
-#: bin/mudur.py:521
+#: bin/mudur.py:526
 msgid "Populating /dev"
 msgstr "Peuplement de /dev"
 
-#: bin/mudur.py:540
+#: bin/mudur.py:545
 msgid "Remounting root filesystem read-only"
 msgstr "Remontage du système de ficher racine (root) en lecture seule"
 
-#: bin/mudur.py:546
+#: bin/mudur.py:551
 msgid "Checking root filesystem (full check forced)"
-msgstr "Vérification du système de fichier racine (vérification complète forcée)"
+msgstr ""
+"Vérification du système de fichier racine (vérification complète forcée)"
 
-#: bin/mudur.py:549
+#: bin/mudur.py:554
 msgid "Checking root filesystem"
 msgstr "Vérification du système de fichier racine"
 
-#: bin/mudur.py:554
+#: bin/mudur.py:559
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Le système de fichier est réparé, mais un redémarrage est nécessaire !"
 
-#: bin/mudur.py:558
+#: bin/mudur.py:563
 msgid "Rebooting in 10 seconds ..."
 msgstr "Redémarrage dans 10 secondes..."
 
-#: bin/mudur.py:560
+#: bin/mudur.py:565
 msgid "Rebooting..."
 msgstr "Redémarrage..."
 
-#: bin/mudur.py:563
+#: bin/mudur.py:568
 msgid "Filesystem couldn't be fixed :("
 msgstr "Le système de fichier n'a pas pu être réparé :("
 
-#: bin/mudur.py:566
+#: bin/mudur.py:571
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr ""
 "Exemption de la vérification pour le système de fichier racine (passno == 0 "
 "dans fstab)"
 
-#: bin/mudur.py:568
+#: bin/mudur.py:573
 msgid "Remounting root filesystem read/write"
 msgstr "Remontage du système de fichier racine en lecture/écriture"
 
-#: bin/mudur.py:570
+#: bin/mudur.py:575
 msgid "Root filesystem could not be mounted read/write :("
-msgstr "Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
+msgstr ""
+"Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
 
-#: bin/mudur.py:613
+#: bin/mudur.py:618
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Établissement du nom d'hôte à '%s'"
 
-#: bin/mudur.py:630
+#: bin/mudur.py:635
 msgid "Calculating module dependencies"
 msgstr "Calcul des dépendances des modules"
 
-#: bin/mudur.py:646
+#: bin/mudur.py:651
 msgid "Checking all filesystems"
 msgstr "Vérification de tous les sytèmes de fichier"
 
-#: bin/mudur.py:651
+#: bin/mudur.py:656
 msgid "Filesystem errors corrected"
 msgstr "Erreurs des sytèmes de fichier corrigées"
 
-#: bin/mudur.py:653
+#: bin/mudur.py:658
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 "Fsck n'a pu corriger toutes les erreurs, une réparation manuelle est "
 "nécessaire"
 
-#: bin/mudur.py:666
+#: bin/mudur.py:671
 msgid "Mounting USB filesystem"
 msgstr "Montage du système de fichier USB"
 
-#: bin/mudur.py:672
+#: bin/mudur.py:677
 msgid "Mounting local filesystems"
 msgstr "Montage des sytèmes de fichier locaux"
 
-#: bin/mudur.py:675
+#: bin/mudur.py:680
 msgid "Activating swap"
 msgstr "Activation du système de fichier d'échange (swap)"
 
-#: bin/mudur.py:687
+#: bin/mudur.py:696
+#, fuzzy
+msgid "Starting portmap service for NFS"
+msgstr "Démarrage des services"
+
+#: bin/mudur.py:699
+#, fuzzy
+msgid "Mounting remote filesystems (CTRL-C stops trying)"
+msgstr "Remontage du système de ficher racine (root) en lecture seule"
+
+#: bin/mudur.py:713
+msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
+msgstr ""
+
+#: bin/mudur.py:726
 msgid "Setting disk parameters"
 msgstr "Établissement des paramètres du disque"
 
-#: bin/mudur.py:706
+#: bin/mudur.py:745
 msgid "Setting system clock to hardware clock"
 msgstr "Établissement de l'horloge système à l'heure du matériel"
 
-#: bin/mudur.py:720
+#: bin/mudur.py:759
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
+msgstr ""
+"Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
-#: bin/mudur.py:724
+#: bin/mudur.py:763
 msgid "Failed to set system clock to hardware clock"
 msgstr "Échec de l'établissement de l'horloge du système à l'heure du matériel"
 
-#: bin/mudur.py:727
+#: bin/mudur.py:766
 msgid "Cleaning up /var"
 msgstr "Nettoyage de /var"
 
-#: bin/mudur.py:734
+#: bin/mudur.py:773
 msgid "Cleaning up /tmp"
 msgstr "Nettoyage de /tmp"
 
-#: bin/mudur.py:782
+#: bin/mudur.py:821
 msgid "Syncing system clock to hardware clock"
 msgstr "Synchronisation de l'horloge système à l'heure du matériel"
 
-#: bin/mudur.py:785
+#: bin/mudur.py:824
 msgid "Failed to sync clocks"
 msgstr "Échec de la synchronisation des horloges"
 
-#: bin/mudur.py:797
+#: bin/mudur.py:836
 msgid "Deactivating swap"
 msgstr "Désactivation du système de fichier d'échange (swap)"
 
-#: bin/mudur.py:818
+#: bin/mudur.py:857
 msgid "Unmounting filesystems"
 msgstr "Démontage des systèmes de fichier"
 
-#: bin/mudur.py:850
+#: bin/mudur.py:889
 msgid "Remounting remaining filesystems readonly"
 msgstr "Remontage des systèmes de fichier restants en lecture seule"
 
-#: bin/mudur.py:864
+#: bin/mudur.py:903
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -198,23 +216,23 @@ msgstr ""
 "Une erreur interne est survenue. Veuillez reporter le bug à bugs.pardus.org."
 "tr avec l'information suivante s'il vous plaît : "
 
-#: bin/mudur.py:911
+#: bin/mudur.py:950
 msgid "Mounting /sys"
 msgstr "Montage de /sys"
 
-#: bin/mudur.py:916
+#: bin/mudur.py:955
 msgid "Mounting /dev/pts"
 msgstr "Montage de /dev/pts "
 
-#: bin/mudur.py:927
+#: bin/mudur.py:966
 msgid "Starting Coldplug"
 msgstr "Démarrage de Coldplug"
 
-#: bin/mudur.py:952
+#: bin/mudur.py:991
 msgid "Setting up localhost"
 msgstr "Établissement de l'hôte local (localhost)"
 
-#: bin/mudur.py:962
+#: bin/mudur.py:1001
 msgid "Updating environment variables"
 msgstr "Mise à jour des variables d'environnement"
 
@@ -414,4 +432,3 @@ msgstr ""
 " create        Crée une nouvelle connexion\n"
 " up          Établit la connexion donnée\n"
 " down        Déconnecte la connexion donnée"
-
