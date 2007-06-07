@@ -20,7 +20,7 @@ default_options = {
     "vfat":     ("quiet", "shortname=mixed", "dmask=007", "fmask=117", "utf8", "gid=6"),
     "ext3":     ("noatime", ),
     "ext2":     ("noatime", ),
-    "ntfs-3g":  ("dmask=007", "fmask=117", "locale=tr_TR.UTF-8", "gid=6"),
+    "ntfs-3g":  ("dmask=007", "fmask=117", "gid=6"),
     "reiserfs": ("noatime", ),
     "xfs":      ("noatime", ),
     "defaults": ("defaults", ),
@@ -66,6 +66,16 @@ def blockNameByLabel(label):
         return "/dev/%s" % os.readlink(path)[6:]
     else:
         return None
+
+def getLocale():
+    try:
+        for line in file("/etc/env.d/03locale"):
+            if "LC_ALL" in line:
+                return line[7:].strip()
+    except:
+        pass
+
+    return "tr_TR.UTF-8"
 
 # Fstab classes
 
@@ -169,7 +179,10 @@ class Fstab:
         entry.mount_point = mount_point
         entry.file_system = file_system
         entry.options = ",".join(options)
-        
+
+        if file_system == "ntfs-3g":
+            entry.options += ",locale=%s" % getLocale()
+
         self.entries.append(entry)
         return entry
     
