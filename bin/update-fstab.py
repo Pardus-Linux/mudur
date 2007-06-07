@@ -112,7 +112,7 @@ class Fstab:
         self.partitions = None
         self.labels = {}
         for line in file(path):
-            if line != "" and not line.startswith('#'):
+            if line.strip() != "" and not line.startswith('#'):
                 self.entries.append(FstabEntry(line))
     
     def __str__(self):
