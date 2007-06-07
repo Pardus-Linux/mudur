@@ -28,7 +28,7 @@ default_options = {
 
 default_mount_dir = "/mnt"
 
-excluded_file_systems = ("proc", "tmpfs", "sysfs", "swap")
+excluded_file_systems = ("proc", "tmpfs", "sysfs", "swap", "nfs", "nfs4", "cifs")
 
 pardus_labels = ("PARDUS_ROOT", "PARDUS_HOME", "PARDUS_SWAP")
 
