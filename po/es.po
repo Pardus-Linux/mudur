@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-04 13:57+0300\n"
-"PO-Revision-Date: 2007-05-27 17:07-0400\n"
+"PO-Revision-Date: 2007-06-07 19:23-0400\n"
 "Last-Translator: klemens <click3d at linuxmail org>\n"
 "Language-Team: spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -145,18 +145,16 @@ msgid "Activating swap"
 msgstr "Activando swap"
 
 #: bin/mudur.py:696
-#, fuzzy
 msgid "Starting portmap service for NFS"
-msgstr "Iniciando servicios"
+msgstr "Iniciando servicio portmap para NFS"
 
 #: bin/mudur.py:699
-#, fuzzy
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr "Montando de nuevo sistema de archivos raíz (root) solo-lectura"
+msgstr "Montando sistema de archivos remotos (CTRL-C aborta el intento)"
 
 #: bin/mudur.py:713
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
+msgstr "Proceso de montar interrumpido con CTRL-C, directorios remotos no están accesibles !"
 
 #: bin/mudur.py:726
 msgid "Setting disk parameters"
@@ -424,3 +422,4 @@ msgstr ""
 " create       Crear una nueva conexión\n"
 " up           Conectar usando una conexión existente\n"
 " down         Desconectar una conexión"
+
