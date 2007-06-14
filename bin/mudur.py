@@ -1031,12 +1031,16 @@ elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
     stopSystem()
     
     if sys.argv[1] == "reboot":
+        # Try to reboot using kexec, if kernel supports it.
+        if os.path.exists("/usr/sbin/kexec")
+            ui.info(_("Trying initiate a warm reboot (skipping BIOS with kexec kernel)"))
+            run("/usr/sbin/kexec", "-e")
+
         # Shut down all network interfaces just before halt or reboot, 
         # When halting the system do a poweroff. This is the default when halt is called as powerof
-        # Don’t write the wtmp record.
-        # Try to reboot using kexec, if kernel supports it.
-        run("/sbin/reboot", "-idpk")
-        # Force halt or reboot, don’t call shutdown
+        # Don't write the wtmp record.
+        run("/sbin/reboot", "-idp")
+        # Force halt or reboot, don't call shutdown
         run("/sbin/reboot", "-f")
     else:
         run("/sbin/halt", "-ihdp")
