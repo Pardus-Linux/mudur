@@ -1032,7 +1032,7 @@ elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
     
     if sys.argv[1] == "reboot":
         # Try to reboot using kexec, if kernel supports it.
-        if os.path.exists("/usr/sbin/kexec")
+        if os.path.exists("/usr/sbin/kexec"):
             ui.info(_("Trying initiate a warm reboot (skipping BIOS with kexec kernel)"))
             run("/usr/sbin/kexec", "-e")
 
