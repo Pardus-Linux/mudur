@@ -1031,7 +1031,12 @@ elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
     stopSystem()
     
     if sys.argv[1] == "reboot":
-        run("/sbin/reboot", "-idp")
+        # Shut down all network interfaces just before halt or reboot, 
+        # When halting the system do a poweroff. This is the default when halt is called as powerof
+        # Don’t write the wtmp record.
+        # Try to reboot using kexec, if kernel supports it.
+        run("/sbin/reboot", "-idpk")
+        # Force halt or reboot, don’t call shutdown
         run("/sbin/reboot", "-f")
     else:
         run("/sbin/halt", "-ihdp")
