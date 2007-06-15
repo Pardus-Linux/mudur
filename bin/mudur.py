@@ -1034,7 +1034,7 @@ elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
         # Try to reboot using kexec, if kernel supports it.
         if os.path.exists("/usr/sbin/kexec"):
             ui.info(_("Trying initiate a warm reboot (skipping BIOS with kexec kernel)"))
-            run("/usr/sbin/kexec", "-e")
+            run_quiet("/usr/sbin/kexec", "-e")
 
         # Shut down all network interfaces just before halt or reboot, 
         # When halting the system do a poweroff. This is the default when halt is called as powerof
