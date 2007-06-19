@@ -4,14 +4,15 @@
 #
 # Mustafa M. Ölcerman <oelcerman@fussballkreis.org>, 2006.
 # Mustafa Muhammed Ölcerman <oelcerman@fussballkreis.org>, 2007.
+# Mustafa Muhammed Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-04 13:57+0300\n"
-"PO-Revision-Date: 2007-02-08 15:37+0100\n"
-"Last-Translator: Mustafa Muhammed Ölcerman <oelcerman@fussballkreis.org>\n"
-"Language-Team:  <de@li.org>\n"
+"PO-Revision-Date: 2007-06-18 17:20+0300\n"
+"Last-Translator: Mustafa Muhammed Ölcerman <mustafa.oelcerman@fk-koeln.de>\n"
+"Language-Team:  <http://liste.uludag.org.tr/pardus-translation-de/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,8 +20,7 @@ msgstr ""
 
 #: bin/mudur.py:163
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
-"Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
+msgstr "Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
 
 #: bin/mudur.py:309
 msgid "Cannot find /etc/pardus-release"
@@ -109,8 +109,7 @@ msgstr "Root Dateisystem wird neu mit Lese-/Schreibzugriff gemountet"
 
 #: bin/mudur.py:575
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden :("
+msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden :("
 
 #: bin/mudur.py:618
 #, python-format
@@ -131,8 +130,7 @@ msgstr "Dateisystem Fehler korrigiert"
 
 #: bin/mudur.py:658
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
+msgstr "Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
 
 #: bin/mudur.py:671
 msgid "Mounting USB filesystem"
@@ -288,11 +286,11 @@ msgstr "Beschreibung"
 
 #: bin/service.py:162
 msgid "Comar service is not running."
-msgstr ""
+msgstr "Der Comar Dienst ist angehalten."
 
 #: bin/service.py:164
 msgid "Comar service is running."
-msgstr ""
+msgstr "Der Comar-Dienst ist gestartet."
 
 #: bin/service.py:168
 msgid "You should be the root user in order to control the comar service."
@@ -353,28 +351,28 @@ msgstr ""
 
 #: bin/network.py:84
 msgid "Up"
-msgstr ""
+msgstr "Hoch"
 
 #: bin/network.py:85
 msgid "Down"
-msgstr ""
+msgstr "Runter"
 
 #: bin/network.py:223
 msgid "Enter new connection name"
-msgstr ""
+msgstr "Namen der neuen Verbindung eingeben"
 
 #: bin/network.py:227
 msgid "Select connection type:"
-msgstr ""
+msgstr "Verbindungstyp wählen:"
 
 #: bin/network.py:244
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%s' selected."
-msgstr "Dienst '%s' angehalten."
+msgstr "Dienst '%s' gewählt."
 
 #: bin/network.py:246
 msgid "Select connection device:"
-msgstr ""
+msgstr "Verbindungs-Gerät wählen:"
 
 #: bin/network.py:259
 msgid "Enter manually"
@@ -382,11 +380,11 @@ msgstr ""
 
 #: bin/network.py:260
 msgid "Scan"
-msgstr ""
+msgstr "Scannen"
 
 #: bin/network.py:286
 msgid "Network settings:"
-msgstr ""
+msgstr "Netzwerk-Einstellungen:"
 
 #: bin/network.py:289
 msgid "Automatic query (DHCP)"
@@ -398,15 +396,15 @@ msgstr ""
 
 #: bin/network.py:295
 msgid "IP Address"
-msgstr ""
+msgstr "IP-Adresse"
 
 #: bin/network.py:296
 msgid "Network mask"
-msgstr ""
+msgstr "Netzwerkmaske"
 
 #: bin/network.py:297
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 #: bin/network.py:315
 msgid ""
@@ -418,3 +416,4 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
+
