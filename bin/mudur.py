@@ -348,7 +348,7 @@ languages = {
     "it": Language("it", "iso01.16", "8859-1", "it_IT.UTF-8"),
     "fr": Language("fr", "iso01.16", "8859-1", "fr_FR.UTF-8"),
     "pt_BR": Language("br-abnt2", "iso01.16", "8859-1", "pt_BR.UTF-8"),
-    "ca": Language("es", "iso01.16", "8859-1", "ca_ES.utf8"),
+    "ca": Language("es", "iso01.16", "8859-1", "ca_ES.UTF-8"),
 }
 
 def setConsole():
