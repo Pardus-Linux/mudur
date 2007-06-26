@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-04 13:57+0300\n"
+"POT-Creation-Date: 2007-06-26 17:25+0300\n"
 "PO-Revision-Date: 2007-04-24 10:55+0200\n"
 "Last-Translator: Andrea Decorte <adecorte@gmail.com>\n"
 "Language-Team: Italian <pardus-translation-it@pardus.org.tr>\n"
@@ -25,188 +25,188 @@ msgstr "Impossibile scrivere mudur.log, filesystem di sola lettura"
 msgid "Cannot find /etc/pardus-release"
 msgstr "Impossibile trovare il file /etc/pardus-release"
 
-#: bin/mudur.py:422
+#: bin/mudur.py:423
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "Impossibile impostare la modalità Unicode su tty %d"
 
-#: bin/mudur.py:438
+#: bin/mudur.py:439
 msgid "Starting COMAR"
 msgstr "Avvio di COMAR"
 
-#: bin/mudur.py:450
+#: bin/mudur.py:451
 msgid "Starting services"
 msgstr "Avvio dei servizi"
 
-#: bin/mudur.py:456
+#: bin/mudur.py:457
 msgid "Cannot connect to COMAR, services won't be started"
 msgstr "Impossibile collegarsi a COMAR, i servizi non verranno avviati"
 
-#: bin/mudur.py:461
+#: bin/mudur.py:462
 msgid "Cannot start system logger"
 msgstr "Impossibile avviare il logger di sistema"
 
-#: bin/mudur.py:473
+#: bin/mudur.py:474
 msgid "Stopping services"
 msgstr "Arresto dei servizi"
 
-#: bin/mudur.py:477
+#: bin/mudur.py:478
 msgid "Stopping COMAR"
 msgstr "Arresto di COMAR"
 
-#: bin/mudur.py:486
+#: bin/mudur.py:487
 msgid "Mounting /dev"
 msgstr "Montaggio /dev"
 
-#: bin/mudur.py:496
+#: bin/mudur.py:497
 msgid "Restoring saved device states"
 msgstr "Ripristino degli stati salvati dei device"
 
-#: bin/mudur.py:519
+#: bin/mudur.py:520
 msgid "Starting udev"
 msgstr "Avvio di udev"
 
-#: bin/mudur.py:526
+#: bin/mudur.py:527
 msgid "Populating /dev"
 msgstr "Popolamento di /dev"
 
-#: bin/mudur.py:545
+#: bin/mudur.py:546
 msgid "Remounting root filesystem read-only"
 msgstr "Rimontaggio del filesystem di root in sola lettura"
 
-#: bin/mudur.py:551
+#: bin/mudur.py:552
 msgid "Checking root filesystem (full check forced)"
 msgstr "Controllo del filesystem di root (controllo completo forzato)"
 
-#: bin/mudur.py:554
+#: bin/mudur.py:555
 msgid "Checking root filesystem"
 msgstr "Controllo del filesystem di root"
 
-#: bin/mudur.py:559
+#: bin/mudur.py:560
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Filesystem riparato, ma è necessario riavviare!"
 
-#: bin/mudur.py:563
+#: bin/mudur.py:564
 msgid "Rebooting in 10 seconds ..."
 msgstr "Riavvio in 10 secondi..."
 
-#: bin/mudur.py:565
+#: bin/mudur.py:566
 msgid "Rebooting..."
 msgstr "Riavvio in corso..."
 
-#: bin/mudur.py:568
+#: bin/mudur.py:569
 msgid "Filesystem couldn't be fixed :("
 msgstr "Impossibile riparare il filesystem :("
 
-#: bin/mudur.py:571
+#: bin/mudur.py:572
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Controllo del filesystem di root saltato (fstab's passno == 0)"
 
-#: bin/mudur.py:573
+#: bin/mudur.py:574
 msgid "Remounting root filesystem read/write"
 msgstr "Rimontaggio del filesystem di root in lettura/scrittura"
 
-#: bin/mudur.py:575
+#: bin/mudur.py:576
 msgid "Root filesystem could not be mounted read/write :("
 msgstr "Impossibile montare il filesystem di root in lettura/scrittura"
 
-#: bin/mudur.py:618
+#: bin/mudur.py:619
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Impostazione del nome dell'host a '%s'"
 
-#: bin/mudur.py:635
+#: bin/mudur.py:636
 msgid "Calculating module dependencies"
 msgstr "Calcolo delle dipendenze dei moduli"
 
-#: bin/mudur.py:651
+#: bin/mudur.py:652
 msgid "Checking all filesystems"
 msgstr "Controllo di tutti i filesystem"
 
-#: bin/mudur.py:656
+#: bin/mudur.py:657
 msgid "Filesystem errors corrected"
 msgstr "Errori del filesystem corretti"
 
-#: bin/mudur.py:658
+#: bin/mudur.py:659
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 "Fsck non è riuscito a correggere tutti gli errori, è necessaria una "
 "riparazione manuale"
 
-#: bin/mudur.py:671
+#: bin/mudur.py:672
 msgid "Mounting USB filesystem"
 msgstr "Montaggio filesystem USB"
 
-#: bin/mudur.py:677
+#: bin/mudur.py:678
 msgid "Mounting local filesystems"
 msgstr "Montaggio dei filesystem locali"
 
-#: bin/mudur.py:680
+#: bin/mudur.py:681
 msgid "Activating swap"
 msgstr "Attivazione swap"
 
-#: bin/mudur.py:696
+#: bin/mudur.py:697
 #, fuzzy
 msgid "Starting portmap service for NFS"
 msgstr "Avvio dei servizi"
 
-#: bin/mudur.py:699
+#: bin/mudur.py:700
 #, fuzzy
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Rimontaggio del filesystem di root in sola lettura"
 
-#: bin/mudur.py:713
+#: bin/mudur.py:714
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
 msgstr ""
 
-#: bin/mudur.py:726
+#: bin/mudur.py:727
 msgid "Setting disk parameters"
 msgstr "Impostazione dei parametri del disco"
 
-#: bin/mudur.py:745
+#: bin/mudur.py:746
 msgid "Setting system clock to hardware clock"
 msgstr "Impostazione dell'orologio di sistema al valore dell'orologio hardware"
 
-#: bin/mudur.py:759
+#: bin/mudur.py:760
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr ""
 "Correzione dello scostamento automatico  dell'orologio hardware fallita"
 
-#: bin/mudur.py:763
+#: bin/mudur.py:764
 msgid "Failed to set system clock to hardware clock"
 msgstr ""
 "Impossibile impostare l'orologio di sistema al valore dell'orologio hardware"
 
-#: bin/mudur.py:766
+#: bin/mudur.py:767
 msgid "Cleaning up /var"
 msgstr "Svuotamento di /var"
 
-#: bin/mudur.py:773
+#: bin/mudur.py:774
 msgid "Cleaning up /tmp"
 msgstr "Svuotamento di /tmp"
 
-#: bin/mudur.py:821
+#: bin/mudur.py:822
 msgid "Syncing system clock to hardware clock"
 msgstr ""
 "Sincronizzazione dell'orologio di sistema al valore dell'orologio hardware"
 
-#: bin/mudur.py:824
+#: bin/mudur.py:825
 msgid "Failed to sync clocks"
 msgstr "Errore nella sincronizzazione degli orologi"
 
-#: bin/mudur.py:836
+#: bin/mudur.py:837
 msgid "Deactivating swap"
 msgstr "Disattivazione swap"
 
-#: bin/mudur.py:857
+#: bin/mudur.py:858
 msgid "Unmounting filesystems"
 msgstr "Smontaggio dei filesystem"
 
-#: bin/mudur.py:889
+#: bin/mudur.py:890
 msgid "Remounting remaining filesystems readonly"
 msgstr "Rimontaggio dei filesystem rimanenti in sola lettura"
 
-#: bin/mudur.py:903
+#: bin/mudur.py:904
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -214,25 +214,29 @@ msgstr ""
 "C'è stato un errore interno. Segnala per piacere un bug su bugs.pardus.org."
 "tr fornendo le seguenti informazioni:"
 
-#: bin/mudur.py:950
+#: bin/mudur.py:951
 msgid "Mounting /sys"
 msgstr "Montaggio /sys"
 
-#: bin/mudur.py:955
+#: bin/mudur.py:956
 msgid "Mounting /dev/pts"
 msgstr "Montaggio /dev/pts"
 
-#: bin/mudur.py:966
+#: bin/mudur.py:967
 msgid "Starting Coldplug"
 msgstr "Avvio Coldplug"
 
-#: bin/mudur.py:991
+#: bin/mudur.py:992
 msgid "Setting up localhost"
 msgstr "Impostazione localhost"
 
-#: bin/mudur.py:1001
+#: bin/mudur.py:1002
 msgid "Updating environment variables"
 msgstr "Aggiornamento delle variabili di sistema"
+
+#: bin/mudur.py:1038
+msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
+msgstr ""
 
 #: bin/service.py:33
 msgid "You dont have permission to do this operation."
