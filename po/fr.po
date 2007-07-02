@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-26 17:29+0300\n"
-"PO-Revision-Date: 2007-06-05 00:23+0200\n"
+"PO-Revision-Date: 2007-07-02 15:54+0200\n"
 "Last-Translator: Amine Chadly <amine.chadly@gmail.com>\n"
 "Language-Team: french <pardus-translators@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "Impossible de trouver le fichier /etc/pardus-release"
 #: bin/mudur.py:423
 #, python-format
 msgid "Could not set unicode mode on tty %d"
-msgstr "Impossible d'établire le mode unicode sur le terminal (tty) %d"
+msgstr "Impossible d'établir le mode unicode sur le terminal (tty) %d"
 
 #: bin/mudur.py:439
 msgid "Starting COMAR"
@@ -39,12 +39,11 @@ msgstr "Démarrage des services"
 
 #: bin/mudur.py:457
 msgid "Cannot connect to COMAR, services won't be started"
-msgstr ""
-"Impossible de se connecter à COMAR, les services ne seront pas démarrés"
+msgstr "Impossible de se connecter à COMAR, les services ne seront pas démarrés"
 
 #: bin/mudur.py:462
 msgid "Cannot start system logger"
-msgstr "Impossible de démarrer l'archiveur du système"
+msgstr "Impossible de démarrer le système d'archivage du système"
 
 #: bin/mudur.py:474
 msgid "Stopping services"
@@ -76,8 +75,7 @@ msgstr "Remontage du système de ficher racine (root) en lecture seule"
 
 #: bin/mudur.py:552
 msgid "Checking root filesystem (full check forced)"
-msgstr ""
-"Vérification du système de fichier racine (vérification complète forcée)"
+msgstr "Vérification du système de fichier racine (vérification complète forcée)"
 
 #: bin/mudur.py:555
 msgid "Checking root filesystem"
@@ -111,8 +109,7 @@ msgstr "Remontage du système de fichier racine en lecture/écriture"
 
 #: bin/mudur.py:576
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
+msgstr "Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
 
 #: bin/mudur.py:619
 #, python-format
@@ -125,11 +122,11 @@ msgstr "Calcul des dépendances des modules"
 
 #: bin/mudur.py:652
 msgid "Checking all filesystems"
-msgstr "Vérification de tous les sytèmes de fichier"
+msgstr "Vérification de tous les systèmes de fichier"
 
 #: bin/mudur.py:657
 msgid "Filesystem errors corrected"
-msgstr "Erreurs des sytèmes de fichier corrigées"
+msgstr "Erreurs des systèmes de fichier corrigées"
 
 #: bin/mudur.py:659
 msgid "Fsck could not correct all errors, manual repair needed"
@@ -143,7 +140,7 @@ msgstr "Montage du système de fichier USB"
 
 #: bin/mudur.py:678
 msgid "Mounting local filesystems"
-msgstr "Montage des sytèmes de fichier locaux"
+msgstr "Montage des systèmes de fichier locaux"
 
 #: bin/mudur.py:681
 msgid "Activating swap"
@@ -155,8 +152,7 @@ msgstr "Démarrage du service portmap pour NFS"
 
 #: bin/mudur.py:700
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr ""
-"Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
+msgstr "Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
 
 #: bin/mudur.py:714
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
@@ -174,8 +170,7 @@ msgstr "Établissement de l'horloge système à l'heure du matériel"
 
 #: bin/mudur.py:760
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Échec de l'ajustement du décalage systématique de l'horloge du matériel."
+msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
 #: bin/mudur.py:764
 msgid "Failed to set system clock to hardware clock"
@@ -239,7 +234,7 @@ msgstr "Mise à jour des variables d'environnement"
 
 #: bin/mudur.py:1038
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
+msgstr "Tente d'initier un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
 
 #: bin/service.py:33
 msgid "You dont have permission to do this operation."
@@ -305,7 +300,7 @@ msgstr "Le service Comar est en cours d'exécution."
 #: bin/service.py:168
 msgid "You should be the root user in order to control the comar service."
 msgstr ""
-"Vous devez être connecté en tant qu'administrateur (root) pour pouvoir "
+"Vous devez être connecté en administrateur (root) pour pouvoir "
 "contrôler le service comar"
 
 #: bin/service.py:212
@@ -316,7 +311,7 @@ msgstr "Service '%s' démarré."
 #: bin/service.py:214
 #, python-format
 msgid "Service '%s' stopped."
-msgstr "Service '%s' demarré."
+msgstr "Service '%s' arrêté."
 
 #: bin/service.py:232
 #, python-format
@@ -382,7 +377,7 @@ msgstr "Sélectionner un type de connexion :"
 #: bin/network.py:244
 #, python-format
 msgid "Device '%s' selected."
-msgstr "Périphérique '%s' demarré."
+msgstr "Périphérique '%s' sélectionné."
 
 #: bin/network.py:246
 msgid "Select connection device:"
@@ -437,3 +432,4 @@ msgstr ""
 " create        Crée une nouvelle connexion\n"
 " up          Établit la connexion donnée\n"
 " down        Déconnecte la connexion donnée"
+
