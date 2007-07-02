@@ -15,7 +15,7 @@ import glob
 import shutil
 import parser
 
-version = "1.16"
+version = "1.17"
 
 distfiles = """
     setup.py
