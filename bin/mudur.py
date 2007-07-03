@@ -550,10 +550,10 @@ def checkRoot():
         if config.get("forcefsck") or (len(ent) > 5 and ent[5] != "0"):
             if config.get("forcefsck"):
                 ui.info(_("Checking root filesystem (full check forced)"))
-                t = os.system("LC_ALL=C /sbin/fsck -C -a -f /")
+                t = os.system("/sbin/fsck -C -a -f /")
             else:
                 ui.info(_("Checking root filesystem"))
-                t = os.system("LC_ALL=C /sbin/fsck -C -T -a /")
+                t = os.system("/sbin/fsck -C -T -a /")
             if t == 0:
                 pass
             elif t == 2 or t == 3:
@@ -650,7 +650,7 @@ def checkFS():
         return
     
     ui.info(_("Checking all filesystems"))
-    t = os.system("LC_ALL=C /sbin/fsck -C -T -R -A -a")
+    t = os.system("/sbin/fsck -C -T -R -A -a")
     if t == 0:
         pass
     elif t >= 2 and t <= 3:
