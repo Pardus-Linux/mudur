@@ -551,6 +551,8 @@ def checkRoot():
             if config.get("forcefsck"):
                 ui.info(_("Checking root filesystem (full check forced)"))
                 t = os.system("/sbin/fsck -C -a -f /")
+                # /forcefsck isn't deleted because checkFS needs it.
+                # it'll be deleted in that function.
             else:
                 ui.info(_("Checking root filesystem"))
                 t = os.system("/sbin/fsck -C -T -a /")
@@ -650,7 +652,15 @@ def checkFS():
         return
     
     ui.info(_("Checking all filesystems"))
-    t = os.system("/sbin/fsck -C -T -R -A -a")
+
+    if config.get("forcefsck"):
+        ui.info(_("A full fsck has been forced"))
+        t = os.system("/sbin/fsck -C -R -A -a -f")
+        # remove forcefsck file
+        os.unlink("/forcefsck")
+    else:
+        t = os.system("/sbin/fsck -C -T -R -A -a")
+
     if t == 0:
         pass
     elif t >= 2 and t <= 3:
