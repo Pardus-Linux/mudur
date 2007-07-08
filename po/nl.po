@@ -6,15 +6,15 @@
 #
 # Willem Gielen <w.gielen@gmail.com>, 2006, 2007.
 # Rinse de Vries <RinseDeVries@home.nl>, 2006.
-# W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2006.
+# W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-26 17:29+0300\n"
-"PO-Revision-Date: 2007-06-03 21:07+0200\n"
-"Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
-"Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
+"PO-Revision-Date: 2007-07-08 18:45+0200\n"
+"Last-Translator: W.P.M.H.I.A. Gielen <w.gielen@gmail.com>\n"
+"Language-Team: Nederlands <http://liste.pardus.org.tr/pardus-translation-nl/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,8 +111,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:576
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:619
 #, python-format
@@ -133,12 +132,11 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:659
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:672
 msgid "Mounting USB filesystem"
-msgstr "Aankoppelen USB-bestandssysteem"
+msgstr "Aankoppelen USB bestandssysteem"
 
 #: bin/mudur.py:678
 msgid "Mounting local filesystems"
@@ -149,18 +147,16 @@ msgid "Activating swap"
 msgstr "Activeren swap"
 
 #: bin/mudur.py:697
-#, fuzzy
 msgid "Starting portmap service for NFS"
-msgstr "Opstarten diensten"
+msgstr "Starten poortmap dienst voor NFS"
 
 #: bin/mudur.py:700
-#, fuzzy
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr "Opnieuw aankoppelen hoofdbestandsysteem als alleen-lezen"
+msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:714
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:727
 msgid "Setting disk parameters"
@@ -236,7 +232,7 @@ msgstr "Bijwerken omgevingsvariabelen"
 
 #: bin/mudur.py:1038
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
+msgstr "Probeer een warme herstart (BIOS overslaan met kexec kernel)"
 
 #: bin/service.py:33
 msgid "You dont have permission to do this operation."
@@ -431,3 +427,4 @@ msgstr ""
 " create       Maak een nieuwe verbinding\n"
 " up           Opgegeven verbinding verbinden\n"
 " down         Opgegeven verbinding verbreken"
+
