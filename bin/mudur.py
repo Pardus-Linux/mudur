@@ -341,6 +341,7 @@ class Language:
 
 languages = {
     "en": Language("us", "iso01.16", "8859-1", "en_US.UTF-8"),
+    "pl": Language("pl", "iso02.16", "8859-2", "pl_PL.UTF-8"),
     "tr": Language("trq", "lat5u-16", "8859-9", "tr_TR.UTF-8"),
     "nl": Language("nl", "iso01.16", "8859-1", "nl_NL.UTF-8"),
     "de": Language("de", "iso01.16", "8859-1", "de_DE.UTF-8"),
