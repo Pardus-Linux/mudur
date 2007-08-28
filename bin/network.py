@@ -404,19 +404,26 @@ def deleteWizard(args):
 
 def infoProfile (args):
     """ Prints detailed information about a given profile """
-    profile_name=args[0]
+    if ( len(args) != 1 ):
+        profile_name = raw_input('%s -> ' % _("Enter name of profile"))
+    else:
+        profile_name=args[0]
     
     com = comar.Link()
     com.localize()    
     com.Net.Link.connectionInfo(name=profile_name)
     
-    global profile
+    global found
+    found = False
     for reply in collect(com):
         if reply.command == "result":
-            profile2 = Profile(reply.script, profile_name)
-            profile = profile2
+            found = True
+            profile = Profile(reply.script, profile_name)
             profile.parse( reply.data )
-    profile.print_info()
+            profile.print_info()
+    if ( not found ) :
+        print _("No such profile")
+    
    
 def usage(args=None):
     """ Prints 'network' script usage """
