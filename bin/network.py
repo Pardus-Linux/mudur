@@ -25,7 +25,7 @@ def input_number(max_no):
     """ Checks limits of read input from command line -any excess will cause warning- """
     input = int(raw_input('->'))
     while ( input > max_no or input <= 0 ) :
-        print "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )" % max_no
+        print _("Limit excess, please enter a valid number: ( interval: 0 < entry < %s )") % max_no
         input = int(raw_input('->'))
     return input
 
@@ -42,10 +42,19 @@ def collect(c):
     else:
         return [reply]
 
+class AuthenticationMode :
+    def __init__ (self,data):
+        list = data.split(",")
+        self.identifier = list[0]
+        self.type = list[1]
+        self.name = list[2]
+
+
 class Link:
-    """ Link class: possible attributes : name, modes, type, remote_name """
+    """ Link class: possible attributes : name, modes, type, remote_name , auth"""
     def __init__(self, data):
         """ reads attributes' values from input text -read command's data fielad, generally from comar-"""
+        self.auth_modes = []
         for line in data.split("\n"):
             key, value = line.split("=", 1)
             if key == "name":
@@ -56,7 +65,14 @@ class Link:
                 self.type = value
             elif key == "remote_name":
                 self.remote_name = value
-
+            elif key == "auth_modes":
+                self.parse(value)
+    def parse(self,data):                    #parser for authentication modes
+        """                """
+        for line in data.split(";"):                #related authentication mode objects are created and added to auth_modes list
+            mode = AuthenticationMode(line)      
+            self.auth_modes.append(mode)
+        
 class Device:
     """ Device class : attributes : script, uid, name """
     def __init__(self, script, data):
@@ -108,24 +124,24 @@ class Profile:
     
     def print_info (self):
         """ Prints object's attributes and their values """
-        print _("Connection Name : %s " % self.name)
-        print _("Status          : %s " % self.get_state())
-        print _("Adress          : %s " % self.get_address())
+        print _("Connection Name : %s ") % self.name
+        print _("Status          : %s ") % self.get_state()
+        print _("Adress          : %s ") % self.get_address()
  
         if(self.devname):
-            print _("Device Name     : %s " % self.devname)
+            print _("Device Name     : %s ") % self.devname
         if (self.devid):
-            print _("Device Id       : %s " % self.devid)
+            print _("Device Id       : %s ") % self.devid
         if(self.mask):
-            print _("Mask            : %s " % self.mask)
+            print _("Mask            : %s ") % self.mask
         if(self.gateway):
-            print _("Gateway         : %s " % self.gateway)
+            print _("Gateway         : %s ") % self.gateway
         if(self.netmode):
-            print _("Netmode         : %s " % self.netmode)
+            print _("Netmode         : %s ") % self.netmode
         if(self.namemode):
-            print _("Namemode        : %s " % self.namemode)
+            print _("Namemode        : %s ") % self.namemode
         if (self.remote):                     
-            print _("Remote          : %s " % self.remote)
+            print _("Remote          : %s ") % self.remote
             
     def get_state(self):
         """ Returns state of profile """
@@ -170,6 +186,16 @@ def queryLinks(com):
     links = {}
     for rep in collect(com):                # reads scrip-data values ( by collect method ) and stores them in dictionary
         links[rep.script] = Link(rep.data)
+        
+        ################# TEST code for parsing operations of Link authentication properties ###########################
+        
+        if (links[rep.script].auth_modes):
+            print "\nAuthentication mode properties for % s" % links[rep.script].name
+            for item in links[rep.script].auth_modes :
+                line = "identifier:" + item.identifier + "\t type: "+ item.type + "\t name: "+item.name
+                print line
+        ################################################################################################################
+    print    
     return links
 
 def queryDevices(com):
@@ -375,7 +401,30 @@ def createWizard(args):
             gateway = raw_input('%s -> ' % _("Gateway"))
     
     # Authentication
-    # FIXME: ask???????
+    if (link.auth_modes):
+
+        i = 1
+        print _("Choose authentication type:")
+        for mode in link.auth_modes:
+            print "%s -> %s" % ( i,mode.name)
+            i += 1
+            
+        mode_no = raw_input("->")
+        mode_no = int(mode_no)
+        while ( mode_no > len (link.auth_modes) or  mode_no < 0  ) :
+            print _("Please enter a valid authentication type id ")
+            mode_no = int (raw_input("-> "))
+        
+        chosen_mode = link.auth_modes [mode_no-1]
+        
+        if (chosen_mode.type == "pass" ):
+            password = raw_input('%s -> ' % _("Enter password "))
+        elif (chosen_mode.type == "login") :
+            user_name = raw_input('%s -> ' % _("Enter user name "))
+            password = raw_input('%s -> ' % _("Enter password "))
+             
+        ###script_object.setAuthentication(chosen_mode.identifier???, user_name, password, key???  ) ?????????????????
+      
     
     # Create profile
     script_object.setConnection(name=conn_name, device=device.uid)
@@ -393,16 +442,15 @@ def deleteWizard(args):
         print _("Profiles :")
         profile_names_list = listProfiles(args)
         profile_name = raw_input('%s -> ' % _("Name of profile to delete "))
-    else:                 
-        profile_name=args[0]
+        while ( not ( profile_names_list.__contains__(profile_name) )):
+            print _("Please enter a valid profile name ")
+            profile_name = raw_input()
+    else:                                     
+        profile_name=args[0]##
         i = 1
         while ( i!= len(args)):                 # for profiles that has names having more than one word
             name = name + " "+ args[i]
-            i += 1
-    
-    while ( not ( profile_names_list.__contains__(profile_name) )):
-            print _("Please enter a valid profile name ")
-            profile_name = raw_input()
+            i += 1                               ### gecerli profil kontrolu burada da yaplmal.......###
     
     com = comar.Link()
     com.localize()
@@ -425,7 +473,7 @@ def infoProfile (args):
     com = comar.Link()
     com.localize()    
     com.Net.Link.connectionInfo(name=profile_name)
-    
+    deneme_link = Link()
     global found
     found = False
     for reply in collect(com):
