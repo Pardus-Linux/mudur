@@ -73,11 +73,11 @@ class Profile:
         self.address = ""
         self.devname=""
         self.devid=""
-        self.mode =""
-        self.namemode ="" 
+        self.netmode =""                  
+        self.namemode =""                 
         self.mask=""                      # special attribute for ethernet
         self.gateway=""                   # special attribute for ethernet                         
-        self.remote=""                    # special attribute for dial up
+        self.remote=""                    # special attribute for dial up&wireless
         
     def parse(self, data):
         """ Adds attributes if their value exists : 'devname','devid','state' and/or 'current','mode','address','mask','gateaway'
@@ -94,7 +94,7 @@ class Profile:
                 if " " in value:
                     self.state, self.current = value.split(" ", 1)
             elif key == "net_mode":
-                self.mode = value
+                self.netmode = value
             elif key == "net_address":
                 self.address = value
             elif key == "net_mask":                             
@@ -116,12 +116,12 @@ class Profile:
             print _("Device Name     : %s " % self.devname)
         if (self.devid):
             print _("Device Id       : %s " % self.devid)
-        if(self.mode):
-            print _("Mode            : %s " % self.mode)
         if(self.mask):
             print _("Mask            : %s " % self.mask)
         if(self.gateway):
             print _("Gateway         : %s " % self.gateway)
+        if(self.netmode):
+            print _("Netmode         : %s " % self.netmode)
         if(self.namemode):
             print _("Namemode        : %s " % self.namemode)
         if (self.remote):                     
@@ -255,11 +255,15 @@ def listProfiles(args=None):
 
 def upProfile(args):
     """ Changes status of given named profile to 'up'"""
-    if len(args) != 1:
+    if len(args) == 0:
         usage()
         return
-    name = args[0]
-    
+    else:                  
+        name=args[0]
+        i = 1
+        while ( i!= len(args)):                 # for profiles that has names having more than one word
+            name = name + " "+ args[i]
+            i += 1
     com = comar.Link()                          #communicating with comar deamon
     com.localize()                              #set language for translated replies
     com.Net.Link.connectionInfo(name=name)      #get connection info from comar deamon
@@ -269,11 +273,15 @@ def upProfile(args):
 
 def downProfile(args):
     """ Changes status of given named profile to 'down'"""
-    if len(args) != 1:
+    if len(args) == 0:
         usage()
         return
-    name = args[0]
-    
+    else:                  
+        name=args[0]
+        i = 1
+        while ( i!= len(args)):                 # for profiles that has names having more than one word
+            name = name + " "+ args[i]
+            i += 1
     com = comar.Link()                          #communicating with comar deamon
     com.localize()                              #set language for translated replies
     com.Net.Link.connectionInfo(name=name)      #get connection info from comar deamon
@@ -381,15 +389,16 @@ def createWizard(args):
 
 def deleteWizard(args):
     """ Deletes a given/chosen profile """
-    if ( len(args)!=1 and len(args)!= 0):
-        usage()
-        return
-    elif len(args)== 0:
+    if len(args)== 0:
         print _("Profiles :")
         profile_names_list = listProfiles(args)
         profile_name = raw_input('%s -> ' % _("Name of profile to delete "))
-    else:
-        profile_name = args[0]
+    else:                 
+        profile_name=args[0]
+        i = 1
+        while ( i!= len(args)):                 # for profiles that has names having more than one word
+            name = name + " "+ args[i]
+            i += 1
     
     while ( not ( profile_names_list.__contains__(profile_name) )):
             print _("Please enter a valid profile name ")
@@ -404,11 +413,15 @@ def deleteWizard(args):
 
 def infoProfile (args):
     """ Prints detailed information about a given profile """
-    if ( len(args) != 1 ):
+    profile_name = ""
+    if ( len(args) == 0 ):
         profile_name = raw_input('%s -> ' % _("Enter name of profile"))
-    else:
+    else:                 
         profile_name=args[0]
-    
+        i = 1                            # for profiles that has names having more than one word
+        while ( i!= len(args)):
+            profile_name = profile_name + " "+ args[i]
+            i += 1
     com = comar.Link()
     com.localize()    
     com.Net.Link.connectionInfo(name=profile_name)
