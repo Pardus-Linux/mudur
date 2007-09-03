@@ -24,7 +24,7 @@ _ = __trans.ugettext
 def input_number(max_no):
     """ Checks limits of read input from command line -any excess will cause warning- """
     input = int(raw_input('->'))
-    while ( input > max_no or input <= 0 ) :
+    while ( input >= max_no or input <= 0 ) :
         print _("Limit excess, please enter a valid number: ( interval: 0 < entry < %s )") % max_no
         input = int(raw_input('->'))
     return input
@@ -43,12 +43,12 @@ def collect(c):
         return [reply]
 
 class AuthenticationMode :
+    """ Authentication Mode : identifier: used when calling methods, type: specifies login options, name: readable name for users """
     def __init__ (self,data):
         list = data.split(",")
         self.identifier = list[0]
         self.type = list[1]
         self.name = list[2]
-
 
 class Link:
     """ Link class: possible attributes : name, modes, type, remote_name , auth"""
@@ -67,10 +67,10 @@ class Link:
                 self.remote_name = value
             elif key == "auth_modes":
                 self.parse(value)
-    def parse(self,data):                    #parser for authentication modes
-        """                """
-        for line in data.split(";"):                #related authentication mode objects are created and added to auth_modes list
-            mode = AuthenticationMode(line)      
+    def parse(self,data):                    
+        """ Parser for reading avaible authentication modes for current Link """
+        for line in data.split(";"):                
+            mode = AuthenticationMode(line)     #related authentication mode objects are created and added to auth_modes list   
             self.auth_modes.append(mode)
         
 class Device:
@@ -188,11 +188,10 @@ def queryLinks(com):
         links[rep.script] = Link(rep.data)
         
         ################# TEST code for parsing operations of Link authentication properties ###########################
-        
         if (links[rep.script].auth_modes):
-            print "\nAuthentication mode properties for % s" % links[rep.script].name
+            print "\nAuthentication mode properties for % s \n" % links[rep.script].name
             for item in links[rep.script].auth_modes :
-                line = "identifier:" + item.identifier + "\t type: "+ item.type + "\t name: "+item.name
+                line = "identifier: " + item.identifier.ljust(15) + "type: "+ item.type + "\t name: "+item.name
                 print line
         ################################################################################################################
     print    
@@ -303,11 +302,7 @@ def downProfile(args):
         usage()
         return
     else:                  
-        name=args[0]
-        i = 1
-        while ( i!= len(args)):                 # for profiles that has names having more than one word
-            name = name + " "+ args[i]
-            i += 1
+        name=" ".join(args)
     com = comar.Link()                          #communicating with comar deamon
     com.localize()                              #set language for translated replies
     com.Net.Link.connectionInfo(name=name)      #get connection info from comar deamon
@@ -327,7 +322,7 @@ def createWizard(args):
     print _("Select connection type:")
     for i, link in enumerate(links.values()):
         print "%2d." % (i + 1), link.name
-    s = input_number(len(links.values()))
+    s = input_number(len(links.values())+1)
     
     link = links.values()[s-1]
     script = links.keys()[s-1]
@@ -350,10 +345,12 @@ def createWizard(args):
         print _("Select connection device:")
         for i, dev in enumerate(devs):
             print "%2d." % (i + 1), dev.name
-        s = input_number(len(devs))
+        s = input_number(len(devs)+1)
         device = devs[s-1]
     
     # Remote point
+    global selected_auth_type
+    selected_auth_type = None
     if "remote" in link.modes:
         print
         print link.remote_name
@@ -365,7 +362,7 @@ def createWizard(args):
                 if remotes:
                     for i, remote in enumerate(remotes):
                         print "%2d." % (i + 3), str(remote)
-                s = input_number(len(remotes))
+                s = int( raw_input('->') )
                 if s == 1:
                     remote = raw_input('%s -> ' % link.remote_name)
                     break
@@ -380,6 +377,7 @@ def createWizard(args):
                     print link.remote_name
                 else:
                     remote = remotes[s-3].remote
+                    selected_auth_type = remotes[s-3].encryption
                     break
         else:
             remote = raw_input('-> ')
@@ -392,7 +390,7 @@ def createWizard(args):
         if "auto" in link.modes:
             print " 1. %s" % _("Automatic query (DHCP)")
             print " 2. %s" % _("Manual configuration")
-            s = input_number(2)
+            s = input_number(3)
             if s == 1:
                 is_auto = True
         if not is_auto:
@@ -400,31 +398,28 @@ def createWizard(args):
             mask = raw_input('%s -> ' % _("Network mask"))
             gateway = raw_input('%s -> ' % _("Gateway"))
     
-    # Authentication
-    if (link.auth_modes):
+    # Authentication settings 
+    if ( link.auth_modes ):
+        if ( selected_auth_type ):
+            chosen_mode = AuthenticationMode( selected_auth_type + ",pass,"+ selected_auth_type )
+        else:
+            i = 1
+            print _("Choose authentication type:")
+            for mode in link.auth_modes:
+                print "%s -> %s" % ( i,mode.name)
+                i += 1
+            print "%s -> No authentication" % i            
+            mode_no = input_number(i+1)
+            if (mode_no != i) :
+                chosen_mode = link.auth_modes [mode_no-1]    
+                if (chosen_mode.type == "pass" ):
+                    user_name = ""
+                    password = raw_input('%s -> ' % _("Enter password "))
+                elif (chosen_mode.type == "login") :
+                    user_name = raw_input('%s -> ' % _("Enter user name "))
+                    password = raw_input('%s -> ' % _("Enter password "))
 
-        i = 1
-        print _("Choose authentication type:")
-        for mode in link.auth_modes:
-            print "%s -> %s" % ( i,mode.name)
-            i += 1
-            
-        mode_no = raw_input("->")
-        mode_no = int(mode_no)
-        while ( mode_no > len (link.auth_modes) or  mode_no < 0  ) :
-            print _("Please enter a valid authentication type id ")
-            mode_no = int (raw_input("-> "))
-        
-        chosen_mode = link.auth_modes [mode_no-1]
-        
-        if (chosen_mode.type == "pass" ):
-            password = raw_input('%s -> ' % _("Enter password "))
-        elif (chosen_mode.type == "login") :
-            user_name = raw_input('%s -> ' % _("Enter user name "))
-            password = raw_input('%s -> ' % _("Enter password "))
-             
-        ###script_object.setAuthentication(chosen_mode.identifier???, user_name, password, key???  ) ?????????????????
-      
+                script_object.setAuthentication(name= conn_name, authmode=chosen_mode.identifier, user=user_name, password=password) 
     
     # Create profile
     script_object.setConnection(name=conn_name, device=device.uid)
@@ -446,12 +441,7 @@ def deleteWizard(args):
             print _("Please enter a valid profile name ")
             profile_name = raw_input()
     else:                                     
-        profile_name=args[0]##
-        i = 1
-        while ( i!= len(args)):                 # for profiles that has names having more than one word
-            name = name + " "+ args[i]
-            i += 1                               ### gecerli profil kontrolu burada da yaplmal.......###
-    
+        profile_name=" ".join(args)
     com = comar.Link()
     com.localize()
     com.Net.Link.connectionInfo(name=profile_name)
@@ -465,15 +455,11 @@ def infoProfile (args):
     if ( len(args) == 0 ):
         profile_name = raw_input('%s -> ' % _("Enter name of profile"))
     else:                 
-        profile_name=args[0]
-        i = 1                            # for profiles that has names having more than one word
-        while ( i!= len(args)):
-            profile_name = profile_name + " "+ args[i]
-            i += 1
+        profile_name=" ".join(args)
     com = comar.Link()
     com.localize()    
     com.Net.Link.connectionInfo(name=profile_name)
-    deneme_link = Link()
+
     global found
     found = False
     for reply in collect(com):
@@ -481,10 +467,10 @@ def infoProfile (args):
             found = True
             profile = Profile(reply.script, profile_name)
             profile.parse( reply.data )
+            print
             profile.print_info()
     if ( not found ) :
         print _("No such profile")
-    
    
 def usage(args=None):
     """ Prints 'network' script usage """
@@ -521,4 +507,4 @@ def main(args):
 if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, '')
     main(sys.argv[1:])
-#!/usr/bin/env python
+
