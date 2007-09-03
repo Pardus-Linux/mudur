@@ -23,10 +23,10 @@ _ = __trans.ugettext
 
 def input_number(max_no):
     """ Checks limits of read input from command line -any excess will cause warning- """
-    input = int(raw_input('->'))
+    input = int(raw_input('-> '))
     while ( input >= max_no or input <= 0 ) :
         print _("Limit excess, please enter a valid number: ( interval: 0 < entry < %s )") % max_no
-        input = int(raw_input('->'))
+        input = int(raw_input('-> '))
     return input
 
 def collect(c):
@@ -171,11 +171,11 @@ class Remote:
                 self.encryption = value
     
     def __str__(self):
-        if self.encryption and self.encryption != "none":     
-            txt = ">-~"
-        else:
-            txt = "   "
-        txt += " %4s %s" % ("+" * (self.quality / 25), self.remote)
+        label = self.remote
+        quality = "+" * ((self.quality / 25) + 1)
+        txt = _("Found: %s [%s]") % (label.ljust(20), quality.ljust(5))
+        if self.encryption and self.encryption != "none":
+            txt += " " + _("[encrypted]")
         return txt
 
 def queryLinks(com):
@@ -362,7 +362,7 @@ def createWizard(args):
                 if remotes:
                     for i, remote in enumerate(remotes):
                         print "%2d." % (i + 3), str(remote)
-                s = int( raw_input('->') )
+                s = int( raw_input('-> ') )
                 if s == 1:
                     remote = raw_input('%s -> ' % link.remote_name)
                     break
