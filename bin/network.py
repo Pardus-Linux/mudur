@@ -173,7 +173,7 @@ class Remote:
     def __str__(self):
         label = self.remote
         quality = "+" * ((self.quality / 25) + 1)
-        txt = _("Found: %s [%s]") % (label.ljust(20), quality.ljust(5))
+        txt = _("Found: %(essid)s [%(quality)s]") % {"essid": label.ljust(20), "quality": quality.ljust(5)}
         if self.encryption and self.encryption != "none":
             txt += " " + _("[encrypted]")
         return txt

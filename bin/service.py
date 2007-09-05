@@ -37,7 +37,7 @@ def report_error(reply):
         else:
             print _("Service doesn't provide this operation.")
     else:
-        print _("%s error: %s") % (reply.script, reply.data)
+        print _("%(script)s error: %(data)s") % {"script": reply.script, "data": reply.data)
 
 def collect(c):
     reply = c.read_cmd()
