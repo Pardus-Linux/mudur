@@ -186,7 +186,7 @@ def queryLinks(com):
     links = {}
     for rep in collect(com):                # reads scrip-data values ( by collect method ) and stores them in dictionary
         links[rep.script] = Link(rep.data)
-        
+        """
         ################# TEST code for parsing operations of Link authentication properties ###########################
         if (links[rep.script].auth_modes):
             print "\nAuthentication mode properties for % s \n" % links[rep.script].name
@@ -194,6 +194,7 @@ def queryLinks(com):
                 line = "identifier: " + item.identifier.ljust(15) + "type: "+ item.type + "\t name: "+item.name
                 print line
         ################################################################################################################
+        """
     print    
     return links
 
@@ -284,11 +285,7 @@ def upProfile(args):
         usage()
         return
     else:                  
-        name=args[0]
-        i = 1
-        while ( i!= len(args)):                 # for profiles that has names having more than one word
-            name = name + " "+ args[i]
-            i += 1
+        name=" ".join(args)                     # for profiles that has names having more than one word
     com = comar.Link()                          #communicating with comar deamon
     com.localize()                              #set language for translated replies
     com.Net.Link.connectionInfo(name=name)      #get connection info from comar deamon
@@ -302,7 +299,7 @@ def downProfile(args):
         usage()
         return
     else:                  
-        name=" ".join(args)
+        name=" ".join(args)                     # for profiles that has names having more than one word
     com = comar.Link()                          #communicating with comar deamon
     com.localize()                              #set language for translated replies
     com.Net.Link.connectionInfo(name=name)      #get connection info from comar deamon
@@ -441,7 +438,7 @@ def deleteWizard(args):
             print _("Please enter a valid profile name ")
             profile_name = raw_input()
     else:                                     
-        profile_name=" ".join(args)
+        profile_name=" ".join(args)                      # for profiles that has names having more than one word
     com = comar.Link()
     com.localize()
     com.Net.Link.connectionInfo(name=profile_name)
@@ -455,7 +452,7 @@ def infoProfile (args):
     if ( len(args) == 0 ):
         profile_name = raw_input('%s -> ' % _("Enter name of profile"))
     else:                 
-        profile_name=" ".join(args)
+        profile_name=" ".join(args)                        # for profiles that has names having more than one word
     com = comar.Link()
     com.localize()    
     com.Net.Link.connectionInfo(name=profile_name)
