@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-05 11:58+0300\n"
+"POT-Creation-Date: 2007-09-05 12:12+0300\n"
 "PO-Revision-Date: 2006-03-06 16:05+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@pardus.org.tr>\n"
 "Language-Team:  <yerellestirme@kde.org.tr>\n"
@@ -124,7 +124,7 @@ msgstr "Tüm dosya sistemleri denetleniyor"
 
 #: bin/mudur.py:658
 msgid "A full fsck has been forced"
-msgstr ""
+msgstr "Tam bir fscl işlemi zorunlu"
 
 #: bin/mudur.py:668
 msgid "Filesystem errors corrected"
@@ -249,9 +249,9 @@ msgid "Service doesn't provide this operation."
 msgstr "Servis bu işlemi desteklemiyor."
 
 #: bin/service.py:40
-#, fuzzy, python-format
+#, python-format
 msgid "%(script)s error: %(data)s"
-msgstr "%s hata verdi: %s"
+msgstr "%(script)s hata verdi: %(data)s"
 
 #: bin/service.py:58
 msgid "local"
@@ -360,7 +360,9 @@ msgstr ""
 #: bin/network.py:28
 #, python-format
 msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr "Sınır aşımı oluştu, lütfen geçerli bir numara girin: ( geçerli aralık: 0 < girilen numara < %s )"
+msgstr ""
+"Sınır aşımı oluştu, lütfen geçerli bir numara girin: ( geçerli aralık: 0 < "
+"girilen numara < %s )"
 
 #: bin/network.py:127
 #, python-format
@@ -410,7 +412,7 @@ msgstr "İsim modu       : %s "
 #: bin/network.py:144
 #, python-format
 msgid "Remote          : %s "
-msgstr " "
+msgstr "Uzaktaki Adres  : %s "
 
 #: bin/network.py:149
 msgid "Up"
@@ -421,9 +423,9 @@ msgid "Down"
 msgstr "Kapalı"
 
 #: bin/network.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "Found: %(essid)s [%(quality)s]"
-msgstr "Bulundu:"
+msgstr "Bulundu: %(essid)s [%(quality)s]"
 
 #: bin/network.py:178
 msgid "[encrypted]"
@@ -515,7 +517,6 @@ msgid "No such profile"
 msgstr "Böyle bir profil bulunmamaktadır"
 
 #: bin/network.py:474
-#, fuzzy
 msgid ""
 "usage: network <command> <arguments>\n"
 "where command is:\n"
