@@ -499,7 +499,11 @@ def main(args):
     #    for any improper command : 'usage'function-
 
     func = operations.get(args.pop(0), usage)
-    func(args)
+    try:
+        func(args)
+    except KeyboardInterrupt:
+        print
+        print _("Cancelled")
     
 if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, '')
