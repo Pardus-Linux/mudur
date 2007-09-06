@@ -124,7 +124,7 @@ msgstr "Tüm dosya sistemleri denetleniyor"
 
 #: bin/mudur.py:658
 msgid "A full fsck has been forced"
-msgstr "Tam bir fscl işlemi zorunlu"
+msgstr "Tam bir fsck işlemi zorunlu"
 
 #: bin/mudur.py:668
 msgid "Filesystem errors corrected"
