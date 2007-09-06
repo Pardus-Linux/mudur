@@ -21,12 +21,24 @@ __trans = gettext.translation('mudur', fallback=True)
 _ = __trans.ugettext
 
 
+def str2int(input):
+    """ Error tolerant string to integer conversion function. """
+    nums = []
+    for char in input:
+        if not char.isdigit():
+            break
+        nums.append(char)
+    if nums:
+        return int("".join(nums))
+    else:
+        return 0
+
 def input_number(max_no):
     """ Checks limits of read input from command line -any excess will cause warning- """
-    input = int(raw_input('-> '))
+    input = str2int(raw_input('-> '))
     while ( input >= max_no or input <= 0 ) :
         print _("Limit excess, please enter a valid number: ( interval: 0 < entry < %s )") % max_no
-        input = int(raw_input('-> '))
+        input = str2int(raw_input('-> '))
     return input
 
 def collect(c):
