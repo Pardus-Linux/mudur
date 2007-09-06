@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-05 11:58+0300\n"
+"POT-Creation-Date: 2007-09-06 09:42+0300\n"
 "PO-Revision-Date: 2007-02-19 22:23-0300\n"
 "Last-Translator: Pedro Leite <pedro.leite@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <http://liste.uludag.org.tr/mailman/"
@@ -359,164 +359,164 @@ msgstr ""
 "e a opção é:\n"
 " -N, --no-color  Não usar cor na saída"
 
-#: bin/network.py:28
+#: bin/network.py:40
 #, python-format
 msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
 msgstr ""
 
-#: bin/network.py:127
+#: bin/network.py:139
 #, python-format
 msgid "Connection Name : %s "
 msgstr ""
 
-#: bin/network.py:128
+#: bin/network.py:140
 #, python-format
 msgid "Status          : %s "
 msgstr ""
 
-#: bin/network.py:129
+#: bin/network.py:141
 #, python-format
 msgid "Adress          : %s "
 msgstr ""
 
-#: bin/network.py:132
+#: bin/network.py:144
 #, python-format
 msgid "Device Name     : %s "
 msgstr ""
 
-#: bin/network.py:134
+#: bin/network.py:146
 #, python-format
 msgid "Device Id       : %s "
 msgstr ""
 
-#: bin/network.py:136
+#: bin/network.py:148
 #, python-format
 msgid "Mask            : %s "
 msgstr ""
 
-#: bin/network.py:138
+#: bin/network.py:150
 #, python-format
 msgid "Gateway         : %s "
 msgstr ""
 
-#: bin/network.py:140
+#: bin/network.py:152
 #, python-format
 msgid "Netmode         : %s "
 msgstr ""
 
-#: bin/network.py:142
+#: bin/network.py:154
 #, python-format
 msgid "Namemode        : %s "
 msgstr ""
 
-#: bin/network.py:144
+#: bin/network.py:156
 #, python-format
 msgid "Remote          : %s "
 msgstr ""
 
-#: bin/network.py:149
+#: bin/network.py:161
 msgid "Up"
 msgstr ""
 
-#: bin/network.py:150
+#: bin/network.py:162
 msgid "Down"
 msgstr ""
 
-#: bin/network.py:176
+#: bin/network.py:188
 #, python-format
 msgid "Found: %(essid)s [%(quality)s]"
 msgstr ""
 
-#: bin/network.py:178
+#: bin/network.py:190
 msgid "[encrypted]"
 msgstr ""
 
-#: bin/network.py:315
+#: bin/network.py:327
 msgid "Enter new connection name"
 msgstr ""
 
-#: bin/network.py:319
+#: bin/network.py:331
 msgid "Select connection type:"
 msgstr ""
 
-#: bin/network.py:337
+#: bin/network.py:349
 #, fuzzy, python-format
 msgid "Device '%s' selected."
 msgstr "Serviço '%s' parado."
 
-#: bin/network.py:339
+#: bin/network.py:351
 msgid "No avaible device for this type of connection"
 msgstr ""
 
-#: bin/network.py:342
+#: bin/network.py:354
 msgid "Select connection device:"
 msgstr ""
 
-#: bin/network.py:357
+#: bin/network.py:369
 msgid "Enter manually"
 msgstr ""
 
-#: bin/network.py:358
+#: bin/network.py:370
 msgid "Scan"
 msgstr ""
 
-#: bin/network.py:385
+#: bin/network.py:397
 msgid "Network settings:"
 msgstr ""
 
-#: bin/network.py:388
+#: bin/network.py:400
 msgid "Automatic query (DHCP)"
 msgstr ""
 
-#: bin/network.py:389
+#: bin/network.py:401
 msgid "Manual configuration"
 msgstr ""
 
-#: bin/network.py:394
+#: bin/network.py:406
 msgid "IP Address"
 msgstr ""
 
-#: bin/network.py:395
+#: bin/network.py:407
 msgid "Network mask"
 msgstr ""
 
-#: bin/network.py:396
+#: bin/network.py:408
 msgid "Gateway"
 msgstr ""
 
-#: bin/network.py:404
+#: bin/network.py:416
 msgid "Choose authentication type:"
 msgstr ""
 
-#: bin/network.py:414 bin/network.py:417
+#: bin/network.py:426 bin/network.py:429
 msgid "Enter password "
 msgstr ""
 
-#: bin/network.py:416
+#: bin/network.py:428
 msgid "Enter user name "
 msgstr ""
 
-#: bin/network.py:434
+#: bin/network.py:446
 msgid "Profiles :"
 msgstr ""
 
-#: bin/network.py:436
+#: bin/network.py:448
 msgid "Name of profile to delete "
 msgstr ""
 
-#: bin/network.py:438
+#: bin/network.py:450
 msgid "Please enter a valid profile name "
 msgstr ""
 
-#: bin/network.py:453
+#: bin/network.py:465
 msgid "Enter name of profile"
 msgstr ""
 
-#: bin/network.py:470
+#: bin/network.py:482
 msgid "No such profile"
 msgstr ""
 
-#: bin/network.py:474
+#: bin/network.py:486
 msgid ""
 "usage: network <command> <arguments>\n"
 "where command is:\n"
@@ -527,4 +527,8 @@ msgid ""
 " delete       Delete a connection\n"
 " up           Connect given connection\n"
 " down         Disconnect given connection"
+msgstr ""
+
+#: bin/network.py:518
+msgid "Cancelled"
 msgstr ""
