@@ -169,6 +169,8 @@ class Fstab:
             file_system = "vfat"
         if file_system == "ntfs":
             file_system = "ntfs-3g"
+        if file_system == "hfs+":
+            file_system = "hfsplus"
 
         options = default_options.get(file_system, None)
         if not options:
