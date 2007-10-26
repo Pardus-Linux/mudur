@@ -12,9 +12,9 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-06 09:42+0300\n"
-"PO-Revision-Date: 2007-09-06 19:18+0200\n"
-"Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
-"Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
+"PO-Revision-Date: 2007-10-26 19:09+0200\n"
+"Last-Translator: W.P.M.H.I.A. Gielen <w.gielen@gmail.com>\n"
+"Language-Team: Nederlands <http://liste.pardus.org.tr/pardus-translation-nl/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: bin/mudur.py:163
 msgid "Cannot write mudur.log, read-only file system"
-msgstr "Kan niet schrijven in mudur.log, alleen-lezen bestandssysteem"
+msgstr "Kan niet schrijven naar mudur.log, alleen-lezen"
 
 #: bin/mudur.py:309
 msgid "Cannot find /etc/pardus-release"
@@ -360,7 +360,7 @@ msgstr ""
 #: bin/network.py:40
 #, python-format
 msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr ""
+msgstr "Limiteer gebruik, geef een valide getal: ( interval: 0 < trefwoord < %s )"
 
 #: bin/network.py:139
 #, python-format
@@ -395,22 +395,22 @@ msgstr "Masker            : %s "
 #: bin/network.py:150
 #, python-format
 msgid "Gateway         : %s "
-msgstr ""
+msgstr "Gateway         : %s "
 
 #: bin/network.py:152
 #, python-format
 msgid "Netmode         : %s "
-msgstr ""
+msgstr "Netmodus         : %s "
 
 #: bin/network.py:154
 #, python-format
 msgid "Namemode        : %s "
-msgstr ""
+msgstr "Naammodus        : %s "
 
 #: bin/network.py:156
 #, python-format
 msgid "Remote          : %s "
-msgstr ""
+msgstr "Op afstand          : %s "
 
 #: bin/network.py:161
 msgid "Up"
@@ -423,11 +423,11 @@ msgstr "Omlaag"
 #: bin/network.py:188
 #, python-format
 msgid "Found: %(essid)s [%(quality)s]"
-msgstr ""
+msgstr "Gevonden: %(essid)s [%(quality)s]"
 
 #: bin/network.py:190
 msgid "[encrypted]"
-msgstr ""
+msgstr "[versleuteld]"
 
 #: bin/network.py:327
 msgid "Enter new connection name"
@@ -444,7 +444,7 @@ msgstr "Dienst '%s' geselecteerd."
 
 #: bin/network.py:351
 msgid "No avaible device for this type of connection"
-msgstr ""
+msgstr "Geen apparaten voorhanden voor dit type verbinding"
 
 #: bin/network.py:354
 msgid "Select connection device:"
@@ -484,38 +484,37 @@ msgstr "Poort"
 
 #: bin/network.py:416
 msgid "Choose authentication type:"
-msgstr ""
+msgstr "Kies aanmeld type:"
 
 #: bin/network.py:426 bin/network.py:429
 msgid "Enter password "
-msgstr ""
+msgstr "Geef wachtwoord "
 
 #: bin/network.py:428
 msgid "Enter user name "
-msgstr ""
+msgstr "Geef gebruikersnaam "
 
 #: bin/network.py:446
 msgid "Profiles :"
-msgstr ""
+msgstr "Profielen :"
 
 #: bin/network.py:448
 msgid "Name of profile to delete "
-msgstr ""
+msgstr "Naam van te verwijderen profiel "
 
 #: bin/network.py:450
 msgid "Please enter a valid profile name "
-msgstr ""
+msgstr "Geef een geldige profiel naam"
 
 #: bin/network.py:465
 msgid "Enter name of profile"
-msgstr ""
+msgstr "Geef de naam van een profiel"
 
 #: bin/network.py:482
 msgid "No such profile"
-msgstr ""
+msgstr "Profiel onbekend"
 
 #: bin/network.py:486
-#, fuzzy
 msgid ""
 "usage: network <command> <arguments>\n"
 "where command is:\n"
@@ -529,13 +528,15 @@ msgid ""
 msgstr ""
 "gebruik: netwerk <commando> <argumenten>\n"
 "waar commando is:\n"
-" devices      Lijst van netwerkapparaten\n"
-" connections  lijst vab verbindingen\n"
+" devices      Lijst met netwerkapparaten\n"
+" connections  lijst met verbindingen\n"
+" info         List met instellingen van een verbinding\n"
 " create       Maak een nieuwe verbinding\n"
+" delete       Verwijder een verbinding\n"
 " up           Opgegeven verbinding verbinden\n"
 " down         Opgegeven verbinding verbreken"
 
 #: bin/network.py:518
 msgid "Cancelled"
-msgstr ""
+msgstr "Geannuleerd"
 
