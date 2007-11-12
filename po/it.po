@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-06 09:42+0300\n"
-"PO-Revision-Date: 2007-07-11 20:43+0200\n"
+"PO-Revision-Date: 2007-11-12 22:10+0100\n"
 "Last-Translator: Andrea Decorte <adecorte@gmail.com>\n"
 "Language-Team: Italian <pardus-translation-it@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: bin/mudur.py:163
 msgid "Cannot write mudur.log, read-only file system"
@@ -60,7 +60,7 @@ msgstr "Montaggio /dev"
 
 #: bin/mudur.py:498
 msgid "Restoring saved device states"
-msgstr "Ripristino degli stati salvati dei device"
+msgstr "Ripristino degli stati salvati dei dispositivi"
 
 #: bin/mudur.py:521
 msgid "Starting udev"
@@ -125,7 +125,7 @@ msgstr "Controllo di tutti i filesystem"
 
 #: bin/mudur.py:658
 msgid "A full fsck has been forced"
-msgstr ""
+msgstr "Controllo forzato file system impostato"
 
 #: bin/mudur.py:668
 msgid "Filesystem errors corrected"
@@ -159,8 +159,7 @@ msgstr "Montaggio dei filesystem remoti (Ctrl-C per fermare l'operazione)"
 
 #: bin/mudur.py:725
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Montaggio saltato con Ctrl-C, le condivisoni remote non saranno accessibili!"
+msgstr "Montaggio saltato con Ctrl-C, le condivisoni remote non saranno accessibili!"
 
 #: bin/mudur.py:738
 msgid "Setting disk parameters"
@@ -172,13 +171,11 @@ msgstr "Impostazione dell'orologio di sistema al valore dell'orologio hardware"
 
 #: bin/mudur.py:771
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Correzione dello scostamento automatico  dell'orologio hardware fallita"
+msgstr "Correzione dello scostamento automatico  dell'orologio hardware fallita"
 
 #: bin/mudur.py:775
 msgid "Failed to set system clock to hardware clock"
-msgstr ""
-"Impossibile impostare l'orologio di sistema al valore dell'orologio hardware"
+msgstr "Impossibile impostare l'orologio di sistema al valore dell'orologio hardware"
 
 #: bin/mudur.py:778
 msgid "Cleaning up /var"
@@ -190,8 +187,7 @@ msgstr "Svuotamento di /tmp"
 
 #: bin/mudur.py:833
 msgid "Syncing system clock to hardware clock"
-msgstr ""
-"Sincronizzazione dell'orologio di sistema al valore dell'orologio hardware"
+msgstr "Sincronizzazione dell'orologio di sistema al valore dell'orologio hardware"
 
 #: bin/mudur.py:836
 msgid "Failed to sync clocks"
@@ -239,8 +235,7 @@ msgstr "Aggiornamento delle variabili di sistema"
 
 #: bin/mudur.py:1049
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Tentativo di avviare un riavvio a caldo (saltando il BIOS con kexec kernel)"
+msgstr "Tentativo di avviare un riavvio a caldo (saltando il BIOS con kexec kernel)"
 
 #: bin/service.py:33
 msgid "You dont have permission to do this operation."
@@ -255,9 +250,9 @@ msgid "Service doesn't provide this operation."
 msgstr "Il servizio non fornisce questa operazione."
 
 #: bin/service.py:40
-#, fuzzy, python-format
+#, python-format
 msgid "%(script)s error: %(data)s"
-msgstr "Errore %s: %s"
+msgstr "errore %(script)s: %(data)s"
 
 #: bin/service.py:58
 msgid "local"
@@ -366,57 +361,57 @@ msgstr ""
 #: bin/network.py:40
 #, python-format
 msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr ""
+msgstr "Limite superato, inserisci per favore un numero valido ( intervallo: 0 < valore < %s )"
 
 #: bin/network.py:139
 #, python-format
 msgid "Connection Name : %s "
-msgstr ""
+msgstr "Nome connessione: %s"
 
 #: bin/network.py:140
 #, python-format
 msgid "Status          : %s "
-msgstr ""
+msgstr "Stato          : %s "
 
 #: bin/network.py:141
 #, python-format
 msgid "Adress          : %s "
-msgstr ""
+msgstr "Indirizzo          : %s "
 
 #: bin/network.py:144
 #, python-format
 msgid "Device Name     : %s "
-msgstr ""
+msgstr "Nome dispositivo     : %s "
 
 #: bin/network.py:146
 #, python-format
 msgid "Device Id       : %s "
-msgstr ""
+msgstr "Id dispositivo       : %s "
 
 #: bin/network.py:148
 #, python-format
 msgid "Mask            : %s "
-msgstr ""
+msgstr "Maschera            : %s "
 
 #: bin/network.py:150
 #, python-format
 msgid "Gateway         : %s "
-msgstr ""
+msgstr "Gateway         : %s "
 
 #: bin/network.py:152
 #, python-format
 msgid "Netmode         : %s "
-msgstr ""
+msgstr "Modo rete         : %s "
 
 #: bin/network.py:154
 #, python-format
 msgid "Namemode        : %s "
-msgstr ""
+msgstr "Modo nome        : %s "
 
 #: bin/network.py:156
 #, python-format
 msgid "Remote          : %s "
-msgstr ""
+msgstr "Remoto          : %s "
 
 #: bin/network.py:161
 msgid "Up"
@@ -429,11 +424,11 @@ msgstr "Giù"
 #: bin/network.py:188
 #, python-format
 msgid "Found: %(essid)s [%(quality)s]"
-msgstr ""
+msgstr "Trovata: %(essid)s [%(quality)s]"
 
 #: bin/network.py:190
 msgid "[encrypted]"
-msgstr ""
+msgstr "[protetta]"
 
 #: bin/network.py:327
 msgid "Enter new connection name"
@@ -450,7 +445,7 @@ msgstr "Selezionato il dispositivo '%s'."
 
 #: bin/network.py:351
 msgid "No avaible device for this type of connection"
-msgstr ""
+msgstr "Nessun dispositivo disponibile per questo tipo di connessione"
 
 #: bin/network.py:354
 msgid "Select connection device:"
@@ -490,38 +485,37 @@ msgstr "Gateway"
 
 #: bin/network.py:416
 msgid "Choose authentication type:"
-msgstr ""
+msgstr "Scegli tipo di autenticazione:"
 
 #: bin/network.py:426 bin/network.py:429
 msgid "Enter password "
-msgstr ""
+msgstr "Inserisci password "
 
 #: bin/network.py:428
 msgid "Enter user name "
-msgstr ""
+msgstr "Inserisci nome utente "
 
 #: bin/network.py:446
 msgid "Profiles :"
-msgstr ""
+msgstr "Profili:"
 
 #: bin/network.py:448
 msgid "Name of profile to delete "
-msgstr ""
+msgstr "Nome del profilo da eliminare"
 
 #: bin/network.py:450
 msgid "Please enter a valid profile name "
-msgstr ""
+msgstr "Inserisci per favore un nome valido per il profilo"
 
 #: bin/network.py:465
 msgid "Enter name of profile"
-msgstr ""
+msgstr "Inserisci nome del profilo"
 
 #: bin/network.py:482
 msgid "No such profile"
-msgstr ""
+msgstr "Profilo non trovato"
 
 #: bin/network.py:486
-#, fuzzy
 msgid ""
 "usage: network <command> <arguments>\n"
 "where command is:\n"
@@ -537,10 +531,13 @@ msgstr ""
 "dove comando è:\n"
 " devices      Elenca i dispositivi di rete\n"
 " connections  Elenca le connessioni\n"
+" info         Elenca le proprietà di una data connessione\n"
 " create       Crea una nuova connessione\n"
+" delete       Elimina una connessione\n"
 " up           Stabilisce la connessione fornita\n"
 " down         Disconnette la connessione fornita"
 
 #: bin/network.py:518
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancellato"
+
