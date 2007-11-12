@@ -1,20 +1,16 @@
 # translation of nl.po to Nederlands
-# translation of mudur.po to
-# translation of tr.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Willem Gielen <w.gielen@gmail.com>, 2006, 2007.
-# Rinse de Vries <RinseDeVries@home.nl>, 2006.
-# W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2006, 2007.
+# Willem Gielen <w.gielen@gmail.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-06 09:42+0300\n"
-"PO-Revision-Date: 2007-10-26 19:09+0200\n"
-"Last-Translator: W.P.M.H.I.A. Gielen <w.gielen@gmail.com>\n"
-"Language-Team: Nederlands <http://liste.pardus.org.tr/pardus-translation-nl/>\n"
+"PO-Revision-Date: 2007-11-12 20:53+0100\n"
+"Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
+"Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -63,7 +59,7 @@ msgstr "Aankoppelen /dev"
 
 #: bin/mudur.py:498
 msgid "Restoring saved device states"
-msgstr "Herstellen opgeslagen apparaatstatussen"
+msgstr "Herstellen opgeslagen apparaat statussen"
 
 #: bin/mudur.py:521
 msgid "Starting udev"
@@ -79,7 +75,7 @@ msgstr "Opnieuw aankoppelen hoofdbestandsysteem als alleen-lezen"
 
 #: bin/mudur.py:553
 msgid "Checking root filesystem (full check forced)"
-msgstr "Controleren root bestandssysteem (volledige contrôle geforceerd)"
+msgstr "Controleren root bestandssysteem (volledige controle geforceerd)"
 
 #: bin/mudur.py:558
 msgid "Checking root filesystem"
@@ -87,7 +83,7 @@ msgstr "Controleren root bestandssysteem"
 
 #: bin/mudur.py:563
 msgid "Filesystem repaired, but reboot needed!"
-msgstr "Bestandsysteem gerepareerd, herstarten is nodig!"
+msgstr "Bestandsysteem gerepareerd, maar herstarten is nodig!"
 
 #: bin/mudur.py:567
 msgid "Rebooting in 10 seconds ..."
@@ -103,7 +99,7 @@ msgstr "Bestandsysteem kon niet gerepareerd worden :("
 
 #: bin/mudur.py:575
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr "Overslaan contrôle van root bestandssysteem (fstab's overslagno == 0)"
+msgstr "Overslaan controle van root bestandssysteem (fstab's overslagno == 0)"
 
 #: bin/mudur.py:577
 msgid "Remounting root filesystem read/write"
@@ -164,7 +160,7 @@ msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankeli
 
 #: bin/mudur.py:738
 msgid "Setting disk parameters"
-msgstr "Instellen schijfparameters"
+msgstr "Instellen schijf parameters"
 
 #: bin/mudur.py:757
 msgid "Setting system clock to hardware clock"
@@ -440,7 +436,7 @@ msgstr "Selecteer verbindingstype:"
 #: bin/network.py:349
 #, python-format
 msgid "Device '%s' selected."
-msgstr "Dienst '%s' geselecteerd."
+msgstr "Apparaat '%s' geselecteerd."
 
 #: bin/network.py:351
 msgid "No avaible device for this type of connection"
@@ -452,7 +448,7 @@ msgstr "Selecteer verbindingsapparaat:"
 
 #: bin/network.py:369
 msgid "Enter manually"
-msgstr "Met de hand invoeren"
+msgstr "Handmatig invoeren"
 
 #: bin/network.py:370
 msgid "Scan"
@@ -468,7 +464,7 @@ msgstr "Automatische opvragen (DHCP)"
 
 #: bin/network.py:401
 msgid "Manual configuration"
-msgstr "Met de hand configureren"
+msgstr "Handmatig configureren"
 
 #: bin/network.py:406
 msgid "IP Address"
@@ -504,7 +500,7 @@ msgstr "Naam van te verwijderen profiel "
 
 #: bin/network.py:450
 msgid "Please enter a valid profile name "
-msgstr "Geef een geldige profiel naam"
+msgstr "Geef een geldige profiel naam "
 
 #: bin/network.py:465
 msgid "Enter name of profile"
