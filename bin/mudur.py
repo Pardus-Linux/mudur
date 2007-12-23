@@ -529,8 +529,12 @@ def setupUdev():
         
         # trigger events for all devices
         run("/sbin/udevtrigger")
+        # FIXME: with new udev
+        # run("/sbin/udevadm trigger)
         # wait for events to finish
         run("/sbin/udevsettle", "--timeout=180")
+        # FIXME: with new udev
+        # run"/sbin/udevadm settle --timeout=180")
     else:
         # no netlink support in old kernels
         write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
