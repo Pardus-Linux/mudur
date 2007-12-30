@@ -22,8 +22,6 @@ distfiles = """
     bin/*.py
     etc/udev-mudur.rules
     etc/mudur.conf
-    etc/blacklist
-    etc/aliases_modutils
     po/mudur.pot
     po/*.po
 """
@@ -91,9 +89,7 @@ def install(args):
     install_file("bin/service.py", prefix, "bin/service")
     install_file("bin/network.py", prefix, "bin/network")
     install_file("etc/udev-mudur.rules", prefix, "etc/udev/rules.d/51-mudur.rules")
-    install_file("etc/blacklist", prefix, "etc/hotplug/blacklist")
     install_file("etc/mudur.conf", prefix, "etc/conf.d/mudur")
-    install_file("etc/aliases_modutils", prefix, "etc/modules.d/aliases_modutils")
     
     for item in os.listdir("po"):
         if item.endswith(".po"):
