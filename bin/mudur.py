@@ -631,18 +631,12 @@ def modules():
     if not os.path.exists("/proc/modules"):
         return
     
-    do_modup = False
     if os.path.exists("/etc/modprobe.mudur"):
         depkernel = loadFile("/etc/modprobe.mudur").rstrip("\n")
         curkernel = os.uname()[2]
         if depkernel != curkernel:
-            do_modup = True
-    if mdirdate("/etc/modules.d") > mdate("/etc/modprobe.conf"):
-        do_modup = True
-    if do_modup:
-        ui.info(_("Calculating module dependencies"))
-        run_quiet("/sbin/modules-update")
-    
+            run_quiet("sbin/depmod", "-a")
+
     fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
     if not os.path.exists(fn):
         fn = "/etc/modules.autoload.d/kernel-%s.%s" % (config.kernel[0], config.kernel[1])

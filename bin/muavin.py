@@ -19,45 +19,6 @@ def log(msg):
     if os.path.exists(path):
         file(path, "a").write(msg)
 
-
-class Blacklist:
-    def blacklist(self):
-        blacks = set()
-        # Unlike env.d and modules.d, blacklist is not generated
-        # from blacklist.d, they all used together
-        if os.path.exists("/etc/hotplug/blacklist"):
-            for line in file("/etc/hotplug/blacklist"):
-                line = line.rstrip('\n')
-                if line == '' or line.startswith('#'):
-                    continue
-                blacks.add(line)
-        if os.path.exists("/etc/hotplug/blacklist.d"):
-            for name in os.listdir("/etc/hotplug/blacklist.d"):
-                # skip backup and version control files
-                if name.endswith("~") or name.endswith(".bak") or name.endswith(",v"):
-                    continue
-                # skip pisi's config file backups
-                # .oldconfig is obsolete, but checked anyway cause it may still exist at old systems
-                if name.endswith(".oldconfig") or name.endswith(".newconfig"):
-                    continue
-                for line in file(os.path.join("/etc/hotplug/blacklist.d", name)):
-                    line = line.rstrip('\n')
-                    if line == '' or line.startswith('#'):
-                        continue
-                    blacks.add(line)
-        # Normalize names
-        blacks = map(lambda x: x.replace("-", "_"), blacks)
-        return blacks
-    
-    def plug(self, current, env=None):
-        mods = self.blacklist()
-        current.difference_update(mods)
-    
-    def debug(self):
-        mods = self.blacklist()
-        print "Blacklist: %s" % ", ".join(mods)
-
-
 class Modalias:
     def coldAliases(self):
         aliases = []
@@ -362,7 +323,6 @@ pluggers = (
     DVB,
     MMC,
     Firmware,
-    Blacklist,  # Blacklist should be at the end
 )
 
 def tryModule(modname):

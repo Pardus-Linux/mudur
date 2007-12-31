@@ -80,12 +80,7 @@ def install(args):
     install_file("bin/muavin.py", prefix, "sbin/muavin.py")
     install_file("bin/update-environment.py", prefix, "sbin/update-environment")
     install_file("bin/update-fstab.py", prefix, "sbin/update-fstab")
-    install_file("bin/update-modules.py", prefix, "sbin/update-modules")
     install_file("bin/compat.py", prefix, "etc/init.d/compat.py")
-    dest = os.path.join(prefix, "sbin/modules-update")
-    if os.path.exists(dest) or os.path.islink(dest):
-        os.unlink(dest)
-    os.symlink("update-modules", dest)
     install_file("bin/service.py", prefix, "bin/service")
     install_file("bin/network.py", prefix, "bin/network")
     install_file("etc/udev-mudur.rules", prefix, "etc/udev/rules.d/51-mudur.rules")
