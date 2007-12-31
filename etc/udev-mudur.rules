@@ -1,4 +1,4 @@
-ACTION=="add",ENV{MODALIAS}=="?*",RUN+="/sbin/muavin.py"
-ACTION=="add",SUBSYSTEM=="scsi",RUN+="/sbin/muavin.py"
-ACTION=="add",SUBSYSTEM=="firmware",RUN+="/sbin/muavin.py"
-ACTION=="add",SUBSYSTEM=="mmc",RUN+="/sbin/muavin.py"
+#ACTION=="add",ENV{MODALIAS}=="?*",RUN+="/sbin/muavin.py"
+#ACTION=="add",SUBSYSTEM=="scsi",RUN+="/sbin/muavin.py"
+#ACTION=="add",SUBSYSTEM=="firmware",RUN+="/sbin/muavin.py"
+#ACTION=="add",SUBSYSTEM=="mmc",RUN+="/sbin/muavin.py"
