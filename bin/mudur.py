@@ -383,20 +383,6 @@ def setSystemLanguage():
     if content != loadFile("/etc/env.d/03locale"):
         write("/etc/env.d/03locale", content)
 
-def setSplash():
-    """Setup console splash and proper encodings for consoles"""
-    splash = config.get_kernel_opt("splash")
-    if not splash or not os.path.exists("/dev/fb0"):
-        return
-    
-    theme = "default"
-    for arg in splash.split(","):
-        if arg.startswith("theme:"):
-            theme = arg[6:]
-    
-    for i in range(1, int(config.get("tty_number")) + 1):
-        run("/usr/bin/splash_manager", "--mode=v", "--theme=%s" % theme, "--cmd=set", "--tty=%s" % i)
-
 def setTranslation():
     """Load translation"""
     global __trans
@@ -526,15 +512,14 @@ def setupUdev():
         run("/sbin/udevd", "--daemon")
         
         ui.info(_("Populating /dev"))
-        
+
+        # create needed queue directory
+        os.mkdir("/dev/.udev/queue/")
+
         # trigger events for all devices
-        run("/sbin/udevtrigger")
-        # FIXME: with new udev
-        # run("/sbin/udevadm trigger)
+        run("/sbin/udevadm", "trigger")
         # wait for events to finish
-        run("/sbin/udevsettle", "--timeout=180")
-        # FIXME: with new udev
-        # run"/sbin/udevadm settle --timeout=180")
+        run("/sbin/udevadm", "settle", "--timeout=180")
     else:
         # no netlink support in old kernels
         write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
@@ -542,10 +527,6 @@ def setupUdev():
     
     # NOTE: handle lvm here when used by pardus
     
-    if config.get("debug"):
-        # Set muavin into teh debug mode too
-        touch("/dev/muavin.debug")
-
 def checkRoot():
     if not config.get("livecd"):
         ui.info(_("Remounting root filesystem read-only"))
@@ -973,10 +954,6 @@ if sys.argv[1] == "sysinit":
     setHostname()
     
     modules()
-    ui.info(_("Starting Coldplug"))
-    # First activate the module hotplugging
-    touch("/dev/.muavin")
-    subprocess.Popen(["/sbin/muavin.py", "--coldplug"])
     
     checkFS()
     localMount()
@@ -1021,11 +998,14 @@ elif sys.argv[1] == "boot":
     
     remoteMount(old_handler)
     
-    setSplash()
-
 elif sys.argv[1] == "default":
     if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
         run("/bin/bash", "/etc/conf.d/local.start")
+    
+    ui.info(_("Triggering udev events which are failed during a previous run"))
+    # Trigger only the events which are failed during a previous run.
+    run("/sbin/udevadm", "trigger", "--retry-failed")
+
     startServices()
 
 elif sys.argv[1] == "single":

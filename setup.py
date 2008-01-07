@@ -77,7 +77,6 @@ def install(args):
     parser.suite(code).compile()
     
     install_file("bin/mudur.py", prefix, "sbin/mudur.py")
-    install_file("bin/muavin.py", prefix, "sbin/muavin.py")
     install_file("bin/update-environment.py", prefix, "sbin/update-environment")
     install_file("bin/update-fstab.py", prefix, "sbin/update-fstab")
     install_file("bin/compat.py", prefix, "etc/init.d/compat.py")
