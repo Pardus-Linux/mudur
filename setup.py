@@ -79,6 +79,7 @@ def install(args):
     install_file("bin/mudur.py", prefix, "sbin/mudur.py")
     install_file("bin/update-environment.py", prefix, "sbin/update-environment")
     install_file("bin/update-fstab.py", prefix, "sbin/update-fstab")
+    install_file("bin/update-modules.py", prefix, "sbin/update-modules")
     install_file("bin/compat.py", prefix, "etc/init.d/compat.py")
     install_file("bin/service.py", prefix, "bin/service")
     install_file("bin/network.py", prefix, "bin/network")
