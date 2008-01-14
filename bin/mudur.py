@@ -514,7 +514,7 @@ def setupUdev():
         ui.info(_("Populating /dev"))
 
         # create needed queue directory
-        os.mkdir("/dev/.udev/queue/")
+        ensureDirs("/dev/.udev/queue/")
 
         # trigger events for all devices
         run("/sbin/udevadm", "trigger")
