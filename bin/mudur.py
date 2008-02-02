@@ -484,7 +484,7 @@ def setupUdev():
         ui.info(_("Restoring saved device states"))
         for name in os.listdir(devpath):
             run_quiet(
-                "/usr/bin/cp",
+                "/bin/cp",
                 "--preserve=all", "--recursive", "--update",
                 "%s/%s" % (devpath, name), "/dev/"
             )
@@ -863,8 +863,8 @@ def stopSystem():
         ents.sort(key=proc_key, reverse=True)
         
         if ents:
-            run("/usr/bin/sync")
-            run("/usr/bin/sync")
+            run("/bin/sync")
+            run("/bin/sync")
             time.sleep(1)
         
         ret = 0
@@ -971,8 +971,8 @@ if sys.argv[1] == "sysinit":
     # when we exit this runlevel, init will write a boot record to utmp
     write("/var/run/utmp", "")
     touch("/var/log/wtmp")
-    run("/usr/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
-    run("/usr/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
+    run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
+    run("/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
 elif sys.argv[1] == "boot":
     ui.info(_("Setting up localhost"))
