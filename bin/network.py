@@ -79,12 +79,12 @@ class Link:
                 self.remote_name = value
             elif key == "auth_modes":
                 self.parse(value)
-    def parse(self,data):                    
+    def parse(self,data):
         """ Parser for reading avaible authentication modes for current Link """
-        for line in data.split(";"):                
-            mode = AuthenticationMode(line)     #related authentication mode objects are created and added to auth_modes list   
+        for line in data.split(";"):
+            mode = AuthenticationMode(line)     #related authentication mode objects are created and added to auth_modes list
             self.auth_modes.append(mode)
-        
+
 class Device:
     """ Device class : attributes : script, uid, name """
     def __init__(self, script, data):
@@ -101,22 +101,22 @@ class Profile:
         self.address = ""
         self.devname=""
         self.devid=""
-        self.netmode =""                  
-        self.namemode =""                 
+        self.netmode =""
+        self.namemode =""
         self.mask=""                      # special attribute for ethernet
-        self.gateway=""                   # special attribute for ethernet                         
+        self.gateway=""                   # special attribute for ethernet
         self.remote=""                    # special attribute for dial up&wireless
-        
+
     def parse(self, data):
         """ Adds attributes if their value exists : 'devname','devid','state' and/or 'current','mode','address','mask','gateaway'
-            and parses their value from 'data' input parameter 
+            and parses their value from 'data' input parameter
         """
         for line in data.split("\n"):
             key, value = line.split("=", 1)
             if key == "device_name":
                 self.devname = value
             elif key == "device_id":
-                self.devid = value 
+                self.devid = value
             elif key == "state":
                 self.state = value
                 if " " in value:
@@ -125,21 +125,21 @@ class Profile:
                 self.netmode = value
             elif key == "net_address":
                 self.address = value
-            elif key == "net_mask":                             
+            elif key == "net_mask":
                 self.mask=value
-            elif key == "net_gateway":                          
+            elif key == "net_gateway":
                 self.gateway = value
             elif key =="namemode":
                 self.namemode = value
-            elif key =="remote":                                                        
+            elif key =="remote":
                 self.remote = value
-    
+
     def print_info (self):
         """ Prints object's attributes and their values """
         print _("Connection Name : %s ") % self.name
         print _("Status          : %s ") % self.get_state()
         print _("Adress          : %s ") % self.get_address()
- 
+
         if(self.devname):
             print _("Device Name     : %s ") % self.devname
         if (self.devid):
@@ -152,15 +152,15 @@ class Profile:
             print _("Netmode         : %s ") % self.netmode
         if(self.namemode):
             print _("Namemode        : %s ") % self.namemode
-        if (self.remote):                     
+        if (self.remote):
             print _("Remote          : %s ") % self.remote
-            
+
     def get_state(self):
         """ Returns state of profile """
         if self.state == "up":
             return _("Up")
         return _("Down")
-    
+
     def get_address(self):
         """ If profile's state is "up" returns 'current'( or 'address' if current doesnt exist ) """
         if self.state == "up":
@@ -181,7 +181,7 @@ class Remote:
                 self.quality = int(value)
             elif key == "encryption":
                 self.encryption = value
-    
+
     def __str__(self):
         label = self.remote
         quality = "+" * ((self.quality / 25) + 1)
@@ -191,9 +191,9 @@ class Remote:
         return txt
 
 def queryLinks(com):
-    """ Input parameter : 'com' is comar's Link object. Retrieves script and data variable for each link from 
+    """ Input parameter : 'com' is comar's Link object. Retrieves script and data variable for each link from
         'com.Net.Link.linkInfo' method and returns them as 'links' dictionary
-    """ 
+    """
     com.Net.Link.linkInfo()                 #group
     links = {}
     for rep in collect(com):                # reads scrip-data values ( by collect method ) and stores them in dictionary
@@ -207,13 +207,13 @@ def queryLinks(com):
                 print line
         ################################################################################################################
         """
-    print    
+    print
     return links
 
 def queryDevices(com):
     """ Input parameter : 'com' is comar's Link object. Retrieves deviceList from 'com.Net.Link.deviceList'
-        method and creates Device objects for each, returns list of them 
-    """ 
+        method and creates Device objects for each, returns list of them
+    """
     com.Net.Link.deviceList()
     devs = []
     for rep in collect(com):
@@ -224,8 +224,8 @@ def queryDevices(com):
 
 def queryProfiles(com):
     """ Input parameter : 'com' is comar's Link object. Retrieves connections' info  from 'com.Net.Link.connections'
-        method and creates Profile objects for each, returns a list of them 
-    """ 
+        method and creates Profile objects for each, returns a list of them
+    """
     com.Net.Link.connections()
     profiles = []
     for rep in collect(com):
@@ -233,7 +233,7 @@ def queryProfiles(com):
             for name in rep.data.split("\n"):
                 profiles.append(Profile(rep.script, name))
     for profile in profiles:
-        com.Net.Link[profile.script].connectionInfo(name=profile.name)  
+        com.Net.Link[profile.script].connectionInfo(name=profile.name)
         profile.parse(com.read_cmd().data)                   # read_cmd reads reply message from comar deamon
     return profiles
 
@@ -243,7 +243,7 @@ def listDevices(args=None):
     com.localize()                         #set language for translated replies
     links = queryLinks(com)
     devs = queryDevices(com)
-    
+
     #print link names and related device names
     for script, link in links.items():
         print "%s:" % link.name
@@ -256,18 +256,18 @@ def listProfiles(args=None):
     com.localize()                         #set language for translated replies
     links = queryLinks(com)
     profiles = queryProfiles(com)
-    
+
     profiles.sort(key=lambda x: x.devname + x.name)     #profiles are sorted by device_name + name
-    
+
     name_title = "" # _("Profile")
     state_title = "" # _("Status")
     addr_title = "" # _("Address")
-    
+
     #name_size and state_size are set  to the maximum length of name/state of profiles
     # -for ljust operations in output format-
     name_size = max(max(map(lambda x: len(x.name), profiles)), len(name_title))
     state_size = max(max(map(lambda x: len(x.get_state()), profiles)), len(state_title))
-    
+
     cstart = ""
     cend = ""
     link_list = links.items()
@@ -288,7 +288,7 @@ def listProfiles(args=None):
                 cend
             )
             print line
-            profile_names_list.append(profile.name)             
+            profile_names_list.append(profile.name)
     return profile_names_list                   # returns all profile_names defined on comp.
 
 def upProfile(args):
@@ -296,13 +296,13 @@ def upProfile(args):
     if len(args) == 0:
         usage()
         return
-    else:                  
+    else:
         name=" ".join(args)                     # for profiles that has names having more than one word
     com = comar.Link()                          #communicating with comar deamon
     com.localize()                              #set language for translated replies
     com.Net.Link.connectionInfo(name=name)      #get connection info from comar deamon
     for reply in collect(com):
-        if reply.command == "result":           #reply has related 'script'(net-tools)'command' and 'data' fields. 
+        if reply.command == "result":           #reply has related 'script'(net-tools)'command' and 'data' fields.
             com.Net.Link[reply.script].setState(name=name, state="up")  #Link group's avaible methods are declared in 'comar/comar/etc/model.xml'
 
 def downProfile(args):
@@ -310,7 +310,7 @@ def downProfile(args):
     if len(args) == 0:
         usage()
         return
-    else:                  
+    else:
         name=" ".join(args)                     # for profiles that has names having more than one word
     com = comar.Link()                          #communicating with comar deamon
     com.localize()                              #set language for translated replies
@@ -323,20 +323,20 @@ def createWizard(args):
     """ Creates network connection """
     com = comar.Link()              #communicating with comar deamon
     com.localize()                  #set language for translated replies
-    
+
     conn_name = raw_input('%s -> ' % _("Enter new connection name"))    #read connection name from command line
-    
+
     # Ask connection type
     links = queryLinks(com)
     print _("Select connection type:")
     for i, link in enumerate(links.values()):
         print "%2d." % (i + 1), link.name
     s = input_number(len(links.values())+1)
-    
+
     link = links.values()[s-1]
     script = links.keys()[s-1]
     script_object = com.Net.Link[script]
-    
+
     # Ask device
     script_object.deviceList()
     devs = []
@@ -356,7 +356,7 @@ def createWizard(args):
             print "%2d." % (i + 1), dev.name
         s = input_number(len(devs)+1)
         device = devs[s-1]
-    
+
     # Remote point
     global selected_auth_type
     selected_auth_type = None
@@ -390,7 +390,7 @@ def createWizard(args):
                     break
         else:
             remote = raw_input('-> ')
-    
+
     # Network settings
     if "net" in link.modes:
         print
@@ -406,8 +406,8 @@ def createWizard(args):
             address = raw_input('%s -> ' % _("IP Address"))
             mask = raw_input('%s -> ' % _("Network mask"))
             gateway = raw_input('%s -> ' % _("Gateway"))
-    
-    # Authentication settings 
+
+    # Authentication settings
     if ( link.auth_modes ):
         if ( selected_auth_type ):
             chosen_mode = AuthenticationMode( selected_auth_type + ",pass,"+ selected_auth_type )
@@ -417,10 +417,10 @@ def createWizard(args):
             for mode in link.auth_modes:
                 print "%s -> %s" % ( i,mode.name)
                 i += 1
-            print "%s -> No authentication" % i            
+            print "%s -> No authentication" % i
             mode_no = input_number(i+1)
             if (mode_no != i) :
-                chosen_mode = link.auth_modes [mode_no-1]    
+                chosen_mode = link.auth_modes [mode_no-1]
                 if (chosen_mode.type == "pass" ):
                     user_name = ""
                     password = raw_input('%s -> ' % _("Enter password "))
@@ -428,8 +428,8 @@ def createWizard(args):
                     user_name = raw_input('%s -> ' % _("Enter user name "))
                     password = raw_input('%s -> ' % _("Enter password "))
 
-                script_object.setAuthentication(name= conn_name, authmode=chosen_mode.identifier, user=user_name, password=password) 
-    
+                script_object.setAuthentication(name= conn_name, authmode=chosen_mode.identifier, user=user_name, password=password)
+
     # Create profile
     script_object.setConnection(name=conn_name, device=device.uid)
     if "remote" in link.modes:
@@ -449,7 +449,7 @@ def deleteWizard(args):
         while ( not ( profile_names_list.__contains__(profile_name) )):
             print _("Please enter a valid profile name ")
             profile_name = raw_input()
-    else:                                     
+    else:
         profile_name=" ".join(args)                      # for profiles that has names having more than one word
     com = comar.Link()
     com.localize()
@@ -463,10 +463,10 @@ def infoProfile (args):
     profile_name = ""
     if ( len(args) == 0 ):
         profile_name = raw_input('%s -> ' % _("Enter name of profile"))
-    else:                 
+    else:
         profile_name=" ".join(args)                        # for profiles that has names having more than one word
     com = comar.Link()
-    com.localize()    
+    com.localize()
     com.Net.Link.connectionInfo(name=profile_name)
 
     global found
@@ -480,7 +480,7 @@ def infoProfile (args):
             profile.print_info()
     if ( not found ) :
         print _("No such profile")
-   
+
 def usage(args=None):
     """ Prints 'network' script usage """
     print _("""usage: network <command> <arguments>
@@ -492,7 +492,7 @@ where command is:
  delete       Delete a connection
  up           Connect given connection
  down         Disconnect given connection""")
-    
+
 def main(args):
     operations = {
         "devices":      listDevices,
@@ -503,10 +503,10 @@ def main(args):
         "delete":       deleteWizard,
         "info":         infoProfile,
     }
-    
+
     if len(args) == 0:
         args = ["connections"]
-        
+
     #    Related functions according to command_line_parameters[0] -default:'connections'('listProfiles' function),
     #    for any improper command : 'usage'function-
 
@@ -516,7 +516,7 @@ def main(args):
     except KeyboardInterrupt:
         print
         print _("Cancelled")
-    
+
 if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, '')
     main(sys.argv[1:])

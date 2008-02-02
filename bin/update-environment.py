@@ -48,7 +48,7 @@ specials = (
 
 def read_env_d(envdir):
     dict = {}
-    
+
     paths = []
     for name in os.listdir(envdir):
         path = os.path.join(envdir, name)
@@ -64,12 +64,12 @@ def read_env_d(envdir):
             continue
         paths.append(path)
     paths.sort()
-    
+
     for path in paths:
         for line in file(path):
             if line == "" or line.startswith("#"):
                 continue
-            
+
             line = line.rstrip("\n")
             if "=" in line:
                 key, value = line.split("=", 1)
@@ -77,7 +77,7 @@ def read_env_d(envdir):
                 value = value.strip()
                 if value.startswith('"') or value.startswith("'"):
                     value = value[1:-1]
-                
+
                 # Merge for special variables, override for others
                 if key in specials:
                     if dict.has_key(key):
@@ -86,7 +86,7 @@ def read_env_d(envdir):
                         dict[key] = value.split(":")
                 else:
                     dict[key] = value
-    
+
     return dict
 
 def generate_profile_env(envdict, format='export %s="%s"\n'):
@@ -113,7 +113,7 @@ def update_file(path, content):
 
 def update_environment(prefix):
     join = os.path.join
-    
+
     env = read_env_d(join(prefix, "etc/env.d"))
     update_file(join(prefix, "etc/profile.env"), generate_profile_env(env))
     update_file(join(prefix, "etc/csh.env"), generate_profile_env(env, 'setenv %s %s\n'))
@@ -130,19 +130,19 @@ def usage():
 
 def main(argv):
     prefix = "/"
-    
+
     try:
         opts, args = getopt.gnu_getopt(argv, "h", [ "help", "destdir=" ])
     except getopt.GetoptError:
         usage()
-    
+
     for o, a in opts:
         if o in ("-h", "--help"):
             usage()
             sys.exit(0)
         if o in ("--destdir"):
             prefix = a
-    
+
     update_environment(prefix)
 
 if __name__ == "__main__":

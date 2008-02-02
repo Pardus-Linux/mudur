@@ -145,7 +145,7 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
 class Logger:
     def __init__(self):
         self.lines = []
-    
+
     def log(self, msg):
         stamp = time.strftime("%b %d %H:%M:%S")
         try:
@@ -153,7 +153,7 @@ class Logger:
         except:
             up = "..."
         self.lines.append("%s (up %s) %s\n" % (stamp, up, msg))
-    
+
     def sync(self):
         try:
             f = file("/var/log/mudur.log", "a")
@@ -199,7 +199,7 @@ class Config:
         # file system check can be requested with a file
         if os.path.exists("/forcefsck"):
             self.opts["forcefsck"] = True
-    
+
     def kernel_ge(self, vers):
         vers = vers.split(".")
         if int(self.kernel[0]) < int(vers[0]):
@@ -209,20 +209,20 @@ class Config:
         if int(self.kernel[2]) < int(vers[2]):
             return False
         return True
-    
+
     def get_kernel_opt(self, cmdopt):
         if not self.cmdline:
             self.cmdline = loadFile("/proc/cmdline").split()
-        
+
         for cmd in self.cmdline:
             pos = len(cmdopt)
             if cmd == cmdopt:
                 return cmd
             if cmd.startswith(cmdopt) and cmd[pos] == '=':
                 return cmd[pos+1:]
-        
+
         return None
-    
+
     def parse_kernel_opts(self):
         # We need to mount /proc before accessing kernel options
         # This function is called after that, and finish parsing options
@@ -243,9 +243,9 @@ class Config:
                     self.opts["keymap"] = opt[7:]
                 elif opt == "forcefsck":
                     self.opts["forcefsck"] = True
-        
+
         # Normalize options
-        
+
         # If language is unknown, default to English
         # Default language is Turkish, so this only used if someone
         # selected a language which isn't Turkish or English, and
@@ -255,11 +255,11 @@ class Config:
             print "Unknown language option '%s'" % lang
             lang = "en"
             self.opts["language"] = lang
-        
+
         # If no keymap is given, use the language's default
         if not self.opts["keymap"]:
             self.opts["keymap"] = languages[lang].keymap
-    
+
     def get(self, key):
         try:
             return self.opts[key]
@@ -267,19 +267,19 @@ class Config:
             print "Unknown option '%s' requested" % key
             time.sleep(3)
             return None
-    
+
     def get_mount(self, path):
         if not self.fstab:
             data = loadFile("/etc/fstab").split("\n")
             data = filter(lambda x: not (x.startswith("#") or x == ""), data)
             self.fstab = map(lambda x: x.split(), data)
-        
+
         for ent in self.fstab:
             if len(ent) > 3 and ent[1] == path:
                 return ent
-        
+
         return None
-    
+
     def is_virtual(self):
         # Xen detection
         if os.path.exists("/proc/xen/capabilities"):
@@ -293,13 +293,13 @@ class Config:
 
 class UI:
     UNICODE_MAGIC = "\x1b%G"
-    
+
     def __init__(self):
         self.GOOD = '\x1b[32;01m'
         self.WARN = '\x1b[33;01m'
         self.BAD = '\x1b[31;01m'
         self.NORMAL = '\x1b[0m'
-    
+
     def greet(self):
         print self.UNICODE_MAGIC
         if os.path.exists("/etc/pardus-release"):
@@ -308,20 +308,20 @@ class UI:
         else:
             self.error(_("Cannot find /etc/pardus-release"))
         print
-    
+
     def info(self, msg):
         if config.get("debug"):
             logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.GOOD, self.NORMAL, msg.encode("utf-8")))
-    
+
     def warn(self, msg):
         logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.WARN, self.NORMAL, msg.encode("utf-8")))
-    
+
     def error(self, msg):
         logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.BAD, self.NORMAL, msg.encode("utf-8")))
-    
+
     def debug(self, msg):
         if config.get("debug"):
             logger.log(msg)
@@ -474,11 +474,11 @@ def setupUdev():
     ui.info(_("Mounting /dev"))
     # many video drivers require exec access in /dev
     mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755 udev /dev")
-    
+
     # At this point, an empty /dev is mounted on ramdisk
     # We need /dev/null for calling run_quiet
     os.mknod("/dev/null", 0666 | stat.S_IFCHR, os.makedev(1, 3))
-    
+
     devpath = "/lib/udev/devices"
     if os.path.exists(devpath):
         ui.info(_("Restoring saved device states"))
@@ -488,7 +488,7 @@ def setupUdev():
                 "--preserve=all", "--recursive", "--update",
                 "%s/%s" % (devpath, name), "/dev/"
             )
-    
+
     # When these files are missing, lots of trouble happens
     # so we double check that they are there
     ensureDirs("/dev/pts")
@@ -503,14 +503,14 @@ def setupUdev():
     for link in devlinks:
         if not os.path.lexists(link[0]):
             os.symlink(link[1], link[0])
-    
+
     ui.info(_("Starting udev"))
-    
+
     if config.kernel_ge("2.6.16"):
         # disable uevent helper, udevd listens to netlink
         write("/sys/kernel/uevent_helper", " ")
         run("/sbin/udevd", "--daemon")
-        
+
         ui.info(_("Populating /dev"))
 
         # create needed queue directory
@@ -524,14 +524,14 @@ def setupUdev():
         # no netlink support in old kernels
         write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
         run("/sbin/udevstart")
-    
+
     # NOTE: handle lvm here when used by pardus
-    
+
 def checkRoot():
     if not config.get("livecd"):
         ui.info(_("Remounting root filesystem read-only"))
         run("/bin/mount", "-n", "-o", "remount,ro", "/")
-        
+
         ent = config.get_mount("/")
         if config.get("forcefsck") or (len(ent) > 5 and ent[5] != "0"):
             if config.get("forcefsck"):
@@ -558,11 +558,11 @@ def checkRoot():
                 run_full("/sbin/sulogin")
         else:
             ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
-    
+
     ui.info(_("Remounting root filesystem read/write"))
     if run_quiet("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
         ui.error(_("Root filesystem could not be mounted read/write :("))
-    
+
     # Fix mtab
     write("/etc/mtab", "")
     run("/bin/mount", "-f", "/")
@@ -583,7 +583,7 @@ def setHostname():
             j = data.find('"',i+10)
             if j != -1:
                 uhost = data[i+10:j]
-    
+
     if khost != "" and khost != "(none)":
         # kernel already got a hostname (pxeboot or something)
         host = khost
@@ -593,7 +593,7 @@ def setHostname():
         else:
             # nothing found, use the default hostname
             host = "pardus"
-    
+
     if uhost and host != uhost:
         i = data.find('HOSTNAME="')
         if i != -1:
@@ -603,7 +603,7 @@ def setHostname():
         else:
             data = 'HOSTNAME="' + host + '"\n' + data
         write("/etc/env.d/01hostname", data)
-    
+
     ui.info(_("Setting up hostname as '%s'") % host)
     run("/bin/hostname", host)
 
@@ -611,7 +611,7 @@ def modules():
     # dont fail if kernel do not have module support compiled in
     if not os.path.exists("/proc/modules"):
         return
-    
+
     if os.path.exists("/etc/modprobe.mudur"):
         depkernel = loadFile("/etc/modprobe.mudur").rstrip("\n")
         curkernel = os.uname()[2]
@@ -630,7 +630,7 @@ def modules():
 def checkFS():
     if config.get("livecd"):
         return
-    
+
     ui.info(_("Checking all filesystems"))
 
     if config.get("forcefsck"):
@@ -652,7 +652,7 @@ def checkFS():
 def localMount():
     if os.path.exists("/proc/modules") and not os.path.exists("/proc/bus/usb"):
         run_quiet("/sbin/modprobe", "usbcore")
-    
+
     if os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
         gid = None
         for line in file("/etc/group"):
@@ -664,10 +664,10 @@ def localMount():
             run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb", "-o", "devmode=0664,devgid=%s" % gid)
         else:
             run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
-    
+
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,noshm,nocifs,nonfs,nonfs4")
-    
+
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
 
@@ -681,12 +681,12 @@ def remoteMount(old_handler):
     # If user has set some network filesystems in fstab, we should wait
     # until they are mounted, otherwise several programs can fail if
     # /home or /var is on a network share.
-    
+
     fs_types = map(lambda x: x[2], netmounts)
     if "nfs" in fs_types or "nfs4" in fs_types:
         ui.info(_("Starting portmap service for NFS"))
         startServices(["portmap"])
-    
+
     ui.info(_("Mounting remote filesystems (CTRL-C stops trying)"))
     try:
         signal.signal(signal.SIGINT, old_handler)
@@ -708,10 +708,10 @@ def remoteMount(old_handler):
 def hdparm():
     if config.get("safe"):
         return
-    
+
     if not os.path.exists("/sbin/hdparm") or not os.path.exists("/etc/conf.d/hdparm"):
         return
-    
+
     dict = loadConfig("/etc/conf.d/hdparm")
     if len(dict) > 0:
         ui.info(_("Setting disk parameters"))
@@ -732,13 +732,13 @@ def hdparm():
 def setClock():
     if config.is_virtual():
         return
-    
+
     ui.info(_("Setting system clock to hardware clock"))
-    
+
     opts = "--utc"
     if config.get("clock") != "UTC":
         opts = "--localtime"
-    
+
     if config.get("clock_adjust") == "yes":
         adj = "--adjust"
         if not touch("/etc/adjtime"):
@@ -748,7 +748,7 @@ def setClock():
         t = capture("/sbin/hwclock", adj, opts)
         if t[1] != '':
             ui.error(_("Failed to adjust systematic drift of the hardware clock"))
-    
+
     t = capture("/sbin/hwclock", "--hctosys", opts)
     if t[1] != '':
         ui.error(_("Failed to set system clock to hardware clock"))
@@ -762,7 +762,7 @@ def cleanupVar():
 
 def cleanupTmp():
     ui.info(_("Cleaning up /tmp"))
-    
+
     cleanup_list = (
         "/tmp/gpg-*",
         "/tmp/kde-*",
@@ -777,11 +777,11 @@ def cleanupTmp():
         "/tmp/.X*-lock"
     )
     map(delete, cleanup_list)
-    
+
     ensureDirs("/tmp/.ICE-unix")
     os.chown("/tmp/.ICE-unix", 0, 0)
     os.chmod("/tmp/.ICE-unix", 01777)
-    
+
     ensureDirs("/tmp/.X11-unix")
     os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.X11-unix", 01777)
@@ -793,11 +793,11 @@ def cleanupTmp():
 def saveClock():
     if config.get("livecd") or config.is_virtual():
         return
-    
+
     opts = "--utc"
     if config.get("clock") != "UTC":
         opts = "--localtime"
-    
+
     ui.info(_("Syncing system clock to hardware clock"))
     t = capture("/sbin/hwclock", "--systohc", opts)
     if t[1] != '':
@@ -807,18 +807,18 @@ def stopSystem():
     def proc_key(x):
         """sort helper"""
         return x[1]
-    
+
     stopServices()
     stopComar()
-    
+
     saveClock()
-    
+
     ui.info(_("Deactivating swap"))
     # unmount unused tmpfs filesystems before swap
     # (tmpfs can be swapped and you can get a deadlock)
     run_quiet("/bin/umount", "-at", "tmpfs")
     run_quiet("/sbin/swapoff", "-a")
-    
+
     def getFS():
         ents = loadFile("/proc/mounts").split("\n")
         ents = map(lambda x: x.split(), ents)
@@ -833,7 +833,7 @@ def stopSystem():
         # sort for correct unmount order
         ents.sort(key=proc_key, reverse=True)
         return ents
-    
+
     ui.info(_("Unmounting filesystems"))
     # write a reboot record to /var/log/wtmp before unmounting
     run("/sbin/halt", "-w")
@@ -843,19 +843,19 @@ def stopSystem():
             run_quiet("/bin/fuser", "-k", "-9", "-m", dev[1])
             time.sleep(2)
             run_quiet("/bin/umount", "-f", "-r", dev[1])
-    
+
     def remount_ro(force=False):
         ents = loadFile("/proc/mounts").split("\n")
         ents = map(lambda x: x.split(), ents)
         ents = filter(lambda x: len(x) > 2, ents)
         ents = filter(lambda x: x[0] != "none", ents)
         ents.sort(key=proc_key, reverse=True)
-        
+
         if ents:
             run("/bin/sync")
             run("/bin/sync")
             time.sleep(1)
-        
+
         ret = 0
         for ent in ents:
             if force:
@@ -865,7 +865,7 @@ def stopSystem():
         if ret:
             run_quiet("killall5", "-9")
         return ret
-    
+
     ui.info(_("Remounting remaining filesystems readonly"))
     # we parse /proc/mounts but use umount, so this have to agree
     run("cp", "/proc/mounts", "/etc/mtab")
@@ -929,34 +929,34 @@ setTranslation()
 if sys.argv[1] == "sysinit":
     ui.info(_("Mounting /sys"))
     mount("/sys", "-t sysfs sysfs /sys")
-    
+
     setupUdev()
-    
+
     ui.info(_("Mounting /dev/pts"))
     mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
-    
+
     # Set kernel console log level for cleaner boot
     # only panic messages will be printed
     run("/bin/dmesg", "-n", "1")
-    
+
     checkRoot()
     setHostname()
-    
+
     modules()
-    
+
     checkFS()
     localMount()
-    
+
     hdparm()
-    
+
     setClock()
-    
+
     setSystemLanguage()
-    
+
     # better performance for SMP systems, /var/run must be mounted rw before this
     if os.path.exists("/usr/sbin/irqbalance"):
         run("/usr/sbin/irqbalance")
-    
+
     # when we exit this runlevel, init will write a boot record to utmp
     write("/var/run/utmp", "")
     touch("/var/log/wtmp")
@@ -968,27 +968,27 @@ elif sys.argv[1] == "boot":
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
         "gw", "127.0.0.1", "dev", "lo")
-    
+
     run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
-    
+
     cleanupVar()
 
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
         run("/sbin/update-environment")
-    
+
     cleanupTmp()
-    
+
     startComar()
 
     ttyUnicode()
-    
+
     remoteMount(old_handler)
-    
+
 elif sys.argv[1] == "default":
     if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
         run("/bin/bash", "/etc/conf.d/local.start")
-    
+
     ui.info(_("Triggering udev events which are failed during a previous run"))
     # Trigger only the events which are failed during a previous run.
     run("/sbin/udevadm", "trigger", "--retry-failed")
@@ -1001,12 +1001,12 @@ elif sys.argv[1] == "single":
 elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
     # Log the operation before unmounting file systems
     logger.sync()
-    
+
     if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
         run("/bin/bash", "/etc/conf.d/local.stop")
-    
+
     stopSystem()
-    
+
     if sys.argv[1] == "reboot":
         # Try to reboot using kexec, if kernel supports it.
         kexecFile = "/sys/kernel/kexec_loaded"
@@ -1014,7 +1014,7 @@ elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
             ui.info(_("Trying initiate a warm reboot (skipping BIOS with kexec kernel)"))
             run_quiet("/usr/sbin/kexec", "-e")
 
-        # Shut down all network interfaces just before halt or reboot, 
+        # Shut down all network interfaces just before halt or reboot,
         # When halting the system do a poweroff. This is the default when halt is called as powerof
         # Don't write the wtmp record.
         run("/sbin/reboot", "-idp")

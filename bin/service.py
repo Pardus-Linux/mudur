@@ -59,7 +59,7 @@ class Service:
         "script": _("script"),
         "server": _("server"),
     }
-    
+
     def __init__(self, name, info=None):
         self.name = name
         self.running = ""
@@ -93,12 +93,12 @@ def format_service_list(services, use_color=True):
     run_title = _("Status")
     auto_title = _("Autostart")
     desc_title = _("Description")
-    
+
     name_size = max(max(map(lambda x: len(x.name), services)), len(name_title))
     run_size = max(max(map(lambda x: len(x.running), services)), len(run_title))
     auto_size = max(max(map(lambda x: len(x.autostart), services)), len(auto_title))
     desc_size = len(desc_title)
-    
+
     line = "%s | %s | %s | %s" % (
         name_title.center(name_size),
         run_title.center(run_size),
@@ -107,7 +107,7 @@ def format_service_list(services, use_color=True):
     )
     print line
     print "-" * (len(line))
-    
+
     cstart = ""
     cend = ""
     if use_color:
@@ -134,14 +134,14 @@ def list_services(use_color=True):
     data = collect(c)
     services = filter(lambda x: x.command == "result", data)
     errors = filter(lambda x: x.command != "result", data)
-    
+
     if len(services) > 0:
         services.sort(key=lambda x: x.script)
         lala = []
         for item in services:
             lala.append(Service(item.script, item.data))
         format_service_list(lala, use_color)
-    
+
     if len(errors) > 0:
         print
         map(report_error, errors)
@@ -163,27 +163,27 @@ def manage_comar(op):
             sys.exit(3)
         print _("Comar service is running.")
         sys.exit(0)
-    
+
     if os.getuid() != 0:
         print _("You should be the root user in order to control the comar service.")
         sys.exit(1)
-    
+
     comar_pid = "/var/run/comar.pid"
-    
+
     if op == "stop" or op == "restart":
         os.system("/sbin/start-stop-daemon --stop --pidfile %s" % comar_pid)
-    
+
     timeout = 5
     while checkDaemon(comar_pid) and timeout > 0:
         time.sleep(0.2)
         timeout -= 0.2
-    
+
     if op == "start" or op == "restart":
         os.system("/sbin/start-stop-daemon -b --start --pidfile %s --make-pidfile --exec /usr/bin/comar" % comar_pid)
 
 def manage_service(service, op, use_color=True):
     c = comlink()
-    
+
     if op == "start":
         c.ask_notify("System.Service.changed")
         c.System.Service[service].start()
@@ -202,7 +202,7 @@ def manage_service(service, op, use_color=True):
         manage_service(service, "stop")
         manage_service(service, "start")
         return
-    
+
     while True:
         reply = c.read_cmd()
         if reply.command == "result":
@@ -218,7 +218,7 @@ def manage_service(service, op, use_color=True):
             if op == "status":
                 sys.exit(4)
             sys.exit(1)
-    
+
     if op in ["info", "status", "list"]:
         s = Service(reply.script, reply.data)
         format_service_list([s], use_color)
@@ -257,7 +257,7 @@ and option is:
 def main(args):
     operations = ("start", "stop", "info", "list", "restart", "reload", "status", "on", "off")
     use_color = True
-    
+
     # Parameters
     if "--no-color" in args:
         args.remove("--no-color")
@@ -265,26 +265,26 @@ def main(args):
     if "-N" in args:
         args.remove("-N")
         use_color = False
-    
+
     # Operations
     if args == []:
         list_services(use_color)
-    
+
     elif args[0] == "list" and len(args) == 1:
         list_services(use_color)
-    
+
     elif args[0] == "help":
         usage()
-    
+
     elif len(args) < 2:
         usage()
-    
+
     elif args[0] == "comar":
         manage_comar(args[1])
-    
+
     elif args[1] in operations:
         manage_service(args[0], args[1], use_color)
-    
+
     else:
         usage()
 
