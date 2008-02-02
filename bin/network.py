@@ -260,12 +260,14 @@ def listProfiles(args=None):
     profiles.sort(key=lambda x: x.devname + x.name)     #profiles are sorted by device_name + name
 
     name_title = "" # _("Profile")
+    dev_title = "" # _("Device")
     state_title = "" # _("Status")
     addr_title = "" # _("Address")
 
     #name_size and state_size are set  to the maximum length of name/state of profiles
     # -for ljust operations in output format-
     name_size = max(max(map(lambda x: len(x.name), profiles)), len(name_title))
+    device_size = max(max(map(lambda x: len(x.devname.rsplit("(")[-1][:-1]), profiles)), len(dev_title))
     state_size = max(max(map(lambda x: len(x.get_state()), profiles)), len(state_title))
 
     cstart = ""
@@ -278,9 +280,11 @@ def listProfiles(args=None):
         if len(link_profiles) > 0:
             print "%s:" % link.name
         for profile in link_profiles:
-            line = "  %s%s%s | %s%s%s | %s%s%s" % (
+            line = "  %s%s%s | %s%s%s | %s%s%s | %s%s%s" % (
                 cstart,
                 profile.name.ljust(name_size),
+                cend, cstart,
+                profile.devname.rsplit("(")[-1][:-1].ljust(device_size),
                 cend, cstart,
                 profile.get_state().center(state_size),
                 cend, cstart,
