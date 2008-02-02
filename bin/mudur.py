@@ -786,17 +786,6 @@ def cleanupTmp():
     os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.X11-unix", 01777)
 
-def resetConPerms():
-    # reset console permissions if we are actually using it
-    if os.path.exists("/sbin/pam_console_apply"):
-        for pamd in os.listdir("/etc/pam.d"):
-            data = loadFile(os.path.join("/etc/pam.d", pamd)).split("\n")
-            m = filter(lambda x: "pam_console" in x and not x.startswith("#"), data)
-            if len(m) > 0:
-                run("/sbin/pam_console_apply", "-r")
-                break
-
-
 #
 # Finalization functions
 #
@@ -987,8 +976,6 @@ elif sys.argv[1] == "boot":
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
         run("/sbin/update-environment")
-    
-    resetConPerms()
     
     cleanupTmp()
     
