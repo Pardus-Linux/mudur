@@ -424,6 +424,7 @@ def mount(part, args):
 #
 
 def startDBus():
+    os.setuid(0)
     ui.info("Starting DBus...")
     if not os.path.exists("/var/lib/dbus/machine-id"):
         run("/usr/bin/dbus-uuidgen", "--ensure")
