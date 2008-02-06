@@ -189,7 +189,8 @@ class Config:
             "livecd": False,
             "safe": False,
             "forcefsck": False,
-            "head_start": "kdebase",
+            "head_start": "",
+            "services": "",
         }
         # load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
@@ -422,48 +423,80 @@ def mount(part, args):
 # COMAR functions
 #
 
-def startComar():
-    ui.info(_("Starting COMAR"))
-    # If a job crashes before finishing a transaction, Berkeley DB halts.
-    # We are deleting DB log files before starting Comar, so a reboot fixes
-    # the problem if it ever happens.
-    delete("/var/db/comar/__*")
-    delete("/var/db/comar/log*")
+def startDBus():
+    ui.info("Starting DBus...")
+    if not os.path.exists("/var/lib/dbus/machine-id"):
+        run("/usr/bin/dbus-uuidgen", "--ensure")
     run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
-        "--pidfile", "/var/run/comar.pid", "--make-pidfile",
-        "--exec", "/usr/bin/comar")
+        "--pidfile", "/var/run/dbus/pid", "--exec", "/usr/bin/dbus-daemon",
+        "--", "--system")
+    waitBus("/var/run/dbus/system_bus_socket")
+
+def readyService(service, bus):
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+    obj.ready(dbus_interface="tr.org.pardus.comar.System.Service", ignore_reply=True)
+
+def startService(service, bus, detach=False):
+    if not detach:
+        ui.info("Starting %s..." % service)
+        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+        obj.start(dbus_interface="tr.org.pardus.comar.System.Service")
+    else:
+        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+        obj.start(dbus_interface="tr.org.pardus.comar.System.Service", ignore_reply=True)
+
+def stopService(service, bus, detach=False):
+    if not detach:
+        ui.info("Stopping %s..." % service)
+        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+        obj.stop(dbus_interface="tr.org.pardus.comar.System.Service")
+    else:
+        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+        obj.stop(dbus_interface="tr.org.pardus.comar.System.Service", ignore_reply=True)
+
+def getServices(bus):
+    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
+    return obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
 
 def startServices(extras=None):
     if extras is None:
         ui.info(_("Starting services"))
-    import comar
-    waitBus("/var/run/comar.socket")
+    import dbus
     try:
-        link = comar.Link()
-    except:
-        ui.error(_("Cannot connect to COMAR, services won't be started"))
+        bus = dbus.SystemBus()
+    except dbus.DBusException:
+        ui.error(_("Cannot connect to DBus, services won't be started"))
         return
     # Almost everything depends on logger, so start manually
-    link.call_package("System.Service.start", "sysklogd")
-    if not waitBus("/dev/log", stream=False):
-        ui.warn(_("Cannot start system logger"))
+    startService("sysklogd", bus, detach=True)
     if extras:
         for service in extras:
-            link.System.Service[service].start()
+            try:
+                startService(service, bus, detach=True)
+            except dbus.DBusException:
+                pass
         return
     # Give login screen a headstart
-    link.call_package("System.Service.ready", config.get("head_start"))
+    if config.get("head_start"):
+        startService(config.get("head_start"), bus, detach=True)
     if not config.get("safe"):
-        waitBus("/tmp/.X11-unix/X0", timeout=3)
-        link.call("System.Service.ready")
+        for service in getServices(bus):
+            readyService(service, bus)
 
 def stopServices():
     ui.info(_("Stopping services"))
-    run_quiet("/usr/bin/hav", "call", "System.Service.stop")
+    import dbus
+    try:
+        bus = dbus.SystemBus()
+    except dbus.DBusException:
+        return
 
-def stopComar():
-    ui.info(_("Stopping COMAR"))
-    run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/comar.pid")
+    for service in getServices(bus):
+        stopService(service, bus, detach=True)
+
+def stopDBus():
+    ui.info(_("Stopping DBus"))
+    run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
 
 
 #
@@ -809,7 +842,7 @@ def stopSystem():
         return x[1]
 
     stopServices()
-    stopComar()
+    stopDBus()
 
     saveClock()
 
@@ -979,7 +1012,7 @@ elif sys.argv[1] == "boot":
 
     cleanupTmp()
 
-    startComar()
+    startDBus()
 
     ttyUnicode()
 

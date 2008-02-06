@@ -12,8 +12,8 @@
 import sys
 import os
 import locale
-import comar
 import time
+import dbus
 
 # i18n
 
@@ -23,33 +23,17 @@ _ = __trans.ugettext
 
 # Utilities
 
-def comlink():
-    com = comar.Link()
-    com.localize()
-    return com
-
-def report_error(reply):
-    if reply.command == "denied":
-        print _("You dont have permission to do this operation.")
-    elif reply.command == "none":
-        if reply.data == "noapp":
-            print _("There is no such service.")
-        else:
-            print _("Service doesn't provide this operation.")
-    else:
-        print _("%(script)s error: %(data)s") % {"script": reply.script, "data": reply.data}
-
-def collect(c):
-    reply = c.read_cmd()
-    if reply.command == "start":
-        replies = []
-        while True:
-            reply = c.read_cmd()
-            if reply.command == "end":
-                return replies
-            replies.append(reply)
-    else:
-        return [reply]
+def loadConfig(path):
+    dict = {}
+    for line in file(path):
+        if line != "" and not line.startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip()
+            if value.startswith('"') or value.startswith("'"):
+                value = value[1:-1]
+            dict[key] = value
+    return dict
 
 # Operations
 
@@ -65,7 +49,7 @@ class Service:
         self.running = ""
         self.autostart = ""
         if info:
-            type, state, self.description = info.split("\n")
+            type, self.description, state = info
             self.state = state
             self.type = self.types[type]
             if state in ("on", "started"):
@@ -128,112 +112,73 @@ def format_service_list(services, use_color=True):
         )
         print line
 
+def startService(service, bus):
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+    print _("Starting %s..." % service)
+    obj.start(dbus_interface="tr.org.pardus.comar.System.Service")
+
+def stopService(service, bus):
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+    print _("Stopping %s..." % service)
+    obj.stop(dbus_interface="tr.org.pardus.comar.System.Service")
+
+def setServiceState(service, state, bus):
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+    obj.setState(state, dbus_interface="tr.org.pardus.comar.System.Service")
+    if state == "on":
+        print _("Service '%s' will be auto started.") % service
+    else:
+        print _("Service '%s' won't be auto started.") % service
+
+def reloadService(service, bus):
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+    print _("Reloading %s..." % service)
+    obj.reload(dbus_interface="tr.org.pardus.comar.System.Service")
+
+def getServiceInfo(service, bus):
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+    return obj.info(dbus_interface="tr.org.pardus.comar.System.Service")
+
+def getServices(bus):
+    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
+    return obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
+
 def list_services(use_color=True):
-    c = comlink()
-    c.call("System.Service.info")
-    data = collect(c)
-    services = filter(lambda x: x.command == "result", data)
-    errors = filter(lambda x: x.command != "result", data)
+    bus = dbus.SystemBus()
+    services = []
+    for service in getServices(bus):
+        services.append((service, getServiceInfo(service, bus), ))
 
     if len(services) > 0:
-        services.sort(key=lambda x: x.script)
+        services.sort(key=lambda x: x[0])
         lala = []
-        for item in services:
-            lala.append(Service(item.script, item.data))
+        for service, info in services:
+            lala.append(Service(service, info))
         format_service_list(lala, use_color)
 
-    if len(errors) > 0:
-        print
-        map(report_error, errors)
-
-def checkDaemon(pidfile):
-    if not os.path.exists(pidfile):
-        return False
-    pid = file(pidfile).read().rstrip("\n")
-    if not os.path.exists("/proc/%s" % pid):
-        return False
-    return True
-
-def manage_comar(op):
-    if op in ("status", "info"):
-        try:
-            c = comlink()
-        except comar.CannotConnect:
-            print _("Comar service is not running.")
-            sys.exit(3)
-        print _("Comar service is running.")
-        sys.exit(0)
-
-    if os.getuid() != 0:
-        print _("You should be the root user in order to control the comar service.")
-        sys.exit(1)
-
-    comar_pid = "/var/run/comar.pid"
-
-    if op == "stop" or op == "restart":
-        os.system("/sbin/start-stop-daemon --stop --pidfile %s" % comar_pid)
-
-    timeout = 5
-    while checkDaemon(comar_pid) and timeout > 0:
-        time.sleep(0.2)
-        timeout -= 0.2
-
-    if op == "start" or op == "restart":
-        os.system("/sbin/start-stop-daemon -b --start --pidfile %s --make-pidfile --exec /usr/bin/comar" % comar_pid)
-
 def manage_service(service, op, use_color=True):
-    c = comlink()
+    bus = dbus.SystemBus()
 
     if op == "start":
-        c.ask_notify("System.Service.changed")
-        c.System.Service[service].start()
+        startService(service, bus)
     elif op == "stop":
-        c.ask_notify("System.Service.changed")
-        c.System.Service[service].stop()
+        stopService(service, bus)
     elif op == "reload":
-        c.System.Service[service].reload()
+        pass
+        #reloadService(service)
+        #print _("Service '%s' reloaded.") % service
     elif op == "on":
-        c.System.Service[service].setState(state="on")
+        setServiceState(service, "on", bus)
     elif op == "off":
-        c.System.Service[service].setState(state="off")
+        setServiceState(service, "off", bus)
     elif op in ["info", "status", "list"]:
-        c.System.Service[service].info()
+        info = getServiceInfo(service, bus)
+        s = Service(service, info)
+        format_service_list([s], use_color)
     elif op == "restart":
         manage_service(service, "stop")
         manage_service(service, "start")
         return
-
-    while True:
-        reply = c.read_cmd()
-        if reply.command == "result":
-            break
-        elif reply.command == "notify":
-            if reply.data == "started":
-                print _("Service '%s' started.") % reply.script
-            else:
-                print _("Service '%s' stopped.") % reply.script
-        else:
-            report_error(reply)
-            # LSB compliant exit codes
-            if op == "status":
-                sys.exit(4)
-            sys.exit(1)
-
-    if op in ["info", "status", "list"]:
-        s = Service(reply.script, reply.data)
-        format_service_list([s], use_color)
-        if op in ["info", "status"]:
-            # LSB compliant status codes
-            if s.state in ["on", "started"]:
-                sys.exit(0)
-            else:
-                sys.exit(3)
-    elif op == "reload":
-        print _("Service '%s' reloaded.") % service
-    elif op == "on":
-        print _("Service '%s' will be auto started.") % service
-    elif op == "off":
-        print _("Service '%s' won't be auto started.") % service
 
 # Usage
 
@@ -278,9 +223,6 @@ def main(args):
 
     elif len(args) < 2:
         usage()
-
-    elif args[0] == "comar":
-        manage_comar(args[1])
 
     elif args[1] in operations:
         manage_service(args[0], args[1], use_color)
