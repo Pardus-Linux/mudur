@@ -460,6 +460,7 @@ def getServices(bus):
     return obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
 
 def startServices(extras=None):
+    os.setuid(0)
     if extras is None:
         ui.info(_("Starting services"))
     import dbus
