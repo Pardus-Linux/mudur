@@ -19,6 +19,7 @@ import gettext
 import time
 import signal
 import fcntl
+import termios
 import socket
 
 #
@@ -422,6 +423,24 @@ def mount(part, args):
 #
 # COMAR functions
 #
+def fork_handler():
+    # Set umask to a sane value
+    # (other and group has no write permission by default)
+    os.umask(022)
+    # Detach from controlling terminal
+    try:
+        tty_fd = os.open("/dev/tty", os.O_RDWR)
+        fcntl.ioctl(tty_fd, termios.TIOCNOTTY)
+        os.close(tty_fd)
+    except OSError:
+        pass
+    # Close IO channels
+    devnull_fd = os.open("/dev/null", os.O_RDWR)
+    os.dup2(devnull_fd, 0)
+    os.dup2(devnull_fd, 1)
+    os.dup2(devnull_fd, 2)
+    # Detach from process group
+    os.setsid()
 
 def startDBus():
     os.setuid(0)
@@ -433,27 +452,17 @@ def startDBus():
         "--", "--system")
     waitBus("/var/run/dbus/system_bus_socket")
 
-def readyService(service, bus):
-    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-    obj.ready(dbus_interface="tr.org.pardus.comar.System.Service", ignore_reply=True)
+def readyService(service):
+    cmd = ["/bin/service", "--quiet", service, "ready"]
+    subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-def startService(service, bus, detach=False):
-    if not detach:
-        ui.info("Starting %s..." % service)
-        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-        obj.start(dbus_interface="tr.org.pardus.comar.System.Service")
-    else:
-        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-        obj.start(dbus_interface="tr.org.pardus.comar.System.Service", ignore_reply=True)
+def startService(service):
+    cmd = ["/bin/service", "--quiet", service, "start"]
+    subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-def stopService(service, bus, detach=False):
-    if not detach:
-        ui.info("Stopping %s..." % service)
-        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-        obj.stop(dbus_interface="tr.org.pardus.comar.System.Service")
-    else:
-        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-        obj.stop(dbus_interface="tr.org.pardus.comar.System.Service", ignore_reply=True)
+def stopService(service):
+    cmd = ["/bin/service", "--quiet", service, "stop"]
+    subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 def getServices(bus):
     obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
@@ -470,20 +479,21 @@ def startServices(extras=None):
         ui.error(_("Cannot connect to DBus, services won't be started"))
         return
     # Almost everything depends on logger, so start manually
-    startService("sysklogd", bus, detach=True)
+    startService("sysklogd")
     if extras:
         for service in extras:
             try:
-                startService(service, bus, detach=True)
+                startService(service)
             except dbus.DBusException:
                 pass
         return
     # Give login screen a headstart
     if config.get("head_start"):
-        startService(config.get("head_start"), bus, detach=True)
+        startService(config.get("head_start"))
     if not config.get("safe"):
-        for service in getServices(bus):
-            readyService(service, bus)
+        services = getServices(bus)
+        for service in services:
+            readyService(service)
 
 def stopServices():
     ui.info(_("Stopping services"))
@@ -494,7 +504,7 @@ def stopServices():
         return
 
     for service in getServices(bus):
-        stopService(service, bus, detach=True)
+        stopService(service)
 
 def stopDBus():
     ui.info(_("Stopping DBus"))

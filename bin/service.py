@@ -112,27 +112,35 @@ def format_service_list(services, use_color=True):
         )
         print line
 
-def startService(service, bus):
+def readyService(service, bus):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-    print _("Starting %s..." % service)
+    obj.ready(dbus_interface="tr.org.pardus.comar.System.Service")
+
+def startService(service, bus, quiet=False):
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+    if not quiet:
+        print _("Starting %s..." % service)
     obj.start(dbus_interface="tr.org.pardus.comar.System.Service")
 
-def stopService(service, bus):
+def stopService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-    print _("Stopping %s..." % service)
+    if not quiet:
+        print _("Stopping %s..." % service)
     obj.stop(dbus_interface="tr.org.pardus.comar.System.Service")
 
-def setServiceState(service, state, bus):
+def setServiceState(service, state, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
     obj.setState(state, dbus_interface="tr.org.pardus.comar.System.Service")
-    if state == "on":
-        print _("Service '%s' will be auto started.") % service
-    else:
-        print _("Service '%s' won't be auto started.") % service
+    if not quiet:
+        if state == "on":
+            print _("Service '%s' will be auto started.") % service
+        else:
+            print _("Service '%s' won't be auto started.") % service
 
-def reloadService(service, bus):
+def reloadService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-    print _("Reloading %s..." % service)
+    if not quiet:
+        print _("Reloading %s..." % service)
     obj.reload(dbus_interface="tr.org.pardus.comar.System.Service")
 
 def getServiceInfo(service, bus):
@@ -156,28 +164,28 @@ def list_services(use_color=True):
             lala.append(Service(service, info))
         format_service_list(lala, use_color)
 
-def manage_service(service, op, use_color=True):
+def manage_service(service, op, use_color=True, quiet=False):
     bus = dbus.SystemBus()
 
-    if op == "start":
-        startService(service, bus)
+    if op == "ready":
+        readyService(service, bus)
+    elif op == "start":
+        startService(service, bus, quiet)
     elif op == "stop":
-        stopService(service, bus)
+        stopService(service, bus, quiet)
     elif op == "reload":
-        pass
-        #reloadService(service)
-        #print _("Service '%s' reloaded.") % service
+        reloadService(service, bus, quiet)
     elif op == "on":
-        setServiceState(service, "on", bus)
+        setServiceState(service, "on", bus, quiet)
     elif op == "off":
-        setServiceState(service, "off", bus)
+        setServiceState(service, "off", bus, quiet)
     elif op in ["info", "status", "list"]:
         info = getServiceInfo(service, bus)
         s = Service(service, info)
         format_service_list([s], use_color)
     elif op == "restart":
-        manage_service(service, "stop")
-        manage_service(service, "start")
+        manage_service(service, "stop", use_color, quiet)
+        manage_service(service, "start", use_color, quiet)
         return
 
 # Usage
@@ -195,13 +203,15 @@ where command is:
  restart  Stop the service, then start again
  reload   Reload the configuration (if service supports this)
 and option is:
- -N, --no-color  Don't use color in output""")
+ -N, --no-color  Don't use color in output
+ -q, --quiet     Don't print replies""")
 
 # Main
 
 def main(args):
-    operations = ("start", "stop", "info", "list", "restart", "reload", "status", "on", "off")
+    operations = ("start", "stop", "info", "list", "restart", "reload", "status", "on", "off", "ready")
     use_color = True
+    quiet = False
 
     # Parameters
     if "--no-color" in args:
@@ -210,6 +220,12 @@ def main(args):
     if "-N" in args:
         args.remove("-N")
         use_color = False
+    if "--quiet" in args:
+        args.remove("--quiet")
+        quiet = True
+    if "-q" in args:
+        args.remove("-q")
+        quiet = True
 
     # Operations
     if args == []:
@@ -225,7 +241,7 @@ def main(args):
         usage()
 
     elif args[1] in operations:
-        manage_service(args[0], args[1], use_color)
+        manage_service(args[0], args[1], use_color, quiet)
 
     else:
         usage()
