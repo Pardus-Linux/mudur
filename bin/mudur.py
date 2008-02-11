@@ -464,9 +464,14 @@ def stopService(service):
     cmd = ["/bin/service", "--quiet", service, "stop"]
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-def getServices(bus):
-    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
-    return obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
+def getServices(bus, all=False):
+    if all:
+        obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
+        return obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
+    else:
+        enabled = set(os.listdir("/etc/mudur/services/enabled"))
+        conditional = set(os.listdir("/etc/mudur/services/conditional"))
+        return enabled.union(conditional)
 
 def startServices(extras=None):
     os.setuid(0)
@@ -503,7 +508,7 @@ def stopServices():
     except dbus.DBusException:
         return
 
-    for service in getServices(bus):
+    for service in getServices(bus, all=True):
         stopService(service)
 
 def stopDBus():

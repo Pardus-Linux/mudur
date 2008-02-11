@@ -64,14 +64,16 @@ def format_service_list(services, use_color=True):
             "on": '[0;32m',
             "started": '[1;32m',
             "stopped": '[0;31m',
-            "off": '[0m'
+            "off": '[0m',
+            "conditional": '[0m',
         }
     else:
         colors = {
             "on": '[1;32m',
             "started": '[0;32m',
             "stopped": '[1;31m',
-            "off": '[0m'
+            "off": '[0m',
+            "conditional": '[0m',
         }
     name_title = _("Service")
     run_title = _("Status")
