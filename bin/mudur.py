@@ -475,8 +475,6 @@ def getServices(bus, all=False):
 
 def startServices(extras=None):
     os.setuid(0)
-    if extras is None:
-        ui.info(_("Starting services"))
     import dbus
     try:
         bus = dbus.SystemBus()
@@ -492,10 +490,27 @@ def startServices(extras=None):
             except dbus.DBusException:
                 pass
         return
-    # Give login screen a headstart
-    if config.get("head_start"):
-        startService(config.get("head_start"))
+    # Start network service
+    import pardus.iniutils
+    for script in os.listdir("/etc/network"):
+        db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
+        for profile in db.listDB():
+            if db.getDB(profile)["state"] == "up":
+                device = db.getDB(profile).get("device", None)
+                if not device:
+                    continue
+                device = device.rsplit("_")[-1]
+                try:
+                    ui.info(_("Bringing up interface %s (Profile: %s)") % (device, profile,))
+                    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+                    obj.setState(profile, "up", dbus_interface="tr.org.pardus.comar.Net.Link")
+                except dbus.DBusException:
+                    ui.error(_("Unable to bring up interface %s") % device)
     if not config.get("safe"):
+        ui.info(_("Starting services"))
+        # Give login screen a headstart
+        if config.get("head_start"):
+            startService(config.get("head_start"))
         services = getServices(bus)
         for service in services:
             readyService(service)
