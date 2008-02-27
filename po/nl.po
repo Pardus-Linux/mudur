@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-06 09:42+0300\n"
+"POT-Creation-Date: 2008-02-27 14:42+0200\n"
 "PO-Revision-Date: 2007-11-12 20:53+0100\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
@@ -16,193 +16,196 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: bin/mudur.py:163
+#: bin/mudur.py:164
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "Kan niet schrijven naar mudur.log, alleen-lezen"
 
-#: bin/mudur.py:309
+#: bin/mudur.py:311
 msgid "Cannot find /etc/pardus-release"
 msgstr "Kan /etc/pardus-release niet vinden"
 
-#: bin/mudur.py:424
+#: bin/mudur.py:412
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "Kan unicode modus niet instellen op tty %d"
 
-#: bin/mudur.py:440
-msgid "Starting COMAR"
-msgstr "Opstarten COMAR"
+#: bin/mudur.py:482
+#, fuzzy
+msgid "Cannot connect to DBus, services won't be started"
+msgstr "Kan geen verbinding maken met COMAR, diensten worden niet gestart."
 
-#: bin/mudur.py:452
+#: bin/mudur.py:504
+#, python-format
+msgid "Bringing up interface %s"
+msgstr ""
+
+#: bin/mudur.py:508
+#, python-format
+msgid "Unable to bring up interface %s"
+msgstr ""
+
+#: bin/mudur.py:510
 msgid "Starting services"
 msgstr "Opstarten diensten"
 
-#: bin/mudur.py:458
-msgid "Cannot connect to COMAR, services won't be started"
-msgstr "Kan geen verbinding maken met COMAR, diensten worden niet gestart."
-
-#: bin/mudur.py:463
-msgid "Cannot start system logger"
-msgstr "Kan systeemlogger niet starten"
-
-#: bin/mudur.py:475
+#: bin/mudur.py:519
 msgid "Stopping services"
 msgstr "Stoppen diensten"
 
-#: bin/mudur.py:479
-msgid "Stopping COMAR"
-msgstr "Stoppen COMAR"
+#: bin/mudur.py:530
+#, fuzzy
+msgid "Stopping DBus"
+msgstr "Stoppen diensten"
 
-#: bin/mudur.py:488
+#: bin/mudur.py:539
 msgid "Mounting /dev"
 msgstr "Aankoppelen /dev"
 
-#: bin/mudur.py:498
+#: bin/mudur.py:549
 msgid "Restoring saved device states"
 msgstr "Herstellen opgeslagen apparaat statussen"
 
-#: bin/mudur.py:521
+#: bin/mudur.py:572
 msgid "Starting udev"
 msgstr "Opstarten udev"
 
-#: bin/mudur.py:528
+#: bin/mudur.py:579
 msgid "Populating /dev"
 msgstr "Opvulen /dev"
 
-#: bin/mudur.py:547
+#: bin/mudur.py:597
 msgid "Remounting root filesystem read-only"
 msgstr "Opnieuw aankoppelen hoofdbestandsysteem als alleen-lezen"
 
-#: bin/mudur.py:553
+#: bin/mudur.py:603
 msgid "Checking root filesystem (full check forced)"
 msgstr "Controleren root bestandssysteem (volledige controle geforceerd)"
 
-#: bin/mudur.py:558
+#: bin/mudur.py:608
 msgid "Checking root filesystem"
 msgstr "Controleren root bestandssysteem"
 
-#: bin/mudur.py:563
+#: bin/mudur.py:613
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Bestandsysteem gerepareerd, maar herstarten is nodig!"
 
-#: bin/mudur.py:567
+#: bin/mudur.py:617
 msgid "Rebooting in 10 seconds ..."
 msgstr "Herstart na 10 seconden..."
 
-#: bin/mudur.py:569
+#: bin/mudur.py:619
 msgid "Rebooting..."
 msgstr "Herstarten..."
 
-#: bin/mudur.py:572
+#: bin/mudur.py:622
 msgid "Filesystem couldn't be fixed :("
 msgstr "Bestandsysteem kon niet gerepareerd worden :("
 
-#: bin/mudur.py:575
+#: bin/mudur.py:625
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Overslaan controle van root bestandssysteem (fstab's overslagno == 0)"
 
-#: bin/mudur.py:577
+#: bin/mudur.py:627
 msgid "Remounting root filesystem read/write"
 msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
-#: bin/mudur.py:579
+#: bin/mudur.py:629
 msgid "Root filesystem could not be mounted read/write :("
-msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr ""
+"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
-#: bin/mudur.py:622
+#: bin/mudur.py:672
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Hostnaam instellen als '%s'"
 
-#: bin/mudur.py:639
-msgid "Calculating module dependencies"
-msgstr "Berekenen moduleafhankelijkheden"
-
-#: bin/mudur.py:655
+#: bin/mudur.py:699
 msgid "Checking all filesystems"
 msgstr "Controleren alle bestandssystemen"
 
-#: bin/mudur.py:658
+#: bin/mudur.py:702
 msgid "A full fsck has been forced"
 msgstr "Een volledige fsck is afgedwongen"
 
-#: bin/mudur.py:668
+#: bin/mudur.py:712
 msgid "Filesystem errors corrected"
 msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
-#: bin/mudur.py:670
+#: bin/mudur.py:714
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr ""
+"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
-#: bin/mudur.py:683
+#: bin/mudur.py:727
 msgid "Mounting USB filesystem"
 msgstr "Aankoppelen USB bestandssysteem"
 
-#: bin/mudur.py:689
+#: bin/mudur.py:733
 msgid "Mounting local filesystems"
 msgstr "Aankoppelen lokale bestandssystemen"
 
-#: bin/mudur.py:692
+#: bin/mudur.py:736
 msgid "Activating swap"
 msgstr "Activeren swap"
 
-#: bin/mudur.py:708
+#: bin/mudur.py:752
 msgid "Starting portmap service for NFS"
 msgstr "Starten poortmap dienst voor NFS"
 
-#: bin/mudur.py:711
+#: bin/mudur.py:755
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
-#: bin/mudur.py:725
+#: bin/mudur.py:769
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr ""
+"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
-#: bin/mudur.py:738
+#: bin/mudur.py:782
 msgid "Setting disk parameters"
 msgstr "Instellen schijf parameters"
 
-#: bin/mudur.py:757
+#: bin/mudur.py:801
 msgid "Setting system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok"
 
-#: bin/mudur.py:771
+#: bin/mudur.py:815
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr "Aanpassen systematische afwijking van de hardware klok mislukt"
 
-#: bin/mudur.py:775
+#: bin/mudur.py:819
 msgid "Failed to set system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok mislukt"
 
-#: bin/mudur.py:778
+#: bin/mudur.py:822
 msgid "Cleaning up /var"
 msgstr "Opschonen /var"
 
-#: bin/mudur.py:785
+#: bin/mudur.py:829
 msgid "Cleaning up /tmp"
 msgstr "Opschonen /tmp"
 
-#: bin/mudur.py:833
+#: bin/mudur.py:866
 msgid "Syncing system clock to hardware clock"
 msgstr "Systeemklok synchroniseren met hardwareklok"
 
-#: bin/mudur.py:836
+#: bin/mudur.py:869
 msgid "Failed to sync clocks"
 msgstr "Synchroniseren van klokken mislukt"
 
-#: bin/mudur.py:848
+#: bin/mudur.py:881
 msgid "Deactivating swap"
 msgstr "Deactiveren swap"
 
-#: bin/mudur.py:869
+#: bin/mudur.py:902
 msgid "Unmounting filesystems"
 msgstr "Afkoppelen bestandssystemen"
 
-#: bin/mudur.py:901
+#: bin/mudur.py:934
 msgid "Remounting remaining filesystems readonly"
 msgstr "Opnieuw aankoppelen bestandssystemen als alleen-lezen"
 
-#: bin/mudur.py:915
+#: bin/mudur.py:948
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -210,121 +213,93 @@ msgstr ""
 "Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs."
 "pardus.org.tr met de volgende informatie:"
 
-#: bin/mudur.py:962
+#: bin/mudur.py:995
 msgid "Mounting /sys"
 msgstr "Aankoppelen /sys"
 
-#: bin/mudur.py:967
+#: bin/mudur.py:1000
 msgid "Mounting /dev/pts"
 msgstr "Aankoppelen /dev/pts"
 
-#: bin/mudur.py:978
-msgid "Starting Coldplug"
-msgstr "Starten coldplug"
-
-#: bin/mudur.py:1003
+#: bin/mudur.py:1032
 msgid "Setting up localhost"
 msgstr "Instellen localhost"
 
-#: bin/mudur.py:1013
+#: bin/mudur.py:1042
 msgid "Updating environment variables"
 msgstr "Bijwerken omgevingsvariabelen"
 
-#: bin/mudur.py:1049
+#: bin/mudur.py:1057
+msgid "Triggering udev events which are failed during a previous run"
+msgstr ""
+
+#: bin/mudur.py:1079
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr "Probeer een warme herstart (BIOS overslaan met kexec kernel)"
 
-#: bin/service.py:33
-msgid "You dont have permission to do this operation."
-msgstr "U heeft geen toestemming voor deze handeling."
-
-#: bin/service.py:36
-msgid "There is no such service."
-msgstr "Zulke dienst bestaat niet."
-
-#: bin/service.py:38
-msgid "Service doesn't provide this operation."
-msgstr "Dienst verzorgt deze operatie niet."
-
-#: bin/service.py:40
-#, python-format
-msgid "%(script)s error: %(data)s"
-msgstr "%(script)s fout: %(data)s"
-
-#: bin/service.py:58
+#: bin/service.py:42
 msgid "local"
 msgstr "lokaal"
 
-#: bin/service.py:59
+#: bin/service.py:43
 msgid "script"
 msgstr "script"
 
-#: bin/service.py:60
+#: bin/service.py:44
 msgid "server"
 msgstr "server"
 
-#: bin/service.py:72
+#: bin/service.py:56
 msgid "running"
 msgstr "actief"
 
-#: bin/service.py:74
+#: bin/service.py:58
 msgid "yes"
 msgstr "ja"
 
-#: bin/service.py:92
+#: bin/service.py:78
 msgid "Service"
 msgstr "Dienst"
 
-#: bin/service.py:93
+#: bin/service.py:79
 msgid "Status"
 msgstr "Status"
 
-#: bin/service.py:94
+#: bin/service.py:80
 msgid "Autostart"
 msgstr "Autostart"
 
-#: bin/service.py:95
+#: bin/service.py:81
 msgid "Description"
 msgstr "Beschrijving"
 
-#: bin/service.py:162
-msgid "Comar service is not running."
-msgstr "Comar dienst is niet actief."
+#: bin/service.py:124
+#, fuzzy, python-format
+msgid "Starting %s..."
+msgstr "Opstarten udev"
 
-#: bin/service.py:164
-msgid "Comar service is running."
-msgstr "Comar dienst is actief"
+#: bin/service.py:130
+#, fuzzy, python-format
+msgid "Stopping %s..."
+msgstr "Stoppen diensten"
 
-#: bin/service.py:168
-msgid "You should be the root user in order to control the comar service."
-msgstr "U dient een root gebruiker te zijn om de COMAR dienst te gebruiken."
-
-#: bin/service.py:212
-#, python-format
-msgid "Service '%s' started."
-msgstr "Dienst '%s' is gestart."
-
-#: bin/service.py:214
-#, python-format
-msgid "Service '%s' stopped."
-msgstr "Dienst '%s' is gestopt."
-
-#: bin/service.py:232
-#, python-format
-msgid "Service '%s' reloaded."
-msgstr "Dienst '%s' is opnieuw geladen."
-
-#: bin/service.py:234
+#: bin/service.py:138
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "Dienst '%s' wordt automatische gestart."
 
-#: bin/service.py:236
+#: bin/service.py:140
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "Dienst '%s' zal niet automatische worden gestart."
 
-#: bin/service.py:241
+#: bin/service.py:145
+#, fuzzy, python-format
+msgid "Reloading %s..."
+msgstr "Herstarten..."
+
+#: bin/service.py:196
+#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -338,7 +313,8 @@ msgid ""
 " restart  Stop the service, then start again\n"
 " reload   Reload the configuration (if service supports this)\n"
 "and option is:\n"
-" -N, --no-color  Don't use color in output"
+" -N, --no-color  Don't use color in output\n"
+" -q, --quiet     Don't print replies"
 msgstr ""
 "gebruik: service [<opties>] <dienst>] <commando>\n"
 "waar commando's zijn:\n"
@@ -356,7 +332,8 @@ msgstr ""
 #: bin/network.py:40
 #, python-format
 msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr "Limiteer gebruik, geef een valide getal: ( interval: 0 < trefwoord < %s )"
+msgstr ""
+"Limiteer gebruik, geef een valide getal: ( interval: 0 < trefwoord < %s )"
 
 #: bin/network.py:139
 #, python-format
@@ -425,92 +402,92 @@ msgstr "Gevonden: %(essid)s [%(quality)s]"
 msgid "[encrypted]"
 msgstr "[versleuteld]"
 
-#: bin/network.py:327
+#: bin/network.py:331
 msgid "Enter new connection name"
 msgstr "Geef naam nieuwe verbinding"
 
-#: bin/network.py:331
+#: bin/network.py:335
 msgid "Select connection type:"
 msgstr "Selecteer verbindingstype:"
 
-#: bin/network.py:349
+#: bin/network.py:353
 #, python-format
 msgid "Device '%s' selected."
 msgstr "Apparaat '%s' geselecteerd."
 
-#: bin/network.py:351
+#: bin/network.py:355
 msgid "No avaible device for this type of connection"
 msgstr "Geen apparaten voorhanden voor dit type verbinding"
 
-#: bin/network.py:354
+#: bin/network.py:358
 msgid "Select connection device:"
 msgstr "Selecteer verbindingsapparaat:"
 
-#: bin/network.py:369
+#: bin/network.py:373
 msgid "Enter manually"
 msgstr "Handmatig invoeren"
 
-#: bin/network.py:370
+#: bin/network.py:374
 msgid "Scan"
 msgstr "Scan"
 
-#: bin/network.py:397
+#: bin/network.py:401
 msgid "Network settings:"
 msgstr "Netwerkinstellingen:"
 
-#: bin/network.py:400
+#: bin/network.py:404
 msgid "Automatic query (DHCP)"
 msgstr "Automatische opvragen (DHCP)"
 
-#: bin/network.py:401
+#: bin/network.py:405
 msgid "Manual configuration"
 msgstr "Handmatig configureren"
 
-#: bin/network.py:406
+#: bin/network.py:410
 msgid "IP Address"
 msgstr "IP adres"
 
-#: bin/network.py:407
+#: bin/network.py:411
 msgid "Network mask"
 msgstr "Netwerkmasker"
 
-#: bin/network.py:408
+#: bin/network.py:412
 msgid "Gateway"
 msgstr "Poort"
 
-#: bin/network.py:416
+#: bin/network.py:420
 msgid "Choose authentication type:"
 msgstr "Kies aanmeld type:"
 
-#: bin/network.py:426 bin/network.py:429
+#: bin/network.py:430 bin/network.py:433
 msgid "Enter password "
 msgstr "Geef wachtwoord "
 
-#: bin/network.py:428
+#: bin/network.py:432
 msgid "Enter user name "
 msgstr "Geef gebruikersnaam "
 
-#: bin/network.py:446
+#: bin/network.py:450
 msgid "Profiles :"
 msgstr "Profielen :"
 
-#: bin/network.py:448
+#: bin/network.py:452
 msgid "Name of profile to delete "
 msgstr "Naam van te verwijderen profiel "
 
-#: bin/network.py:450
+#: bin/network.py:454
 msgid "Please enter a valid profile name "
 msgstr "Geef een geldige profiel naam "
 
-#: bin/network.py:465
+#: bin/network.py:469
 msgid "Enter name of profile"
 msgstr "Geef de naam van een profiel"
 
-#: bin/network.py:482
+#: bin/network.py:486
 msgid "No such profile"
 msgstr "Profiel onbekend"
 
-#: bin/network.py:486
+#: bin/network.py:490
 msgid ""
 "usage: network <command> <arguments>\n"
 "where command is:\n"
@@ -532,7 +509,51 @@ msgstr ""
 " up           Opgegeven verbinding verbinden\n"
 " down         Opgegeven verbinding verbreken"
 
-#: bin/network.py:518
+#: bin/network.py:522
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
+#~ msgid "Starting COMAR"
+#~ msgstr "Opstarten COMAR"
+
+#~ msgid "Cannot start system logger"
+#~ msgstr "Kan systeemlogger niet starten"
+
+#~ msgid "Stopping COMAR"
+#~ msgstr "Stoppen COMAR"
+
+#~ msgid "Calculating module dependencies"
+#~ msgstr "Berekenen moduleafhankelijkheden"
+
+#~ msgid "Starting Coldplug"
+#~ msgstr "Starten coldplug"
+
+#~ msgid "You dont have permission to do this operation."
+#~ msgstr "U heeft geen toestemming voor deze handeling."
+
+#~ msgid "There is no such service."
+#~ msgstr "Zulke dienst bestaat niet."
+
+#~ msgid "Service doesn't provide this operation."
+#~ msgstr "Dienst verzorgt deze operatie niet."
+
+#~ msgid "%(script)s error: %(data)s"
+#~ msgstr "%(script)s fout: %(data)s"
+
+#~ msgid "Comar service is not running."
+#~ msgstr "Comar dienst is niet actief."
+
+#~ msgid "Comar service is running."
+#~ msgstr "Comar dienst is actief"
+
+#~ msgid "You should be the root user in order to control the comar service."
+#~ msgstr "U dient een root gebruiker te zijn om de COMAR dienst te gebruiken."
+
+#~ msgid "Service '%s' started."
+#~ msgstr "Dienst '%s' is gestart."
+
+#~ msgid "Service '%s' stopped."
+#~ msgstr "Dienst '%s' is gestopt."
+
+#~ msgid "Service '%s' reloaded."
+#~ msgstr "Dienst '%s' is opnieuw geladen."

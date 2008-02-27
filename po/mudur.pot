@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-06 09:42+0300\n"
+"POT-Creation-Date: 2008-02-27 14:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,313 +16,282 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: bin/mudur.py:163
+#: bin/mudur.py:164
 msgid "Cannot write mudur.log, read-only file system"
 msgstr ""
 
-#: bin/mudur.py:309
+#: bin/mudur.py:311
 msgid "Cannot find /etc/pardus-release"
 msgstr ""
 
-#: bin/mudur.py:424
+#: bin/mudur.py:412
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr ""
 
-#: bin/mudur.py:440
-msgid "Starting COMAR"
+#: bin/mudur.py:482
+msgid "Cannot connect to DBus, services won't be started"
 msgstr ""
 
-#: bin/mudur.py:452
+#: bin/mudur.py:504
+#, python-format
+msgid "Bringing up interface %s"
+msgstr ""
+
+#: bin/mudur.py:508
+#, python-format
+msgid "Unable to bring up interface %s"
+msgstr ""
+
+#: bin/mudur.py:510
 msgid "Starting services"
 msgstr ""
 
-#: bin/mudur.py:458
-msgid "Cannot connect to COMAR, services won't be started"
-msgstr ""
-
-#: bin/mudur.py:463
-msgid "Cannot start system logger"
-msgstr ""
-
-#: bin/mudur.py:475
+#: bin/mudur.py:519
 msgid "Stopping services"
 msgstr ""
 
-#: bin/mudur.py:479
-msgid "Stopping COMAR"
+#: bin/mudur.py:530
+msgid "Stopping DBus"
 msgstr ""
 
-#: bin/mudur.py:488
+#: bin/mudur.py:539
 msgid "Mounting /dev"
 msgstr ""
 
-#: bin/mudur.py:498
+#: bin/mudur.py:549
 msgid "Restoring saved device states"
 msgstr ""
 
-#: bin/mudur.py:521
+#: bin/mudur.py:572
 msgid "Starting udev"
 msgstr ""
 
-#: bin/mudur.py:528
+#: bin/mudur.py:579
 msgid "Populating /dev"
 msgstr ""
 
-#: bin/mudur.py:547
+#: bin/mudur.py:597
 msgid "Remounting root filesystem read-only"
 msgstr ""
 
-#: bin/mudur.py:553
+#: bin/mudur.py:603
 msgid "Checking root filesystem (full check forced)"
 msgstr ""
 
-#: bin/mudur.py:558
+#: bin/mudur.py:608
 msgid "Checking root filesystem"
 msgstr ""
 
-#: bin/mudur.py:563
+#: bin/mudur.py:613
 msgid "Filesystem repaired, but reboot needed!"
 msgstr ""
 
-#: bin/mudur.py:567
+#: bin/mudur.py:617
 msgid "Rebooting in 10 seconds ..."
 msgstr ""
 
-#: bin/mudur.py:569
+#: bin/mudur.py:619
 msgid "Rebooting..."
 msgstr ""
 
-#: bin/mudur.py:572
+#: bin/mudur.py:622
 msgid "Filesystem couldn't be fixed :("
 msgstr ""
 
-#: bin/mudur.py:575
+#: bin/mudur.py:625
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr ""
 
-#: bin/mudur.py:577
+#: bin/mudur.py:627
 msgid "Remounting root filesystem read/write"
 msgstr ""
 
-#: bin/mudur.py:579
+#: bin/mudur.py:629
 msgid "Root filesystem could not be mounted read/write :("
 msgstr ""
 
-#: bin/mudur.py:622
+#: bin/mudur.py:672
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr ""
 
-#: bin/mudur.py:639
-msgid "Calculating module dependencies"
-msgstr ""
-
-#: bin/mudur.py:655
+#: bin/mudur.py:699
 msgid "Checking all filesystems"
 msgstr ""
 
-#: bin/mudur.py:658
+#: bin/mudur.py:702
 msgid "A full fsck has been forced"
 msgstr ""
 
-#: bin/mudur.py:668
+#: bin/mudur.py:712
 msgid "Filesystem errors corrected"
 msgstr ""
 
-#: bin/mudur.py:670
+#: bin/mudur.py:714
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 
-#: bin/mudur.py:683
+#: bin/mudur.py:727
 msgid "Mounting USB filesystem"
 msgstr ""
 
-#: bin/mudur.py:689
+#: bin/mudur.py:733
 msgid "Mounting local filesystems"
 msgstr ""
 
-#: bin/mudur.py:692
+#: bin/mudur.py:736
 msgid "Activating swap"
 msgstr ""
 
-#: bin/mudur.py:708
+#: bin/mudur.py:752
 msgid "Starting portmap service for NFS"
 msgstr ""
 
-#: bin/mudur.py:711
+#: bin/mudur.py:755
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr ""
 
-#: bin/mudur.py:725
+#: bin/mudur.py:769
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
 msgstr ""
 
-#: bin/mudur.py:738
+#: bin/mudur.py:782
 msgid "Setting disk parameters"
 msgstr ""
 
-#: bin/mudur.py:757
+#: bin/mudur.py:801
 msgid "Setting system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:771
+#: bin/mudur.py:815
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr ""
 
-#: bin/mudur.py:775
+#: bin/mudur.py:819
 msgid "Failed to set system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:778
+#: bin/mudur.py:822
 msgid "Cleaning up /var"
 msgstr ""
 
-#: bin/mudur.py:785
+#: bin/mudur.py:829
 msgid "Cleaning up /tmp"
 msgstr ""
 
-#: bin/mudur.py:833
+#: bin/mudur.py:866
 msgid "Syncing system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:836
+#: bin/mudur.py:869
 msgid "Failed to sync clocks"
 msgstr ""
 
-#: bin/mudur.py:848
+#: bin/mudur.py:881
 msgid "Deactivating swap"
 msgstr ""
 
-#: bin/mudur.py:869
+#: bin/mudur.py:902
 msgid "Unmounting filesystems"
 msgstr ""
 
-#: bin/mudur.py:901
+#: bin/mudur.py:934
 msgid "Remounting remaining filesystems readonly"
 msgstr ""
 
-#: bin/mudur.py:915
+#: bin/mudur.py:948
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
 
-#: bin/mudur.py:962
+#: bin/mudur.py:995
 msgid "Mounting /sys"
 msgstr ""
 
-#: bin/mudur.py:967
+#: bin/mudur.py:1000
 msgid "Mounting /dev/pts"
 msgstr ""
 
-#: bin/mudur.py:978
-msgid "Starting Coldplug"
-msgstr ""
-
-#: bin/mudur.py:1003
+#: bin/mudur.py:1032
 msgid "Setting up localhost"
 msgstr ""
 
-#: bin/mudur.py:1013
+#: bin/mudur.py:1042
 msgid "Updating environment variables"
 msgstr ""
 
-#: bin/mudur.py:1049
+#: bin/mudur.py:1057
+msgid "Triggering udev events which are failed during a previous run"
+msgstr ""
+
+#: bin/mudur.py:1079
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 
-#: bin/service.py:33
-msgid "You dont have permission to do this operation."
-msgstr ""
-
-#: bin/service.py:36
-msgid "There is no such service."
-msgstr ""
-
-#: bin/service.py:38
-msgid "Service doesn't provide this operation."
-msgstr ""
-
-#: bin/service.py:40
-#, python-format
-msgid "%(script)s error: %(data)s"
-msgstr ""
-
-#: bin/service.py:58
+#: bin/service.py:42
 msgid "local"
 msgstr ""
 
-#: bin/service.py:59
+#: bin/service.py:43
 msgid "script"
 msgstr ""
 
-#: bin/service.py:60
+#: bin/service.py:44
 msgid "server"
 msgstr ""
 
-#: bin/service.py:72
+#: bin/service.py:56
 msgid "running"
 msgstr ""
 
-#: bin/service.py:74
+#: bin/service.py:58
 msgid "yes"
 msgstr ""
 
-#: bin/service.py:92
+#: bin/service.py:78
 msgid "Service"
 msgstr ""
 
-#: bin/service.py:93
+#: bin/service.py:79
 msgid "Status"
 msgstr ""
 
-#: bin/service.py:94
+#: bin/service.py:80
 msgid "Autostart"
 msgstr ""
 
-#: bin/service.py:95
+#: bin/service.py:81
 msgid "Description"
 msgstr ""
 
-#: bin/service.py:162
-msgid "Comar service is not running."
-msgstr ""
-
-#: bin/service.py:164
-msgid "Comar service is running."
-msgstr ""
-
-#: bin/service.py:168
-msgid "You should be the root user in order to control the comar service."
-msgstr ""
-
-#: bin/service.py:212
+#: bin/service.py:124
 #, python-format
-msgid "Service '%s' started."
+msgid "Starting %s..."
 msgstr ""
 
-#: bin/service.py:214
+#: bin/service.py:130
 #, python-format
-msgid "Service '%s' stopped."
+msgid "Stopping %s..."
 msgstr ""
 
-#: bin/service.py:232
-#, python-format
-msgid "Service '%s' reloaded."
-msgstr ""
-
-#: bin/service.py:234
+#: bin/service.py:138
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr ""
 
-#: bin/service.py:236
+#: bin/service.py:140
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr ""
 
-#: bin/service.py:241
+#: bin/service.py:145
+#, python-format
+msgid "Reloading %s..."
+msgstr ""
+
+#: bin/service.py:196
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -336,7 +305,8 @@ msgid ""
 " restart  Stop the service, then start again\n"
 " reload   Reload the configuration (if service supports this)\n"
 "and option is:\n"
-" -N, --no-color  Don't use color in output"
+" -N, --no-color  Don't use color in output\n"
+" -q, --quiet     Don't print replies"
 msgstr ""
 
 #: bin/network.py:40
@@ -411,92 +381,92 @@ msgstr ""
 msgid "[encrypted]"
 msgstr ""
 
-#: bin/network.py:327
+#: bin/network.py:331
 msgid "Enter new connection name"
 msgstr ""
 
-#: bin/network.py:331
+#: bin/network.py:335
 msgid "Select connection type:"
 msgstr ""
 
-#: bin/network.py:349
+#: bin/network.py:353
 #, python-format
 msgid "Device '%s' selected."
 msgstr ""
 
-#: bin/network.py:351
+#: bin/network.py:355
 msgid "No avaible device for this type of connection"
 msgstr ""
 
-#: bin/network.py:354
+#: bin/network.py:358
 msgid "Select connection device:"
 msgstr ""
 
-#: bin/network.py:369
+#: bin/network.py:373
 msgid "Enter manually"
 msgstr ""
 
-#: bin/network.py:370
+#: bin/network.py:374
 msgid "Scan"
 msgstr ""
 
-#: bin/network.py:397
+#: bin/network.py:401
 msgid "Network settings:"
 msgstr ""
 
-#: bin/network.py:400
+#: bin/network.py:404
 msgid "Automatic query (DHCP)"
 msgstr ""
 
-#: bin/network.py:401
+#: bin/network.py:405
 msgid "Manual configuration"
 msgstr ""
 
-#: bin/network.py:406
+#: bin/network.py:410
 msgid "IP Address"
 msgstr ""
 
-#: bin/network.py:407
+#: bin/network.py:411
 msgid "Network mask"
 msgstr ""
 
-#: bin/network.py:408
+#: bin/network.py:412
 msgid "Gateway"
 msgstr ""
 
-#: bin/network.py:416
+#: bin/network.py:420
 msgid "Choose authentication type:"
 msgstr ""
 
-#: bin/network.py:426 bin/network.py:429
+#: bin/network.py:430 bin/network.py:433
 msgid "Enter password "
 msgstr ""
 
-#: bin/network.py:428
+#: bin/network.py:432
 msgid "Enter user name "
 msgstr ""
 
-#: bin/network.py:446
+#: bin/network.py:450
 msgid "Profiles :"
 msgstr ""
 
-#: bin/network.py:448
+#: bin/network.py:452
 msgid "Name of profile to delete "
 msgstr ""
 
-#: bin/network.py:450
+#: bin/network.py:454
 msgid "Please enter a valid profile name "
 msgstr ""
 
-#: bin/network.py:465
+#: bin/network.py:469
 msgid "Enter name of profile"
 msgstr ""
 
-#: bin/network.py:482
+#: bin/network.py:486
 msgid "No such profile"
 msgstr ""
 
-#: bin/network.py:486
+#: bin/network.py:490
 msgid ""
 "usage: network <command> <arguments>\n"
 "where command is:\n"
@@ -509,6 +479,6 @@ msgid ""
 " down         Disconnect given connection"
 msgstr ""
 
-#: bin/network.py:518
+#: bin/network.py:522
 msgid "Cancelled"
 msgstr ""
