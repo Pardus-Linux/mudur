@@ -501,9 +501,9 @@ def startServices(extras=None):
                     continue
                 device = device.rsplit("_")[-1]
                 try:
-                    ui.info(_("Bringing up interface %s (Profile: %s)") % (device, profile,))
+                    ui.info(_("Bringing up interface %s") % device)
                     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
-                    obj.setState(profile, "up", dbus_interface="tr.org.pardus.comar.Net.Link")
+                    obj.setState(profile, "up", dbus_interface="tr.org.pardus.comar.Net.Link", ignore_reply=True)
                 except dbus.DBusException:
                     ui.error(_("Unable to bring up interface %s") % device)
     if not config.get("safe"):
