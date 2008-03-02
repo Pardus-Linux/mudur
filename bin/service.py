@@ -14,6 +14,7 @@ import os
 import locale
 import time
 import dbus
+import subprocess
 
 # i18n
 
@@ -190,6 +191,23 @@ def manage_service(service, op, use_color=True, quiet=False):
         manage_service(service, "start", use_color, quiet)
         return
 
+def run(*cmd):
+    subprocess.call(cmd)
+
+def manage_dbus(op, use_color, quiet):
+    if op == "start":
+        if not quiet:
+            _("Starting DBus...")
+        if not os.path.exists("/var/lib/dbus/machine-id"):
+            run("/usr/bin/dbus-uuidgen", "--ensure")
+        run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
+            "--pidfile", "/var/run/dbus/pid", "--exec", "/usr/bin/dbus-daemon",
+            "--", "--system")
+    elif op == "stop":
+        if not quiet:
+            _("Stopping DBus...")
+        run("/sbin/start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
+
 # Usage
 
 def usage():
@@ -241,6 +259,9 @@ def main(args):
 
     elif len(args) < 2:
         usage()
+
+    elif args[1] in operations and args[0] == "dbus":
+        manage_dbus(args[1], use_color, quiet)
 
     elif args[1] in operations:
         manage_service(args[0], args[1], use_color, quiet)
