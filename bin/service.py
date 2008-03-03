@@ -195,9 +195,16 @@ def run(*cmd):
     subprocess.call(cmd)
 
 def manage_dbus(op, use_color, quiet):
+    def cleanup():
+        try:
+            os.unlink("/var/run/dbus/pid")
+            os.unlink("/var/run/dbus/system_bus_socket")
+        except OSError:
+            pass
     if op == "start":
         if not quiet:
-            _("Starting DBus...")
+            print _("Starting DBus...")
+        cleanup()
         if not os.path.exists("/var/lib/dbus/machine-id"):
             run("/usr/bin/dbus-uuidgen", "--ensure")
         run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
@@ -205,8 +212,19 @@ def manage_dbus(op, use_color, quiet):
             "--", "--system")
     elif op == "stop":
         if not quiet:
-            _("Stopping DBus...")
+            print _("Stopping DBus...")
         run("/sbin/start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
+        cleanup()
+    elif op == "restart":
+        manage_dbus("stop", use_color, quiet)
+        manage_dbus("start", use_color, quiet)
+    elif op in ["info", "status"]:
+        try:
+            bus = dbus.SystemBus()
+        except dbus.DBusException:
+            print _("DBus is not running.")
+            return
+        print _("DBus is running.")
 
 # Usage
 
