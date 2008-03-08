@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Willem Gielen <w.gielen@gmail.com>, 2007.
+# Willem Gielen <w.gielen@gmail.com>, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-27 14:42+0200\n"
-"PO-Revision-Date: 2007-11-12 20:53+0100\n"
+"PO-Revision-Date: 2008-03-08 21:30+0100\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
-"Language-Team: Nederlands <Pardus-translation-nl@pardus.org.tr>\n"
+"Language-Team: Nederlands <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,19 +30,18 @@ msgid "Could not set unicode mode on tty %d"
 msgstr "Kan unicode modus niet instellen op tty %d"
 
 #: bin/mudur.py:482
-#, fuzzy
 msgid "Cannot connect to DBus, services won't be started"
-msgstr "Kan geen verbinding maken met COMAR, diensten worden niet gestart."
+msgstr "Kan geen verbinding maken met DBus, diensten worden niet gestart."
 
 #: bin/mudur.py:504
 #, python-format
 msgid "Bringing up interface %s"
-msgstr ""
+msgstr "Breng interface %s naar voren"
 
 #: bin/mudur.py:508
 #, python-format
 msgid "Unable to bring up interface %s"
-msgstr ""
+msgstr "Niet in staat om interface %s naar voren te brengen"
 
 #: bin/mudur.py:510
 msgid "Starting services"
@@ -53,9 +52,8 @@ msgid "Stopping services"
 msgstr "Stoppen diensten"
 
 #: bin/mudur.py:530
-#, fuzzy
 msgid "Stopping DBus"
-msgstr "Stoppen diensten"
+msgstr "Stoppen DBus"
 
 #: bin/mudur.py:539
 msgid "Mounting /dev"
@@ -111,8 +109,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:629
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:672
 #, python-format
@@ -133,8 +130,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:714
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:727
 msgid "Mounting USB filesystem"
@@ -158,8 +154,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:769
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:782
 msgid "Setting disk parameters"
@@ -332,8 +327,7 @@ msgstr ""
 #: bin/network.py:40
 #, python-format
 msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr ""
-"Limiteer gebruik, geef een valide getal: ( interval: 0 < trefwoord < %s )"
+msgstr "Limiteer gebruik, geef een valide getal: ( interval: 0 < trefwoord < %s )"
 
 #: bin/network.py:139
 #, python-format
@@ -513,47 +507,3 @@ msgstr ""
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-#~ msgid "Starting COMAR"
-#~ msgstr "Opstarten COMAR"
-
-#~ msgid "Cannot start system logger"
-#~ msgstr "Kan systeemlogger niet starten"
-
-#~ msgid "Stopping COMAR"
-#~ msgstr "Stoppen COMAR"
-
-#~ msgid "Calculating module dependencies"
-#~ msgstr "Berekenen moduleafhankelijkheden"
-
-#~ msgid "Starting Coldplug"
-#~ msgstr "Starten coldplug"
-
-#~ msgid "You dont have permission to do this operation."
-#~ msgstr "U heeft geen toestemming voor deze handeling."
-
-#~ msgid "There is no such service."
-#~ msgstr "Zulke dienst bestaat niet."
-
-#~ msgid "Service doesn't provide this operation."
-#~ msgstr "Dienst verzorgt deze operatie niet."
-
-#~ msgid "%(script)s error: %(data)s"
-#~ msgstr "%(script)s fout: %(data)s"
-
-#~ msgid "Comar service is not running."
-#~ msgstr "Comar dienst is niet actief."
-
-#~ msgid "Comar service is running."
-#~ msgstr "Comar dienst is actief"
-
-#~ msgid "You should be the root user in order to control the comar service."
-#~ msgstr "U dient een root gebruiker te zijn om de COMAR dienst te gebruiken."
-
-#~ msgid "Service '%s' started."
-#~ msgstr "Dienst '%s' is gestart."
-
-#~ msgid "Service '%s' stopped."
-#~ msgstr "Dienst '%s' is gestopt."
-
-#~ msgid "Service '%s' reloaded."
-#~ msgstr "Dienst '%s' is opnieuw geladen."
