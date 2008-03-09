@@ -1,17 +1,18 @@
-# translation of es.po to español
+# translation of es.po to Spanish
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Klemens Häckel <click3d_at_linuxmail_org>, 2007.
 # klemens <click3d at linuxmail org>, 2007.
+# Klemens Haeckel <click3d at linuxmail org>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-27 14:42+0200\n"
-"PO-Revision-Date: 2007-09-30 20:51-0400\n"
-"Last-Translator: Klemens <click3d_at_linuxmail_org>\n"
-"Language-Team: español <es@li.org>\n"
+"PO-Revision-Date: 2008-03-08 21:18+0200\n"
+"Last-Translator: Klemens Haeckel <click3d at linuxmail org>\n"
+"Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,19 +32,18 @@ msgid "Could not set unicode mode on tty %d"
 msgstr "No posible setear modo unicode para tty %d"
 
 #: bin/mudur.py:482
-#, fuzzy
 msgid "Cannot connect to DBus, services won't be started"
-msgstr "No posible conectar a COMAR, servicios no se iniciarán"
+msgstr "No posible conectar a DBus, servicios no se iniciarán"
 
 #: bin/mudur.py:504
 #, python-format
 msgid "Bringing up interface %s"
-msgstr ""
+msgstr "Activando interfaz %s"
 
 #: bin/mudur.py:508
 #, python-format
 msgid "Unable to bring up interface %s"
-msgstr ""
+msgstr "No posible activar interfaz %s"
 
 #: bin/mudur.py:510
 msgid "Starting services"
@@ -54,9 +54,8 @@ msgid "Stopping services"
 msgstr "Parando servicios"
 
 #: bin/mudur.py:530
-#, fuzzy
 msgid "Stopping DBus"
-msgstr "Parando servicios"
+msgstr "Parando DBus"
 
 #: bin/mudur.py:539
 msgid "Mounting /dev"
@@ -231,8 +230,9 @@ msgid "Updating environment variables"
 msgstr "Actualizando variables del entorno"
 
 #: bin/mudur.py:1057
+# please proofread, sort of free translation, traduccion libre
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
+msgstr "Ejecutando eventos udev que fallaron durante un intento anterior"
 
 #: bin/mudur.py:1079
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
@@ -275,14 +275,14 @@ msgid "Description"
 msgstr "Descripción"
 
 #: bin/service.py:124
-#, fuzzy, python-format
+#, python-format
 msgid "Starting %s..."
-msgstr "Iniciando udev"
+msgstr "Iniciando %s..."
 
 #: bin/service.py:130
-#, fuzzy, python-format
+#, python-format
 msgid "Stopping %s..."
-msgstr "Parando servicios"
+msgstr "Deteniendo %s..."
 
 #: bin/service.py:138
 #, python-format
@@ -295,12 +295,12 @@ msgid "Service '%s' won't be auto started."
 msgstr "Servicio '%s' no se iniciará automaticamente."
 
 #: bin/service.py:145
-#, fuzzy, python-format
+#, python-format
+# recargando o reiniciando, favor opinar
 msgid "Reloading %s..."
-msgstr "Rebooteando..."
+msgstr "Reiniciando %s..."
 
 #: bin/service.py:196
-#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -320,6 +320,7 @@ msgstr ""
 "uso: service [<options>] [<service>] <command>\n"
 "command puede ser:\n"
 " list    Mostrar lista de servicio\n"
+" status   Mostrar estado de servicio\n"
 " info    Mostrar estado de servicio\n"
 " on      Auto-start servicIO\n"
 " off     No aplicar auto-start servicio\n"
@@ -328,7 +329,8 @@ msgstr ""
 " restart Parar el servicio, luego iniciar de nuevo\n"
 " reload  Recargar la configuración (si el servicio lo soporta)\n"
 "y option es:\n"
-" -N, --no-color  No usar color en la salida"
+" -N, --no-color  No usar color en la salida\n"
+" -q, --quiet     No imprimir mensajes"
 
 #: bin/network.py:40
 #, python-format
@@ -515,48 +517,3 @@ msgstr ""
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#~ msgid "Starting COMAR"
-#~ msgstr "Iniciando COMAR"
-
-#~ msgid "Cannot start system logger"
-#~ msgstr "No se puede iniciar system logger"
-
-#~ msgid "Stopping COMAR"
-#~ msgstr "Parando COMAR"
-
-#~ msgid "Calculating module dependencies"
-#~ msgstr "Calculando dependencias de módulos"
-
-#~ msgid "Starting Coldplug"
-#~ msgstr "Iniciando Coldplug"
-
-#~ msgid "You dont have permission to do this operation."
-#~ msgstr "No tiene los permisos suficientes para esta operación"
-
-# translated as "not available"/"not exists"
-#~ msgid "There is no such service."
-#~ msgstr "Servicio no disponible."
-
-#~ msgid "Service doesn't provide this operation."
-#~ msgstr "Esta operación no posible para el servicio."
-
-#~ msgid "%(script)s error: %(data)s"
-#~ msgstr "%(script)s error: %(data)s"
-
-#~ msgid "Comar service is not running."
-#~ msgstr "Servicio Comar no se está ejecutando"
-
-#~ msgid "Comar service is running."
-#~ msgstr "Servicio Comar se está ejecutando"
-
-#~ msgid "You should be the root user in order to control the comar service."
-#~ msgstr "Solamente el usuario root puede administrar al servicio comar."
-
-#~ msgid "Service '%s' started."
-#~ msgstr "Servicio '%s' iniciado."
-
-#~ msgid "Service '%s' stopped."
-#~ msgstr "Servicio '%s' parado."
-
-#~ msgid "Service '%s' reloaded."
-#~ msgstr "Servicio '%s' reiniciado."
