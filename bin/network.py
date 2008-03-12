@@ -1,95 +1,21 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-#
-# Copyright (C) 2007, TUBITAK/UEKAE
-#
-# This program is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation; either version 2 of the License, or (at your
-# option) any later version. Please read the COPYING file.
-#
 
 import sys
 import os
-import locale
-import comar
-
-# i18n
+import dbus
 
 import gettext
 __trans = gettext.translation('mudur', fallback=True)
 _ = __trans.ugettext
 
+SUCCESS, FAIL = xrange(2)
 
-def str2int(input):
-    """ Error tolerant string to integer conversion function. """
-    nums = []
-    for char in input:
-        if not char.isdigit():
-            break
-        nums.append(char)
-    if nums:
-        return int("".join(nums))
-    else:
-        return 0
 
-def input_number(max_no):
-    """ Checks limits of read input from command line -any excess will cause warning- """
-    input = str2int(raw_input('-> '))
-    while ( input >= max_no or input <= 0 ) :
-        print _("Limit excess, please enter a valid number: ( interval: 0 < entry < %s )") % max_no
-        input = str2int(raw_input('-> '))
-    return input
-
-def collect(c):
-    """ Reads commands -to 'replies' list- if exist between "start" and "end" commands """
-    reply = c.read_cmd()
-    if reply.command == "start":
-        replies = []
-        while True:
-            reply = c.read_cmd()
-            if reply.command == "end":
-                return replies
-            replies.append(reply)
-    else:
-        return [reply]
-
-class AuthenticationMode :
+class AuthenticationMode:
     """ Authentication Mode : identifier: used when calling methods, type: specifies login options, name: readable name for users """
-    def __init__ (self,data):
-        list = data.split(",")
-        self.identifier = list[0]
-        self.type = list[1]
-        self.name = list[2]
-
-class Link:
-    """ Link class: possible attributes : name, modes, type, remote_name , auth"""
-    def __init__(self, data):
-        """ reads attributes' values from input text -read command's data fielad, generally from comar-"""
-        self.auth_modes = []
-        for line in data.split("\n"):
-            key, value = line.split("=", 1)
-            if key == "name":
-                self.name = unicode(value)
-            elif key == "modes":
-                self.modes = value.split(",")
-            elif key == "type":
-                self.type = value
-            elif key == "remote_name":
-                self.remote_name = value
-            elif key == "auth_modes":
-                self.parse(value)
-    def parse(self,data):
-        """ Parser for reading avaible authentication modes for current Link """
-        for line in data.split(";"):
-            mode = AuthenticationMode(line)     #related authentication mode objects are created and added to auth_modes list
-            self.auth_modes.append(mode)
-
-class Device:
-    """ Device class : attributes : script, uid, name """
-    def __init__(self, script, data):
-        self.script = script
-        self.uid, self.name = data.split(" ", 1)
+    def __init__ (self, data):
+        self.identifier, self.type, self.name = data.split(",")
 
 class Profile:
     """ Network service profile """
@@ -111,8 +37,7 @@ class Profile:
         """ Adds attributes if their value exists : 'devname','devid','state' and/or 'current','mode','address','mask','gateaway'
             and parses their value from 'data' input parameter
         """
-        for line in data.split("\n"):
-            key, value = line.split("=", 1)
+        for key, value in data.iteritems():
             if key == "device_name":
                 self.devname = value
             elif key == "device_id":
@@ -169,325 +94,23 @@ class Profile:
             return self.address
         return ""
 
-class Remote:
-    def __init__(self, data):
-        self.quality = 100
-        self.encryption = None
-        for arg in data.split("\t"):
-            key, value = arg.split("=", 1)
-            if key == "remote":
-                self.remote = value
-            elif key == "quality":
-                self.quality = int(value)
-            elif key == "encryption":
-                self.encryption = value
+def input_number(_label, _min, _max):
+    """ Checks limits of read input from command line -any excess will cause warning- """
+    index = _min - 1
+    while index < _min or index > _max:
+        try:
+            index = int(raw_input('%s > ' % _label))
+        except ValueError:
+            pass
+    return index
 
-    def __str__(self):
-        label = self.remote
-        quality = "+" * ((self.quality / 25) + 1)
-        txt = _("Found: %(essid)s [%(quality)s]") % {"essid": label.ljust(20), "quality": quality.ljust(5)}
-        if self.encryption and self.encryption != "none":
-            txt += " " + _("[encrypted]")
-        return txt
+def input_text(_label):
+    return raw_input("%s > " % _label)
 
-def queryLinks(com):
-    """ Input parameter : 'com' is comar's Link object. Retrieves script and data variable for each link from
-        'com.Net.Link.linkInfo' method and returns them as 'links' dictionary
-    """
-    com.Net.Link.linkInfo()                 #group
-    links = {}
-    for rep in collect(com):                # reads scrip-data values ( by collect method ) and stores them in dictionary
-        links[rep.script] = Link(rep.data)
-        """
-        ################# TEST code for parsing operations of Link authentication properties ###########################
-        if (links[rep.script].auth_modes):
-            print "\nAuthentication mode properties for % s \n" % links[rep.script].name
-            for item in links[rep.script].auth_modes :
-                line = "identifier: " + item.identifier.ljust(15) + "type: "+ item.type + "\t name: "+item.name
-                print line
-        ################################################################################################################
-        """
-    print
-    return links
 
-def queryDevices(com):
-    """ Input parameter : 'com' is comar's Link object. Retrieves deviceList from 'com.Net.Link.deviceList'
-        method and creates Device objects for each, returns list of them
-    """
-    com.Net.Link.deviceList()
-    devs = []
-    for rep in collect(com):
-        if rep.data != "":
-            for line in rep.data.split("\n"):
-                devs.append(Device(rep.script, line))
-    return devs
-
-def queryProfiles(com):
-    """ Input parameter : 'com' is comar's Link object. Retrieves connections' info  from 'com.Net.Link.connections'
-        method and creates Profile objects for each, returns a list of them
-    """
-    com.Net.Link.connections()
-    profiles = []
-    for rep in collect(com):
-        if rep.data != "":
-            for name in rep.data.split("\n"):
-                profiles.append(Profile(rep.script, name))
-    for profile in profiles:
-        com.Net.Link[profile.script].connectionInfo(name=profile.name)
-        profile.parse(com.read_cmd().data)                   # read_cmd reads reply message from comar deamon
-    return profiles
-
-def listDevices(args=None):
-    """ Prints list of avaible network devices"""
-    com = comar.Link()                     #communicating with comar deamon
-    com.localize()                         #set language for translated replies
-    links = queryLinks(com)
-    devs = queryDevices(com)
-
-    #print link names and related device names
-    for script, link in links.items():
-        print "%s:" % link.name
-        for dev in filter(lambda x: x.script == script, devs):
-            print " %s" % dev.name
-
-def listProfiles(args=None):
-    """ Prints profiles of each kind of link """
-    com = comar.Link()                     #communicating with comar deamon
-    com.localize()                         #set language for translated replies
-    links = queryLinks(com)
-    profiles = queryProfiles(com)
-
-    profiles.sort(key=lambda x: x.devname + x.name)     #profiles are sorted by device_name + name
-
-    name_title = "" # _("Profile")
-    dev_title = "" # _("Device")
-    state_title = "" # _("Status")
-    addr_title = "" # _("Address")
-
-    #name_size and state_size are set  to the maximum length of name/state of profiles
-    # -for ljust operations in output format-
-    name_size = max(max(map(lambda x: len(x.name), profiles)), len(name_title))
-    device_size = max(max(map(lambda x: len(x.devname.rsplit("(")[-1][:-1]), profiles)), len(dev_title))
-    state_size = max(max(map(lambda x: len(x.get_state()), profiles)), len(state_title))
-
-    cstart = ""
-    cend = ""
-    link_list = links.items()
-    link_list.sort(key=lambda x: x[1].name)
-    profile_names_list=[]
-    for script, link in link_list:
-        link_profiles = filter(lambda x: x.script == script, profiles)
-        if len(link_profiles) > 0:
-            print "%s:" % link.name
-        for profile in link_profiles:
-            line = "  %s%s%s | %s%s%s | %s%s%s | %s%s%s" % (
-                cstart,
-                profile.name.ljust(name_size),
-                cend, cstart,
-                profile.devname.rsplit("(")[-1][:-1].ljust(device_size),
-                cend, cstart,
-                profile.get_state().center(state_size),
-                cend, cstart,
-                profile.get_address(),
-                cend
-            )
-            print line
-            profile_names_list.append(profile.name)
-    return profile_names_list                   # returns all profile_names defined on comp.
-
-def upProfile(args):
-    """ Changes status of given named profile to 'up'"""
-    if len(args) == 0:
-        usage()
-        return
-    else:
-        name=" ".join(args)                     # for profiles that has names having more than one word
-    com = comar.Link()                          #communicating with comar deamon
-    com.localize()                              #set language for translated replies
-    com.Net.Link.connectionInfo(name=name)      #get connection info from comar deamon
-    for reply in collect(com):
-        if reply.command == "result":           #reply has related 'script'(net-tools)'command' and 'data' fields.
-            com.Net.Link[reply.script].setState(name=name, state="up")  #Link group's avaible methods are declared in 'comar/comar/etc/model.xml'
-
-def downProfile(args):
-    """ Changes status of given named profile to 'down'"""
-    if len(args) == 0:
-        usage()
-        return
-    else:
-        name=" ".join(args)                     # for profiles that has names having more than one word
-    com = comar.Link()                          #communicating with comar deamon
-    com.localize()                              #set language for translated replies
-    com.Net.Link.connectionInfo(name=name)      #get connection info from comar deamon
-    for reply in collect(com):
-        if reply.command == "result":
-            com.Net.Link[reply.script].setState(name=name, state="down")
-
-def createWizard(args):
-    """ Creates network connection """
-    com = comar.Link()              #communicating with comar deamon
-    com.localize()                  #set language for translated replies
-
-    conn_name = raw_input('%s -> ' % _("Enter new connection name"))    #read connection name from command line
-
-    # Ask connection type
-    links = queryLinks(com)
-    print _("Select connection type:")
-    for i, link in enumerate(links.values()):
-        print "%2d." % (i + 1), link.name
-    s = input_number(len(links.values())+1)
-
-    link = links.values()[s-1]
-    script = links.keys()[s-1]
-    script_object = com.Net.Link[script]
-
-    # Ask device
-    script_object.deviceList()
-    devs = []
-    for rep in collect(com):
-        if rep.data != "":
-            for line in rep.data.split("\n"):
-                devs.append(Device(rep.script, line))
-    if len(devs) == 1:
-        device = devs[0]
-        print _("Device '%s' selected.") % device.name
-    elif(len(devs) == 0):
-        print _("No avaible device for this type of connection")
-        return
-    else:
-        print _("Select connection device:")
-        for i, dev in enumerate(devs):
-            print "%2d." % (i + 1), dev.name
-        s = input_number(len(devs)+1)
-        device = devs[s-1]
-
-    # Remote point
-    global selected_auth_type
-    selected_auth_type = None
-    if "remote" in link.modes:
-        print
-        print link.remote_name
-        if "scan" in link.modes:
-            remotes = []
-            while True:
-                print " 1. %s" % _("Enter manually")
-                print " 2. %s" % _("Scan")
-                if remotes:
-                    for i, remote in enumerate(remotes):
-                        print "%2d." % (i + 3), str(remote)
-                s = int( raw_input('-> ') )
-                if s == 1:
-                    remote = raw_input('%s -> ' % link.remote_name)
-                    break
-                elif s == 2:
-                    script_object.scanRemote(device=device.uid)
-                    remotes = []
-                    reply = com.read_cmd()
-                    if reply.data != "":
-                        for arg in reply.data.split("\n"):
-                            remotes.append(Remote(arg))
-                    print
-                    print link.remote_name
-                else:
-                    remote = remotes[s-3].remote
-                    selected_auth_type = remotes[s-3].encryption
-                    break
-        else:
-            remote = raw_input('-> ')
-
-    # Network settings
-    if "net" in link.modes:
-        print
-        print _("Network settings:")
-        is_auto = False
-        if "auto" in link.modes:
-            print " 1. %s" % _("Automatic query (DHCP)")
-            print " 2. %s" % _("Manual configuration")
-            s = input_number(3)
-            if s == 1:
-                is_auto = True
-        if not is_auto:
-            address = raw_input('%s -> ' % _("IP Address"))
-            mask = raw_input('%s -> ' % _("Network mask"))
-            gateway = raw_input('%s -> ' % _("Gateway"))
-
-    # Authentication settings
-    if ( link.auth_modes ):
-        if ( selected_auth_type ):
-            chosen_mode = AuthenticationMode( selected_auth_type + ",pass,"+ selected_auth_type )
-        else:
-            i = 1
-            print _("Choose authentication type:")
-            for mode in link.auth_modes:
-                print "%s -> %s" % ( i,mode.name)
-                i += 1
-            print "%s -> No authentication" % i
-            mode_no = input_number(i+1)
-            if (mode_no != i) :
-                chosen_mode = link.auth_modes [mode_no-1]
-                if (chosen_mode.type == "pass" ):
-                    user_name = ""
-                    password = raw_input('%s -> ' % _("Enter password "))
-                elif (chosen_mode.type == "login") :
-                    user_name = raw_input('%s -> ' % _("Enter user name "))
-                    password = raw_input('%s -> ' % _("Enter password "))
-
-                script_object.setAuthentication(name= conn_name, authmode=chosen_mode.identifier, user=user_name, password=password)
-
-    # Create profile
-    script_object.setConnection(name=conn_name, device=device.uid)
-    if "remote" in link.modes:
-        script_object.setRemote(name=conn_name, remote=remote)
-    if "net" in link.modes:
-        if is_auto:
-            script_object.setAddress(name=conn_name, mode="auto", address="", mask="", gateway="")
-        else:
-            script_object.setAddress(name=conn_name, mode="manual", address=address, mask=mask, gateway=gateway)
-
-def deleteWizard(args):
-    """ Deletes a given/chosen profile """
-    if len(args)== 0:
-        print _("Profiles :")
-        profile_names_list = listProfiles(args)
-        profile_name = raw_input('%s -> ' % _("Name of profile to delete "))
-        while ( not ( profile_names_list.__contains__(profile_name) )):
-            print _("Please enter a valid profile name ")
-            profile_name = raw_input()
-    else:
-        profile_name=" ".join(args)                      # for profiles that has names having more than one word
-    com = comar.Link()
-    com.localize()
-    com.Net.Link.connectionInfo(name=profile_name)
-    for reply in collect(com):
-        if reply.command == "result":
-            com.Net.Link[reply.script].deleteConnection(name=profile_name)
-
-def infoProfile (args):
-    """ Prints detailed information about a given profile """
-    profile_name = ""
-    if ( len(args) == 0 ):
-        profile_name = raw_input('%s -> ' % _("Enter name of profile"))
-    else:
-        profile_name=" ".join(args)                        # for profiles that has names having more than one word
-    com = comar.Link()
-    com.localize()
-    com.Net.Link.connectionInfo(name=profile_name)
-
-    global found
-    found = False
-    for reply in collect(com):
-        if reply.command == "result":
-            found = True
-            profile = Profile(reply.script, profile_name)
-            profile.parse( reply.data )
-            print
-            profile.print_info()
-    if ( not found ) :
-        print _("No such profile")
-
-def usage(args=None):
+def usage(args):
     """ Prints 'network' script usage """
-    print _("""usage: network <command> <arguments>
+    print _("""usage: %s <command> <arguments>
 where command is:
  devices      List network devices
  connections  List connections
@@ -495,9 +118,370 @@ where command is:
  create       Create a new connection
  delete       Delete a connection
  up           Connect given connection
- down         Disconnect given connection""")
+ down         Disconnect given connection""") % sys.argv[0]
+    return FAIL
+
+def getScripts(bus):
+    """Returns a list of packages that provide Net.Link"""
+    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
+    return obj.listModelApplications("Net.Link", dbus_interface="tr.org.pardus.comar")
+
+def getScriptDetails(bus, script):
+    """Returns details of given script"""
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+    return obj.linkInfo(dbus_interface="tr.org.pardus.comar.Net.Link")
+
+def getConnectionDetails(bus, script, profile):
+    """Returns details of given script/profile"""
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+    return obj.connectionInfo(profile, dbus_interface="tr.org.pardus.comar.Net.Link")
+
+def getDevices(bus, script):
+    """Returns devices related to script."""
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+    return obj.deviceList(dbus_interface="tr.org.pardus.comar.Net.Link")
+
+def getProfiles(bus, script):
+    """Returns profiles of a script."""
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+    return obj.connections(dbus_interface="tr.org.pardus.comar.Net.Link")
+
+def getRemotes(bus, script, device):
+    """Returns profiles of a script."""
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+    return obj.scanRemote(device, dbus_interface="tr.org.pardus.comar.Net.Link")
+
+def listProfiles(bus, args):
+    """Lists network profiles."""
+    try:
+        scripts = {}
+        profiles = []
+        for script in getScripts(bus):
+            scripts[script] = getScriptDetails(bus, script)["name"]
+            for profile in getProfiles(bus, script):
+                profile_details = getConnectionDetails(bus, script, profile)
+
+                profile_info = Profile(script, profile)
+                profile_info.parse(profile_details)
+
+                device = profile_details["device_id"].split("_")[-1]
+                state = profile_info.get_state()
+                address = profile_info.get_address()
+
+                profiles.append((script, profile, device, state, address, ))
+    except dbus.DBusException, e:
+        print _("Error: %s") % str(e)
+        return FAIL
+
+    name_size = max(map(lambda x: len(x[1]), profiles))
+    device_size = max(map(lambda x: len(x[2]), profiles))
+    state_size = max(map(lambda x: len(x[3]), profiles))
+
+    cstart = ""
+    cend = ""
+    last = None
+    for script, profile, device, state, address in profiles:
+        if last != script:
+            last = script
+            print "%s:" % scripts[script]
+        line = "  %s%s%s | %s%s%s | %s%s%s | %s%s%s" % (
+            cstart,
+            profile.ljust(name_size),
+            cend, cstart,
+            device.ljust(device_size),
+            cend, cstart,
+            state.center(state_size),
+            cend, cstart,
+            address,
+            cend
+        )
+        print line
+
+    return SUCCESS
+
+def listDevices(bus, args):
+    try:
+        devices = []
+        scripts = {}
+        for script in getScripts(bus):
+            scripts[script] = getScriptDetails(bus, script)["name"]
+            for devid, devname in getDevices(bus, script).iteritems():
+                devices.append((script, devid, devname, ))
+    except dbus.DBusException, e:
+        print _("Error: %s") % str(e)
+        return FAIL
+
+    id_size = max(map(lambda x: len(x[1]), devices))
+
+    cstart = ""
+    cend = ""
+    last = None
+    for script, devid, devname in devices:
+        if last != script:
+            print "%s:" % scripts[script]
+            last = script
+        line = "  %s%s%s | %s%s%s" % (
+            cstart,
+            devid.ljust(id_size),
+            cend, cstart,
+            devname,
+            cend
+        )
+        print line
+
+    return SUCCESS
+
+def setState(bus, state, args):
+    try:
+        if not 0 < len(args) < 3:
+            return usage(args)
+
+        if len(args) == 2:
+            obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % args[1], introspect=False)
+            obj.setState(args[0], state, dbus_interface="tr.org.pardus.comar.Net.Link")
+        else:
+            profiles = {}
+            for script in getScripts(bus):
+                for profile in getProfiles(bus, script):
+                    if profile not in profiles:
+                        profiles[profile] = []
+                    profiles[profile].append(script)
+
+            if len(profiles[args[0]]) > 1:
+                print _("There are more than one profiles named '%s'") % profile
+                print _("Use one of the following commands:")
+                for script in profiles[args[0]]:
+                    print "  %s %s '%s' %s" % (sys.argv[0], state, profile, script)
+                return FAIL
+            else:
+                script = profiles[args[0]][0]
+
+            obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+            obj.setState(args[0], state, dbus_interface="tr.org.pardus.comar.Net.Link")
+    except dbus.DBusException, e:
+        print _("Error: %s") % str(e)
+        return FAIL
+
+    return SUCCESS
+
+def upProfile(bus, args):
+    """Changes status of given named profile to 'up'"""
+    return setState(bus, "up", args)
+
+def downProfile(bus, args):
+    """Changes status of given named profile to 'down'"""
+    return setState(bus, "down", args)
+
+def createWizard(bus, args):
+    """Creates network connection"""
+
+    profile = input_text(_("Profile name"))
+
+    # Ask connection type
+    scripts = getScripts(bus)
+    index = 0
+    print
+    print _("Connection types:")
+    for script in scripts:
+        index += 1
+        print "  [%s] %s" % (index, script)
+    index = input_number(_("Type"), 1, len(scripts))
+    script = scripts[index - 1]
+    script_info = getScriptDetails(bus, script)
+
+    selected_auth_type = None
+    modes = script_info["modes"].split(",")
+
+    auth_modes = []
+    if "auth_modes" in script_info:
+        auth_modes = script_info["auth_modes"].split(";")
+
+    # Ask device
+    devices = getDevices(bus, script)
+    if not len(devices):
+        print _("No avaible device for this type of connection")
+        return FAIL
+
+    # {k:v, k: v, ...} -> ((k, v), (k, v), ...)
+    devices = zip(devices.keys(), devices.values())
+
+    index = 0
+    print
+    print _("Devices:")
+    for devid, devname in devices:
+        index += 1
+        print "  [%s] %s %s" % (index, devname, devid)
+    index = input_number(_("Device"), 1, len(devices))
+    device = devices[index - 1][0]
+
+    # Remote point
+    if "remote" in modes:
+        print
+        print _("%s:") % script_info["remote_name"]
+        if "scan" in modes:
+            pass
+            """
+            remotes = []
+            while True:
+                print "  [1] %s" % _("Enter manually")
+                print "  [2] %s" % _("Scan")
+                if remotes:
+                    for i, remote in enumerate(remotes):
+                        print "  [%s] %s" % (i + 3), str(remote)
+                s = input_number("", 1, len(remotes) + 2)
+                if s == 1:
+                    remote = input_text(link.remote_name)
+                    break
+                elif s == 2:
+                    remotes = scanRemote(bus, script, device)
+                    print
+                    print _("%s:") % script_info["remote_name"]
+                else:
+                    remote = remotes[s - 3]
+                    selected_auth_type = remotes[s-3].encryption
+                    break
+            """
+        else:
+            remote = input_text("")
+
+    # Network settings
+    if "net" in modes:
+        print
+        print _("Network settings:")
+        is_auto = False
+        if "auto" in modes:
+            print "  [1] %s" % _("Automatic query (DHCP)")
+            print "  [2] %s" % _("Manual configuration")
+            s = input_number("", 1, 2)
+            if s == 1:
+                is_auto = True
+        if not is_auto:
+            address = input_text(_("IP Address"))
+            mask = input_text(_("Network mask"))
+            gateway = input_text(_("Gateway"))
+
+    # Authentication settings
+    if auth_modes:
+        if selected_auth_type:
+            chosen_mode = AuthenticationMode("%s,pass,%s" % (selected_auth_type, selected_auth_type))
+        else:
+            index = 1
+            print _("Choose authentication type:")
+            for mode in auth_modes:
+                print "  [%s] %s" % (index, mode.name)
+                index += 1
+            print "  [%s] No authentication" % index
+            mode_no = input_number("Authentication", 1, index + 1)
+            if (mode_no != index) :
+                chosen_mode = auth_modes[mode_no - 1]
+                if (chosen_mode.type == "pass" ):
+                    user_name = ""
+                    password = input_text(_("Password"))
+                elif (chosen_mode.type == "login") :
+                    user_name = input_text(_("Username"))
+                    password = input_text(_("Password"))
+
+                obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+                obj.setAuthentication(profile, chosen_mode.identifier, user_name, password, dbus_interface="tr.org.pardus.comar.Net.Link")
+
+    # Create profile
+    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+    obj.setConnection(profile, device, dbus_interface="tr.org.pardus.comar.Net.Link")
+    if "remote" in modes:
+        pass
+        #obj.setRemote(profile, remote, dbus_interface="tr.org.pardus.comar.Net.Link")
+    if "net" in modes:
+        if is_auto:
+            obj.setAddress(profile, "auto", "", "", "", dbus_interface="tr.org.pardus.comar.Net.Link")
+        else:
+            obj.setAddress(profile, "manual", address, mask, gateway, dbus_interface="tr.org.pardus.comar.Net.Link")
+
+def deleteWizard(bus, args):
+    try:
+        scripts = {}
+        profiles = []
+        for script in getScripts(bus):
+            scripts[script] = getScriptDetails(bus, script)["name"]
+            for profile in getProfiles(bus, script):
+                profile_details = getConnectionDetails(bus, script, profile)
+                device = profile_details["device_id"].split("_")[-1]
+                profiles.append((script, profile, device, ))
+    except dbus.DBusException, e:
+        print _("Error: %s") % str(e)
+        return FAIL
+
+    name_size = max(map(lambda x: len(x[1]), profiles))
+    num_size = int(len(profiles) / 10)
+
+    index = 0
+    last = None
+    for script, profile, device in profiles:
+        if last != script:
+            last = script
+            print "%s:" % scripts[script]
+        print "  [%s] %s | %s" % (str(index + 1).rjust(num_size), profile.ljust(name_size), device)
+        index += 1
+
+    profile_index = input_number(_("Profile"), 1, len(profiles))
+
+    try:
+        script, profile, device = profiles[profile_index - 1]
+        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+        obj.deleteConnection(profile, dbus_interface="tr.org.pardus.comar.Net.Link")
+    except dbus.DBusException, e:
+        print _("Error: %s") % str(e)
+        return FAIL
+
+    print _("Profile %s removed.") % profile
+
+    return SUCCESS
+
+
+def infoProfile(bus, args):
+    """ Prints detailed information about a given profile """
+    try:
+        if not 0 < len(args) < 3:
+            return usage(args)
+
+        if len(args) == 2:
+            profile, script = args
+            info = getConnectionDetails(bus, script, profile)
+        else:
+            profiles = {}
+            for script in getScripts(bus):
+                for profile in getProfiles(bus, script):
+                    if profile not in profiles:
+                        profiles[profile] = []
+                    profiles[profile].append(script)
+
+            if len(profiles[args[0]]) > 1:
+                print _("There are more than one profiles named '%s'") % profile
+                print _("Use one of the following commands:")
+                for script in profiles[args[0]]:
+                    print "  %s info '%s' %s" % (sys.argv[0], profile, script)
+                return FAIL
+            else:
+                script = profiles[args[0]][0]
+
+            profile = args[0]
+            info = getConnectionDetails(bus, script, profile)
+    except dbus.DBusException, e:
+        print _("Error: %s") % str(e)
+        return FAIL
+
+    profile_info = Profile(script, profile)
+    profile_info.parse(info)
+    profile_info.print_info()
+
+    return SUCCESS
 
 def main(args):
+    try:
+        bus = dbus.SystemBus()
+    except dbus.DBusException, e:
+        print _("D-Bus Error: %s") % str(e)
+        return FAIL
+
     operations = {
         "devices":      listDevices,
         "connections":  listProfiles,
@@ -509,19 +493,20 @@ def main(args):
     }
 
     if len(args) == 0:
-        args = ["connections"]
+        return usage(args)
 
-    #    Related functions according to command_line_parameters[0] -default:'connections'('listProfiles' function),
-    #    for any improper command : 'usage'function-
-
-    func = operations.get(args.pop(0), usage)
     try:
-        func(args)
+        func = operations.get(args.pop(0), usage)
+    except KeyError:
+        return usage(args)
+    try:
+        return func(bus, args)
     except KeyboardInterrupt:
         print
         print _("Cancelled")
+        return FAIL
+
+    return SUCCESS
 
 if __name__ == "__main__":
-    locale.setlocale(locale.LC_ALL, '')
-    main(sys.argv[1:])
-
+    sys.exit(main(sys.argv[1:]))
