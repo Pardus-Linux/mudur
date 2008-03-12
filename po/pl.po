@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mudur\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 14:42+0200\n"
+"POT-Creation-Date: 2008-03-12 16:03+0200\n"
 "PO-Revision-Date: 2006-04-08 12:19+0900\n"
 "Last-Translator: Piotr Maliński <riklaunim@gmail.com>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -229,68 +229,88 @@ msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 "Próbuje zainicjować \"gorący\" restart (pomijam BIOS za pomocą kernela kexec)"
 
-#: bin/service.py:42
+#: bin/service.py:43
 msgid "local"
 msgstr "lokalne/y"
 
-#: bin/service.py:43
+#: bin/service.py:44
 msgid "script"
 msgstr "skrypt"
 
-#: bin/service.py:44
+#: bin/service.py:45
 msgid "server"
 msgstr "serwer"
 
-#: bin/service.py:56
+#: bin/service.py:57
 msgid "running"
 msgstr "w toku"
 
-#: bin/service.py:58
+#: bin/service.py:59
 msgid "yes"
 msgstr "tak"
 
-#: bin/service.py:78
+#: bin/service.py:79
 msgid "Service"
 msgstr "Usługa"
 
-#: bin/service.py:79
+#: bin/service.py:80
 msgid "Status"
 msgstr "Status"
 
-#: bin/service.py:80
+#: bin/service.py:81
 msgid "Autostart"
 msgstr "Autostart"
 
-#: bin/service.py:81
+#: bin/service.py:82
 msgid "Description"
 msgstr "Opis"
 
-#: bin/service.py:124
+#: bin/service.py:125
 #, fuzzy, python-format
 msgid "Starting %s..."
 msgstr "Startowanie udev"
 
-#: bin/service.py:130
+#: bin/service.py:131
 #, fuzzy, python-format
 msgid "Stopping %s..."
 msgstr "Zatrzymywanie usług"
 
-#: bin/service.py:138
+#: bin/service.py:139
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "Usługa '%s' zostanie automatycznie uruchomiona."
 
-#: bin/service.py:140
+#: bin/service.py:141
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "Usługa '%s' nie zostanie automatycznie uruchomiona."
 
-#: bin/service.py:145
+#: bin/service.py:146
 #, fuzzy, python-format
 msgid "Reloading %s..."
 msgstr "Rebootowanie..."
 
-#: bin/service.py:196
+#: bin/service.py:206
+#, fuzzy
+msgid "Starting DBus..."
+msgstr "Startowanie udev"
+
+#: bin/service.py:215
+#, fuzzy
+msgid "Stopping DBus..."
+msgstr "Zatrzymywanie usług"
+
+#: bin/service.py:225
+#, fuzzy
+msgid "DBus is not running."
+msgstr "Usługa Comar nie jest uruchomiona."
+
+#: bin/service.py:227
+#, fuzzy
+msgid "DBus is running."
+msgstr "Usługa Comar jest w toku."
+
+#: bin/service.py:232
 #, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
@@ -322,167 +342,68 @@ msgstr ""
 "a opcje to:\n"
 " -N, --no-color  Nie koloruje wyniku"
 
-#: bin/network.py:40
-#, python-format
-msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr ""
-
-#: bin/network.py:139
+#: bin/network.py:64
 #, python-format
 msgid "Connection Name : %s "
 msgstr ""
 
-#: bin/network.py:140
+#: bin/network.py:65
 #, python-format
 msgid "Status          : %s "
 msgstr ""
 
-#: bin/network.py:141
+#: bin/network.py:66
 #, python-format
 msgid "Adress          : %s "
 msgstr ""
 
-#: bin/network.py:144
+#: bin/network.py:69
 #, python-format
 msgid "Device Name     : %s "
 msgstr ""
 
-#: bin/network.py:146
+#: bin/network.py:71
 #, python-format
 msgid "Device Id       : %s "
 msgstr ""
 
-#: bin/network.py:148
+#: bin/network.py:73
 #, python-format
 msgid "Mask            : %s "
 msgstr ""
 
-#: bin/network.py:150
+#: bin/network.py:75
 #, python-format
 msgid "Gateway         : %s "
 msgstr ""
 
-#: bin/network.py:152
+#: bin/network.py:77
 #, python-format
 msgid "Netmode         : %s "
 msgstr ""
 
-#: bin/network.py:154
+#: bin/network.py:79
 #, python-format
 msgid "Namemode        : %s "
 msgstr ""
 
-#: bin/network.py:156
+#: bin/network.py:81
 #, python-format
 msgid "Remote          : %s "
 msgstr ""
 
-#: bin/network.py:161
+#: bin/network.py:86
 msgid "Up"
 msgstr "Działa"
 
-#: bin/network.py:162
+#: bin/network.py:87
 msgid "Down"
 msgstr "Nie działa"
 
-#: bin/network.py:188
-#, python-format
-msgid "Found: %(essid)s [%(quality)s]"
-msgstr ""
-
-#: bin/network.py:190
-msgid "[encrypted]"
-msgstr ""
-
-#: bin/network.py:331
-msgid "Enter new connection name"
-msgstr "Wprowadź nową nazwę połączenia"
-
-#: bin/network.py:335
-msgid "Select connection type:"
-msgstr "Wybierz rodzaj połączenia:"
-
-#: bin/network.py:353
-#, python-format
-msgid "Device '%s' selected."
-msgstr "Urządzenie '%s' wybrane."
-
-#: bin/network.py:355
-msgid "No avaible device for this type of connection"
-msgstr ""
-
-#: bin/network.py:358
-msgid "Select connection device:"
-msgstr "Wybierz urządzenie do połączenia:"
-
-#: bin/network.py:373
-msgid "Enter manually"
-msgstr "Wprowadź ręcznie"
-
-#: bin/network.py:374
-msgid "Scan"
-msgstr "Skanuj"
-
-#: bin/network.py:401
-msgid "Network settings:"
-msgstr "Ustawienia sieci:"
-
-#: bin/network.py:404
-msgid "Automatic query (DHCP)"
-msgstr "Automatycznie (DHCP)"
-
-#: bin/network.py:405
-msgid "Manual configuration"
-msgstr "Ręczna konfiguracja"
-
-#: bin/network.py:410
-msgid "IP Address"
-msgstr "Adres IP"
-
-#: bin/network.py:411
-msgid "Network mask"
-msgstr "Maska sieci"
-
-#: bin/network.py:412
-msgid "Gateway"
-msgstr "Gateway"
-
-#: bin/network.py:420
-msgid "Choose authentication type:"
-msgstr ""
-
-#: bin/network.py:430 bin/network.py:433
-msgid "Enter password "
-msgstr ""
-
-#: bin/network.py:432
-msgid "Enter user name "
-msgstr ""
-
-#: bin/network.py:450
-msgid "Profiles :"
-msgstr ""
-
-#: bin/network.py:452
-msgid "Name of profile to delete "
-msgstr ""
-
-#: bin/network.py:454
-msgid "Please enter a valid profile name "
-msgstr ""
-
-#: bin/network.py:469
-msgid "Enter name of profile"
-msgstr ""
-
-#: bin/network.py:486
-msgid "No such profile"
-msgstr ""
-
-#: bin/network.py:490
-#, fuzzy
+#: bin/network.py:113
+#, fuzzy, python-format
 msgid ""
-"usage: network <command> <arguments>\n"
+"usage: %s <command> <arguments>\n"
 "where command is:\n"
 " devices      List network devices\n"
 " connections  List connections\n"
@@ -500,9 +421,121 @@ msgstr ""
 " up           Nawiązuje dane połączenie\n"
 " down         Zamyka dane połączenie"
 
-#: bin/network.py:522
+#: bin/network.py:173 bin/network.py:211 bin/network.py:262 bin/network.py:410
+#: bin/network.py:432 bin/network.py:469
+#, fuzzy, python-format
+msgid "Error: %s"
+msgstr "%s błąd: %s"
+
+#: bin/network.py:251 bin/network.py:458
+#, python-format
+msgid "There are more than one profiles named '%s'"
+msgstr ""
+
+#: bin/network.py:252 bin/network.py:459
+msgid "Use one of the following commands:"
+msgstr ""
+
+#: bin/network.py:278
+msgid "Profile name"
+msgstr ""
+
+#: bin/network.py:284
+#, fuzzy
+msgid "Connection types:"
+msgstr "Wybierz rodzaj połączenia:"
+
+#: bin/network.py:288
+msgid "Type"
+msgstr ""
+
+#: bin/network.py:302
+msgid "No avaible device for this type of connection"
+msgstr ""
+
+#: bin/network.py:310
+#, fuzzy
+msgid "Devices:"
+msgstr "Usługa"
+
+#: bin/network.py:314
+#, fuzzy
+msgid "Device"
+msgstr "Usługa"
+
+#: bin/network.py:320
+#, python-format
+msgid "%s:"
+msgstr ""
+
+#: bin/network.py:350
+msgid "Network settings:"
+msgstr "Ustawienia sieci:"
+
+#: bin/network.py:353
+msgid "Automatic query (DHCP)"
+msgstr "Automatycznie (DHCP)"
+
+#: bin/network.py:354
+msgid "Manual configuration"
+msgstr "Ręczna konfiguracja"
+
+#: bin/network.py:359
+msgid "IP Address"
+msgstr "Adres IP"
+
+#: bin/network.py:360
+msgid "Network mask"
+msgstr "Maska sieci"
+
+#: bin/network.py:361
+msgid "Gateway"
+msgstr "Gateway"
+
+#: bin/network.py:369
+msgid "Choose authentication type:"
+msgstr ""
+
+#: bin/network.py:379 bin/network.py:382
+msgid "Password"
+msgstr ""
+
+#: bin/network.py:381
+msgid "Username"
+msgstr ""
+
+#: bin/network.py:425
+msgid "Profile"
+msgstr ""
+
+#: bin/network.py:435
+#, fuzzy, python-format
+msgid "Profile %s removed."
+msgstr "Usługa '%s' przeładowana."
+
+#: bin/network.py:482
+#, fuzzy, python-format
+msgid "D-Bus Error: %s"
+msgstr "%s błąd: %s"
+
+#: bin/network.py:506
 msgid "Cancelled"
 msgstr ""
+
+#~ msgid "Enter new connection name"
+#~ msgstr "Wprowadź nową nazwę połączenia"
+
+#~ msgid "Device '%s' selected."
+#~ msgstr "Urządzenie '%s' wybrane."
+
+#~ msgid "Select connection device:"
+#~ msgstr "Wybierz urządzenie do połączenia:"
+
+#~ msgid "Enter manually"
+#~ msgstr "Wprowadź ręcznie"
+
+#~ msgid "Scan"
+#~ msgstr "Skanuj"
 
 #~ msgid "Starting COMAR"
 #~ msgstr "Startowanie COMAR"
@@ -528,15 +561,6 @@ msgstr ""
 #~ msgid "Service doesn't provide this operation."
 #~ msgstr "Usługa nie wspiera tej operacji"
 
-#~ msgid "%s error: %s"
-#~ msgstr "%s błąd: %s"
-
-#~ msgid "Comar service is not running."
-#~ msgstr "Usługa Comar nie jest uruchomiona."
-
-#~ msgid "Comar service is running."
-#~ msgstr "Usługa Comar jest w toku."
-
 #~ msgid "You should be the root user in order to control the comar service."
 #~ msgstr "Musisz być użytkownikiem root by kontrolować usługę comar"
 
@@ -545,6 +569,3 @@ msgstr ""
 
 #~ msgid "Service '%s' stopped."
 #~ msgstr "Usługa '%s' zatrzymana"
-
-#~ msgid "Service '%s' reloaded."
-#~ msgstr "Usługa '%s' przeładowana."

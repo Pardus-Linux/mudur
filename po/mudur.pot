@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 14:42+0200\n"
+"POT-Creation-Date: 2008-03-12 16:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -230,68 +230,84 @@ msgstr ""
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 
-#: bin/service.py:42
+#: bin/service.py:43
 msgid "local"
 msgstr ""
 
-#: bin/service.py:43
+#: bin/service.py:44
 msgid "script"
 msgstr ""
 
-#: bin/service.py:44
+#: bin/service.py:45
 msgid "server"
 msgstr ""
 
-#: bin/service.py:56
+#: bin/service.py:57
 msgid "running"
 msgstr ""
 
-#: bin/service.py:58
+#: bin/service.py:59
 msgid "yes"
 msgstr ""
 
-#: bin/service.py:78
+#: bin/service.py:79
 msgid "Service"
 msgstr ""
 
-#: bin/service.py:79
+#: bin/service.py:80
 msgid "Status"
 msgstr ""
 
-#: bin/service.py:80
+#: bin/service.py:81
 msgid "Autostart"
 msgstr ""
 
-#: bin/service.py:81
+#: bin/service.py:82
 msgid "Description"
 msgstr ""
 
-#: bin/service.py:124
+#: bin/service.py:125
 #, python-format
 msgid "Starting %s..."
 msgstr ""
 
-#: bin/service.py:130
+#: bin/service.py:131
 #, python-format
 msgid "Stopping %s..."
 msgstr ""
 
-#: bin/service.py:138
+#: bin/service.py:139
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr ""
 
-#: bin/service.py:140
+#: bin/service.py:141
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr ""
 
-#: bin/service.py:145
+#: bin/service.py:146
 #, python-format
 msgid "Reloading %s..."
 msgstr ""
 
-#: bin/service.py:196
+#: bin/service.py:206
+msgid "Starting DBus..."
+msgstr ""
+
+#: bin/service.py:215
+msgid "Stopping DBus..."
+msgstr ""
+
+#: bin/service.py:225
+msgid "DBus is not running."
+msgstr ""
+
+#: bin/service.py:227
+msgid "DBus is running."
+msgstr ""
+
+#: bin/service.py:232
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -309,166 +325,68 @@ msgid ""
 " -q, --quiet     Don't print replies"
 msgstr ""
 
-#: bin/network.py:40
-#, python-format
-msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr ""
-
-#: bin/network.py:139
+#: bin/network.py:64
 #, python-format
 msgid "Connection Name : %s "
 msgstr ""
 
-#: bin/network.py:140
+#: bin/network.py:65
 #, python-format
 msgid "Status          : %s "
 msgstr ""
 
-#: bin/network.py:141
+#: bin/network.py:66
 #, python-format
 msgid "Adress          : %s "
 msgstr ""
 
-#: bin/network.py:144
+#: bin/network.py:69
 #, python-format
 msgid "Device Name     : %s "
 msgstr ""
 
-#: bin/network.py:146
+#: bin/network.py:71
 #, python-format
 msgid "Device Id       : %s "
 msgstr ""
 
-#: bin/network.py:148
+#: bin/network.py:73
 #, python-format
 msgid "Mask            : %s "
 msgstr ""
 
-#: bin/network.py:150
+#: bin/network.py:75
 #, python-format
 msgid "Gateway         : %s "
 msgstr ""
 
-#: bin/network.py:152
+#: bin/network.py:77
 #, python-format
 msgid "Netmode         : %s "
 msgstr ""
 
-#: bin/network.py:154
+#: bin/network.py:79
 #, python-format
 msgid "Namemode        : %s "
 msgstr ""
 
-#: bin/network.py:156
+#: bin/network.py:81
 #, python-format
 msgid "Remote          : %s "
 msgstr ""
 
-#: bin/network.py:161
+#: bin/network.py:86
 msgid "Up"
 msgstr ""
 
-#: bin/network.py:162
+#: bin/network.py:87
 msgid "Down"
 msgstr ""
 
-#: bin/network.py:188
+#: bin/network.py:113
 #, python-format
-msgid "Found: %(essid)s [%(quality)s]"
-msgstr ""
-
-#: bin/network.py:190
-msgid "[encrypted]"
-msgstr ""
-
-#: bin/network.py:331
-msgid "Enter new connection name"
-msgstr ""
-
-#: bin/network.py:335
-msgid "Select connection type:"
-msgstr ""
-
-#: bin/network.py:353
-#, python-format
-msgid "Device '%s' selected."
-msgstr ""
-
-#: bin/network.py:355
-msgid "No avaible device for this type of connection"
-msgstr ""
-
-#: bin/network.py:358
-msgid "Select connection device:"
-msgstr ""
-
-#: bin/network.py:373
-msgid "Enter manually"
-msgstr ""
-
-#: bin/network.py:374
-msgid "Scan"
-msgstr ""
-
-#: bin/network.py:401
-msgid "Network settings:"
-msgstr ""
-
-#: bin/network.py:404
-msgid "Automatic query (DHCP)"
-msgstr ""
-
-#: bin/network.py:405
-msgid "Manual configuration"
-msgstr ""
-
-#: bin/network.py:410
-msgid "IP Address"
-msgstr ""
-
-#: bin/network.py:411
-msgid "Network mask"
-msgstr ""
-
-#: bin/network.py:412
-msgid "Gateway"
-msgstr ""
-
-#: bin/network.py:420
-msgid "Choose authentication type:"
-msgstr ""
-
-#: bin/network.py:430 bin/network.py:433
-msgid "Enter password "
-msgstr ""
-
-#: bin/network.py:432
-msgid "Enter user name "
-msgstr ""
-
-#: bin/network.py:450
-msgid "Profiles :"
-msgstr ""
-
-#: bin/network.py:452
-msgid "Name of profile to delete "
-msgstr ""
-
-#: bin/network.py:454
-msgid "Please enter a valid profile name "
-msgstr ""
-
-#: bin/network.py:469
-msgid "Enter name of profile"
-msgstr ""
-
-#: bin/network.py:486
-msgid "No such profile"
-msgstr ""
-
-#: bin/network.py:490
 msgid ""
-"usage: network <command> <arguments>\n"
+"usage: %s <command> <arguments>\n"
 "where command is:\n"
 " devices      List network devices\n"
 " connections  List connections\n"
@@ -479,6 +397,100 @@ msgid ""
 " down         Disconnect given connection"
 msgstr ""
 
-#: bin/network.py:522
+#: bin/network.py:173 bin/network.py:211 bin/network.py:262 bin/network.py:410
+#: bin/network.py:432 bin/network.py:469
+#, python-format
+msgid "Error: %s"
+msgstr ""
+
+#: bin/network.py:251 bin/network.py:458
+#, python-format
+msgid "There are more than one profiles named '%s'"
+msgstr ""
+
+#: bin/network.py:252 bin/network.py:459
+msgid "Use one of the following commands:"
+msgstr ""
+
+#: bin/network.py:278
+msgid "Profile name"
+msgstr ""
+
+#: bin/network.py:284
+msgid "Connection types:"
+msgstr ""
+
+#: bin/network.py:288
+msgid "Type"
+msgstr ""
+
+#: bin/network.py:302
+msgid "No avaible device for this type of connection"
+msgstr ""
+
+#: bin/network.py:310
+msgid "Devices:"
+msgstr ""
+
+#: bin/network.py:314
+msgid "Device"
+msgstr ""
+
+#: bin/network.py:320
+#, python-format
+msgid "%s:"
+msgstr ""
+
+#: bin/network.py:350
+msgid "Network settings:"
+msgstr ""
+
+#: bin/network.py:353
+msgid "Automatic query (DHCP)"
+msgstr ""
+
+#: bin/network.py:354
+msgid "Manual configuration"
+msgstr ""
+
+#: bin/network.py:359
+msgid "IP Address"
+msgstr ""
+
+#: bin/network.py:360
+msgid "Network mask"
+msgstr ""
+
+#: bin/network.py:361
+msgid "Gateway"
+msgstr ""
+
+#: bin/network.py:369
+msgid "Choose authentication type:"
+msgstr ""
+
+#: bin/network.py:379 bin/network.py:382
+msgid "Password"
+msgstr ""
+
+#: bin/network.py:381
+msgid "Username"
+msgstr ""
+
+#: bin/network.py:425
+msgid "Profile"
+msgstr ""
+
+#: bin/network.py:435
+#, python-format
+msgid "Profile %s removed."
+msgstr ""
+
+#: bin/network.py:482
+#, python-format
+msgid "D-Bus Error: %s"
+msgstr ""
+
+#: bin/network.py:506
 msgid "Cancelled"
 msgstr ""

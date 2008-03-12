@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 14:42+0200\n"
+"POT-Creation-Date: 2008-03-12 16:03+0200\n"
 "PO-Revision-Date: 2008-03-08 21:18+0200\n"
 "Last-Translator: Klemens Haeckel <click3d at linuxmail org>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -229,8 +229,8 @@ msgstr "Configurando localhost"
 msgid "Updating environment variables"
 msgstr "Actualizando variables del entorno"
 
-#: bin/mudur.py:1057
 # please proofread, sort of free translation, traduccion libre
+#: bin/mudur.py:1057
 msgid "Triggering udev events which are failed during a previous run"
 msgstr "Ejecutando eventos udev que fallaron durante un intento anterior"
 
@@ -238,69 +238,88 @@ msgstr "Ejecutando eventos udev que fallaron durante un intento anterior"
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr "Intentando reboot caliente (saltando BIOS con kernel kexec)"
 
-#: bin/service.py:42
+#: bin/service.py:43
 msgid "local"
 msgstr "local"
 
-#: bin/service.py:43
+#: bin/service.py:44
 msgid "script"
 msgstr "script"
 
-#: bin/service.py:44
+#: bin/service.py:45
 msgid "server"
 msgstr "servidor"
 
-#: bin/service.py:56
+#: bin/service.py:57
 msgid "running"
 msgstr "ejecutando"
 
-#: bin/service.py:58
+#: bin/service.py:59
 msgid "yes"
 msgstr "si"
 
-#: bin/service.py:78
+#: bin/service.py:79
 msgid "Service"
 msgstr "Servicio"
 
-#: bin/service.py:79
+#: bin/service.py:80
 msgid "Status"
 msgstr "Estado"
 
-#: bin/service.py:80
+#: bin/service.py:81
 msgid "Autostart"
 msgstr "Arranque automatico"
 
-#: bin/service.py:81
+#: bin/service.py:82
 msgid "Description"
 msgstr "Descripción"
 
-#: bin/service.py:124
+#: bin/service.py:125
 #, python-format
 msgid "Starting %s..."
 msgstr "Iniciando %s..."
 
-#: bin/service.py:130
+#: bin/service.py:131
 #, python-format
 msgid "Stopping %s..."
 msgstr "Deteniendo %s..."
 
-#: bin/service.py:138
+#: bin/service.py:139
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "Servicio '%s' se iniciará automaticamente."
 
-#: bin/service.py:140
+#: bin/service.py:141
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "Servicio '%s' no se iniciará automaticamente."
 
-#: bin/service.py:145
-#, python-format
 # recargando o reiniciando, favor opinar
+#: bin/service.py:146
+#, python-format
 msgid "Reloading %s..."
 msgstr "Reiniciando %s..."
 
-#: bin/service.py:196
+#: bin/service.py:206
+#, fuzzy
+msgid "Starting DBus..."
+msgstr "Iniciando %s..."
+
+#: bin/service.py:215
+#, fuzzy
+msgid "Stopping DBus..."
+msgstr "Parando DBus"
+
+#: bin/service.py:225
+msgid "DBus is not running."
+msgstr ""
+
+#: bin/service.py:227
+#, fuzzy
+msgid "DBus is running."
+msgstr "ejecutando"
+
+#: bin/service.py:232
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -332,168 +351,68 @@ msgstr ""
 " -N, --no-color  No usar color en la salida\n"
 " -q, --quiet     No imprimir mensajes"
 
-#: bin/network.py:40
-#, python-format
-msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr ""
-"Límite excedido, favor ingrese un número válido: ( intervalo: 0 < valor "
-"ingresado < %s )"
-
-#: bin/network.py:139
+#: bin/network.py:64
 #, python-format
 msgid "Connection Name : %s "
 msgstr "Nombre de conexión : %s "
 
-#: bin/network.py:140
+#: bin/network.py:65
 #, python-format
 msgid "Status          : %s "
 msgstr "Estado          : %s "
 
-#: bin/network.py:141
+#: bin/network.py:66
 #, python-format
 msgid "Adress          : %s "
 msgstr "Dirección          : %s "
 
-#: bin/network.py:144
+#: bin/network.py:69
 #, python-format
 msgid "Device Name     : %s "
 msgstr "Nombre Dispositivo     : %s "
 
-#: bin/network.py:146
+#: bin/network.py:71
 #, python-format
 msgid "Device Id       : %s "
 msgstr "ID de Dispositivo       : %s "
 
-#: bin/network.py:148
+#: bin/network.py:73
 #, python-format
 msgid "Mask            : %s "
 msgstr "Máscara            : %s "
 
-#: bin/network.py:150
+#: bin/network.py:75
 #, python-format
 msgid "Gateway         : %s "
 msgstr "Puerta de Enlace         : %s "
 
-#: bin/network.py:152
+#: bin/network.py:77
 #, python-format
 msgid "Netmode         : %s "
 msgstr "Modo de red         : %s "
 
-#: bin/network.py:154
+#: bin/network.py:79
 #, python-format
 msgid "Namemode        : %s "
 msgstr "Modo de nombre        : %s "
 
-#: bin/network.py:156
+#: bin/network.py:81
 #, python-format
 msgid "Remote          : %s "
 msgstr "Remoto          : %s "
 
-#: bin/network.py:161
+#: bin/network.py:86
 msgid "Up"
 msgstr "Activo"
 
-#: bin/network.py:162
+#: bin/network.py:87
 msgid "Down"
 msgstr "Inactivo"
 
-#: bin/network.py:188
-#, python-format
-msgid "Found: %(essid)s [%(quality)s]"
-msgstr "Encontrado: %(essid)s [%(quality)s]"
-
-#: bin/network.py:190
-msgid "[encrypted]"
-msgstr "[encriptado]"
-
-#: bin/network.py:331
-msgid "Enter new connection name"
-msgstr "Ingrese nombre de nueva conexión"
-
-#: bin/network.py:335
-msgid "Select connection type:"
-msgstr "Seleccione tipo de conexión:"
-
-#: bin/network.py:353
-#, python-format
-msgid "Device '%s' selected."
-msgstr "Dispositivo '%s' seleccionado."
-
-#: bin/network.py:355
-msgid "No avaible device for this type of connection"
-msgstr "No hay dispositivo disponible para este tipo de conexión"
-
-#: bin/network.py:358
-msgid "Select connection device:"
-msgstr "Seleccione dispositivo de conexión:"
-
-#: bin/network.py:373
-msgid "Enter manually"
-msgstr "Ingrese manualmente"
-
-#: bin/network.py:374
-msgid "Scan"
-msgstr "Buscar"
-
-#: bin/network.py:401
-msgid "Network settings:"
-msgstr "Preferencias de Red:"
-
-#: bin/network.py:404
-msgid "Automatic query (DHCP)"
-msgstr "Asignación automática (DHCP)"
-
-#: bin/network.py:405
-msgid "Manual configuration"
-msgstr "Configuración manual"
-
-#: bin/network.py:410
-msgid "IP Address"
-msgstr "Dirección IP"
-
-#: bin/network.py:411
-msgid "Network mask"
-msgstr "Máscara de Red"
-
-#: bin/network.py:412
-msgid "Gateway"
-msgstr "Puerto de enlace"
-
-#: bin/network.py:420
-msgid "Choose authentication type:"
-msgstr "Elija el tipo de autenticación:"
-
-#: bin/network.py:430 bin/network.py:433
-msgid "Enter password "
-msgstr "Ingrese contraseña:"
-
-#: bin/network.py:432
-msgid "Enter user name "
-msgstr "Ingrese nombre de usuario "
-
-#: bin/network.py:450
-msgid "Profiles :"
-msgstr "Perfiles :"
-
-#: bin/network.py:452
-msgid "Name of profile to delete "
-msgstr "Nombre de perfil a eliminar "
-
-#: bin/network.py:454
-msgid "Please enter a valid profile name "
-msgstr "Favor ingrese un nombre de perfil válido"
-
-#: bin/network.py:469
-msgid "Enter name of profile"
-msgstr "Ingrese nombre de perfil"
-
-#: bin/network.py:486
-msgid "No such profile"
-msgstr "No existe tal perfil"
-
-#: bin/network.py:490
+#: bin/network.py:113
+#, fuzzy, python-format
 msgid ""
-"usage: network <command> <arguments>\n"
+"usage: %s <command> <arguments>\n"
 "where command is:\n"
 " devices      List network devices\n"
 " connections  List connections\n"
@@ -513,7 +432,148 @@ msgstr ""
 " up           Conectar usando una conexión existente\n"
 " down         Desconectar una conexión"
 
-#: bin/network.py:522
+#: bin/network.py:173 bin/network.py:211 bin/network.py:262 bin/network.py:410
+#: bin/network.py:432 bin/network.py:469
+#, python-format
+msgid "Error: %s"
+msgstr ""
+
+#: bin/network.py:251 bin/network.py:458
+#, python-format
+msgid "There are more than one profiles named '%s'"
+msgstr ""
+
+#: bin/network.py:252 bin/network.py:459
+msgid "Use one of the following commands:"
+msgstr ""
+
+#: bin/network.py:278
+#, fuzzy
+msgid "Profile name"
+msgstr "Perfiles :"
+
+#: bin/network.py:284
+#, fuzzy
+msgid "Connection types:"
+msgstr "Seleccione tipo de conexión:"
+
+#: bin/network.py:288
+msgid "Type"
+msgstr ""
+
+#: bin/network.py:302
+msgid "No avaible device for this type of connection"
+msgstr "No hay dispositivo disponible para este tipo de conexión"
+
+#: bin/network.py:310
+#, fuzzy
+msgid "Devices:"
+msgstr "Servicio"
+
+#: bin/network.py:314
+#, fuzzy
+msgid "Device"
+msgstr "Servicio"
+
+#: bin/network.py:320
+#, python-format
+msgid "%s:"
+msgstr ""
+
+#: bin/network.py:350
+msgid "Network settings:"
+msgstr "Preferencias de Red:"
+
+#: bin/network.py:353
+msgid "Automatic query (DHCP)"
+msgstr "Asignación automática (DHCP)"
+
+#: bin/network.py:354
+msgid "Manual configuration"
+msgstr "Configuración manual"
+
+#: bin/network.py:359
+msgid "IP Address"
+msgstr "Dirección IP"
+
+#: bin/network.py:360
+msgid "Network mask"
+msgstr "Máscara de Red"
+
+#: bin/network.py:361
+msgid "Gateway"
+msgstr "Puerto de enlace"
+
+#: bin/network.py:369
+msgid "Choose authentication type:"
+msgstr "Elija el tipo de autenticación:"
+
+#: bin/network.py:379 bin/network.py:382
+#, fuzzy
+msgid "Password"
+msgstr "Ingrese contraseña:"
+
+#: bin/network.py:381
+msgid "Username"
+msgstr ""
+
+#: bin/network.py:425
+#, fuzzy
+msgid "Profile"
+msgstr "Perfiles :"
+
+#: bin/network.py:435
+#, fuzzy, python-format
+msgid "Profile %s removed."
+msgstr "Perfiles :"
+
+#: bin/network.py:482
+#, python-format
+msgid "D-Bus Error: %s"
+msgstr ""
+
+#: bin/network.py:506
 msgid "Cancelled"
 msgstr "Cancelado"
 
+#~ msgid ""
+#~ "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
+#~ msgstr ""
+#~ "Límite excedido, favor ingrese un número válido: ( intervalo: 0 < valor "
+#~ "ingresado < %s )"
+
+#~ msgid "Found: %(essid)s [%(quality)s]"
+#~ msgstr "Encontrado: %(essid)s [%(quality)s]"
+
+#~ msgid "[encrypted]"
+#~ msgstr "[encriptado]"
+
+#~ msgid "Enter new connection name"
+#~ msgstr "Ingrese nombre de nueva conexión"
+
+#~ msgid "Device '%s' selected."
+#~ msgstr "Dispositivo '%s' seleccionado."
+
+#~ msgid "Select connection device:"
+#~ msgstr "Seleccione dispositivo de conexión:"
+
+#~ msgid "Enter manually"
+#~ msgstr "Ingrese manualmente"
+
+#~ msgid "Scan"
+#~ msgstr "Buscar"
+
+#~ msgid "Enter user name "
+#~ msgstr "Ingrese nombre de usuario "
+
+#~ msgid "Name of profile to delete "
+#~ msgstr "Nombre de perfil a eliminar "
+
+#~ msgid "Please enter a valid profile name "
+#~ msgstr "Favor ingrese un nombre de perfil válido"
+
+#~ msgid "Enter name of profile"
+#~ msgstr "Ingrese nombre de perfil"
+
+#~ msgid "No such profile"
+#~ msgstr "No existe tal perfil"

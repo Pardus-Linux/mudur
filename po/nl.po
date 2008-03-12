@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 14:42+0200\n"
+"POT-Creation-Date: 2008-03-12 16:03+0200\n"
 "PO-Revision-Date: 2008-03-08 21:30+0100\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <nl@li.org>\n"
@@ -109,7 +109,8 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:629
 msgid "Root filesystem could not be mounted read/write :("
-msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr ""
+"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:672
 #, python-format
@@ -130,7 +131,8 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:714
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr ""
+"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:727
 msgid "Mounting USB filesystem"
@@ -154,7 +156,8 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:769
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr ""
+"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:782
 msgid "Setting disk parameters"
@@ -232,68 +235,87 @@ msgstr ""
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr "Probeer een warme herstart (BIOS overslaan met kexec kernel)"
 
-#: bin/service.py:42
+#: bin/service.py:43
 msgid "local"
 msgstr "lokaal"
 
-#: bin/service.py:43
+#: bin/service.py:44
 msgid "script"
 msgstr "script"
 
-#: bin/service.py:44
+#: bin/service.py:45
 msgid "server"
 msgstr "server"
 
-#: bin/service.py:56
+#: bin/service.py:57
 msgid "running"
 msgstr "actief"
 
-#: bin/service.py:58
+#: bin/service.py:59
 msgid "yes"
 msgstr "ja"
 
-#: bin/service.py:78
+#: bin/service.py:79
 msgid "Service"
 msgstr "Dienst"
 
-#: bin/service.py:79
+#: bin/service.py:80
 msgid "Status"
 msgstr "Status"
 
-#: bin/service.py:80
+#: bin/service.py:81
 msgid "Autostart"
 msgstr "Autostart"
 
-#: bin/service.py:81
+#: bin/service.py:82
 msgid "Description"
 msgstr "Beschrijving"
 
-#: bin/service.py:124
+#: bin/service.py:125
 #, fuzzy, python-format
 msgid "Starting %s..."
 msgstr "Opstarten udev"
 
-#: bin/service.py:130
+#: bin/service.py:131
 #, fuzzy, python-format
 msgid "Stopping %s..."
 msgstr "Stoppen diensten"
 
-#: bin/service.py:138
+#: bin/service.py:139
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "Dienst '%s' wordt automatische gestart."
 
-#: bin/service.py:140
+#: bin/service.py:141
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "Dienst '%s' zal niet automatische worden gestart."
 
-#: bin/service.py:145
+#: bin/service.py:146
 #, fuzzy, python-format
 msgid "Reloading %s..."
 msgstr "Herstarten..."
 
-#: bin/service.py:196
+#: bin/service.py:206
+#, fuzzy
+msgid "Starting DBus..."
+msgstr "Opstarten udev"
+
+#: bin/service.py:215
+#, fuzzy
+msgid "Stopping DBus..."
+msgstr "Stoppen DBus"
+
+#: bin/service.py:225
+msgid "DBus is not running."
+msgstr ""
+
+#: bin/service.py:227
+#, fuzzy
+msgid "DBus is running."
+msgstr "actief"
+
+#: bin/service.py:232
 #, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
@@ -324,166 +346,68 @@ msgstr ""
 "en optie is:\n"
 " -N, --no-color  Gebruik geen kleur in uitvoer"
 
-#: bin/network.py:40
-#, python-format
-msgid "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-msgstr "Limiteer gebruik, geef een valide getal: ( interval: 0 < trefwoord < %s )"
-
-#: bin/network.py:139
+#: bin/network.py:64
 #, python-format
 msgid "Connection Name : %s "
 msgstr "Naam verbinding: %s "
 
-#: bin/network.py:140
+#: bin/network.py:65
 #, python-format
 msgid "Status          : %s "
 msgstr "Status          : %s "
 
-#: bin/network.py:141
+#: bin/network.py:66
 #, python-format
 msgid "Adress          : %s "
 msgstr "Adres          : %s "
 
-#: bin/network.py:144
+#: bin/network.py:69
 #, python-format
 msgid "Device Name     : %s "
 msgstr "Apparaat naam     : %s "
 
-#: bin/network.py:146
+#: bin/network.py:71
 #, python-format
 msgid "Device Id       : %s "
 msgstr "Apparaat Id       : %s "
 
-#: bin/network.py:148
+#: bin/network.py:73
 #, python-format
 msgid "Mask            : %s "
 msgstr "Masker            : %s "
 
-#: bin/network.py:150
+#: bin/network.py:75
 #, python-format
 msgid "Gateway         : %s "
 msgstr "Gateway         : %s "
 
-#: bin/network.py:152
+#: bin/network.py:77
 #, python-format
 msgid "Netmode         : %s "
 msgstr "Netmodus         : %s "
 
-#: bin/network.py:154
+#: bin/network.py:79
 #, python-format
 msgid "Namemode        : %s "
 msgstr "Naammodus        : %s "
 
-#: bin/network.py:156
+#: bin/network.py:81
 #, python-format
 msgid "Remote          : %s "
 msgstr "Op afstand          : %s "
 
-#: bin/network.py:161
+#: bin/network.py:86
 msgid "Up"
 msgstr "Omhoog"
 
-#: bin/network.py:162
+#: bin/network.py:87
 msgid "Down"
 msgstr "Omlaag"
 
-#: bin/network.py:188
-#, python-format
-msgid "Found: %(essid)s [%(quality)s]"
-msgstr "Gevonden: %(essid)s [%(quality)s]"
-
-#: bin/network.py:190
-msgid "[encrypted]"
-msgstr "[versleuteld]"
-
-#: bin/network.py:331
-msgid "Enter new connection name"
-msgstr "Geef naam nieuwe verbinding"
-
-#: bin/network.py:335
-msgid "Select connection type:"
-msgstr "Selecteer verbindingstype:"
-
-#: bin/network.py:353
-#, python-format
-msgid "Device '%s' selected."
-msgstr "Apparaat '%s' geselecteerd."
-
-#: bin/network.py:355
-msgid "No avaible device for this type of connection"
-msgstr "Geen apparaten voorhanden voor dit type verbinding"
-
-#: bin/network.py:358
-msgid "Select connection device:"
-msgstr "Selecteer verbindingsapparaat:"
-
-#: bin/network.py:373
-msgid "Enter manually"
-msgstr "Handmatig invoeren"
-
-#: bin/network.py:374
-msgid "Scan"
-msgstr "Scan"
-
-#: bin/network.py:401
-msgid "Network settings:"
-msgstr "Netwerkinstellingen:"
-
-#: bin/network.py:404
-msgid "Automatic query (DHCP)"
-msgstr "Automatische opvragen (DHCP)"
-
-#: bin/network.py:405
-msgid "Manual configuration"
-msgstr "Handmatig configureren"
-
-#: bin/network.py:410
-msgid "IP Address"
-msgstr "IP adres"
-
-#: bin/network.py:411
-msgid "Network mask"
-msgstr "Netwerkmasker"
-
-#: bin/network.py:412
-msgid "Gateway"
-msgstr "Poort"
-
-#: bin/network.py:420
-msgid "Choose authentication type:"
-msgstr "Kies aanmeld type:"
-
-#: bin/network.py:430 bin/network.py:433
-msgid "Enter password "
-msgstr "Geef wachtwoord "
-
-#: bin/network.py:432
-msgid "Enter user name "
-msgstr "Geef gebruikersnaam "
-
-#: bin/network.py:450
-msgid "Profiles :"
-msgstr "Profielen :"
-
-#: bin/network.py:452
-msgid "Name of profile to delete "
-msgstr "Naam van te verwijderen profiel "
-
-#: bin/network.py:454
-msgid "Please enter a valid profile name "
-msgstr "Geef een geldige profiel naam "
-
-#: bin/network.py:469
-msgid "Enter name of profile"
-msgstr "Geef de naam van een profiel"
-
-#: bin/network.py:486
-msgid "No such profile"
-msgstr "Profiel onbekend"
-
-#: bin/network.py:490
+#: bin/network.py:113
+#, fuzzy, python-format
 msgid ""
-"usage: network <command> <arguments>\n"
+"usage: %s <command> <arguments>\n"
 "where command is:\n"
 " devices      List network devices\n"
 " connections  List connections\n"
@@ -503,7 +427,147 @@ msgstr ""
 " up           Opgegeven verbinding verbinden\n"
 " down         Opgegeven verbinding verbreken"
 
-#: bin/network.py:522
+#: bin/network.py:173 bin/network.py:211 bin/network.py:262 bin/network.py:410
+#: bin/network.py:432 bin/network.py:469
+#, python-format
+msgid "Error: %s"
+msgstr ""
+
+#: bin/network.py:251 bin/network.py:458
+#, python-format
+msgid "There are more than one profiles named '%s'"
+msgstr ""
+
+#: bin/network.py:252 bin/network.py:459
+msgid "Use one of the following commands:"
+msgstr ""
+
+#: bin/network.py:278
+#, fuzzy
+msgid "Profile name"
+msgstr "Profielen :"
+
+#: bin/network.py:284
+#, fuzzy
+msgid "Connection types:"
+msgstr "Selecteer verbindingstype:"
+
+#: bin/network.py:288
+msgid "Type"
+msgstr ""
+
+#: bin/network.py:302
+msgid "No avaible device for this type of connection"
+msgstr "Geen apparaten voorhanden voor dit type verbinding"
+
+#: bin/network.py:310
+#, fuzzy
+msgid "Devices:"
+msgstr "Dienst"
+
+#: bin/network.py:314
+#, fuzzy
+msgid "Device"
+msgstr "Dienst"
+
+#: bin/network.py:320
+#, python-format
+msgid "%s:"
+msgstr ""
+
+#: bin/network.py:350
+msgid "Network settings:"
+msgstr "Netwerkinstellingen:"
+
+#: bin/network.py:353
+msgid "Automatic query (DHCP)"
+msgstr "Automatische opvragen (DHCP)"
+
+#: bin/network.py:354
+msgid "Manual configuration"
+msgstr "Handmatig configureren"
+
+#: bin/network.py:359
+msgid "IP Address"
+msgstr "IP adres"
+
+#: bin/network.py:360
+msgid "Network mask"
+msgstr "Netwerkmasker"
+
+#: bin/network.py:361
+msgid "Gateway"
+msgstr "Poort"
+
+#: bin/network.py:369
+msgid "Choose authentication type:"
+msgstr "Kies aanmeld type:"
+
+#: bin/network.py:379 bin/network.py:382
+#, fuzzy
+msgid "Password"
+msgstr "Geef wachtwoord "
+
+#: bin/network.py:381
+msgid "Username"
+msgstr ""
+
+#: bin/network.py:425
+#, fuzzy
+msgid "Profile"
+msgstr "Profielen :"
+
+#: bin/network.py:435
+#, fuzzy, python-format
+msgid "Profile %s removed."
+msgstr "Profielen :"
+
+#: bin/network.py:482
+#, python-format
+msgid "D-Bus Error: %s"
+msgstr ""
+
+#: bin/network.py:506
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
+#~ msgid ""
+#~ "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
+#~ msgstr ""
+#~ "Limiteer gebruik, geef een valide getal: ( interval: 0 < trefwoord < %s )"
+
+#~ msgid "Found: %(essid)s [%(quality)s]"
+#~ msgstr "Gevonden: %(essid)s [%(quality)s]"
+
+#~ msgid "[encrypted]"
+#~ msgstr "[versleuteld]"
+
+#~ msgid "Enter new connection name"
+#~ msgstr "Geef naam nieuwe verbinding"
+
+#~ msgid "Device '%s' selected."
+#~ msgstr "Apparaat '%s' geselecteerd."
+
+#~ msgid "Select connection device:"
+#~ msgstr "Selecteer verbindingsapparaat:"
+
+#~ msgid "Enter manually"
+#~ msgstr "Handmatig invoeren"
+
+#~ msgid "Scan"
+#~ msgstr "Scan"
+
+#~ msgid "Enter user name "
+#~ msgstr "Geef gebruikersnaam "
+
+#~ msgid "Name of profile to delete "
+#~ msgstr "Naam van te verwijderen profiel "
+
+#~ msgid "Please enter a valid profile name "
+#~ msgstr "Geef een geldige profiel naam "
+
+#~ msgid "Enter name of profile"
+#~ msgstr "Geef de naam van een profiel"
+
+#~ msgid "No such profile"
+#~ msgstr "Profiel onbekend"
