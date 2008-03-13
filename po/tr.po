@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-12 16:03+0200\n"
+"POT-Creation-Date: 2008-03-13 09:10+0200\n"
 "PO-Revision-Date: 2006-03-06 16:05+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@pardus.org.tr>\n"
 "Language-Team:  <yerellestirme@kde.org.tr>\n"
@@ -228,7 +228,7 @@ msgstr "Çevresel değişkenler güncelleniyor"
 
 #: bin/mudur.py:1057
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
+msgstr "Daha önce başarısız olan udev olayları tekrar tetikleniyor."
 
 #: bin/mudur.py:1079
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
