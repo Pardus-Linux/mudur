@@ -495,7 +495,7 @@ def startServices(extras=None):
     for script in os.listdir("/etc/network"):
         db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
         for profile in db.listDB():
-            if db.getDB(profile)["state"] == "up":
+            if db.getDB(profile).get("state", "down") == "up":
                 device = db.getDB(profile).get("device", None)
                 if not device:
                     continue
