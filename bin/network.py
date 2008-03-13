@@ -319,28 +319,33 @@ def createWizard(bus, args):
         print
         print _("%s:") % script_info["remote_name"]
         if "scan" in modes:
-            pass
-            """
             remotes = []
+            name_size = 0
             while True:
                 print "  [1] %s" % _("Enter manually")
                 print "  [2] %s" % _("Scan")
                 if remotes:
                     for i, remote in enumerate(remotes):
-                        print "  [%s] %s" % (i + 3), str(remote)
+                        enc = ""
+                        quality = (int(remote["quality"]) / 25) + 1
+                        if remote["encryption"] != "none":
+                            enc = remote["encryption"]
+                        print "  [%s] %s [%s] | %s | %s" % (i + 3, remote["remote"].ljust(name_size), remote["mac"], str("=" * quality).ljust(5), enc)
                 s = input_number("", 1, len(remotes) + 2)
                 if s == 1:
                     remote = input_text(link.remote_name)
+                    apmac = ""
                     break
                 elif s == 2:
-                    remotes = scanRemote(bus, script, device)
+                    remotes = getRemotes(bus, script, device)
+                    name_size = max(map(lambda x: len(x["remote"]), remotes))
                     print
                     print _("%s:") % script_info["remote_name"]
                 else:
-                    remote = remotes[s - 3]
-                    selected_auth_type = remotes[s-3].encryption
+                    remote = remotes[s - 3]["remote"]
+                    apmac = remotes[s - 3]["mac"]
+                    selected_auth_type = remotes[s - 3]["encryption"]
                     break
-            """
         else:
             remote = input_text("")
 
@@ -388,8 +393,7 @@ def createWizard(bus, args):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
     obj.setConnection(profile, device, dbus_interface="tr.org.pardus.comar.Net.Link")
     if "remote" in modes:
-        pass
-        #obj.setRemote(profile, remote, dbus_interface="tr.org.pardus.comar.Net.Link")
+        obj.setRemote(profile, remote, apmac, dbus_interface="tr.org.pardus.comar.Net.Link")
     if "net" in modes:
         if is_auto:
             obj.setAddress(profile, "auto", "", "", "", dbus_interface="tr.org.pardus.comar.Net.Link")
@@ -501,7 +505,7 @@ def main(args):
         return usage(args)
     try:
         return func(bus, args)
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, EOFError,):
         print
         print _("Cancelled")
         return FAIL
