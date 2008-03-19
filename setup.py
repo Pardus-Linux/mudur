@@ -15,7 +15,7 @@ import glob
 import shutil
 import parser
 
-version = "2.0_alpha2"
+version = "2.0_alpha3"
 
 distfiles = """
     setup.py
@@ -51,7 +51,7 @@ def make_dist():
             if not os.path.exists(dn):
                 os.mkdir(dn)
         shutil.copy(file_, os.path.join(distdir, file_))
-    os.popen("tar -czf %s %s" % ("mudur-" + version + ".tar.gz", distdir))
+    os.popen("tar -cjf %s %s" % ("mudur-" + version + ".tar.bz2", distdir))
     shutil.rmtree(distdir)
 
 def install_file(source, prefix, dest):
