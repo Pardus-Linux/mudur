@@ -173,6 +173,9 @@ def listProfiles(bus, args):
         print _("Error: %s") % str(e)
         return FAIL
 
+    if not profiles:
+        return
+
     name_size = max(map(lambda x: len(x[1]), profiles))
     device_size = max(map(lambda x: len(x[2]), profiles))
     state_size = max(map(lambda x: len(x[3]), profiles))
