@@ -108,7 +108,7 @@ def input_text(_label):
     return raw_input("%s > " % _label)
 
 
-def usage(args):
+def usage():
     """ Prints 'network' script usage """
     print _("""usage: %s <command> <arguments>
 where command is:
@@ -237,7 +237,7 @@ def listDevices(bus, args):
 def setState(bus, state, args):
     try:
         if not 0 < len(args) < 3:
-            return usage(args)
+            return usage()
 
         if len(args) == 2:
             obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % args[1], introspect=False)
@@ -249,6 +249,10 @@ def setState(bus, state, args):
                     if profile not in profiles:
                         profiles[profile] = []
                     profiles[profile].append(script)
+
+            if args[0] not in profiles:
+                print _("No such profile.")
+                return FAIL
 
             if len(profiles[args[0]]) > 1:
                 print _("There are more than one profiles named '%s'") % profile
@@ -448,7 +452,7 @@ def infoProfile(bus, args):
     """ Prints detailed information about a given profile """
     try:
         if not 0 < len(args) < 3:
-            return usage(args)
+            return usage()
 
         if len(args) == 2:
             profile, script = args
@@ -460,6 +464,10 @@ def infoProfile(bus, args):
                     if profile not in profiles:
                         profiles[profile] = []
                     profiles[profile].append(script)
+
+            if args[0] not in profiles:
+                print _("No such profile.")
+                return FAIL
 
             if len(profiles[args[0]]) > 1:
                 print _("There are more than one profiles named '%s'") % profile
@@ -500,12 +508,12 @@ def main(args):
     }
 
     if len(args) == 0:
-        return usage(args)
+        return usage()
 
     try:
-        func = operations.get(args.pop(0), usage)
+        func = operations[args.pop(0)]
     except KeyError:
-        return usage(args)
+        return usage()
     try:
         return func(bus, args)
     except (KeyboardInterrupt, EOFError,):
