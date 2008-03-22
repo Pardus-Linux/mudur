@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-13 09:10+0200\n"
-"PO-Revision-Date: 2008-03-08 21:18+0200\n"
+"PO-Revision-Date: 2008-03-22 08:07-0400\n"
 "Last-Translator: Klemens Haeckel <click3d at linuxmail org>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -301,23 +301,20 @@ msgid "Reloading %s..."
 msgstr "Reiniciando %s..."
 
 #: bin/service.py:206
-#, fuzzy
 msgid "Starting DBus..."
-msgstr "Iniciando %s..."
+msgstr "Iniciando DBus..."
 
 #: bin/service.py:215
-#, fuzzy
 msgid "Stopping DBus..."
-msgstr "Parando DBus"
+msgstr "Parando DBus..."
 
 #: bin/service.py:225
 msgid "DBus is not running."
-msgstr ""
+msgstr "DBus no se está ejecutando."
 
 #: bin/service.py:227
-#, fuzzy
 msgid "DBus is running."
-msgstr "ejecutando"
+msgstr "Dbus se está ejecutando"
 
 #: bin/service.py:232
 msgid ""
@@ -410,7 +407,7 @@ msgid "Down"
 msgstr "Inactivo"
 
 #: bin/network.py:113
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "usage: %s <command> <arguments>\n"
 "where command is:\n"
@@ -422,7 +419,7 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
-"uso: network <command> <arguments>\n"
+"uso: %s <command> <arguments>\n"
 "command puede ser:\n"
 " devices      Listar dispositivos de red\n"
 " connections  Listar conexiones\n"
@@ -436,49 +433,45 @@ msgstr ""
 #: bin/network.py:432 bin/network.py:469
 #, python-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Error: %s"
 
 #: bin/network.py:251 bin/network.py:458
 #, python-format
 msgid "There are more than one profiles named '%s'"
-msgstr ""
+msgstr "Existe más de un perfil con el nombre '%s'"
 
 #: bin/network.py:252 bin/network.py:459
 msgid "Use one of the following commands:"
-msgstr ""
+msgstr "Use uno de los comandos siguientes:"
 
 #: bin/network.py:278
-#, fuzzy
 msgid "Profile name"
-msgstr "Perfiles :"
+msgstr "Nombre de Perfil"
 
 #: bin/network.py:284
-#, fuzzy
 msgid "Connection types:"
-msgstr "Seleccione tipo de conexión:"
+msgstr "Tipos de conexión:"
 
 #: bin/network.py:288
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: bin/network.py:302
 msgid "No avaible device for this type of connection"
 msgstr "No hay dispositivo disponible para este tipo de conexión"
 
 #: bin/network.py:310
-#, fuzzy
 msgid "Devices:"
-msgstr "Servicio"
+msgstr "Dispositivos:"
 
 #: bin/network.py:314
-#, fuzzy
 msgid "Device"
-msgstr "Servicio"
+msgstr "Dispositivo"
 
 #: bin/network.py:320
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: bin/network.py:350
 msgid "Network settings:"
@@ -509,71 +502,28 @@ msgid "Choose authentication type:"
 msgstr "Elija el tipo de autenticación:"
 
 #: bin/network.py:379 bin/network.py:382
-#, fuzzy
 msgid "Password"
-msgstr "Ingrese contraseña:"
+msgstr "Contraseña"
 
 #: bin/network.py:381
 msgid "Username"
-msgstr ""
+msgstr "Nombre de usuario"
 
 #: bin/network.py:425
-#, fuzzy
 msgid "Profile"
-msgstr "Perfiles :"
+msgstr "Perfil"
 
 #: bin/network.py:435
-#, fuzzy, python-format
+#, python-format
 msgid "Profile %s removed."
-msgstr "Perfiles :"
+msgstr "Perfil %s eliminado."
 
 #: bin/network.py:482
 #, python-format
 msgid "D-Bus Error: %s"
-msgstr ""
+msgstr "Error de D-Bus: %s"
 
 #: bin/network.py:506
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#~ msgid ""
-#~ "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-#~ msgstr ""
-#~ "Límite excedido, favor ingrese un número válido: ( intervalo: 0 < valor "
-#~ "ingresado < %s )"
-
-#~ msgid "Found: %(essid)s [%(quality)s]"
-#~ msgstr "Encontrado: %(essid)s [%(quality)s]"
-
-#~ msgid "[encrypted]"
-#~ msgstr "[encriptado]"
-
-#~ msgid "Enter new connection name"
-#~ msgstr "Ingrese nombre de nueva conexión"
-
-#~ msgid "Device '%s' selected."
-#~ msgstr "Dispositivo '%s' seleccionado."
-
-#~ msgid "Select connection device:"
-#~ msgstr "Seleccione dispositivo de conexión:"
-
-#~ msgid "Enter manually"
-#~ msgstr "Ingrese manualmente"
-
-#~ msgid "Scan"
-#~ msgstr "Buscar"
-
-#~ msgid "Enter user name "
-#~ msgstr "Ingrese nombre de usuario "
-
-#~ msgid "Name of profile to delete "
-#~ msgstr "Nombre de perfil a eliminar "
-
-#~ msgid "Please enter a valid profile name "
-#~ msgstr "Favor ingrese un nombre de perfil válido"
-
-#~ msgid "Enter name of profile"
-#~ msgstr "Ingrese nombre de perfil"
-
-#~ msgid "No such profile"
-#~ msgstr "No existe tal perfil"
