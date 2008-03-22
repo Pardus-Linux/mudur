@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrea Decorte <adecorte@gmail.com>, 2007.
+# Ercole Carpanetto <ercole69@gmail.com>, 2008
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-13 09:10+0200\n"
-"PO-Revision-Date: 2007-11-12 22:10+0100\n"
-"Last-Translator: Andrea Decorte <adecorte@gmail.com>\n"
+"PO-Revision-Date: 2008-03-21 11:50+0100\n"
+"Last-Translator: Ercole Carpanetto <ercole69@gmail.com>\n"
 "Language-Team: Italian <pardus-translation-it@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,12 +39,12 @@ msgstr "Impossibile collegarsi a COMAR, i servizi non verranno avviati"
 #: bin/mudur.py:504
 #, python-format
 msgid "Bringing up interface %s"
-msgstr ""
+msgstr "Attivare l'interfaccia %s"
 
 #: bin/mudur.py:508
 #, python-format
 msgid "Unable to bring up interface %s"
-msgstr ""
+msgstr "Impossibile attivare l'interfaccia %s"
 
 #: bin/mudur.py:510
 msgid "Starting services"
@@ -112,7 +113,7 @@ msgstr "Rimontaggio del filesystem di root in lettura/scrittura"
 
 #: bin/mudur.py:629
 msgid "Root filesystem could not be mounted read/write :("
-msgstr "Impossibile montare il filesystem di root in lettura/scrittura"
+msgstr "Impossibile montare il filesystem di root in lettura/scrittura :("
 
 #: bin/mudur.py:672
 #, python-format
@@ -235,7 +236,7 @@ msgstr "Aggiornamento delle variabili di sistema"
 
 #: bin/mudur.py:1057
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
+msgstr "Riattivare gli eventi udev che non sono partiti duranti la precedente esecuzione"
 
 #: bin/mudur.py:1079
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
@@ -311,17 +312,17 @@ msgstr "Avvio di udev"
 #: bin/service.py:215
 #, fuzzy
 msgid "Stopping DBus..."
-msgstr "Arresto dei servizi"
+msgstr "Arresto dei servizi..."
 
 #: bin/service.py:225
 #, fuzzy
 msgid "DBus is not running."
-msgstr "Il servizio Comar non è in esecuzione."
+msgstr "DBus non è in esecuzione."
 
 #: bin/service.py:227
 #, fuzzy
 msgid "DBus is running."
-msgstr "Il servizio Comar è in esecuzione."
+msgstr "Dbus è in esecuzione."
 
 #: bin/service.py:232
 #, fuzzy
@@ -384,17 +385,17 @@ msgstr "Id dispositivo       : %s "
 #: bin/network.py:73
 #, python-format
 msgid "Mask            : %s "
-msgstr "Maschera            : %s "
+msgstr "Maschera             : %s "
 
 #: bin/network.py:75
 #, python-format
 msgid "Gateway         : %s "
-msgstr "Gateway         : %s "
+msgstr "Gateway              : %s "
 
 #: bin/network.py:77
 #, python-format
 msgid "Netmode         : %s "
-msgstr "Modo rete         : %s "
+msgstr "Modo rete            : %s "
 
 #: bin/network.py:79
 #, python-format
@@ -441,16 +442,16 @@ msgstr ""
 #: bin/network.py:432 bin/network.py:469
 #, python-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Errore: %s"
 
 #: bin/network.py:251 bin/network.py:458
 #, python-format
 msgid "There are more than one profiles named '%s'"
-msgstr ""
+msgstr "C'è più di un profilo chiamato '%s'"
 
 #: bin/network.py:252 bin/network.py:459
 msgid "Use one of the following commands:"
-msgstr ""
+msgstr "Utilizza uno dei seguenti comandi:"
 
 #: bin/network.py:278
 #, fuzzy
@@ -464,7 +465,7 @@ msgstr "Scegli il tipo di connessione:"
 
 #: bin/network.py:288
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: bin/network.py:302
 msgid "No avaible device for this type of connection"
@@ -483,7 +484,7 @@ msgstr "Servizio"
 #: bin/network.py:320
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: bin/network.py:350
 msgid "Network settings:"
@@ -520,7 +521,7 @@ msgstr "Inserisci password "
 
 #: bin/network.py:381
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
 
 #: bin/network.py:425
 #, fuzzy
@@ -530,12 +531,12 @@ msgstr "Profili:"
 #: bin/network.py:435
 #, fuzzy, python-format
 msgid "Profile %s removed."
-msgstr "Servizio '%s' ricaricato."
+msgstr "Servizio '%s' rimosso."
 
 #: bin/network.py:482
 #, python-format
 msgid "D-Bus Error: %s"
-msgstr ""
+msgstr "Errore D-Bus: %s"
 
 #: bin/network.py:506
 msgid "Cancelled"
