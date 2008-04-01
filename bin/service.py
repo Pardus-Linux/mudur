@@ -280,10 +280,11 @@ def main(args):
 
     elif args[1] in operations and args[0] == "dbus":
         manage_dbus(args[1], use_color, quiet)
-
     elif args[1] in operations:
-        manage_service(args[0], args[1], use_color, quiet)
-
+        try:
+            manage_service(args[0], args[1], use_color, quiet)
+        except dbus.DBusException, e:
+            print e.args[0]
     else:
         usage()
 
