@@ -682,6 +682,11 @@ def modules():
         curkernel = os.uname()[2]
         if depkernel != curkernel:
             run_quiet("sbin/depmod", "-a")
+            touch("/etc/udevtrigger.mudur")
+    else:
+        run_quiet("sbin/depmod", "-a")
+        touch("/etc/modprobe.mudur")
+        touch("/etc/udevtrigger.mudur")
 
     fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
     if not os.path.exists(fn):
@@ -1051,12 +1056,18 @@ elif sys.argv[1] == "boot":
     remoteMount(old_handler)
 
 elif sys.argv[1] == "default":
+    if os.path.exists("/etc/udevtrigger.mudur"):
+        ui.info(_("Triggering udev events"))
+        # Trigger all udev events.
+        run("/sbin/udevtrigger")
+        os.unlink("/etc/udevtrigger.mudur")
+    else:
+        ui.info(_("Triggering udev events which are failed during a previous run"))
+        # Trigger only the events which are failed during a previous run.
+        run("/sbin/udevadm", "trigger", "--retry-failed")
+
     if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
         run("/bin/bash", "/etc/conf.d/local.start")
-
-    ui.info(_("Triggering udev events which are failed during a previous run"))
-    # Trigger only the events which are failed during a previous run.
-    run("/sbin/udevadm", "trigger", "--retry-failed")
 
     startServices()
 
