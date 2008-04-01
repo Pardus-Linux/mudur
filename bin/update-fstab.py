@@ -56,7 +56,7 @@ def blockPartitions(dev):
 
     part = disk.next_partition()
     while part:
-        if part.fs_type and part.fs_type.name != "linux-swap(new)":
+        if part.fs_type and part.fs_type.name != "linux-swap":
             yield dev + str(part.num), part.fs_type.name
         part = disk.next_partition(part)
 
