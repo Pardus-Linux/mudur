@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Willem Gielen <w.gielen@gmail.com>, 2007, 2008.
+# W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-13 09:10+0200\n"
-"PO-Revision-Date: 2008-03-08 21:30+0100\n"
-"Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
-"Language-Team: Nederlands <nl@li.org>\n"
+"PO-Revision-Date: 2008-04-06 11:54+0200\n"
+"Last-Translator: W.P.M.H.I.A. Gielen <w.gielen@gmail.com>\n"
+"Language-Team: Nederlands <http://liste.pardus.org.tr/pardus-translation-nl/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -109,8 +110,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:629
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:672
 #, python-format
@@ -131,8 +131,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:714
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:727
 msgid "Mounting USB filesystem"
@@ -156,8 +155,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:769
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:782
 msgid "Setting disk parameters"
@@ -229,7 +227,7 @@ msgstr "Bijwerken omgevingsvariabelen"
 
 #: bin/mudur.py:1057
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
+msgstr "Aansturen udev events welke eerde mislikt zijn"
 
 #: bin/mudur.py:1079
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
@@ -272,14 +270,14 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #: bin/service.py:125
-#, fuzzy, python-format
+#, python-format
 msgid "Starting %s..."
-msgstr "Opstarten udev"
+msgstr "Opstarten %s..."
 
 #: bin/service.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "Stopping %s..."
-msgstr "Stoppen diensten"
+msgstr "Stoppen %s..."
 
 #: bin/service.py:139
 #, python-format
@@ -292,31 +290,27 @@ msgid "Service '%s' won't be auto started."
 msgstr "Dienst '%s' zal niet automatische worden gestart."
 
 #: bin/service.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "Reloading %s..."
-msgstr "Herstarten..."
+msgstr "Herstarten %s..."
 
 #: bin/service.py:206
-#, fuzzy
 msgid "Starting DBus..."
-msgstr "Opstarten udev"
+msgstr "Opstarten DBus..."
 
 #: bin/service.py:215
-#, fuzzy
 msgid "Stopping DBus..."
-msgstr "Stoppen DBus"
+msgstr "Stoppen DBus..."
 
 #: bin/service.py:225
 msgid "DBus is not running."
-msgstr ""
+msgstr "DBus is niet actief."
 
 #: bin/service.py:227
-#, fuzzy
 msgid "DBus is running."
-msgstr "actief"
+msgstr "DBus is actief."
 
 #: bin/service.py:232
-#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -336,6 +330,7 @@ msgstr ""
 "gebruik: service [<opties>] <dienst>] <commando>\n"
 "waar commando's zijn:\n"
 " list    Weergeven dienstenlijst weergeven\n"
+".status     Toon dienstenlijst\n"
 " info    Weergeven dienst status\n"
 " on      Autostart dienst\n"
 " off     Dienst niet automatisch starten\n"
@@ -344,7 +339,8 @@ msgstr ""
 " restart  Stop dienst en herstart\n"
 " reload   Herladen van de configuratie (als de dienst dit ondersteunt)\n"
 "en optie is:\n"
-" -N, --no-color  Gebruik geen kleur in uitvoer"
+" -N, --no-color  Gebruik geen kleur in uitvoer "
+" -q, --quiet     Print geen antwoorden"
 
 #: bin/network.py:64
 #, python-format
@@ -405,7 +401,7 @@ msgid "Down"
 msgstr "Omlaag"
 
 #: bin/network.py:113
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "usage: %s <command> <arguments>\n"
 "where command is:\n"
@@ -417,11 +413,11 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
-"gebruik: netwerk <commando> <argumenten>\n"
+"gebruik: %s <commando> <argumenten>\n"
 "waar commando is:\n"
 " devices      Lijst met netwerkapparaten\n"
-" connections  lijst met verbindingen\n"
-" info         List met instellingen van een verbinding\n"
+" connections  Lijst met verbindingen\n"
+" info         Lijst met instellingen van een verbinding\n"
 " create       Maak een nieuwe verbinding\n"
 " delete       Verwijder een verbinding\n"
 " up           Opgegeven verbinding verbinden\n"
@@ -431,49 +427,45 @@ msgstr ""
 #: bin/network.py:432 bin/network.py:469
 #, python-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Fout: %s"
 
 #: bin/network.py:251 bin/network.py:458
 #, python-format
 msgid "There are more than one profiles named '%s'"
-msgstr ""
+msgstr "Er zijn meer dan één profielen met de naam '%s'"
 
 #: bin/network.py:252 bin/network.py:459
 msgid "Use one of the following commands:"
-msgstr ""
+msgstr "Gebruik één van de volgende commando's:"
 
 #: bin/network.py:278
-#, fuzzy
 msgid "Profile name"
-msgstr "Profielen :"
+msgstr "Profiel naam"
 
 #: bin/network.py:284
-#, fuzzy
 msgid "Connection types:"
-msgstr "Selecteer verbindingstype:"
+msgstr "Verbindingstypes:"
 
 #: bin/network.py:288
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: bin/network.py:302
 msgid "No avaible device for this type of connection"
 msgstr "Geen apparaten voorhanden voor dit type verbinding"
 
 #: bin/network.py:310
-#, fuzzy
 msgid "Devices:"
-msgstr "Dienst"
+msgstr "Apparaten:"
 
 #: bin/network.py:314
-#, fuzzy
 msgid "Device"
-msgstr "Dienst"
+msgstr "Apparaat"
 
 #: bin/network.py:320
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: bin/network.py:350
 msgid "Network settings:"
@@ -504,70 +496,28 @@ msgid "Choose authentication type:"
 msgstr "Kies aanmeld type:"
 
 #: bin/network.py:379 bin/network.py:382
-#, fuzzy
 msgid "Password"
-msgstr "Geef wachtwoord "
+msgstr "Wachtwoord"
 
 #: bin/network.py:381
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: bin/network.py:425
-#, fuzzy
 msgid "Profile"
-msgstr "Profielen :"
+msgstr "Profiel"
 
 #: bin/network.py:435
-#, fuzzy, python-format
+#, python-format
 msgid "Profile %s removed."
-msgstr "Profielen :"
+msgstr "Profiel %s verwijderd."
 
 #: bin/network.py:482
 #, python-format
 msgid "D-Bus Error: %s"
-msgstr ""
+msgstr "D-Bus fout: %s"
 
 #: bin/network.py:506
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-#~ msgid ""
-#~ "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-#~ msgstr ""
-#~ "Limiteer gebruik, geef een valide getal: ( interval: 0 < trefwoord < %s )"
-
-#~ msgid "Found: %(essid)s [%(quality)s]"
-#~ msgstr "Gevonden: %(essid)s [%(quality)s]"
-
-#~ msgid "[encrypted]"
-#~ msgstr "[versleuteld]"
-
-#~ msgid "Enter new connection name"
-#~ msgstr "Geef naam nieuwe verbinding"
-
-#~ msgid "Device '%s' selected."
-#~ msgstr "Apparaat '%s' geselecteerd."
-
-#~ msgid "Select connection device:"
-#~ msgstr "Selecteer verbindingsapparaat:"
-
-#~ msgid "Enter manually"
-#~ msgstr "Handmatig invoeren"
-
-#~ msgid "Scan"
-#~ msgstr "Scan"
-
-#~ msgid "Enter user name "
-#~ msgstr "Geef gebruikersnaam "
-
-#~ msgid "Name of profile to delete "
-#~ msgstr "Naam van te verwijderen profiel "
-
-#~ msgid "Please enter a valid profile name "
-#~ msgstr "Geef een geldige profiel naam "
-
-#~ msgid "Enter name of profile"
-#~ msgstr "Geef de naam van een profiel"
-
-#~ msgid "No such profile"
-#~ msgstr "Profiel onbekend"
