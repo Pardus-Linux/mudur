@@ -168,6 +168,10 @@ def list_services(use_color=True):
         format_service_list(lala, use_color)
 
 def manage_service(service, op, use_color=True, quiet=False):
+    if os.getuid() != 0 and op not in ["status", "info", "list"]:
+        print _("You must be root to use that.")
+        return
+
     bus = dbus.SystemBus()
 
     if op == "ready":
@@ -195,6 +199,10 @@ def run(*cmd):
     subprocess.call(cmd)
 
 def manage_dbus(op, use_color, quiet):
+    if os.getuid() != 0 and op not in ["status", "info", "list"]:
+        print _("You must be root to use that.")
+        return
+
     def cleanup():
         try:
             os.unlink("/var/run/dbus/pid")
@@ -218,7 +226,7 @@ def manage_dbus(op, use_color, quiet):
     elif op == "restart":
         manage_dbus("stop", use_color, quiet)
         manage_dbus("start", use_color, quiet)
-    elif op in ["info", "status"]:
+    elif op in ["info", "status", "list"]:
         try:
             bus = dbus.SystemBus()
         except dbus.DBusException:
