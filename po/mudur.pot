@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-13 09:10+0200\n"
+"POT-Creation-Date: 2008-04-07 16:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,117 +116,121 @@ msgstr ""
 msgid "Setting up hostname as '%s'"
 msgstr ""
 
-#: bin/mudur.py:699
+#: bin/mudur.py:704
 msgid "Checking all filesystems"
 msgstr ""
 
-#: bin/mudur.py:702
+#: bin/mudur.py:707
 msgid "A full fsck has been forced"
 msgstr ""
 
-#: bin/mudur.py:712
+#: bin/mudur.py:717
 msgid "Filesystem errors corrected"
 msgstr ""
 
-#: bin/mudur.py:714
+#: bin/mudur.py:719
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 
-#: bin/mudur.py:727
+#: bin/mudur.py:732
 msgid "Mounting USB filesystem"
 msgstr ""
 
-#: bin/mudur.py:733
+#: bin/mudur.py:738
 msgid "Mounting local filesystems"
 msgstr ""
 
-#: bin/mudur.py:736
+#: bin/mudur.py:741
 msgid "Activating swap"
 msgstr ""
 
-#: bin/mudur.py:752
+#: bin/mudur.py:757
 msgid "Starting portmap service for NFS"
 msgstr ""
 
-#: bin/mudur.py:755
+#: bin/mudur.py:760
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr ""
 
-#: bin/mudur.py:769
+#: bin/mudur.py:774
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
 msgstr ""
 
-#: bin/mudur.py:782
+#: bin/mudur.py:787
 msgid "Setting disk parameters"
 msgstr ""
 
-#: bin/mudur.py:801
+#: bin/mudur.py:806
 msgid "Setting system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:815
+#: bin/mudur.py:820
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr ""
 
-#: bin/mudur.py:819
+#: bin/mudur.py:824
 msgid "Failed to set system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:822
+#: bin/mudur.py:827
 msgid "Cleaning up /var"
 msgstr ""
 
-#: bin/mudur.py:829
+#: bin/mudur.py:834
 msgid "Cleaning up /tmp"
 msgstr ""
 
-#: bin/mudur.py:866
+#: bin/mudur.py:871
 msgid "Syncing system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:869
+#: bin/mudur.py:874
 msgid "Failed to sync clocks"
 msgstr ""
 
-#: bin/mudur.py:881
+#: bin/mudur.py:886
 msgid "Deactivating swap"
 msgstr ""
 
-#: bin/mudur.py:902
+#: bin/mudur.py:907
 msgid "Unmounting filesystems"
 msgstr ""
 
-#: bin/mudur.py:934
+#: bin/mudur.py:939
 msgid "Remounting remaining filesystems readonly"
 msgstr ""
 
-#: bin/mudur.py:948
+#: bin/mudur.py:953
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
 
-#: bin/mudur.py:995
+#: bin/mudur.py:1000
 msgid "Mounting /sys"
 msgstr ""
 
-#: bin/mudur.py:1000
+#: bin/mudur.py:1005
 msgid "Mounting /dev/pts"
 msgstr ""
 
-#: bin/mudur.py:1032
+#: bin/mudur.py:1037
 msgid "Setting up localhost"
 msgstr ""
 
-#: bin/mudur.py:1042
+#: bin/mudur.py:1047
 msgid "Updating environment variables"
 msgstr ""
 
-#: bin/mudur.py:1057
+#: bin/mudur.py:1060
+msgid "Triggering udev events"
+msgstr ""
+
+#: bin/mudur.py:1065
 msgid "Triggering udev events which are failed during a previous run"
 msgstr ""
 
-#: bin/mudur.py:1079
+#: bin/mudur.py:1090
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 
@@ -325,6 +329,10 @@ msgid ""
 " -q, --quiet     Don't print replies"
 msgstr ""
 
+#: bin/service.py:251
+msgid "You must be root to use that."
+msgstr ""
+
 #: bin/network.py:64
 #, python-format
 msgid "Connection Name : %s "
@@ -397,100 +405,112 @@ msgid ""
 " down         Disconnect given connection"
 msgstr ""
 
-#: bin/network.py:173 bin/network.py:211 bin/network.py:262 bin/network.py:410
-#: bin/network.py:432 bin/network.py:469
+#: bin/network.py:173 bin/network.py:214 bin/network.py:269 bin/network.py:421
+#: bin/network.py:443 bin/network.py:484
 #, python-format
 msgid "Error: %s"
 msgstr ""
 
-#: bin/network.py:251 bin/network.py:458
+#: bin/network.py:254 bin/network.py:469
+msgid "No such profile."
+msgstr ""
+
+#: bin/network.py:258 bin/network.py:473
 #, python-format
 msgid "There are more than one profiles named '%s'"
 msgstr ""
 
-#: bin/network.py:252 bin/network.py:459
+#: bin/network.py:259 bin/network.py:474
 msgid "Use one of the following commands:"
 msgstr ""
 
-#: bin/network.py:278
+#: bin/network.py:285
 msgid "Profile name"
 msgstr ""
 
-#: bin/network.py:284
+#: bin/network.py:291
 msgid "Connection types:"
 msgstr ""
 
-#: bin/network.py:288
+#: bin/network.py:295
 msgid "Type"
 msgstr ""
 
-#: bin/network.py:302
+#: bin/network.py:309
 msgid "No avaible device for this type of connection"
 msgstr ""
 
-#: bin/network.py:310
+#: bin/network.py:317
 msgid "Devices:"
 msgstr ""
 
-#: bin/network.py:314
+#: bin/network.py:321
 msgid "Device"
 msgstr ""
 
-#: bin/network.py:320
+#: bin/network.py:327 bin/network.py:350
 #, python-format
 msgid "%s:"
 msgstr ""
 
-#: bin/network.py:350
+#: bin/network.py:332
+msgid "Enter manually"
+msgstr ""
+
+#: bin/network.py:333
+msgid "Scan"
+msgstr ""
+
+#: bin/network.py:362
 msgid "Network settings:"
 msgstr ""
 
-#: bin/network.py:353
+#: bin/network.py:365
 msgid "Automatic query (DHCP)"
 msgstr ""
 
-#: bin/network.py:354
+#: bin/network.py:366
 msgid "Manual configuration"
 msgstr ""
 
-#: bin/network.py:359
+#: bin/network.py:371
 msgid "IP Address"
 msgstr ""
 
-#: bin/network.py:360
+#: bin/network.py:372
 msgid "Network mask"
 msgstr ""
 
-#: bin/network.py:361
+#: bin/network.py:373
 msgid "Gateway"
 msgstr ""
 
-#: bin/network.py:369
+#: bin/network.py:381
 msgid "Choose authentication type:"
 msgstr ""
 
-#: bin/network.py:379 bin/network.py:382
+#: bin/network.py:391 bin/network.py:394
 msgid "Password"
 msgstr ""
 
-#: bin/network.py:381
+#: bin/network.py:393
 msgid "Username"
 msgstr ""
 
-#: bin/network.py:425
+#: bin/network.py:436
 msgid "Profile"
 msgstr ""
 
-#: bin/network.py:435
+#: bin/network.py:446
 #, python-format
 msgid "Profile %s removed."
 msgstr ""
 
-#: bin/network.py:482
+#: bin/network.py:497
 #, python-format
 msgid "D-Bus Error: %s"
 msgstr ""
 
-#: bin/network.py:506
+#: bin/network.py:521
 msgid "Cancelled"
 msgstr ""
