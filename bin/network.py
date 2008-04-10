@@ -340,7 +340,7 @@ def createWizard(bus, args):
                         print "  [%s] %s [%s] | %s | %s" % (i + 3, remote["remote"].ljust(name_size), remote["mac"], str("=" * quality).ljust(5), enc)
                 s = input_number("", 1, len(remotes) + 2)
                 if s == 1:
-                    remote = input_text(link.remote_name)
+                    remote = input_text(script_info["remote_name"])
                     apmac = ""
                     break
                 elif s == 2:
@@ -355,6 +355,34 @@ def createWizard(bus, args):
                     break
         else:
             remote = input_text("")
+
+    # Authentication settings
+    if auth_modes:
+        if selected_auth_type:
+            chosen_mode = AuthenticationMode("%s,pass,%s" % (selected_auth_type, selected_auth_type))
+        else:
+            index = 1
+            print
+            print _("Choose authentication type:")
+            for mode in auth_modes:
+                mode = AuthenticationMode(mode)
+                print "  [%s] %s" % (index, mode.name)
+                index += 1
+            print "  [%s] No authentication" % index
+            mode_no = input_number("Authentication", 1, index + 1)
+            if (mode_no != index) :
+                chosen_mode = AuthenticationMode(auth_modes[mode_no - 1])
+        if (chosen_mode.type == "pass" ):
+            print
+            user_name = ""
+            password = input_text(_("Password"))
+        elif (chosen_mode.type == "login") :
+            print
+            user_name = input_text(_("Username"))
+            password = input_text(_("Password"))
+
+        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+        obj.setAuthentication(profile, chosen_mode.identifier, user_name, password, dbus_interface="tr.org.pardus.comar.Net.Link")
 
     # Network settings
     if "net" in modes:
@@ -371,30 +399,6 @@ def createWizard(bus, args):
             address = input_text(_("IP Address"))
             mask = input_text(_("Network mask"))
             gateway = input_text(_("Gateway"))
-
-    # Authentication settings
-    if auth_modes:
-        if selected_auth_type:
-            chosen_mode = AuthenticationMode("%s,pass,%s" % (selected_auth_type, selected_auth_type))
-        else:
-            index = 1
-            print _("Choose authentication type:")
-            for mode in auth_modes:
-                print "  [%s] %s" % (index, mode.name)
-                index += 1
-            print "  [%s] No authentication" % index
-            mode_no = input_number("Authentication", 1, index + 1)
-            if (mode_no != index) :
-                chosen_mode = auth_modes[mode_no - 1]
-                if (chosen_mode.type == "pass" ):
-                    user_name = ""
-                    password = input_text(_("Password"))
-                elif (chosen_mode.type == "login") :
-                    user_name = input_text(_("Username"))
-                    password = input_text(_("Password"))
-
-                obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
-                obj.setAuthentication(profile, chosen_mode.identifier, user_name, password, dbus_interface="tr.org.pardus.comar.Net.Link")
 
     # Create profile
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
