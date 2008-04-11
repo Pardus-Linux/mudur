@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-07 16:33+0000\n"
-"PO-Revision-Date: 2008-03-22 08:07-0400\n"
+"PO-Revision-Date: 2008-04-10 20:59-0400\n"
 "Last-Translator: Klemens Haeckel <click3d at linuxmail org>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -230,8 +230,9 @@ msgid "Updating environment variables"
 msgstr "Actualizando variables del entorno"
 
 #: bin/mudur.py:1060
+# alguna idea como traducir trigger mas suave, favor revisar
 msgid "Triggering udev events"
-msgstr ""
+msgstr "Disparando eventos udev"
 
 # please proofread, sort of free translation, traduccion libre
 #: bin/mudur.py:1065
@@ -354,7 +355,7 @@ msgstr ""
 
 #: bin/service.py:251
 msgid "You must be root to use that."
-msgstr ""
+msgstr "Solamente el usuario root puede realizar esta operación."
 
 #: bin/network.py:64
 #, python-format
@@ -445,7 +446,7 @@ msgstr "Error: %s"
 
 #: bin/network.py:254 bin/network.py:469
 msgid "No such profile."
-msgstr ""
+msgstr "Perfil no existe."
 
 #: bin/network.py:258 bin/network.py:473
 #, python-format
@@ -487,11 +488,12 @@ msgstr "%s:"
 
 #: bin/network.py:332
 msgid "Enter manually"
-msgstr ""
+msgstr "Ingrese manualmente"
 
 #: bin/network.py:333
+# supongo que buscar esta bien, pero escucho otras sugerencias, favor revisar
 msgid "Scan"
-msgstr ""
+msgstr "Buscar"
 
 #: bin/network.py:362
 msgid "Network settings:"
@@ -546,3 +548,4 @@ msgstr "Error de D-Bus: %s"
 #: bin/network.py:521
 msgid "Cancelled"
 msgstr "Cancelado"
+
