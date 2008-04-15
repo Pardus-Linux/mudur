@@ -164,9 +164,12 @@ def listProfiles(bus, args):
                 profile_info = Profile(script, profile)
                 profile_info.parse(profile_details)
 
-                device = profile_details["device_id"].split("_")[-1]
-                state = profile_info.get_state()
-                address = profile_info.get_address()
+                try:
+                    device = profile_details["device_id"].split("_")[-1]
+                    state = profile_info.get_state()
+                    address = profile_info.get_address()
+                except KeyError:
+                    continue
 
                 profiles.append((script, profile, device, state, address, ))
     except dbus.DBusException, e:
@@ -350,7 +353,7 @@ def createWizard(bus, args):
                         print
                         print _("%s:") % script_info["remote_name"]
                     else:
-                        print _("No remote APs found.")
+                        print _("No remote access points found")
                         print
                         print _("%s:") % script_info["remote_name"]
                 else:
@@ -363,7 +366,8 @@ def createWizard(bus, args):
 
     # Authentication settings
     if auth_modes:
-        if selected_auth_type:
+        chosen_mode = None
+        if selected_auth_type and selected_auth_type != "none":
             chosen_mode = AuthenticationMode("%s,pass,%s" % (selected_auth_type, selected_auth_type))
         else:
             index = 1
@@ -377,17 +381,18 @@ def createWizard(bus, args):
             mode_no = input_number("Authentication", 1, index + 1)
             if (mode_no != index) :
                 chosen_mode = AuthenticationMode(auth_modes[mode_no - 1])
-        if (chosen_mode.type == "pass" ):
-            print
-            user_name = ""
-            password = input_text(_("Password"))
-        elif (chosen_mode.type == "login") :
-            print
-            user_name = input_text(_("Username"))
-            password = input_text(_("Password"))
+        if chosen_mode:
+            if (chosen_mode.type == "pass" ):
+                print
+                user_name = ""
+                password = input_text(_("Password"))
+            elif (chosen_mode.type == "login") :
+                print
+                user_name = input_text(_("Username"))
+                password = input_text(_("Password"))
 
-        obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
-        obj.setAuthentication(profile, chosen_mode.identifier, user_name, password, dbus_interface="tr.org.pardus.comar.Net.Link")
+            obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+            obj.setAuthentication(profile, chosen_mode.identifier, user_name, password, dbus_interface="tr.org.pardus.comar.Net.Link")
 
     # Network settings
     if "net" in modes:
@@ -424,7 +429,10 @@ def deleteWizard(bus, args):
             scripts[script] = getScriptDetails(bus, script)["name"]
             for profile in getProfiles(bus, script):
                 profile_details = getConnectionDetails(bus, script, profile)
-                device = profile_details["device_id"].split("_")[-1]
+                try:
+                    device = profile_details["device_id"].split("_")[-1]
+                except KeyError:
+                    continue
                 profiles.append((script, profile, device, ))
     except dbus.DBusException, e:
         print _("Error: %s") % str(e)
