@@ -345,9 +345,14 @@ def createWizard(bus, args):
                     break
                 elif s == 2:
                     remotes = getRemotes(bus, script, device)
-                    name_size = max(map(lambda x: len(x["remote"]), remotes))
-                    print
-                    print _("%s:") % script_info["remote_name"]
+                    if remotes:
+                        name_size = max(map(lambda x: len(x["remote"]), remotes))
+                        print
+                        print _("%s:") % script_info["remote_name"]
+                    else:
+                        print _("No remote APs found.")
+                        print
+                        print _("%s:") % script_info["remote_name"]
                 else:
                     remote = remotes[s - 3]["remote"]
                     apmac = remotes[s - 3]["mac"]
