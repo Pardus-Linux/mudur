@@ -293,6 +293,8 @@ def main(args):
             manage_service(args[0], args[1], use_color, quiet)
         except dbus.DBusException, e:
             print e.args[0]
+        except ValueError, e:
+            print e
     else:
         usage()
 
