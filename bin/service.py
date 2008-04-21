@@ -14,6 +14,7 @@ import os
 import locale
 import time
 import dbus
+import socket
 import subprocess
 
 # i18n
@@ -35,6 +36,20 @@ def loadConfig(path):
                 value = value[1:-1]
             dict[key] = value
     return dict
+
+def waitBus(unix_name, timeout=10, wait=0.1, stream=True):
+    if stream:
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    else:
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+    while timeout > 0:
+        try:
+            sock.connect(unix_name)
+            return True
+        except:
+            timeout -= wait
+        time.sleep(wait)
+    return False
 
 # Operations
 
@@ -218,6 +233,9 @@ def manage_dbus(op, use_color, quiet):
         run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
             "--pidfile", "/var/run/dbus/pid", "--exec", "/usr/bin/dbus-daemon",
             "--", "--system")
+        if not waitBus("/var/run/dbus/system_bus_socket"):
+            print _("Unable to start D-Bus")
+            return
     elif op == "stop":
         if not quiet:
             print _("Stopping DBus...")
