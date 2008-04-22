@@ -483,6 +483,9 @@ def startServices(extras=None):
         return
     # Almost everything depends on logger, so start manually
     startService("sysklogd")
+    if not waitBus("/dev/log", stream=False):
+        ui.warn(_("Cannot start system logger"))
+
     if extras:
         for service in extras:
             try:
@@ -507,6 +510,7 @@ def startServices(extras=None):
                 except dbus.DBusException:
                     ui.error(_("Unable to bring up interface %s") % device)
     if not config.get("safe"):
+        waitBus("/tmp/.X11-unix/X0", timeout=3)
         ui.info(_("Starting services"))
         # Give login screen a headstart
         if config.get("head_start"):
