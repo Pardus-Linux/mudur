@@ -9,10 +9,9 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-07 16:33+0000\n"
-"PO-Revision-Date: 2008-04-06 11:54+0200\n"
+"PO-Revision-Date: 2008-04-27 13:04+0200\n"
 "Last-Translator: W.P.M.H.I.A. Gielen <w.gielen@gmail.com>\n"
-"Language-Team: Nederlands <http://liste.pardus.org.tr/pardus-translation-nl/"
-">\n"
+"Language-Team: Nederlands <http://liste.pardus.org.tr/pardus-translation-nl/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,8 +110,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:629
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:672
 #, python-format
@@ -133,8 +131,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:719
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:732
 msgid "Mounting USB filesystem"
@@ -158,8 +155,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:774
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:787
 msgid "Setting disk parameters"
@@ -231,7 +227,7 @@ msgstr "Bijwerken omgevingsvariabelen"
 
 #: bin/mudur.py:1060
 msgid "Triggering udev events"
-msgstr ""
+msgstr "Aansturen udev gebeurtenissen"
 
 #: bin/mudur.py:1065
 msgid "Triggering udev events which are failed during a previous run"
@@ -352,7 +348,7 @@ msgstr ""
 
 #: bin/service.py:251
 msgid "You must be root to use that."
-msgstr ""
+msgstr "U dient root te zijn om dit te gebruiken"
 
 #: bin/network.py:64
 #, python-format
@@ -443,7 +439,7 @@ msgstr "Fout: %s"
 
 #: bin/network.py:254 bin/network.py:469
 msgid "No such profile."
-msgstr ""
+msgstr "Profiel bestaat niet."
 
 #: bin/network.py:258 bin/network.py:473
 #, python-format
@@ -485,11 +481,11 @@ msgstr "%s:"
 
 #: bin/network.py:332
 msgid "Enter manually"
-msgstr ""
+msgstr "Voer handmatig in"
 
 #: bin/network.py:333
 msgid "Scan"
-msgstr ""
+msgstr "Scan"
 
 #: bin/network.py:362
 msgid "Network settings:"
@@ -544,3 +540,4 @@ msgstr "D-Bus fout: %s"
 #: bin/network.py:521
 msgid "Cancelled"
 msgstr "Geannuleerd"
+
