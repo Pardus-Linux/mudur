@@ -3,17 +3,16 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Mustafa M. Ölcerman <oelcerman@fussballkreis.org>, 2006.
-# Mustafa Muhammed Ölcerman <oelcerman@fussballkreis.org>, 2007.
-# Mustafa Muhammed Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
+# Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2006.
+# Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2007.
 # Mustafa Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
-# Mustafa Ölcerman <m.oelcerman@pardus-linux.de>, 2007.
+# Mustafa Ölcerman <m.oelcerman@pardus-linux.de>, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-07 16:33+0000\n"
-"PO-Revision-Date: 2007-12-31 05:54+0200\n"
+"PO-Revision-Date: 2008-05-02 02:22+0300\n"
 "Last-Translator: Mustafa Ölcerman <m.oelcerman@pardus-linux.de>\n"
 "Language-Team: Deutsch <pardus-translation-de@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +22,7 @@ msgstr ""
 
 #: bin/mudur.py:164
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
-"Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
+msgstr "Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
 
 #: bin/mudur.py:311
 msgid "Cannot find /etc/pardus-release"
@@ -36,19 +34,18 @@ msgid "Could not set unicode mode on tty %d"
 msgstr "Unicode konnte nicht an tty %d gesetzt werden"
 
 #: bin/mudur.py:482
-#, fuzzy
 msgid "Cannot connect to DBus, services won't be started"
-msgstr "Kann nicht an COMAR verbunden werden, Dienste werden nicht gestartet"
+msgstr "Kann nicht zu DBus verbinden, Dienste werden nicht gestartet"
 
 #: bin/mudur.py:504
 #, python-format
 msgid "Bringing up interface %s"
-msgstr ""
+msgstr "Schnittstelle %s wird bereitgestellt"
 
 #: bin/mudur.py:508
 #, python-format
 msgid "Unable to bring up interface %s"
-msgstr ""
+msgstr "Schnittstelle %s konnte nicht bereitgestellt werden"
 
 #: bin/mudur.py:510
 msgid "Starting services"
@@ -59,9 +56,8 @@ msgid "Stopping services"
 msgstr "Dienste werden angehalten"
 
 #: bin/mudur.py:530
-#, fuzzy
 msgid "Stopping DBus"
-msgstr "Dienste werden angehalten"
+msgstr "DBus wird angehalten"
 
 #: bin/mudur.py:539
 msgid "Mounting /dev"
@@ -117,8 +113,7 @@ msgstr "Root Dateisystem wird neu mit Lese-/Schreibzugriff gemountet"
 
 #: bin/mudur.py:629
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden :("
+msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden :("
 
 #: bin/mudur.py:672
 #, python-format
@@ -139,8 +134,7 @@ msgstr "Dateisystem Fehler korrigiert"
 
 #: bin/mudur.py:719
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
+msgstr "Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
 
 #: bin/mudur.py:732
 msgid "Mounting USB filesystem"
@@ -164,8 +158,7 @@ msgstr "Remote-Dateisysteme werden gemountet (STRG-C stoppt den Versuch)"
 
 #: bin/mudur.py:774
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
+msgstr "Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
 
 #: bin/mudur.py:787
 msgid "Setting disk parameters"
@@ -239,16 +232,15 @@ msgstr "Umgebungsvariablen werden aktualisiert"
 
 #: bin/mudur.py:1060
 msgid "Triggering udev events"
-msgstr ""
+msgstr "Udev-Ereignisse werden angesteuert"
 
 #: bin/mudur.py:1065
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
+msgstr "Udev-Ereignisse, die bei der vorherigen Ausführung fehlgeschlagen sind, werden angesteuert"
 
 #: bin/mudur.py:1090
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
+msgstr "Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
 
 #: bin/service.py:43
 msgid "local"
@@ -287,14 +279,14 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: bin/service.py:125
-#, fuzzy, python-format
+#, python-format
 msgid "Starting %s..."
-msgstr "udev wird gestartet"
+msgstr "%s wird gestartet..."
 
 #: bin/service.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "Stopping %s..."
-msgstr "Dienste werden angehalten"
+msgstr "%s wird angehalten..."
 
 #: bin/service.py:139
 #, python-format
@@ -307,32 +299,27 @@ msgid "Service '%s' won't be auto started."
 msgstr "Dienst '%s' wird nicht automatisch gestartet."
 
 #: bin/service.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "Reloading %s..."
-msgstr "Wird neugestartet..."
+msgstr "%s wird neu geladen..."
 
 #: bin/service.py:206
-#, fuzzy
 msgid "Starting DBus..."
-msgstr "udev wird gestartet"
+msgstr "DBus wird gestartet..."
 
 #: bin/service.py:215
-#, fuzzy
 msgid "Stopping DBus..."
-msgstr "Dienste werden angehalten"
+msgstr "DBus wird angehalten..."
 
 #: bin/service.py:225
-#, fuzzy
 msgid "DBus is not running."
-msgstr "Der Comar Dienst ist angehalten."
+msgstr "DBus wird nicht ausgeführt."
 
 #: bin/service.py:227
-#, fuzzy
 msgid "DBus is running."
-msgstr "Der Comar-Dienst ist gestartet."
+msgstr "DBus wird ausgeführt."
 
 #: bin/service.py:232
-#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -349,7 +336,7 @@ msgid ""
 " -N, --no-color  Don't use color in output\n"
 " -q, --quiet     Don't print replies"
 msgstr ""
-"Verwendung: service [<optionen>][<Dienst>] <Kommando>\n"
+"Verwendung: service [<Option>][<Dienst>] <Kommando>\n"
 "wo Kommando folgendes ist:\n"
 " list    Dienste auflisten \n"
 " status   Status des Dienstes anzeigen\n"
@@ -359,11 +346,14 @@ msgstr ""
 " start   Dienst starten\n"
 " stop   Dienst anhalten\n"
 " restart Dienst anhalten und anschliessen erneut starten\n"
-" reload Konfiguration wird neugeladen (wenn der Dienst das erfordert)"
+" reload Konfiguration wird neugeladen (wenn der Dienst das unterstützt)\n"
+"und Option ist:\n"
+" -N, --no-color  keine Farben bei der Ausgabe verwenden\n"
+" -q, --quiet     Keine Antworten ausgeben"
 
 #: bin/service.py:251
 msgid "You must be root to use that."
-msgstr ""
+msgstr "Sie müssen als root angemeldet sein, um dies zu verwenden."
 
 #: bin/network.py:64
 #, python-format
@@ -424,7 +414,7 @@ msgid "Down"
 msgstr "Runter"
 
 #: bin/network.py:113
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "usage: %s <command> <arguments>\n"
 "where command is:\n"
@@ -436,7 +426,7 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
-"Anwendung: network <Kommando> <Argumente>\n"
+"Anwendung: %s <Kommando> <Argumente>\n"
 "wobei Kommando folgendes sein kann:\n"
 " devices      Listet Netzwerkgeräte auf\n"
 " connections  Listet Verbindungen auf\n"
@@ -450,54 +440,49 @@ msgstr ""
 #: bin/network.py:443 bin/network.py:484
 #, python-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Fehler: %s"
 
 #: bin/network.py:254 bin/network.py:469
-#, fuzzy
 msgid "No such profile."
-msgstr "Kein derartiges Profil"
+msgstr "Kein derartiges Profil."
 
 #: bin/network.py:258 bin/network.py:473
 #, python-format
 msgid "There are more than one profiles named '%s'"
-msgstr ""
+msgstr "Es existieren mehr als ein Profil, die '%s' heissen"
 
 #: bin/network.py:259 bin/network.py:474
 msgid "Use one of the following commands:"
-msgstr ""
+msgstr "Verwenden Sie eines der folgenden Kommandos:"
 
 #: bin/network.py:285
-#, fuzzy
 msgid "Profile name"
-msgstr "Profile :"
+msgstr "Profilname"
 
 #: bin/network.py:291
-#, fuzzy
 msgid "Connection types:"
-msgstr "Verbindungstyp wählen:"
+msgstr "Verbindungstypen:"
 
 #: bin/network.py:295
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: bin/network.py:309
 msgid "No avaible device for this type of connection"
 msgstr "Kein verfügbares Gerät für derartige Verbindung"
 
 #: bin/network.py:317
-#, fuzzy
 msgid "Devices:"
-msgstr "Dienst"
+msgstr "Dienste:"
 
 #: bin/network.py:321
-#, fuzzy
 msgid "Device"
-msgstr "Dienst"
+msgstr "Gerät"
 
 #: bin/network.py:327 bin/network.py:350
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: bin/network.py:332
 msgid "Enter manually"
@@ -536,98 +521,28 @@ msgid "Choose authentication type:"
 msgstr "Authentifizierungs-Typ auswählen:"
 
 #: bin/network.py:391 bin/network.py:394
-#, fuzzy
 msgid "Password"
-msgstr "Passwort eingeben"
+msgstr "Passwort"
 
 #: bin/network.py:393
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
 #: bin/network.py:436
-#, fuzzy
 msgid "Profile"
-msgstr "Profile :"
+msgstr "Profil"
 
 #: bin/network.py:446
-#, fuzzy, python-format
+#, python-format
 msgid "Profile %s removed."
-msgstr "Dienst '%s' erneut geladen."
+msgstr "Profil %s entfernt."
 
 #: bin/network.py:497
 #, python-format
 msgid "D-Bus Error: %s"
-msgstr ""
+msgstr "D-Bus-Fehler: %s"
 
 #: bin/network.py:521
 msgid "Cancelled"
 msgstr "Abgebrochen"
 
-#~ msgid ""
-#~ "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-#~ msgstr ""
-#~ "Überschuß begrenzen, bitte geben Sie eine gültige Zahl ein: ( Intervall: "
-#~ "0 < Eintrag < %s )"
-
-#~ msgid "Found: %(essid)s [%(quality)s]"
-#~ msgstr "Gefunden: %(essid)s [%(quality)s]"
-
-#~ msgid "[encrypted]"
-#~ msgstr "[verschlüsselt]"
-
-#~ msgid "Enter new connection name"
-#~ msgstr "Namen der neuen Verbindung eingeben"
-
-#~ msgid "Device '%s' selected."
-#~ msgstr "Dienst '%s' gewählt."
-
-#~ msgid "Select connection device:"
-#~ msgstr "Verbindungsgerät auswählen:"
-
-#~ msgid "Enter user name "
-#~ msgstr "Benutzernamen eingeben"
-
-#~ msgid "Name of profile to delete "
-#~ msgstr "Name des zulöschenden Profils"
-
-#~ msgid "Please enter a valid profile name "
-#~ msgstr "Bitte geben Sie einen gültigen Profilnamen"
-
-#~ msgid "Enter name of profile"
-#~ msgstr "Namen des Profils eingeben"
-
-#~ msgid "Starting COMAR"
-#~ msgstr "COMAR wird gestartet"
-
-#~ msgid "Cannot start system logger"
-#~ msgstr "System-Register kann nicht gestartet werden"
-
-#~ msgid "Stopping COMAR"
-#~ msgstr "COMAR wird angehalten"
-
-#~ msgid "Calculating module dependencies"
-#~ msgstr "Module Abhängigkeiten werden berechnet"
-
-#~ msgid "Starting Coldplug"
-#~ msgstr "Coldplug wird gestartet"
-
-#~ msgid "You dont have permission to do this operation."
-#~ msgstr "Sie sind nicht berechtigt, diesen Vorgang auszuführen."
-
-#~ msgid "There is no such service."
-#~ msgstr "Es gibt kein derartigen Dienst."
-
-#~ msgid "Service doesn't provide this operation."
-#~ msgstr "Dienst kann diese Operation nicht bereitstellen"
-
-#~ msgid "%(script)s error: %(data)s"
-#~ msgstr "%(script)s Fehler: %(data)s"
-
-#~ msgid "You should be the root user in order to control the comar service."
-#~ msgstr "Sie sollten root-Benutzer sein, um die Comar-Dienste zu steuern."
-
-#~ msgid "Service '%s' started."
-#~ msgstr "Dienst '%s'  gestartet."
-
-#~ msgid "Service '%s' stopped."
-#~ msgstr "Dienst '%s' angehalten."
