@@ -232,7 +232,7 @@ def manage_dbus(op, use_color, quiet):
         run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
             "--pidfile", "/var/run/dbus/pid", "--exec", "/usr/bin/dbus-daemon",
             "--", "--system")
-        if not waitBus("/var/run/dbus/system_bus_socket"):
+        if not waitBus("/var/run/dbus/system_bus_socket", timeout=20):
             print _("Unable to start D-Bus")
             return -1
     elif op == "stop":
