@@ -185,7 +185,7 @@ def list_services(use_color=True):
 def manage_service(service, op, use_color=True, quiet=False):
     if os.getuid() != 0 and op not in ["status", "info", "list"]:
         print _("You must be root to use that.")
-        return
+        return -1
 
     bus = dbus.SystemBus()
 
@@ -208,7 +208,6 @@ def manage_service(service, op, use_color=True, quiet=False):
     elif op == "restart":
         manage_service(service, "stop", use_color, quiet)
         manage_service(service, "start", use_color, quiet)
-        return
 
 def run(*cmd):
     subprocess.call(cmd)
@@ -216,7 +215,7 @@ def run(*cmd):
 def manage_dbus(op, use_color, quiet):
     if os.getuid() != 0 and op not in ["status", "info", "list"]:
         print _("You must be root to use that.")
-        return
+        return -1 
 
     def cleanup():
         try:
@@ -235,7 +234,7 @@ def manage_dbus(op, use_color, quiet):
             "--", "--system")
         if not waitBus("/var/run/dbus/system_bus_socket"):
             print _("Unable to start D-Bus")
-            return
+            return -1
     elif op == "stop":
         if not quiet:
             print _("Stopping DBus...")
@@ -311,10 +310,14 @@ def main(args):
             manage_service(args[0], args[1], use_color, quiet)
         except dbus.DBusException, e:
             print e.args[0]
+            return -1
         except ValueError, e:
             print e
+            return -1
     else:
         usage()
+
+    return 0
 
 #
 
