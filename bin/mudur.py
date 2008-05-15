@@ -845,6 +845,7 @@ def cleanupTmp():
         "/tmp/ksocket-*",
         "/tmp/mc-*",
         "/tmp/pisi-*",
+        "/tmp/pulse-*",
         "/tmp/quilt.*",
         "/tmp/ssh-*",
         "/tmp/.*-unix",
