@@ -493,9 +493,15 @@ def startServices(extras=None):
             except dbus.DBusException:
                 pass
         return
+    # Remove unnecessary lock files - bug #7212
+    for _file in os.listdir("/etc/network"):
+        if _file.startswith("."):
+            os.unlink(os.path.join("/etc/network", _file))
     # Start network service
     import pardus.iniutils
-    for script in os.listdir("/etc/network"):
+    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
+    for script in obj.listModelApplications("Net.Link", dbus_interface="tr.org.pardus.comar"):
+        print ">>>>>>>", script
         db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
         for profile in db.listDB():
             if db.getDB(profile).get("state", "down") == "up":
