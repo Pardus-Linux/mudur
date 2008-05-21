@@ -501,7 +501,6 @@ def startServices(extras=None):
     import pardus.iniutils
     obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
     for script in obj.listModelApplications("Net.Link", dbus_interface="tr.org.pardus.comar"):
-        print ">>>>>>>", script
         db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
         for profile in db.listDB():
             if db.getDB(profile).get("state", "down") == "up":
