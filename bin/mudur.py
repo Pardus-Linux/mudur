@@ -431,7 +431,7 @@ class CPU:
             # User already specified a frequency module in
             # modules.autoload.d or compiled it into the kernel
 
-        moduless = self.detect()
+        modules = self.detect()
         if len(modules) > 0:
             modules.add("cpufreq_userspace")
             modules.add("cpufreq_powersave")
