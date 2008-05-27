@@ -430,6 +430,7 @@ class CPU:
         if os.path.exists("/sys/devices/system/cpu/cpu0/cpufreq/"):
             # User already specified a frequency module in
             # modules.autoload.d or compiled it into the kernel
+            return True
 
         modules = self.detect()
         if len(modules) > 0:
@@ -1100,7 +1101,6 @@ os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 # Setup output and load configuration
 logger = Logger()
 config = Config()
-cpu = CPU()
 ui = UI()
 
 if sys.argv[1] == "sysinit":
@@ -1190,6 +1190,7 @@ elif sys.argv[1] == "default":
         run("/bin/bash", "/etc/conf.d/local.start")
 
     ui.info(_("Loading CPUFreq modules"))
+    cpu = CPU()
     cpu.loadCPUfreq()
 
     startServices()
