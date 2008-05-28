@@ -292,6 +292,41 @@ class Config:
                 return True
         return False
 
+class Splash:
+    def __init__(self):
+        self.enabled = False
+        self.increasing = True
+        self.percent = 0
+
+    def init(self, percent, increasing=True):
+        if os.path.exists("/proc/splash"):
+            splash_opts = config.get_kernel_opt("splash")
+            self.enabled = splash_opts and "silent" in splash_opts.split(",")
+            self.increasing = increasing
+            self.percent = percent
+
+    def silent(self):
+        if self.enabled:
+            write("/proc/splash", "silent\n")
+            self.updateProgressBar()
+
+    def verbose(self):
+        if self.enabled:
+            write("/proc/splash", "verbose\n")
+
+    def updateProgressBar(self, percent=None):
+        if self.enabled:
+            if percent is not None:
+                self.percent = percent
+            pe = int(655.35 * self.percent)
+            write("/proc/splash", "show %d" % pe)
+
+    def progress(self, delta=3):
+        if self.enabled:
+            if self.increasing:
+                self.updateProgressBar(self.percent + delta)
+            else:
+                self.updateProgressBar(self.percent - delta)
 
 class UI:
     UNICODE_MAGIC = "\x1b%G"
@@ -315,12 +350,15 @@ class UI:
         if config.get("debug"):
             logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.GOOD, self.NORMAL, msg.encode("utf-8")))
+        splash.progress()
 
     def warn(self, msg):
+        splash.verbose()
         logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.WARN, self.NORMAL, msg.encode("utf-8")))
 
     def error(self, msg):
+        splash.verbose()
         logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.BAD, self.NORMAL, msg.encode("utf-8")))
 
@@ -571,14 +609,17 @@ def startDBus():
 def readyService(service):
     cmd = ["/bin/service", "--quiet", service, "ready"]
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    splash.progress(1)
 
 def startService(service):
     cmd = ["/bin/service", "--quiet", service, "start"]
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    splash.progress(1)
 
 def stopService(service):
     cmd = ["/bin/service", "--quiet", service, "stop"]
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    splash.progress(1)
 
 def getServices(bus, all=False):
     if all:
@@ -631,14 +672,18 @@ def startServices(extras=None):
                 except dbus.DBusException:
                     ui.error(_("Unable to bring up interface %s") % device)
     if not config.get("safe"):
-        waitBus("/tmp/.X11-unix/X0", timeout=3)
         ui.info(_("Starting services"))
-        # Give login screen a headstart
-        if config.get("head_start"):
-            startService(config.get("head_start"))
         services = getServices(bus)
+        # Give login screen a headstart
+        head_start = config.get("head_start")
+        if head_start and head_start in services:
+            readyService(head_start)
+            services.remove(head_start)
         for service in services:
             readyService(service)
+        waitBus("/tmp/.X11-unix/X0")
+        splash.updateProgressBar(100)
+        time.sleep(2)
 
 def stopServices():
     ui.info(_("Stopping services"))
@@ -725,6 +770,7 @@ def checkRoot():
         ent = config.get_mount("/")
         if config.get("forcefsck") or (len(ent) > 5 and ent[5] != "0"):
             if config.get("forcefsck"):
+                splash.verbose()
                 ui.info(_("Checking root filesystem (full check forced)"))
                 t = run_full("/sbin/fsck", "-C", "-a", "-f", "/")
                 # /forcefsck isn't deleted because checkFS needs it.
@@ -735,6 +781,7 @@ def checkRoot():
             if t == 0:
                 pass
             elif t == 2 or t == 3:
+                splash.verbose()
                 ui.warn(_("Filesystem repaired, but reboot needed!"))
                 for i in range(4):
                     print "\07"
@@ -829,6 +876,7 @@ def checkFS():
     ui.info(_("Checking all filesystems"))
 
     if config.get("forcefsck"):
+        splash.verbose()
         ui.info(_("A full fsck has been forced"))
         t = run_full("/sbin/fsck", "-C", "-R", "-A", "-a", "-f")
         # remove forcefsck file
@@ -1063,6 +1111,7 @@ def stopSystem():
         return ret
 
     ui.info(_("Remounting remaining filesystems readonly"))
+    splash.updateProgressBar(0)
     # we parse /proc/mounts but use umount, so this have to agree
     run("cp", "/proc/mounts", "/etc/mtab")
     if remount_ro():
@@ -1101,6 +1150,7 @@ os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 # Setup output and load configuration
 logger = Logger()
 config = Config()
+splash = Splash()
 ui = UI()
 
 if sys.argv[1] == "sysinit":
@@ -1121,8 +1171,9 @@ logger.log("/sbin/mudur.py %s" % sys.argv[1])
 # Activate i18n, we can print localized messages from now on
 setTranslation()
 
-
 if sys.argv[1] == "sysinit":
+    splash.init(0)
+
     ui.info(_("Mounting /sys"))
     mount("/sys", "-t sysfs sysfs /sys")
 
@@ -1160,6 +1211,8 @@ if sys.argv[1] == "sysinit":
     run("/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
 elif sys.argv[1] == "boot":
+    splash.init(60)
+
     ui.info(_("Setting up localhost"))
     run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
     run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
@@ -1182,6 +1235,8 @@ elif sys.argv[1] == "boot":
     remoteMount(old_handler)
 
 elif sys.argv[1] == "default":
+    splash.init(75)
+
     ui.info(_("Triggering udev events which are failed during a previous run"))
     # Trigger only the events which are failed during a previous run.
     run("/sbin/udevadm", "trigger", "--retry-failed")
@@ -1194,16 +1249,21 @@ elif sys.argv[1] == "default":
     cpu.loadCPUfreq()
 
     startServices()
+    splash.verbose()
 
 elif sys.argv[1] == "single":
     stopServices()
 
 elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
+    splash.init(90, False)
+    splash.silent()
+
     # Log the operation before unmounting file systems
     logger.sync()
 
     if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
         run("/bin/bash", "/etc/conf.d/local.stop")
+    splash.progress(40)
 
     stopSystem()
 
