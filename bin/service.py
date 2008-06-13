@@ -68,10 +68,12 @@ class Service:
             type, self.description, state = info
             self.state = state
             self.type = self.types[type]
-            if state in ("on", "started"):
+            if state in ("on", "started", "conditional_started"):
                 self.running = _("running")
             if state in ("on", "stopped"):
                 self.autostart = _("yes")
+            if state in ("conditional_started", "conditional_stopped"):
+                self.autostart = _("conditional")
 
 
 def format_service_list(services, use_color=True):
@@ -81,7 +83,8 @@ def format_service_list(services, use_color=True):
             "started": '[1;32m',
             "stopped": '[0;31m',
             "off": '[0m',
-            "conditional": '[0m',
+            "conditional_started": '[1;32m',
+            "conditional_stopped": '[0;31m',
         }
     else:
         colors = {
@@ -89,7 +92,8 @@ def format_service_list(services, use_color=True):
             "started": '[0;32m',
             "stopped": '[1;31m',
             "off": '[0m',
-            "conditional": '[0m',
+            "conditional_started": '[0;32m',
+            "conditional_stopped": '[1;31m',
         }
     name_title = _("Service")
     run_title = _("Status")
