@@ -1,8 +1,8 @@
-# translation of es.po to Spanish
+# translation of es.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Klemens Häckel <click3d_at_linuxmail_org>, 2007.
+# Klemens Häckel <click3d_at_linuxmail_org>, 2007, 2008.
 # klemens <click3d at linuxmail org>, 2007.
 # Klemens Haeckel <click3d at linuxmail org>, 2008.
 msgid ""
@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-13 14:27+0300\n"
-"PO-Revision-Date: 2008-04-10 20:59-0400\n"
-"Last-Translator: Klemens Haeckel <click3d at linuxmail org>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2008-06-14 19:48-0400\n"
+"Last-Translator: Klemens Häckel <click3d_at_linuxmail_org>\n"
+"Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,7 +37,7 @@ msgstr "No posible conectar a DBus, servicios no se iniciarán"
 
 #: bin/mudur.py:644
 msgid "Cannot start system logger"
-msgstr ""
+msgstr "No posible iniciar log del sistema"
 
 #: bin/mudur.py:669
 #, python-format
@@ -126,7 +126,7 @@ msgstr "Estableciendo hostname como '%s'"
 #: bin/mudur.py:853
 #, python-format
 msgid "Calculating module dependencies for %s"
-msgstr ""
+msgstr "Calculando dependencias para módulo %s"
 
 #: bin/mudur.py:876
 msgid "Checking all filesystems"
@@ -245,7 +245,7 @@ msgstr "Ejecutando eventos udev que fallaron durante un intento anterior"
 
 #: bin/mudur.py:1247
 msgid "Loading CPUFreq modules"
-msgstr ""
+msgstr "Cargando módulos CPUFreq "
 
 #: bin/mudur.py:1274
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
@@ -272,6 +272,7 @@ msgid "yes"
 msgstr "si"
 
 #: bin/service.py:76
+# no estoy seguro del contexto, what is the context of this ?
 msgid "conditional"
 msgstr ""
 
@@ -327,7 +328,7 @@ msgstr "Iniciando DBus..."
 
 #: bin/service.py:240
 msgid "Unable to start D-Bus"
-msgstr ""
+msgstr "No posible iniciar D-Bus"
 
 #: bin/service.py:244
 msgid "Stopping DBus..."
@@ -513,7 +514,7 @@ msgstr "Buscar"
 
 #: bin/network.py:356
 msgid "No remote access points found"
-msgstr ""
+msgstr "Puntos de acceso remoto no encontrado"
 
 #: bin/network.py:375
 msgid "Choose authentication type:"
@@ -569,6 +570,3 @@ msgstr "Error de D-Bus: %s"
 msgid "Cancelled"
 msgstr "Cancelado"
 
-# alguna idea como traducir trigger mas suave, favor revisar
-#~ msgid "Triggering udev events"
-#~ msgstr "Disparando eventos udev"
