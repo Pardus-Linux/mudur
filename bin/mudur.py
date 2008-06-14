@@ -358,7 +358,10 @@ class UI:
         sys.stdout.write(" %s*%s %s\n" % (self.WARN, self.NORMAL, msg.encode("utf-8")))
 
     def error(self, msg):
-        splash.verbose()
+        try:
+            splash.verbose()
+        except IOError:
+            pass
         logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.BAD, self.NORMAL, msg.encode("utf-8")))
 
