@@ -440,8 +440,9 @@ class CPU:
                 elif self._detect_ich():
                     modules.add("speedstep_ich")
             # P4 and XEON processors with thermal control
-            elif "acpi" in self.flags and "tm" in self.flags:
-                modules.add("p4-clockmod")
+            # Disabled due to lots of problems
+            #elif "acpi" in self.flags and "tm" in self.flags:
+            #    modules.add("p4-clockmod")
 
         elif self.vendor == "AuthenticAMD":
             # Mobile K6-1/2 CPUs
