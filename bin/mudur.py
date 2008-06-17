@@ -22,7 +22,6 @@ import fcntl
 import termios
 import socket
 
-import dbus
 import pardus.iniutils
 
 #
@@ -656,6 +655,7 @@ def waitNet(timeout=20):
     return False
 
 def startNetwork(bus):
+    import dbus
     # Remote mount required?
     need_remount = remoteMount(old_handler, dry_run=True)
     obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
@@ -683,6 +683,7 @@ def startNetwork(bus):
             ui.error(_("No network connection, skipping remote mount."))
 
 def startServices(extras=None):
+    import dbus
     os.setuid(0)
     try:
         bus = dbus.SystemBus()
@@ -724,6 +725,7 @@ def startServices(extras=None):
         time.sleep(2)
 
 def stopServices():
+    import dbus
     ui.info(_("Stopping services"))
     try:
         bus = dbus.SystemBus()
