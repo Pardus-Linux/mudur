@@ -657,7 +657,7 @@ def waitNet(timeout=20):
 
 def startNetwork(bus):
     # Remote mount required?
-    need_remount = remoteMount(old_handler, dry_run=True):
+    need_remount = remoteMount(old_handler, dry_run=True)
     obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
     for script in obj.listModelApplications("Net.Link", dbus_interface="tr.org.pardus.comar"):
         db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
@@ -951,7 +951,7 @@ def localMount():
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
 
-def remoteMount(old_handler, dry_run=True):
+def remoteMount(old_handler, dry_run=False):
     data = loadFile("/etc/fstab").split("\n")
     data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     fstab = map(lambda x: x.split(), data)
