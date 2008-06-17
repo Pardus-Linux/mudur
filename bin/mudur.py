@@ -22,6 +22,9 @@ import fcntl
 import termios
 import socket
 
+import dbus
+import pardus.iniutils
+
 #
 # i18n
 #
@@ -634,9 +637,53 @@ def getServices(bus, all=False):
         conditional = set(os.listdir("/etc/mudur/services/conditional"))
         return enabled.union(conditional)
 
+def waitNet(timeout=20):
+    while timeout > 0:
+        upInterfaces = []
+        for iface in interfaces():
+            if iface.name == 'lo':
+                continue
+            if iface.isUp():
+                try:
+                    address, mask = iface.getAddress()
+                except TypeError:
+                    continue
+                upInterfaces.append(iface)
+        if len(upInterfaces):
+            return True
+        time.sleep(0.2)
+        timeout -= 0.2
+    return False
+
+def startNetwork(bus):
+    # Remote mount required?
+    need_remount = remoteMount(old_handler, dry_run=True):
+    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
+    for script in obj.listModelApplications("Net.Link", dbus_interface="tr.org.pardus.comar"):
+        db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
+        for profile in db.listDB():
+            if db.getDB(profile).get("state", "down") == "up":
+                device = db.getDB(profile).get("device", None)
+                if not device:
+                    continue
+                device = device.rsplit("_")[-1]
+                try:
+                    ui.info(_("Bringing up interface %s") % device)
+                    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
+                    if need_remount:
+                        obj.setState(profile, "up", dbus_interface="tr.org.pardus.comar.Net.Link")
+                    else:
+                        obj.setState(profile, "up", dbus_interface="tr.org.pardus.comar.Net.Link", ignore_reply=True)
+                except dbus.DBusException:
+                    ui.error(_("Unable to bring up interface %s") % device)
+    if need_remount:
+        if waitNet:
+            remoteMount(old_handler)
+        else:
+            ui.error(_("No network connection, skipping remote mount.")
+
 def startServices(extras=None):
     os.setuid(0)
-    import dbus
     try:
         bus = dbus.SystemBus()
     except dbus.DBusException:
@@ -658,23 +705,10 @@ def startServices(extras=None):
     for _file in os.listdir("/etc/network"):
         if _file.startswith("."):
             os.unlink(os.path.join("/etc/network", _file))
+
     # Start network service
-    import pardus.iniutils
-    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
-    for script in obj.listModelApplications("Net.Link", dbus_interface="tr.org.pardus.comar"):
-        db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
-        for profile in db.listDB():
-            if db.getDB(profile).get("state", "down") == "up":
-                device = db.getDB(profile).get("device", None)
-                if not device:
-                    continue
-                device = device.rsplit("_")[-1]
-                try:
-                    ui.info(_("Bringing up interface %s") % device)
-                    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
-                    obj.setState(profile, "up", dbus_interface="tr.org.pardus.comar.Net.Link", ignore_reply=True)
-                except dbus.DBusException:
-                    ui.error(_("Unable to bring up interface %s") % device)
+    startNetwork(bus)
+
     if not config.get("safe"):
         ui.info(_("Starting services"))
         services = getServices(bus)
@@ -691,7 +725,6 @@ def startServices(extras=None):
 
 def stopServices():
     ui.info(_("Stopping services"))
-    import dbus
     try:
         bus = dbus.SystemBus()
     except dbus.DBusException:
@@ -918,13 +951,16 @@ def localMount():
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
 
-def remoteMount(old_handler):
+def remoteMount(old_handler, dry_run=True):
     data = loadFile("/etc/fstab").split("\n")
     data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     fstab = map(lambda x: x.split(), data)
     netmounts = filter(lambda x: len(x) > 2 and x[2] in ("cifs", "nfs", "nfs4"), fstab)
     if len(netmounts) == 0:
-        return
+        return False
+    
+    if dry_run:
+        return True
     # If user has set some network filesystems in fstab, we should wait
     # until they are mounted, otherwise several programs can fail if
     # /home or /var is on a network share.
@@ -1235,8 +1271,6 @@ elif sys.argv[1] == "boot":
     startDBus()
 
     ttyUnicode()
-
-    remoteMount(old_handler)
 
 elif sys.argv[1] == "default":
     splash.init(75)
