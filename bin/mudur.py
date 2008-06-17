@@ -680,7 +680,7 @@ def startNetwork(bus):
         if waitNet:
             remoteMount(old_handler)
         else:
-            ui.error(_("No network connection, skipping remote mount.")
+            ui.error(_("No network connection, skipping remote mount."))
 
 def startServices(extras=None):
     os.setuid(0)
