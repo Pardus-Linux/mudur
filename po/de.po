@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-13 14:27+0300\n"
-"PO-Revision-Date: 2008-05-02 02:22+0300\n"
+"PO-Revision-Date: 2008-06-17 15:39+0200\n"
 "Last-Translator: Mustafa Ölcerman <m.oelcerman@pardus-linux.de>\n"
 "Language-Team: Deutsch <pardus-translation-de@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -22,8 +22,7 @@ msgstr ""
 
 #: bin/mudur.py:164
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
-"Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
+msgstr "Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
 
 #: bin/mudur.py:346
 msgid "Cannot find /etc/pardus-release"
@@ -40,7 +39,7 @@ msgstr "Kann nicht zu DBus verbinden, Dienste werden nicht gestartet"
 
 #: bin/mudur.py:644
 msgid "Cannot start system logger"
-msgstr ""
+msgstr "System Logger kann nicht gestartet werden"
 
 #: bin/mudur.py:669
 #, python-format
@@ -118,8 +117,7 @@ msgstr "Root Dateisystem wird neu mit Lese-/Schreibzugriff gemountet"
 
 #: bin/mudur.py:801
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden :("
+msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden :("
 
 #: bin/mudur.py:844
 #, python-format
@@ -129,7 +127,7 @@ msgstr "Hostname wird als '%s' eingestellt"
 #: bin/mudur.py:853
 #, python-format
 msgid "Calculating module dependencies for %s"
-msgstr ""
+msgstr "Modulabhängigkeit für %s werden berechnet"
 
 #: bin/mudur.py:876
 msgid "Checking all filesystems"
@@ -145,8 +143,7 @@ msgstr "Dateisystem Fehler korrigiert"
 
 #: bin/mudur.py:892
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
+msgstr "Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
 
 #: bin/mudur.py:905
 msgid "Mounting USB filesystem"
@@ -170,8 +167,7 @@ msgstr "Remote-Dateisysteme werden gemountet (STRG-C stoppt den Versuch)"
 
 #: bin/mudur.py:947
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
+msgstr "Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
 
 #: bin/mudur.py:960
 msgid "Setting disk parameters"
@@ -251,12 +247,11 @@ msgstr ""
 
 #: bin/mudur.py:1247
 msgid "Loading CPUFreq modules"
-msgstr ""
+msgstr "CPUFreq-Module werden geladen"
 
 #: bin/mudur.py:1274
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
+msgstr "Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
 
 #: bin/service.py:58
 msgid "local"
@@ -280,7 +275,7 @@ msgstr "ja"
 
 #: bin/service.py:76
 msgid "conditional"
-msgstr ""
+msgstr "abhängig"
 
 #: bin/service.py:98
 msgid "Service"
@@ -333,7 +328,7 @@ msgstr "DBus wird gestartet..."
 
 #: bin/service.py:240
 msgid "Unable to start D-Bus"
-msgstr ""
+msgstr "D-Bus konnte nicht gestartet werden"
 
 #: bin/service.py:244
 msgid "Stopping DBus..."
@@ -518,7 +513,7 @@ msgstr "Scannen"
 
 #: bin/network.py:356
 msgid "No remote access points found"
-msgstr ""
+msgstr "Kein Fernzugriffspunkt gefunden"
 
 #: bin/network.py:375
 msgid "Choose authentication type:"
@@ -574,5 +569,3 @@ msgstr "D-Bus-Fehler: %s"
 msgid "Cancelled"
 msgstr "Abgebrochen"
 
-#~ msgid "Triggering udev events"
-#~ msgstr "Udev-Ereignisse werden angesteuert"
