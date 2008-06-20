@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Görkem Çetin <gorkem@pardus.org.tr>, 2006.
+# Ozan Çağlayan <ozan@pardus.org.tr>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-13 14:27+0300\n"
-"PO-Revision-Date: 2006-03-06 16:05+0200\n"
-"Last-Translator: Görkem Çetin <gorkem@pardus.org.tr>\n"
-"Language-Team:  <yerellestirme@kde.org.tr>\n"
+"PO-Revision-Date: 2008-06-20 10:09+0300\n"
+"Last-Translator: Ozan Çağlayan <ozan@pardus.org.tr>\n"
+"Language-Team:  <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: bin/mudur.py:164
 msgid "Cannot write mudur.log, read-only file system"
@@ -35,7 +36,7 @@ msgstr "DBus'a bağlanılamadı, servisler başlatılamayacak"
 
 #: bin/mudur.py:644
 msgid "Cannot start system logger"
-msgstr ""
+msgstr "Sistem günlük hizmeti başlatılamadı"
 
 #: bin/mudur.py:669
 #, python-format
@@ -123,7 +124,7 @@ msgstr "Sistem adı '%s' olarak ayarlanıyor"
 #: bin/mudur.py:853
 #, python-format
 msgid "Calculating module dependencies for %s"
-msgstr ""
+msgstr "%s için modül bağımlılıkları hesaplanıyor"
 
 #: bin/mudur.py:876
 msgid "Checking all filesystems"
@@ -241,7 +242,7 @@ msgstr "Daha önce başarısız olan udev olayları tekrar tetikleniyor."
 
 #: bin/mudur.py:1247
 msgid "Loading CPUFreq modules"
-msgstr ""
+msgstr "CPUFreq modülleri yükleniyor"
 
 #: bin/mudur.py:1274
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
@@ -322,7 +323,7 @@ msgstr "DBus başlatılıyor..."
 
 #: bin/service.py:240
 msgid "Unable to start D-Bus"
-msgstr ""
+msgstr "D-Bus başlatılamadı"
 
 #: bin/service.py:244
 msgid "Stopping DBus..."
@@ -507,7 +508,7 @@ msgstr "Tara"
 
 #: bin/network.py:356
 msgid "No remote access points found"
-msgstr ""
+msgstr "Uzak erişim noktası bulunamadı"
 
 #: bin/network.py:375
 msgid "Choose authentication type:"
@@ -562,3 +563,4 @@ msgstr "D-Bus Hatası: %s"
 #: bin/network.py:538
 msgid "Cancelled"
 msgstr "İptal edildi"
+
