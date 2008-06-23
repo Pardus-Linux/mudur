@@ -42,7 +42,7 @@ def blockDevices():
             if not int(open(sysfs_dev + "/removable").read().strip()):
                 devlink = os.readlink(sysfs_dev + "/device")
                 devlink = os.path.realpath(os.path.join(sysfs_dev, "device", devlink))
-                if not "/usb" in devlink:
+                if (not "/usb" in devlink) and (not "/fw-host" in devlink):
                     devices.append("/dev/" + os.path.basename(sysfs_dev))
     devices.sort()
     return devices
