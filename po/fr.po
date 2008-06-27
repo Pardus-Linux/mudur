@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Amine Chadly <amine.chadly@gmail.com>, 2007.
+# Amine Chadly <amine.chadly@gmail.com>, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-13 14:27+0300\n"
-"PO-Revision-Date: 2007-10-19 22:57+0200\n"
+"PO-Revision-Date: 2008-06-27 02:32+0200\n"
 "Last-Translator: Amine Chadly <amine.chadly@gmail.com>\n"
 "Language-Team: French <pardus-translators@liste.pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -30,10 +30,8 @@ msgid "Could not set unicode mode on tty %d"
 msgstr "Impossible d'établir le mode unicode sur le terminal (tty) %d"
 
 #: bin/mudur.py:639
-#, fuzzy
 msgid "Cannot connect to DBus, services won't be started"
-msgstr ""
-"Impossible de se connecter à COMAR, les services ne seront pas démarrés"
+msgstr "Impossible de se connecter au DBus, les services ne seront pas démarrés"
 
 #: bin/mudur.py:644
 msgid "Cannot start system logger"
@@ -42,12 +40,12 @@ msgstr "Impossible de démarrer le système d'archivage du système"
 #: bin/mudur.py:669
 #, python-format
 msgid "Bringing up interface %s"
-msgstr ""
+msgstr "Levée de l'interface %s"
 
 #: bin/mudur.py:673
 #, python-format
 msgid "Unable to bring up interface %s"
-msgstr ""
+msgstr "Échec de la levée de l'interface %s"
 
 #: bin/mudur.py:675
 msgid "Starting services"
@@ -58,9 +56,8 @@ msgid "Stopping services"
 msgstr "Arrêt des services"
 
 #: bin/mudur.py:700
-#, fuzzy
 msgid "Stopping DBus"
-msgstr "Arrêt des services"
+msgstr "Arrêt de DBus"
 
 #: bin/mudur.py:709
 msgid "Mounting /dev"
@@ -84,8 +81,7 @@ msgstr "Remontage du système de ficher racine (root) en lecture seule"
 
 #: bin/mudur.py:774
 msgid "Checking root filesystem (full check forced)"
-msgstr ""
-"Vérification du système de fichier racine (vérification complète forcée)"
+msgstr "Vérification du système de fichier racine (vérification complète forcée)"
 
 #: bin/mudur.py:779
 msgid "Checking root filesystem"
@@ -119,8 +115,7 @@ msgstr "Remontage du système de fichier racine en lecture/écriture"
 
 #: bin/mudur.py:801
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
+msgstr "Le système de fichier racine n'a pas pu être monté en lecture/écriture :("
 
 #: bin/mudur.py:844
 #, python-format
@@ -128,9 +123,9 @@ msgid "Setting up hostname as '%s'"
 msgstr "Établissement du nom d'hôte à '%s'"
 
 #: bin/mudur.py:853
-#, fuzzy, python-format
+#, python-format
 msgid "Calculating module dependencies for %s"
-msgstr "Calcul des dépendances des modules"
+msgstr "Calcul des dépendances de module pour %s"
 
 #: bin/mudur.py:876
 msgid "Checking all filesystems"
@@ -168,8 +163,7 @@ msgstr "Démarrage du service portmap pour NFS"
 
 #: bin/mudur.py:933
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr ""
-"Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
+msgstr "Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
 
 #: bin/mudur.py:947
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
@@ -187,8 +181,7 @@ msgstr "Établissement de l'horloge système à l'heure du matériel"
 
 #: bin/mudur.py:993
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Échec de l'ajustement du décalage systématique de l'horloge du matériel."
+msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
 #: bin/mudur.py:997
 msgid "Failed to set system clock to hardware clock"
@@ -248,16 +241,15 @@ msgstr "Mise à jour des variables d'environnement"
 
 #: bin/mudur.py:1240
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
+msgstr "Lancement des événements udev qui ont échoué lors d'un lancement précédent"
 
 #: bin/mudur.py:1247
 msgid "Loading CPUFreq modules"
-msgstr ""
+msgstr "Chargement des modules CPUFreq"
 
 #: bin/mudur.py:1274
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Tente d'initier un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
+msgstr "Tente d'initier un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
 
 #: bin/service.py:58
 msgid "local"
@@ -281,7 +273,7 @@ msgstr "oui"
 
 #: bin/service.py:76
 msgid "conditional"
-msgstr ""
+msgstr "conditionnel"
 
 #: bin/service.py:98
 msgid "Service"
@@ -300,14 +292,14 @@ msgid "Description"
 msgstr "Description"
 
 #: bin/service.py:144
-#, fuzzy, python-format
+#, python-format
 msgid "Starting %s..."
-msgstr "Démarrage d'udev"
+msgstr "Démarrage de %s..."
 
 #: bin/service.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Stopping %s..."
-msgstr "Arrêt des services"
+msgstr "Arrêt de %s..."
 
 #: bin/service.py:158
 #, python-format
@@ -320,40 +312,35 @@ msgid "Service '%s' won't be auto started."
 msgstr "Le service '%s' ne sera pas automatiquement démarré."
 
 #: bin/service.py:165
-#, fuzzy, python-format
+#, python-format
 msgid "Reloading %s..."
-msgstr "Redémarrage..."
+msgstr "Arrêt-Relance de %s..."
 
 #: bin/service.py:191 bin/service.py:221
 msgid "You must be root to use that."
-msgstr ""
+msgstr "Vous devez être root pour utiliser cela."
 
 #: bin/service.py:232
-#, fuzzy
 msgid "Starting DBus..."
-msgstr "Démarrage d'udev"
+msgstr "Démarrage de DBus..."
 
 #: bin/service.py:240
 msgid "Unable to start D-Bus"
-msgstr ""
+msgstr "Impossible de démarrer D-Bus"
 
 #: bin/service.py:244
-#, fuzzy
 msgid "Stopping DBus..."
-msgstr "Arrêt des services"
+msgstr "Arrêt de DBus en cours..."
 
 #: bin/service.py:254
-#, fuzzy
 msgid "DBus is not running."
-msgstr "Le service Comar n'est pas en cours d'exécution."
+msgstr "DBus n'est pas en cours d'exécution."
 
 #: bin/service.py:256
-#, fuzzy
 msgid "DBus is running."
-msgstr "Le service Comar est en cours d'exécution."
+msgstr "Dbus fonctionne."
 
 #: bin/service.py:261
-#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -371,18 +358,19 @@ msgid ""
 " -q, --quiet     Don't print replies"
 msgstr ""
 "utilisation : service [<options>] [<service>] <commande>\n"
-"où command peut être au choix :\n"
+"où commande peut être au choix :\n"
 " list     Affiche la liste des services\n"
-" status   Affiche le statut du service\n"
-" info     Affiche le statut du service\n"
+" status   Affiche le statut d'un service\n"
+" info     Affiche le statut d'un service\n"
 " on       Active le démarrage automatique du service\n"
 " off      Désactive le démarrage automatique du service\n"
 " start    démarre le service\n"
 " stop     arrête le service\n"
-" restart  arrête le service, puis le démarre de nouveau\n"
+" restart  effectue un arrêt relance du service\n"
 " reload   Recharge la configuration (si le service le permet)\n"
 "les options pouvant être :\n"
-" -N, --no-color  Ne pas mettre de couleurs dans le message"
+" -N, --no-color  Ne pas mettre de couleurs dans le message\n"
+" -q, --quiet     N'affiche aucune réponse."
 
 #: bin/network.py:64
 #, python-format
@@ -443,7 +431,7 @@ msgid "Down"
 msgstr "Arrêté"
 
 #: bin/network.py:113
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "usage: %s <command> <arguments>\n"
 "where command is:\n"
@@ -455,7 +443,7 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
-"usage : network <commande> <arguments>\n"
+"usage : %s <commande> <arguments>\n"
 "où commande peut-être:\n"
 " devices      Liste les périphériques réseau\n"
 " connections  Liste les connexions\n"
@@ -463,60 +451,55 @@ msgstr ""
 " create        Crée une nouvelle connexion\n"
 " delete       Supprime une connexion\n"
 " up          Établit la connexion donnée\n"
-" down        Déconnecte la connexion donnée"
+" down        Coupe la connexion donnée"
 
 #: bin/network.py:176 bin/network.py:217 bin/network.py:272 bin/network.py:438
 #: bin/network.py:460 bin/network.py:501
 #, python-format
 msgid "Error: %s"
-msgstr ""
+msgstr "Erreur : %s"
 
 #: bin/network.py:257 bin/network.py:486
-#, fuzzy
 msgid "No such profile."
-msgstr "Profil inexistant"
+msgstr "Le profil n'existe pas."
 
 #: bin/network.py:261 bin/network.py:490
 #, python-format
 msgid "There are more than one profiles named '%s'"
-msgstr ""
+msgstr "Plusieurs profils nommés '%s' existent"
 
 #: bin/network.py:262 bin/network.py:491
 msgid "Use one of the following commands:"
-msgstr ""
+msgstr "Utilisez l'une des commandes suivantes :"
 
 #: bin/network.py:288
-#, fuzzy
 msgid "Profile name"
-msgstr "Profiles :"
+msgstr "Nom de Profil :"
 
 #: bin/network.py:294
-#, fuzzy
 msgid "Connection types:"
-msgstr "Sélectionner un type de connexion :"
+msgstr "Types de connexion :"
 
 #: bin/network.py:298
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: bin/network.py:312
 msgid "No avaible device for this type of connection"
 msgstr "Aucun périphérique disponible pour ce type de connexion."
 
 #: bin/network.py:320
-#, fuzzy
 msgid "Devices:"
-msgstr "Service"
+msgstr "Périphériques : "
 
 #: bin/network.py:324
-#, fuzzy
 msgid "Device"
-msgstr "Service"
+msgstr "Périphérique"
 
 #: bin/network.py:330 bin/network.py:354 bin/network.py:358
 #, python-format
 msgid "%s:"
-msgstr ""
+msgstr "%s : "
 
 #: bin/network.py:335
 msgid "Enter manually"
@@ -528,20 +511,19 @@ msgstr "Scanner"
 
 #: bin/network.py:356
 msgid "No remote access points found"
-msgstr ""
+msgstr "Aucun point d'accès distant trouvé"
 
 #: bin/network.py:375
 msgid "Choose authentication type:"
 msgstr "Choisissez le type d'authentification :"
 
 #: bin/network.py:388 bin/network.py:392
-#, fuzzy
 msgid "Password"
-msgstr "Entrez le mot de passe :"
+msgstr "Mot de passe"
 
 #: bin/network.py:391
 msgid "Username"
-msgstr ""
+msgstr "Nom d'utilisateur"
 
 #: bin/network.py:400
 msgid "Network settings:"
@@ -568,85 +550,20 @@ msgid "Gateway"
 msgstr "Passerelle"
 
 #: bin/network.py:453
-#, fuzzy
 msgid "Profile"
-msgstr "Profiles :"
+msgstr "Profil :"
 
 #: bin/network.py:463
-#, fuzzy, python-format
+#, python-format
 msgid "Profile %s removed."
-msgstr "Service '%s' rechargé."
+msgstr "Profil %s supprimé."
 
 #: bin/network.py:514
 #, python-format
 msgid "D-Bus Error: %s"
-msgstr ""
+msgstr "Erreur D-Bus : %s"
 
 #: bin/network.py:538
 msgid "Cancelled"
 msgstr "Annulé"
 
-#~ msgid ""
-#~ "Limit excess, please enter a valid number: ( interval: 0 < entry < %s )"
-#~ msgstr ""
-#~ "Limite dépassée, veuillez saisir une valeur valide (intervalle : 0 < "
-#~ "valeur < %s)"
-
-#~ msgid "Found: %(essid)s [%(quality)s]"
-#~ msgstr "Trouvé : %(essid)s [%(quality)s]"
-
-#~ msgid "[encrypted]"
-#~ msgstr "[crypté]"
-
-#~ msgid "Enter new connection name"
-#~ msgstr "Entrer le nom d'une nouvelle connexion "
-
-#~ msgid "Device '%s' selected."
-#~ msgstr "Périphérique '%s' sélectionné."
-
-#~ msgid "Select connection device:"
-#~ msgstr "Sélectionner le périphérique de connexion :"
-
-#~ msgid "Enter user name "
-#~ msgstr "Entrez l'utilisateur"
-
-#~ msgid "Name of profile to delete "
-#~ msgstr "Nom du profil à supprimer"
-
-#~ msgid "Please enter a valid profile name "
-#~ msgstr "Veuillez entrer un nom de profil valide"
-
-#~ msgid "Enter name of profile"
-#~ msgstr "Entrez le nom du profil"
-
-#~ msgid "Starting COMAR"
-#~ msgstr "Démarrage de COMAR"
-
-#~ msgid "Stopping COMAR"
-#~ msgstr "Arrêt de COMAR"
-
-#~ msgid "Starting Coldplug"
-#~ msgstr "Démarrage de Coldplug"
-
-#~ msgid "You dont have permission to do this operation."
-#~ msgstr "Vous n'avez pas l'autorisation d'effectuer cette opération"
-
-#~ msgid "There is no such service."
-#~ msgstr "Il n'y a pas de tel matériel."
-
-#~ msgid "Service doesn't provide this operation."
-#~ msgstr "Le service ne propose pas cette opération."
-
-#~ msgid "%(script)s error: %(data)s"
-#~ msgstr "erreur %(script)s : %(data)s"
-
-#~ msgid "You should be the root user in order to control the comar service."
-#~ msgstr ""
-#~ "Vous devez être connecté en administrateur (root) pour pouvoir contrôler "
-#~ "le service comar"
-
-#~ msgid "Service '%s' started."
-#~ msgstr "Service '%s' démarré."
-
-#~ msgid "Service '%s' stopped."
-#~ msgstr "Service '%s' arrêté."
