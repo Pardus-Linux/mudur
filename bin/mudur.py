@@ -1267,7 +1267,10 @@ elif sys.argv[1] == "boot":
 
     if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
         ui.info(_("Updating environment variables"))
-        run("/sbin/update-environment")
+        if config.get("livecd"):
+            run("/sbin/update-environment", "--live")
+        else:
+            run("/sbin/update-environment")
 
     cleanupTmp()
 

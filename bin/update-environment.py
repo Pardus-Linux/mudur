@@ -111,28 +111,30 @@ def update_file(path, content):
     f.write(content)
     f.close()
 
-def update_environment(prefix):
+def update_environment(prefix, live):
     join = os.path.join
 
     env = read_env_d(join(prefix, "etc/env.d"))
     update_file(join(prefix, "etc/profile.env"), generate_profile_env(env))
     update_file(join(prefix, "etc/csh.env"), generate_profile_env(env, 'setenv %s %s\n'))
-    if env.has_key("LDPATH"):
-        update_file(join(prefix, "etc/ld.so.conf"), generate_ld_so_conf(env))
-        subprocess.call(["/sbin/ldconfig","-X","-r", prefix])
+    if not live:
+        if env.has_key("LDPATH"):
+            update_file(join(prefix, "etc/ld.so.conf"), generate_ld_so_conf(env))
+            subprocess.call(["/sbin/ldconfig","-X","-r", prefix])
 
 #
 # Command line driver
 #
 
 def usage():
-    print "update-environment [--destdir <prefix>]"
+    print "update-environment [--destdir <prefix>] [--live]"
 
 def main(argv):
     prefix = "/"
+    live = False
 
     try:
-        opts, args = getopt.gnu_getopt(argv, "h", [ "help", "destdir=" ])
+        opts, args = getopt.gnu_getopt(argv, "h", [ "help", "destdir=", "live" ])
     except getopt.GetoptError:
         usage()
 
@@ -142,8 +144,10 @@ def main(argv):
             sys.exit(0)
         if o in ("--destdir"):
             prefix = a
+        if o in ("--live"):
+            live = True
 
-    update_environment(prefix)
+    update_environment(prefix, live)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
