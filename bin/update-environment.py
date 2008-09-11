@@ -111,7 +111,7 @@ def update_file(path, content):
     f.write(content)
     f.close()
 
-def update_environment(prefix, live):
+def update_environment(prefix, live=False):
     join = os.path.join
 
     env = read_env_d(join(prefix, "etc/env.d"))
