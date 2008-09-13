@@ -1,0 +1,33 @@
+2008-09-11  Fatih Aşıcı  <fatih@pardus.org.tr>
+
+		* bin/update-environment.py (update_environment): Set the
+		default value of the new argument 'live' to False.
+
+2008-09-11  Fatih Aşıcı  <fatih@pardus.org.tr>
+
+		* bin/update-environment.py (update_environment): Add new
+		argument 'live' for being able to not call ldconfig
+		on live cd's.
+		(usage): Add the new command line argument '--live' to the
+		usage function's output.
+		(main): Parse the new argument '--live' using getopt and
+		pass it to update_environment() for further processing.
+
+		* bin/mudur.py (main): Call update-environment with '--live' in
+		case of a livecd boot.
+
+2008-08-27  Bahadır Kandemir  <bahadir@pardus.org.tr>
+
+		* bin/mudur.py (languages): Add sv_SE locale.
+
+2008-07-07  Ozan Çağlayan  <ozan@pardus.org.tr>
+
+		* bin/mudur.py (startDBus): Gettextize the string 'Starting DBus'.
+
+2008-06-27  Ekin Meroğlu  <ekin@pardus.org.tr>
+
+		* etc/mudur.conf: Redefine head_start to be 'kdebase'
+
+2008-06-27  Bahadır Kandemir  <bahadir@pardus.org.tr>
+
+		* setup.py: Version 2.0
