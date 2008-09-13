@@ -1,3 +1,8 @@
+2008-09-13  Ozan Çağlayan <ozan@pardus.org.tr>
+
+		* bin/service.py (format_service_list): Stopped conditional
+		services are now colored yellow in /bin/service's output.
+
 2008-09-11  Fatih Aşıcı  <fatih@pardus.org.tr>
 
 		* bin/update-environment.py (update_environment): Set the
