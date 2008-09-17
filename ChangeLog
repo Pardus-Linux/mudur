@@ -1,3 +1,7 @@
+2008-09-17  Fatih Aşıcı  <fatih@pardus.org.tr>
+		* bin/update-fstab.py: Do not create a directory when mount
+		point is 'none'.
+
 2008-09-13  Ozan Çağlayan <ozan@pardus.org.tr>
 
 		* bin/service.py (format_service_list): Stopped conditional
