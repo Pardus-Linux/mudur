@@ -144,7 +144,7 @@ class Fstab:
 
         # Make sure mount points exist
         for entry in self.entries:
-            if not os.path.exists(entry.mount_point):
+            if entry.mount_point != "none" and not os.path.exists(entry.mount_point):
                 os.makedirs(entry.mount_point)
 
         f = file(path, "w")
