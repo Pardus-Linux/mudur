@@ -678,7 +678,7 @@ def startNetwork(bus):
                 except dbus.DBusException:
                     ui.error(_("Unable to bring up interface %s") % device)
     if need_remount:
-        if waitNet:
+        if waitNet():
             remoteMount(old_handler)
         else:
             ui.error(_("No network connection, skipping remote mount."))
