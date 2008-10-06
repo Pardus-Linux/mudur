@@ -23,6 +23,7 @@ import termios
 import socket
 
 import pardus.iniutils
+from pardus.netutils import waitNet
 
 #
 # i18n
@@ -636,24 +637,6 @@ def getServices(bus, all=False):
         enabled = set(os.listdir("/etc/mudur/services/enabled"))
         conditional = set(os.listdir("/etc/mudur/services/conditional"))
         return enabled.union(conditional)
-
-def waitNet(timeout=20):
-    while timeout > 0:
-        upInterfaces = []
-        for iface in interfaces():
-            if iface.name == 'lo':
-                continue
-            if iface.isUp():
-                try:
-                    address, mask = iface.getAddress()
-                except TypeError:
-                    continue
-                upInterfaces.append(iface)
-        if len(upInterfaces):
-            return True
-        time.sleep(0.2)
-        timeout -= 0.2
-    return False
 
 def startNetwork(bus):
     import dbus
