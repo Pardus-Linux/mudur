@@ -1226,10 +1226,6 @@ if sys.argv[1] == "sysinit":
 
     setSystemLanguage()
 
-    # better performance for SMP systems, /var/run must be mounted rw before this
-    if os.path.exists("/usr/sbin/irqbalance"):
-        run("/usr/sbin/irqbalance")
-
     # when we exit this runlevel, init will write a boot record to utmp
     write("/var/run/utmp", "")
     touch("/var/log/wtmp")
