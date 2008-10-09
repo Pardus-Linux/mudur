@@ -156,8 +156,10 @@ def setServiceState(service, state, bus, quiet=False):
     if not quiet:
         if state == "on":
             print _("Service '%s' will be auto started.") % service
-        else:
+        elif state == "off":
             print _("Service '%s' won't be auto started.") % service
+        else:
+            print _("Service '%s' will be started if required.") % service
 
 def reloadService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
@@ -205,6 +207,8 @@ def manage_service(service, op, use_color=True, quiet=False):
         setServiceState(service, "on", bus, quiet)
     elif op == "off":
         setServiceState(service, "off", bus, quiet)
+    elif op == "conditional":
+        setServiceState(service, "conditional", bus, quiet)
     elif op in ["info", "status", "list"]:
         info = getServiceInfo(service, bus)
         s = Service(service, info)
@@ -276,7 +280,7 @@ and option is:
 # Main
 
 def main(args):
-    operations = ("start", "stop", "info", "list", "restart", "reload", "status", "on", "off", "ready")
+    operations = ("start", "stop", "info", "list", "restart", "reload", "status", "on", "off", "ready", "conditional")
     use_color = True
     quiet = False
 
