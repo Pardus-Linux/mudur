@@ -315,7 +315,7 @@ def main(args):
         manage_dbus(args[1], use_color, quiet)
     elif args[1] in operations:
         try:
-            manage_service(args[0], args[1], use_color, quiet)
+            manage_service(args[0].replace("-", "_"), args[1], use_color, quiet)
         except dbus.DBusException, e:
             print e.args[0]
             return -1
