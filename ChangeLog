@@ -1,3 +1,7 @@
+2008-10-13  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (modules): i18n fix for 'Calculating module
+	dependencies...' string.
+
 2008-10-12  Bahadır Kandemir  <bahadir@pardus.org.tr>
 
 	* bin/service.py: Replace "-" with "_" before passing package 

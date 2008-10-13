@@ -873,7 +873,7 @@ def modules():
         return
 
     curkernel = os.uname()[2]
-    ui.info(_("Calculating module dependencies for %s" % curkernel))
+    ui.info(_("Calculating module dependencies for %s") % curkernel)
 
     if os.path.exists("/etc/modprobe.mudur"):
         depkernel = loadFile("/etc/modprobe.mudur").rstrip("\n")
