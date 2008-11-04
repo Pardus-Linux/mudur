@@ -9,10 +9,9 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-09 11:04+0300\n"
-"PO-Revision-Date: 2008-06-13 20:38+0200\n"
-"Last-Translator: W.P.M.H.I.A. Gielen <w.gielen@gmail.com>\n"
-"Language-Team: Nederlands <http://liste.pardus.org.tr/pardus-translation-nl/"
-">\n"
+"PO-Revision-Date: 2008-11-04 13:07+0100\n"
+"Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
+"Language-Team: Nederlands <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -47,7 +46,7 @@ msgstr "Niet in staat om interface %s naar voren te brengen"
 
 #: bin/mudur.py:667
 msgid "No network connection, skipping remote mount."
-msgstr ""
+msgstr "Geen netwerkverbinding, overslaan aankoppelen op afstand."
 
 #: bin/mudur.py:675
 msgid "Cannot connect to DBus, services won't be started"
@@ -123,8 +122,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:824
 msgid "Root filesystem could not be mounted read/write :("
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven' :("
 
 #: bin/mudur.py:867
 #, python-format
@@ -150,8 +148,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:915
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:928
 msgid "Mounting USB filesystem"
@@ -175,8 +172,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:973
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:986
 msgid "Setting disk parameters"
@@ -319,9 +315,9 @@ msgid "Service '%s' won't be auto started."
 msgstr "Dienst '%s' zal niet automatische worden gestart."
 
 #: bin/service.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Service '%s' will be started if required."
-msgstr "Dienst '%s' wordt automatische gestart."
+msgstr "Dienst '%s' zal, indien nodig, automatisch gestart worden."
 
 #: bin/service.py:167
 #, python-format
@@ -574,3 +570,4 @@ msgstr "D-Bus fout: %s"
 #: bin/network.py:538
 msgid "Cancelled"
 msgstr "Geannuleerd"
+
