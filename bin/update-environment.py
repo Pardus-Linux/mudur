@@ -44,6 +44,7 @@ specials = (
     "PYTHONPATH",
     "ADA_INCLUDE_PATH",
     "ADA_OBJECTS_PATH",
+    "PKG_CONFIG_PATH"
 )
 
 def read_env_d(envdir):
