@@ -1027,7 +1027,10 @@ def cleanupVar():
     for root,dirs,files in os.walk("/var/run"):
         for f in files:
             if f != "utmp" and f != "random-seed":
-                os.unlink(os.path.join(root, f))
+                try:
+                    os.unlink(os.path.join(root, f))
+                except OSError:
+                    pass
 
 def cleanupTmp():
     ui.info(_("Cleaning up /tmp"))
