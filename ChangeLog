@@ -1,3 +1,7 @@
+2008-12-24  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (modules): Remove module dependency calculation
+	as it's handled by kernel's pakhandler.
+
 2008-10-13  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (modules): i18n fix for 'Calculating module
 	dependencies...' string.
