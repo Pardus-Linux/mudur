@@ -872,17 +872,6 @@ def modules():
     if not os.path.exists("/proc/modules"):
         return
 
-    curkernel = os.uname()[2]
-    ui.info(_("Calculating module dependencies for %s") % curkernel)
-
-    if os.path.exists("/etc/modprobe.mudur"):
-        depkernel = loadFile("/etc/modprobe.mudur").rstrip("\n")
-        if depkernel != curkernel:
-            run_quiet("sbin/depmod", "-a")
-    else:
-        run_quiet("sbin/depmod", "-a")
-    file("/etc/modprobe.mudur", "w").write("%s\n" % curkernel)
-
     fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
     if not os.path.exists(fn):
         fn = "/etc/modules.autoload.d/kernel-%s.%s" % (config.kernel[0], config.kernel[1])
