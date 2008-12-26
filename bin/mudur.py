@@ -1027,9 +1027,10 @@ def cleanupTmp():
     cleanup_list = (
         "/tmp/gpg-*",
         "/tmp/kde-*",
-        "/tmp/kio*",
+        "/tmp/kde4-*",
         "/tmp/kio*",
         "/tmp/ksocket-*",
+        "/tmp/ksocket4-*",
         "/tmp/mc-*",
         "/tmp/pisi-*",
         "/tmp/pulse-*",
