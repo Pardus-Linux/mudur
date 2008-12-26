@@ -1,33 +1,45 @@
+2008-12-26  Onur Küçük <onur@pardus.org.tr>
+	* bin/mudur.py (cleanupTmp) : Add kde4 directories.
+
+2008-12-26  Ozan Çağlayan <ozan@pardus.org.tr>
+	* po/es.po : Updated Spanish translation.
+	* bin/mudur.py : Encapsulate mudur with a main() function.
+	* bin/mudur.py : Replace old_handler stuff with Python's
+	default SIGINT signal handler.
+
 2008-12-24  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (modules): Remove module dependency calculation
 	as it's handled by kernel's pakhandler.
+
+2008-12-11  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* bin/mudur.py (cleanupVar): Ignore errors during the cleanup of
+	/var directory.
+
+2008-11-10  Gökçen Eraslan <gokcen@pardus.org.tr>
+	* bin/update_environment.py (update_environment): Add PKG_CONFIG_PATH
+	to the special environment variables.
 
 2008-10-13  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (modules): i18n fix for 'Calculating module
 	dependencies...' string.
 
 2008-10-12  Bahadır Kandemir  <bahadir@pardus.org.tr>
-
 	* bin/service.py: Replace "-" with "_" before passing package 
 	name to D-Bus
 
 2008-09-17  Fatih Aşıcı  <fatih@pardus.org.tr>
-
 	* bin/update-fstab.py: Do not create a directory when mount
 	point is 'none'.
 
 2008-09-13  Ozan Çağlayan <ozan@pardus.org.tr>
-
 	* bin/service.py (format_service_list): Stopped conditional
 	services are now colored yellow in /bin/service's output.
 
 2008-09-11  Fatih Aşıcı  <fatih@pardus.org.tr>
-
 	* bin/update-environment.py (update_environment): Set the
 	default value of the new argument 'live' to False.
 
 2008-09-11  Fatih Aşıcı  <fatih@pardus.org.tr>
-
 	* bin/update-environment.py (update_environment): Add new
 	argument 'live' for being able to not call ldconfig
 	on live cd's.
@@ -40,17 +52,13 @@
 	case of a livecd boot.
 
 2008-08-27  Bahadır Kandemir  <bahadir@pardus.org.tr>
-
 	* bin/mudur.py (languages): Add sv_SE locale.
 
 2008-07-07  Ozan Çağlayan  <ozan@pardus.org.tr>
-
 	* bin/mudur.py (startDBus): Gettextize the string 'Starting DBus'.
 
 2008-06-27  Ekin Meroğlu  <ekin@pardus.org.tr>
-
 	* etc/mudur.conf: Redefine head_start to be 'kdebase'
 
 2008-06-27  Bahadır Kandemir  <bahadir@pardus.org.tr>
-
 	* setup.py: Version 2.0

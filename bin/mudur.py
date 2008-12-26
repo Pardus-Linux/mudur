@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Pardus boot and initialization system
-# Copyright (C) 2006-2007, TUBITAK/UEKAE
+# Copyright (C) 2006-2008, TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -641,7 +641,7 @@ def getServices(bus, all=False):
 def startNetwork(bus):
     import dbus
     # Remote mount required?
-    need_remount = remoteMount(old_handler, dry_run=True)
+    need_remount = remoteMount(dry_run=True)
     obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
     for script in obj.listModelApplications("Net.Link", dbus_interface="tr.org.pardus.comar"):
         db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
@@ -662,7 +662,7 @@ def startNetwork(bus):
                     ui.error(_("Unable to bring up interface %s") % device)
     if need_remount:
         if waitNet():
-            remoteMount(old_handler)
+            remoteMount()
         else:
             ui.error(_("No network connection, skipping remote mount."))
 
@@ -926,14 +926,14 @@ def localMount():
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")
 
-def remoteMount(old_handler, dry_run=False):
+def remoteMount(dry_run=False):
     data = loadFile("/etc/fstab").split("\n")
     data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     fstab = map(lambda x: x.split(), data)
     netmounts = filter(lambda x: len(x) > 2 and x[2] in ("cifs", "nfs", "nfs4"), fstab)
     if len(netmounts) == 0:
         return False
-    
+
     if dry_run:
         return True
     # If user has set some network filesystems in fstab, we should wait
@@ -947,7 +947,7 @@ def remoteMount(old_handler, dry_run=False):
 
     ui.info(_("Mounting remote filesystems (CTRL-C stops trying)"))
     try:
-        signal.signal(signal.SIGINT, old_handler)
+        signal.signal(signal.SIGINT, signal.default_int_handler)
         while True:
             next_set = []
             for item in netmounts:
@@ -1153,18 +1153,7 @@ def except_hook(eType, eValue, eTrace):
     run_full("/sbin/sulogin")
 
 
-#
-# Main program
-#
-
-old_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
-signal.signal(signal.SIGQUIT, signal.SIG_IGN)
-signal.signal(signal.SIGTSTP, signal.SIG_IGN)
-sys.excepthook = except_hook
-os.umask(022)
-
-# Setup path just in case
-os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
+# Global variables
 
 # Setup output and load configuration
 logger = Logger()
@@ -1172,133 +1161,151 @@ config = Config()
 splash = Splash()
 ui = UI()
 
-if sys.argv[1] == "sysinit":
-    # This is who we are...
-    ui.greet()
-    # Mount /proc
-    mount("/proc", "-t proc proc /proc")
-    # We need /proc mounted before accessing kernel boot options
-    config.parse_kernel_opts()
-    # Now we know which language and keymap to use
-    setConsole()
-else:
-    config.parse_kernel_opts()
 
-# We can log the event with uptime information now
-logger.log("/sbin/mudur.py %s" % sys.argv[1])
+#
+# Main program
+#
 
-# Activate i18n, we can print localized messages from now on
-setTranslation()
+if __name__ == "__main__":
 
-if sys.argv[1] == "sysinit":
-    splash.init(0)
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+    signal.signal(signal.SIGQUIT, signal.SIG_IGN)
+    signal.signal(signal.SIGTSTP, signal.SIG_IGN)
+    sys.excepthook = except_hook
+    os.umask(022)
 
-    ui.info(_("Mounting /sys"))
-    mount("/sys", "-t sysfs sysfs /sys")
+    # Setup path just in case
+    os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 
-    setupUdev()
+    if sys.argv[1] == "sysinit":
 
-    ui.info(_("Mounting /dev/pts"))
-    mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
+        # This is who we are...
+        ui.greet()
+        # Mount /proc
+        mount("/proc", "-t proc proc /proc")
+        # We need /proc mounted before accessing kernel boot options
+        config.parse_kernel_opts()
+        # Now we know which language and keymap to use
+        setConsole()
 
-    # Set kernel console log level for cleaner boot
-    # only panic messages will be printed
-    run("/bin/dmesg", "-n", "1")
-
-    checkRoot()
-    setHostname()
-
-    modules()
-
-    checkFS()
-    localMount()
-
-    hdparm()
-
-    setClock()
-
-    setSystemLanguage()
-
-    # when we exit this runlevel, init will write a boot record to utmp
-    write("/var/run/utmp", "")
-    touch("/var/log/wtmp")
-    run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
-    run("/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
-
-elif sys.argv[1] == "boot":
-    splash.init(60)
-
-    ui.info(_("Setting up localhost"))
-    run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
-    run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
-        "gw", "127.0.0.1", "dev", "lo")
-
-    run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
-
-    cleanupVar()
-
-    if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
-        ui.info(_("Updating environment variables"))
-        if config.get("livecd"):
-            run("/sbin/update-environment", "--live")
-        else:
-            run("/sbin/update-environment")
-
-    cleanupTmp()
-
-    startDBus()
-
-    ttyUnicode()
-
-elif sys.argv[1] == "default":
-    splash.init(75)
-
-    ui.info(_("Triggering udev events which are failed during a previous run"))
-    # Trigger only the events which are failed during a previous run.
-    run("/sbin/udevadm", "trigger", "--retry-failed")
-
-    if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
-        run("/bin/bash", "/etc/conf.d/local.start")
-
-    ui.info(_("Loading CPUFreq modules"))
-    cpu = CPU()
-    cpu.loadCPUfreq()
-
-    startServices()
-    splash.verbose()
-
-elif sys.argv[1] == "single":
-    stopServices()
-
-elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
-    splash.init(90, False)
-    splash.silent()
-
-    # Log the operation before unmounting file systems
-    logger.sync()
-
-    if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
-        run("/bin/bash", "/etc/conf.d/local.stop")
-    splash.progress(40)
-
-    stopSystem()
-
-    if sys.argv[1] == "reboot":
-        # Try to reboot using kexec, if kernel supports it.
-        kexecFile = "/sys/kernel/kexec_loaded"
-        if os.path.exists(kexecFile) and int(file(kexecFile).read().strip()):
-            ui.info(_("Trying initiate a warm reboot (skipping BIOS with kexec kernel)"))
-            run_quiet("/usr/sbin/kexec", "-e")
-
-        # Shut down all network interfaces just before halt or reboot,
-        # When halting the system do a poweroff. This is the default when halt is called as powerof
-        # Don't write the wtmp record.
-        run("/sbin/reboot", "-idp")
-        # Force halt or reboot, don't call shutdown
-        run("/sbin/reboot", "-f")
     else:
-        run("/sbin/halt", "-ihdp")
-        run("/sbin/halt", "-f")
-    # Control never reaches here
+        config.parse_kernel_opts()
 
-logger.sync()
+    # We can log the event with uptime information now
+    logger.log("/sbin/mudur.py %s" % sys.argv[1])
+
+    # Activate i18n, we can print localized messages from now on
+    setTranslation()
+
+    if sys.argv[1] == "sysinit":
+        splash.init(0)
+
+        ui.info(_("Mounting /sys"))
+        mount("/sys", "-t sysfs sysfs /sys")
+
+        setupUdev()
+
+        ui.info(_("Mounting /dev/pts"))
+        mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
+
+        # Set kernel console log level for cleaner boot
+        # only panic messages will be printed
+        run("/bin/dmesg", "-n", "1")
+
+        checkRoot()
+        setHostname()
+
+        modules()
+
+        checkFS()
+        localMount()
+
+        hdparm()
+
+        setClock()
+
+        setSystemLanguage()
+
+        # when we exit this runlevel, init will write a boot record to utmp
+        write("/var/run/utmp", "")
+        touch("/var/log/wtmp")
+        run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
+        run("/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
+
+    elif sys.argv[1] == "boot":
+        splash.init(60)
+
+        ui.info(_("Setting up localhost"))
+        run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
+        run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
+            "gw", "127.0.0.1", "dev", "lo")
+
+        run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
+
+        cleanupVar()
+
+        if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
+            ui.info(_("Updating environment variables"))
+            if config.get("livecd"):
+                run("/sbin/update-environment", "--live")
+            else:
+                run("/sbin/update-environment")
+
+        cleanupTmp()
+
+        startDBus()
+
+        ttyUnicode()
+
+    elif sys.argv[1] == "default":
+        splash.init(75)
+
+        ui.info(_("Triggering udev events which are failed during a previous run"))
+        # Trigger only the events which are failed during a previous run.
+        run("/sbin/udevadm", "trigger", "--retry-failed")
+
+        if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
+            run("/bin/bash", "/etc/conf.d/local.start")
+
+        ui.info(_("Loading CPUFreq modules"))
+        cpu = CPU()
+        cpu.loadCPUfreq()
+
+        startServices()
+        splash.verbose()
+
+    elif sys.argv[1] == "single":
+        stopServices()
+
+    elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
+        splash.init(90, False)
+        splash.silent()
+
+        # Log the operation before unmounting file systems
+        logger.sync()
+
+        if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
+            run("/bin/bash", "/etc/conf.d/local.stop")
+        splash.progress(40)
+
+        stopSystem()
+
+        if sys.argv[1] == "reboot":
+            # Try to reboot using kexec, if kernel supports it.
+            kexecFile = "/sys/kernel/kexec_loaded"
+            if os.path.exists(kexecFile) and int(file(kexecFile).read().strip()):
+                ui.info(_("Trying initiate a warm reboot (skipping BIOS with kexec kernel)"))
+                run_quiet("/usr/sbin/kexec", "-e")
+
+            # Shut down all network interfaces just before halt or reboot,
+            # When halting the system do a poweroff. This is the default when halt is called as powerof
+            # Don't write the wtmp record.
+            run("/sbin/reboot", "-idp")
+            # Force halt or reboot, don't call shutdown
+            run("/sbin/reboot", "-f")
+        else:
+            run("/sbin/halt", "-ihdp")
+            run("/sbin/halt", "-f")
+        # Control never reaches here
+
+    logger.sync()
