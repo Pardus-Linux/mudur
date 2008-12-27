@@ -706,6 +706,9 @@ def startServices(extras=None):
             readyService(service)
         waitBus("/tmp/.X11-unix/X0")
         splash.updateProgressBar(100)
+
+        # Avoid users trying to login using VT
+        # because of the X startup delay.
         time.sleep(2)
 
 def stopServices():
