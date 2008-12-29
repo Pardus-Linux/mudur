@@ -1,0 +1,549 @@
+# translation of sv.po to
+# translation of mudur.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Patrik Karlsson <patrik@pardus.nu>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: sv\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-10-09 11:04+0300\n"
+"PO-Revision-Date: 2008-11-29 08:29+0100\n"
+"Last-Translator: Patrik Karlsson <patrik@pardus.nu>\n"
+"Language-Team:  <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: bin/mudur.py:167
+msgid "Cannot write mudur.log, read-only file system"
+msgstr ""
+
+#: bin/mudur.py:349
+msgid "Cannot find /etc/pardus-release"
+msgstr ""
+
+#: bin/mudur.py:574
+#, python-format
+msgid "Could not set unicode mode on tty %d"
+msgstr ""
+
+#: bin/mudur.py:609 bin/service.py:236
+msgid "Starting DBus..."
+msgstr "Startar D-Bus..."
+
+#: bin/mudur.py:655
+#, python-format
+msgid "Bringing up interface %s"
+msgstr ""
+
+#: bin/mudur.py:662
+#, python-format
+msgid "Unable to bring up interface %s"
+msgstr ""
+
+#: bin/mudur.py:667
+msgid "No network connection, skipping remote mount."
+msgstr ""
+
+#: bin/mudur.py:675
+msgid "Cannot connect to DBus, services won't be started"
+msgstr ""
+
+#: bin/mudur.py:680
+msgid "Cannot start system logger"
+msgstr ""
+
+#: bin/mudur.py:698
+msgid "Starting services"
+msgstr "Startar tjänster "
+
+#: bin/mudur.py:713
+msgid "Stopping services"
+msgstr "Stoppar tjänster"
+
+#: bin/mudur.py:723
+msgid "Stopping DBus"
+msgstr "Stoppar D-Bus"
+
+#: bin/mudur.py:732
+msgid "Mounting /dev"
+msgstr "Monterar /dev"
+
+#: bin/mudur.py:742
+msgid "Restoring saved device states"
+msgstr "Återställer enhetstillstånd"
+
+#: bin/mudur.py:765
+msgid "Starting udev"
+msgstr "Startar udev"
+
+#: bin/mudur.py:772
+msgid "Populating /dev"
+msgstr ""
+
+#: bin/mudur.py:790
+msgid "Remounting root filesystem read-only"
+msgstr ""
+
+#: bin/mudur.py:797
+msgid "Checking root filesystem (full check forced)"
+msgstr ""
+
+#: bin/mudur.py:802
+msgid "Checking root filesystem"
+msgstr ""
+
+#: bin/mudur.py:808
+msgid "Filesystem repaired, but reboot needed!"
+msgstr ""
+
+#: bin/mudur.py:812
+msgid "Rebooting in 10 seconds ..."
+msgstr "Omstart om 10 sekunder..."
+
+#: bin/mudur.py:814
+msgid "Rebooting..."
+msgstr "Omstart..."
+
+#: bin/mudur.py:817
+msgid "Filesystem couldn't be fixed :("
+msgstr "Filsystem kunde inte åtgärdas :("
+
+#: bin/mudur.py:820
+msgid "Skipping root filesystem check (fstab's passno == 0)"
+msgstr ""
+
+#: bin/mudur.py:822
+msgid "Remounting root filesystem read/write"
+msgstr ""
+
+#: bin/mudur.py:824
+msgid "Root filesystem could not be mounted read/write :("
+msgstr ""
+
+#: bin/mudur.py:867
+#, python-format
+msgid "Setting up hostname as '%s'"
+msgstr "Sätter värddatornamn till '%s'"
+
+#: bin/mudur.py:876
+#, python-format
+msgid "Calculating module dependencies for %s"
+msgstr "Beräknar modulberoenden för %s"
+
+#: bin/mudur.py:899
+msgid "Checking all filesystems"
+msgstr "Kontrollerar alla filsystem"
+
+#: bin/mudur.py:903
+msgid "A full fsck has been forced"
+msgstr "En fullständig fsck har framtvingats"
+
+#: bin/mudur.py:913
+msgid "Filesystem errors corrected"
+msgstr "Filsystemfel åtgärdat"
+
+#: bin/mudur.py:915
+msgid "Fsck could not correct all errors, manual repair needed"
+msgstr "Fsck kunde inte korrigera alla fel, manuell korrigering nödvändig"
+
+#: bin/mudur.py:928
+msgid "Mounting USB filesystem"
+msgstr "Monterar USB-filsystem"
+
+#: bin/mudur.py:934
+msgid "Mounting local filesystems"
+msgstr "Monterar lokala filsystem"
+
+#: bin/mudur.py:937
+msgid "Activating swap"
+msgstr "Aktiverar växlingsutrymme"
+
+#: bin/mudur.py:956
+msgid "Starting portmap service for NFS"
+msgstr ""
+
+#: bin/mudur.py:959
+msgid "Mounting remote filesystems (CTRL-C stops trying)"
+msgstr "Monterar fjärrfilsystem (CTRL-C avbryter)"
+
+#: bin/mudur.py:973
+msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
+msgstr ""
+
+#: bin/mudur.py:986
+msgid "Setting disk parameters"
+msgstr "Sätter diskparametrar"
+
+#: bin/mudur.py:1005
+msgid "Setting system clock to hardware clock"
+msgstr "Sätter systemklockan till hårdvaruklockan"
+
+#: bin/mudur.py:1019
+msgid "Failed to adjust systematic drift of the hardware clock"
+msgstr ""
+
+#: bin/mudur.py:1023
+msgid "Failed to set system clock to hardware clock"
+msgstr "Misslyckades med att sätta systemklockan till hårdvaruklockan"
+
+#: bin/mudur.py:1026
+msgid "Cleaning up /var"
+msgstr "Rensar /var"
+
+#: bin/mudur.py:1033
+msgid "Cleaning up /tmp"
+msgstr "Rensar /tmp"
+
+#: bin/mudur.py:1071
+msgid "Syncing system clock to hardware clock"
+msgstr "Synkroniserar systemklockan med hårdvaruklockan"
+
+#: bin/mudur.py:1074
+msgid "Failed to sync clocks"
+msgstr "Misslyckades med att synkronisera klockor"
+
+#: bin/mudur.py:1086
+msgid "Deactivating swap"
+msgstr "Avaktiverar växlingsutrymme"
+
+#: bin/mudur.py:1107
+msgid "Unmounting filesystems"
+msgstr "Avmonterar filsystem"
+
+#: bin/mudur.py:1139
+msgid "Remounting remaining filesystems readonly"
+msgstr "Återmonterar återstående filsystem skrivskyddade"
+
+#: bin/mudur.py:1154
+msgid ""
+"An internal error occured. Please report to the bugs.pardus.org.tr with "
+"following information:"
+msgstr ""
+
+#: bin/mudur.py:1203
+msgid "Mounting /sys"
+msgstr "Monterar /sys"
+
+#: bin/mudur.py:1208
+msgid "Mounting /dev/pts"
+msgstr "Monterar /dev/pts"
+
+#: bin/mudur.py:1238
+msgid "Setting up localhost"
+msgstr ""
+
+#: bin/mudur.py:1248
+msgid "Updating environment variables"
+msgstr "Uppdaterar miljövariabler"
+
+#: bin/mudur.py:1263
+msgid "Triggering udev events which are failed during a previous run"
+msgstr ""
+
+#: bin/mudur.py:1270
+msgid "Loading CPUFreq modules"
+msgstr ""
+
+#: bin/mudur.py:1297
+msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
+msgstr ""
+
+#: bin/service.py:58
+msgid "local"
+msgstr ""
+
+#: bin/service.py:59
+msgid "script"
+msgstr ""
+
+#: bin/service.py:60
+msgid "server"
+msgstr ""
+
+#: bin/service.py:72
+msgid "running"
+msgstr "körs"
+
+#: bin/service.py:74
+msgid "yes"
+msgstr "ja"
+
+#: bin/service.py:76
+msgid "conditional"
+msgstr "villkorligt"
+
+#: bin/service.py:98
+msgid "Service"
+msgstr "Tjänst"
+
+#: bin/service.py:99
+msgid "Status"
+msgstr "Status"
+
+#: bin/service.py:100
+msgid "Autostart"
+msgstr "Autostart"
+
+#: bin/service.py:101
+msgid "Description"
+msgstr "Beskrivning"
+
+#: bin/service.py:144
+#, python-format
+msgid "Starting %s..."
+msgstr "Startar %s..."
+
+#: bin/service.py:150
+#, python-format
+msgid "Stopping %s..."
+msgstr "Stoppar %s..."
+
+#: bin/service.py:158
+#, python-format
+msgid "Service '%s' will be auto started."
+msgstr ""
+
+#: bin/service.py:160
+#, python-format
+msgid "Service '%s' won't be auto started."
+msgstr ""
+
+#: bin/service.py:162
+#, python-format
+msgid "Service '%s' will be started if required."
+msgstr ""
+
+#: bin/service.py:167
+#, python-format
+msgid "Reloading %s..."
+msgstr ""
+
+#: bin/service.py:193 bin/service.py:225
+msgid "You must be root to use that."
+msgstr "Du måste vara root för att använda det."
+
+#: bin/service.py:244
+msgid "Unable to start D-Bus"
+msgstr "Kan inte starta D-Bus"
+
+#: bin/service.py:248
+msgid "Stopping DBus..."
+msgstr "Stoppar D-Bus..."
+
+#: bin/service.py:258
+msgid "DBus is not running."
+msgstr "D-Bus körs inte."
+
+#: bin/service.py:260
+msgid "DBus is running."
+msgstr "D-Bus körs."
+
+#: bin/service.py:265
+msgid ""
+"usage: service [<options>] [<service>] <command>\n"
+"where command is:\n"
+" list     Display service list\n"
+" status   Display service status\n"
+" info     Display service status\n"
+" on       Auto start the service\n"
+" off      Don't auto start the service\n"
+" start    Start the service\n"
+" stop     Stop the service\n"
+" restart  Stop the service, then start again\n"
+" reload   Reload the configuration (if service supports this)\n"
+"and option is:\n"
+" -N, --no-color  Don't use color in output\n"
+" -q, --quiet     Don't print replies"
+msgstr ""
+
+#: bin/network.py:64
+#, python-format
+msgid "Connection Name : %s "
+msgstr ""
+
+#: bin/network.py:65
+#, python-format
+msgid "Status          : %s "
+msgstr ""
+
+#: bin/network.py:66
+#, python-format
+msgid "Adress          : %s "
+msgstr "Adress          : %s "
+
+#: bin/network.py:69
+#, python-format
+msgid "Device Name     : %s "
+msgstr ""
+
+#: bin/network.py:71
+#, python-format
+msgid "Device Id       : %s "
+msgstr ""
+
+#: bin/network.py:73
+#, python-format
+msgid "Mask            : %s "
+msgstr ""
+
+#: bin/network.py:75
+#, python-format
+msgid "Gateway         : %s "
+msgstr ""
+
+#: bin/network.py:77
+#, python-format
+msgid "Netmode         : %s "
+msgstr ""
+
+#: bin/network.py:79
+#, python-format
+msgid "Namemode        : %s "
+msgstr ""
+
+#: bin/network.py:81
+#, python-format
+msgid "Remote          : %s "
+msgstr "Fjärr          : %s "
+
+#: bin/network.py:86
+msgid "Up"
+msgstr "Upp"
+
+#: bin/network.py:87
+msgid "Down"
+msgstr "Ner"
+
+#: bin/network.py:113
+#, python-format
+msgid ""
+"usage: %s <command> <arguments>\n"
+"where command is:\n"
+" devices      List network devices\n"
+" connections  List connections\n"
+" info         List properties of a given connection\n"
+" create       Create a new connection\n"
+" delete       Delete a connection\n"
+" up           Connect given connection\n"
+" down         Disconnect given connection"
+msgstr ""
+
+#: bin/network.py:176 bin/network.py:217 bin/network.py:272 bin/network.py:438
+#: bin/network.py:460 bin/network.py:501
+#, python-format
+msgid "Error: %s"
+msgstr "Fel: %s"
+
+#: bin/network.py:257 bin/network.py:486
+msgid "No such profile."
+msgstr "Profil saknas."
+
+#: bin/network.py:261 bin/network.py:490
+#, python-format
+msgid "There are more than one profiles named '%s'"
+msgstr "Det är fler än en profil med namnet '%s'"
+
+#: bin/network.py:262 bin/network.py:491
+msgid "Use one of the following commands:"
+msgstr "Använd ett av följande kommandon:"
+
+#: bin/network.py:288
+msgid "Profile name"
+msgstr "Profilnamn"
+
+#: bin/network.py:294
+msgid "Connection types:"
+msgstr "Anslutningstyper:"
+
+#: bin/network.py:298
+msgid "Type"
+msgstr "Typ"
+
+#: bin/network.py:312
+msgid "No avaible device for this type of connection"
+msgstr ""
+
+#: bin/network.py:320
+msgid "Devices:"
+msgstr "Enheter:"
+
+#: bin/network.py:324
+msgid "Device"
+msgstr "Enhet"
+
+#: bin/network.py:330 bin/network.py:354 bin/network.py:358
+#, python-format
+msgid "%s:"
+msgstr "%s:"
+
+#: bin/network.py:335
+msgid "Enter manually"
+msgstr "Ange manuellt"
+
+#: bin/network.py:336
+msgid "Scan"
+msgstr "Skanna"
+
+#: bin/network.py:356
+msgid "No remote access points found"
+msgstr "Inga fjärranslutningspunkter funna"
+
+#: bin/network.py:375
+msgid "Choose authentication type:"
+msgstr "Välj autentiseringsläge:"
+
+#: bin/network.py:388 bin/network.py:392
+msgid "Password"
+msgstr "Lösenord"
+
+#: bin/network.py:391
+msgid "Username"
+msgstr "Användarnamn"
+
+#: bin/network.py:400
+msgid "Network settings:"
+msgstr "Nätverksinställningar:"
+
+#: bin/network.py:403
+msgid "Automatic query (DHCP)"
+msgstr "Automatisk förfrågan (DHCP)"
+
+#: bin/network.py:404
+msgid "Manual configuration"
+msgstr "Manuell inställning"
+
+#: bin/network.py:409
+msgid "IP Address"
+msgstr "IP-adress"
+
+#: bin/network.py:410
+msgid "Network mask"
+msgstr "Nätmask"
+
+#: bin/network.py:411
+msgid "Gateway"
+msgstr "Förmedlingsnod"
+
+#: bin/network.py:453
+msgid "Profile"
+msgstr "Profil"
+
+#: bin/network.py:463
+#, python-format
+msgid "Profile %s removed."
+msgstr "Profilen %s togs bort."
+
+#: bin/network.py:514
+#, python-format
+msgid "D-Bus Error: %s"
+msgstr "D-Bus-fel: %s"
+
+#: bin/network.py:538
+msgid "Cancelled"
+msgstr "Avbruten"
+
