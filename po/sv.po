@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-09 11:04+0300\n"
+"POT-Creation-Date: 2009-01-06 10:17+0200\n"
 "PO-Revision-Date: 2008-11-29 08:29+0100\n"
 "Last-Translator: Patrik Karlsson <patrik@pardus.nu>\n"
 "Language-Team:  <sv@li.org>\n"
@@ -61,195 +61,190 @@ msgstr ""
 msgid "Starting services"
 msgstr "Startar tjänster "
 
-#: bin/mudur.py:713
+#: bin/mudur.py:716
 msgid "Stopping services"
 msgstr "Stoppar tjänster"
 
-#: bin/mudur.py:723
+#: bin/mudur.py:726
 msgid "Stopping DBus"
 msgstr "Stoppar D-Bus"
 
-#: bin/mudur.py:732
+#: bin/mudur.py:735
 msgid "Mounting /dev"
 msgstr "Monterar /dev"
 
-#: bin/mudur.py:742
+#: bin/mudur.py:745
 msgid "Restoring saved device states"
 msgstr "Återställer enhetstillstånd"
 
-#: bin/mudur.py:765
+#: bin/mudur.py:768
 msgid "Starting udev"
 msgstr "Startar udev"
 
-#: bin/mudur.py:772
+#: bin/mudur.py:775
 msgid "Populating /dev"
 msgstr ""
 
-#: bin/mudur.py:790
+#: bin/mudur.py:793
 msgid "Remounting root filesystem read-only"
 msgstr ""
 
-#: bin/mudur.py:797
+#: bin/mudur.py:800
 msgid "Checking root filesystem (full check forced)"
 msgstr ""
 
-#: bin/mudur.py:802
+#: bin/mudur.py:805
 msgid "Checking root filesystem"
 msgstr ""
 
-#: bin/mudur.py:808
+#: bin/mudur.py:811
 msgid "Filesystem repaired, but reboot needed!"
 msgstr ""
 
-#: bin/mudur.py:812
+#: bin/mudur.py:815
 msgid "Rebooting in 10 seconds ..."
 msgstr "Omstart om 10 sekunder..."
 
-#: bin/mudur.py:814
+#: bin/mudur.py:817
 msgid "Rebooting..."
 msgstr "Omstart..."
 
-#: bin/mudur.py:817
+#: bin/mudur.py:820
 msgid "Filesystem couldn't be fixed :("
 msgstr "Filsystem kunde inte åtgärdas :("
 
-#: bin/mudur.py:820
+#: bin/mudur.py:823
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr ""
 
-#: bin/mudur.py:822
+#: bin/mudur.py:825
 msgid "Remounting root filesystem read/write"
 msgstr ""
 
-#: bin/mudur.py:824
+#: bin/mudur.py:827
 msgid "Root filesystem could not be mounted read/write :("
 msgstr ""
 
-#: bin/mudur.py:867
+#: bin/mudur.py:870
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Sätter värddatornamn till '%s'"
 
-#: bin/mudur.py:876
-#, python-format
-msgid "Calculating module dependencies for %s"
-msgstr "Beräknar modulberoenden för %s"
-
-#: bin/mudur.py:899
+#: bin/mudur.py:891
 msgid "Checking all filesystems"
 msgstr "Kontrollerar alla filsystem"
 
-#: bin/mudur.py:903
+#: bin/mudur.py:895
 msgid "A full fsck has been forced"
 msgstr "En fullständig fsck har framtvingats"
 
-#: bin/mudur.py:913
+#: bin/mudur.py:905
 msgid "Filesystem errors corrected"
 msgstr "Filsystemfel åtgärdat"
 
-#: bin/mudur.py:915
+#: bin/mudur.py:907
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr "Fsck kunde inte korrigera alla fel, manuell korrigering nödvändig"
 
-#: bin/mudur.py:928
+#: bin/mudur.py:920
 msgid "Mounting USB filesystem"
 msgstr "Monterar USB-filsystem"
 
-#: bin/mudur.py:934
+#: bin/mudur.py:926
 msgid "Mounting local filesystems"
 msgstr "Monterar lokala filsystem"
 
-#: bin/mudur.py:937
+#: bin/mudur.py:929
 msgid "Activating swap"
 msgstr "Aktiverar växlingsutrymme"
 
-#: bin/mudur.py:956
+#: bin/mudur.py:948
 msgid "Starting portmap service for NFS"
 msgstr ""
 
-#: bin/mudur.py:959
+#: bin/mudur.py:951
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Monterar fjärrfilsystem (CTRL-C avbryter)"
 
-#: bin/mudur.py:973
+#: bin/mudur.py:965
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
 msgstr ""
 
-#: bin/mudur.py:986
+#: bin/mudur.py:978
 msgid "Setting disk parameters"
 msgstr "Sätter diskparametrar"
 
-#: bin/mudur.py:1005
+#: bin/mudur.py:997
 msgid "Setting system clock to hardware clock"
 msgstr "Sätter systemklockan till hårdvaruklockan"
 
-#: bin/mudur.py:1019
+#: bin/mudur.py:1011
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr ""
 
-#: bin/mudur.py:1023
+#: bin/mudur.py:1015
 msgid "Failed to set system clock to hardware clock"
 msgstr "Misslyckades med att sätta systemklockan till hårdvaruklockan"
 
-#: bin/mudur.py:1026
+#: bin/mudur.py:1018
 msgid "Cleaning up /var"
 msgstr "Rensar /var"
 
-#: bin/mudur.py:1033
+#: bin/mudur.py:1028
 msgid "Cleaning up /tmp"
 msgstr "Rensar /tmp"
 
-#: bin/mudur.py:1071
+#: bin/mudur.py:1067
 msgid "Syncing system clock to hardware clock"
 msgstr "Synkroniserar systemklockan med hårdvaruklockan"
 
-#: bin/mudur.py:1074
+#: bin/mudur.py:1070
 msgid "Failed to sync clocks"
 msgstr "Misslyckades med att synkronisera klockor"
 
-#: bin/mudur.py:1086
+#: bin/mudur.py:1082
 msgid "Deactivating swap"
 msgstr "Avaktiverar växlingsutrymme"
 
-#: bin/mudur.py:1107
+#: bin/mudur.py:1103
 msgid "Unmounting filesystems"
 msgstr "Avmonterar filsystem"
 
-#: bin/mudur.py:1139
+#: bin/mudur.py:1135
 msgid "Remounting remaining filesystems readonly"
 msgstr "Återmonterar återstående filsystem skrivskyddade"
 
-#: bin/mudur.py:1154
+#: bin/mudur.py:1150
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
 
-#: bin/mudur.py:1203
+#: bin/mudur.py:1206
 msgid "Mounting /sys"
 msgstr "Monterar /sys"
 
-#: bin/mudur.py:1208
+#: bin/mudur.py:1211
 msgid "Mounting /dev/pts"
 msgstr "Monterar /dev/pts"
 
-#: bin/mudur.py:1238
+#: bin/mudur.py:1241
 msgid "Setting up localhost"
 msgstr ""
 
-#: bin/mudur.py:1248
+#: bin/mudur.py:1251
 msgid "Updating environment variables"
 msgstr "Uppdaterar miljövariabler"
 
-#: bin/mudur.py:1263
+#: bin/mudur.py:1266
 msgid "Triggering udev events which are failed during a previous run"
 msgstr ""
 
-#: bin/mudur.py:1270
+#: bin/mudur.py:1273
 msgid "Loading CPUFreq modules"
 msgstr ""
 
-#: bin/mudur.py:1297
+#: bin/mudur.py:1300
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 
@@ -547,3 +542,5 @@ msgstr "D-Bus-fel: %s"
 msgid "Cancelled"
 msgstr "Avbruten"
 
+#~ msgid "Calculating module dependencies for %s"
+#~ msgstr "Beräknar modulberoenden för %s"
