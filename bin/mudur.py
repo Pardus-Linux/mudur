@@ -676,7 +676,7 @@ def startServices(extras=None):
         return
     # Almost everything depends on logger, so start manually
     startService("sysklogd")
-    if not waitBus("/dev/log", stream=False):
+    if not waitBus("/dev/log", stream=False, timeout=15):
         ui.warn(_("Cannot start system logger"))
 
     if extras:
