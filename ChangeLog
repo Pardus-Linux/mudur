@@ -1,3 +1,7 @@
+2009-01-06  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (startServices): Start sysklogd after startNetwork and
+	remove redundant sysklogd as it's manually started.
+
 2008-12-26  Onur Küçük <onur@pardus.org.tr>
 	* bin/mudur.py (cleanupTmp) : Add kde4 directories.
 

@@ -144,8 +144,6 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
         time.sleep(wait)
     return False
 
-#
-
 class Logger:
     def __init__(self):
         self.lines = []
@@ -573,8 +571,6 @@ def ttyUnicode():
         except:
             ui.error(_("Could not set unicode mode on tty %d") % i)
 
-#
-
 def mount(part, args):
     ent = config.get_mount(part)
     if ent and len(ent) > 3:
@@ -674,10 +670,6 @@ def startServices(extras=None):
     except dbus.DBusException:
         ui.error(_("Cannot connect to DBus, services won't be started"))
         return
-    # Almost everything depends on logger, so start manually
-    startService("sysklogd")
-    if not waitBus("/dev/log", stream=False, timeout=15):
-        ui.warn(_("Cannot start system logger"))
 
     if extras:
         for service in extras:
@@ -686,6 +678,7 @@ def startServices(extras=None):
             except dbus.DBusException:
                 pass
         return
+
     # Remove unnecessary lock files - bug #7212
     for _file in os.listdir("/etc/network"):
         if _file.startswith("."):
@@ -694,9 +687,19 @@ def startServices(extras=None):
     # Start network service
     startNetwork(bus)
 
+    # Almost everything depends on logger, so start manually
+    startService("sysklogd")
+    if not waitBus("/dev/log", stream=False, timeout=15):
+        ui.warn(_("Cannot start system logger"))
+
     if not config.get("safe"):
         ui.info(_("Starting services"))
         services = getServices(bus)
+
+        # Remove redundant sysklogd
+        if "sysklogd" in services:
+            services.remove("sysklogd")
+
         # Give login screen a headstart
         head_start = config.get("head_start")
         if head_start and head_start in services:
