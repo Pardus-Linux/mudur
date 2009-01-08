@@ -1,3 +1,6 @@
+2009-01-08  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Use lat0-16 instead of lat9-16 for Swedish font (#8940).
+
 2009-01-06  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (startServices): Start sysklogd after startNetwork and
 	remove redundant sysklogd as it's manually started.
