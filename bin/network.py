@@ -244,7 +244,7 @@ def setState(bus, state, args):
 
         if len(args) == 2:
             obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % args[1], introspect=False)
-            obj.setState(args[0], state, dbus_interface="tr.org.pardus.comar.Net.Link")
+            obj.setState(unicode(args[0]), state, dbus_interface="tr.org.pardus.comar.Net.Link")
         else:
             profiles = {}
             for script in getScripts(bus):
@@ -253,21 +253,21 @@ def setState(bus, state, args):
                         profiles[profile] = []
                     profiles[profile].append(script)
 
-            if args[0] not in profiles:
+            if unicode(args[0]) not in profiles:
                 print _("No such profile.")
                 return FAIL
 
-            if len(profiles[args[0]]) > 1:
+            if len(profiles[unicode(args[0])]) > 1:
                 print _("There are more than one profiles named '%s'") % profile
                 print _("Use one of the following commands:")
-                for script in profiles[args[0]]:
+                for script in profiles[unicode(args[0])]:
                     print "  %s %s '%s' %s" % (sys.argv[0], state, profile, script)
                 return FAIL
             else:
-                script = profiles[args[0]][0]
+                script = profiles[unicode(args[0])][0]
 
             obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
-            obj.setState(args[0], state, dbus_interface="tr.org.pardus.comar.Net.Link")
+            obj.setState(unicode(args[0]), state, dbus_interface="tr.org.pardus.comar.Net.Link")
     except dbus.DBusException, e:
         print _("Error: %s") % str(e)
         return FAIL
@@ -473,7 +473,7 @@ def infoProfile(bus, args):
 
         if len(args) == 2:
             profile, script = args
-            info = getConnectionDetails(bus, script, profile)
+            info = getConnectionDetails(bus, script, unicode(profile))
         else:
             profiles = {}
             for script in getScripts(bus):
@@ -482,20 +482,20 @@ def infoProfile(bus, args):
                         profiles[profile] = []
                     profiles[profile].append(script)
 
-            if args[0] not in profiles:
+            if unicode(args[0]) not in profiles:
                 print _("No such profile.")
                 return FAIL
 
-            if len(profiles[args[0]]) > 1:
+            if len(profiles[unicode(args[0])]) > 1:
                 print _("There are more than one profiles named '%s'") % profile
                 print _("Use one of the following commands:")
-                for script in profiles[args[0]]:
+                for script in profiles[unicode(args[0])]:
                     print "  %s info '%s' %s" % (sys.argv[0], profile, script)
                 return FAIL
             else:
-                script = profiles[args[0]][0]
+                script = profiles[unicode(args[0])][0]
 
-            profile = args[0]
+            profile = unicode(args[0])
             info = getConnectionDetails(bus, script, profile)
     except dbus.DBusException, e:
         print _("Error: %s") % str(e)
