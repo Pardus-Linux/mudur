@@ -1,3 +1,6 @@
+2009-01-14  Furkan Duman <coderlord@gmail.com>
+    * bin/network.py: Unicode fix for Turkish characters in connection name.
+
 2009-01-08  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Use lat0-16 instead of lat9-16 for Swedish font (#8940).
 
