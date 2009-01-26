@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Pardus boot and initialization system
-# Copyright (C) 2006-2008, TUBITAK/UEKAE
+# Copyright (C) 2006-2009, TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -202,16 +202,6 @@ class Config:
         # file system check can be requested with a file
         if os.path.exists("/forcefsck"):
             self.opts["forcefsck"] = True
-
-    def kernel_ge(self, vers):
-        vers = vers.split(".")
-        if int(self.kernel[0]) < int(vers[0]):
-            return False
-        if int(self.kernel[1]) < int(vers[1]):
-            return False
-        if int(self.kernel[2]) < int(vers[2]):
-            return False
-        return True
 
     def get_kernel_opt(self, cmdopt):
         if not self.cmdline:
@@ -770,24 +760,20 @@ def setupUdev():
 
     ui.info(_("Starting udev"))
 
-    if config.kernel_ge("2.6.16"):
-        # disable uevent helper, udevd listens to netlink
-        write("/sys/kernel/uevent_helper", " ")
-        run("/sbin/udevd", "--daemon")
+    # disable uevent helper, udevd listens to netlink
+    write("/sys/kernel/uevent_helper", " ")
+    run("/sbin/udevd", "--daemon")
 
-        ui.info(_("Populating /dev"))
+    ui.info(_("Populating /dev"))
 
-        # create needed queue directory
-        ensureDirs("/dev/.udev/queue/")
+    # create needed queue directory
+    ensureDirs("/dev/.udev/queue/")
 
-        # trigger events for all devices
-        run("/sbin/udevadm", "trigger")
-        # wait for events to finish
-        run("/sbin/udevadm", "settle", "--timeout=180")
-    else:
-        # no netlink support in old kernels
-        write("/proc/sys/kernel/hotplug", "/sbin/udevsend")
-        run("/sbin/udevstart")
+    # trigger events for all devices
+    run("/sbin/udevadm", "trigger")
+
+    # wait for events to finish
+    run("/sbin/udevadm", "settle", "--timeout=180")
 
     # NOTE: handle lvm here when used by pardus
 

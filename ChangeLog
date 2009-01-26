@@ -1,3 +1,6 @@
+2009-01-25  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Drop legacy kernel check for udev initialization.
+
 2009-01-14  Furkan Duman <coderlord@gmail.com>
     * bin/network.py: Unicode fix for Turkish characters in connection name.
 
