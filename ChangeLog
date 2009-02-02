@@ -1,3 +1,6 @@
+2009-02-02  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* bin/mudur.py: Handle logger.sync() exceptions (Fixes #7410).
+
 2009-01-25  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Drop legacy kernel check for udev initialization.
 
