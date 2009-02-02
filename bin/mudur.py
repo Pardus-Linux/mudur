@@ -1300,4 +1300,7 @@ if __name__ == "__main__":
             run("/sbin/halt", "-f")
         # Control never reaches here
 
-    logger.sync()
+    try:
+        logger.sync()
+    except IOError:
+        pass
