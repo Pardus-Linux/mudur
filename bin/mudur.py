@@ -1059,9 +1059,6 @@ def saveClock():
         ui.error(_("Failed to sync clocks"))
 
 def stopSystem():
-    def proc_key(x):
-        """sort helper"""
-        return x[1]
 
     stopServices()
     stopDBus()
@@ -1086,7 +1083,7 @@ def stopSystem():
         ents = filter(lambda x: not (x[0] == "rootfs" or x[0] == "/dev/root"), ents)
         ents = filter(lambda x: x[1] != "/", ents)
         # sort for correct unmount order
-        ents.sort(key=proc_key, reverse=True)
+        ents.sort(key=lambda x: x[1], reverse=True)
         return ents
 
     ui.info(_("Unmounting filesystems"))
