@@ -1,14 +1,17 @@
+# translation of pl.po to Nederlands
+# Willem Gielen <w.gielen@gmail.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: mudur\n"
+"Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-06 10:17+0200\n"
-"PO-Revision-Date: 2006-04-08 12:19+0900\n"
-"Last-Translator: Piotr Maliński <riklaunim@gmail.com>\n"
-"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2009-02-06 10:55+0100\n"
+"Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
+"Language-Team: Nederlands <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: bin/mudur.py:167
 msgid "Cannot write mudur.log, read-only file system"
@@ -39,7 +42,7 @@ msgstr "Nie mogę podnieść interfejsu %s"
 
 #: bin/mudur.py:667
 msgid "No network connection, skipping remote mount."
-msgstr ""
+msgstr "Geen netwerk verbinding, overslaan aankoppelen op afstand."
 
 #: bin/mudur.py:675
 msgid "Cannot connect to DBus, services won't be started"
@@ -172,11 +175,11 @@ msgstr "Ustawianie zegara systemowego do zegara sprzętowego"
 
 #: bin/mudur.py:1011
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
+msgstr "Aanpassen systematische afwijking van de hardware klok mislukt"
 
 #: bin/mudur.py:1015
 msgid "Failed to set system clock to hardware clock"
-msgstr ""
+msgstr "Instellen systeemklok als hardwareklok mislukt"
 
 #: bin/mudur.py:1018
 msgid "Cleaning up /var"
@@ -232,7 +235,7 @@ msgstr "Aktualizuję zmienne środowiskowe"
 
 #: bin/mudur.py:1266
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
+msgstr "Activeren udev gebeurtenissen die bij eerdere run mislukt zijn"
 
 #: bin/mudur.py:1273
 msgid "Loading CPUFreq modules"
@@ -240,8 +243,7 @@ msgstr "Ładuję moduły CPUFreq"
 
 #: bin/mudur.py:1300
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Próbuje zainicjować \"gorący\" restart (pomijam BIOS za pomocą kernela kexec)"
+msgstr "Próbuje zainicjować \"gorący\" restart (pomijam BIOS za pomocą kernela kexec)"
 
 #: bin/service.py:58
 msgid "local"
@@ -304,9 +306,9 @@ msgid "Service '%s' won't be auto started."
 msgstr "Usługa '%s' nie zostanie automatycznie uruchomiona."
 
 #: bin/service.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Service '%s' will be started if required."
-msgstr "Usługa '%s' zostanie automatycznie uruchomiona."
+msgstr "Dienst '%s' zal, indien nodig, gestart worden."
 
 #: bin/service.py:167
 #, python-format
@@ -559,41 +561,3 @@ msgstr "D-Bus Error: %s"
 msgid "Cancelled"
 msgstr "Anulowana"
 
-#~ msgid "Calculating module dependencies for %s"
-#~ msgstr "Kalkulowanie zależności modułu dla %s"
-
-#~ msgid "Enter new connection name"
-#~ msgstr "Wprowadź nową nazwę połączenia"
-
-#~ msgid "Device '%s' selected."
-#~ msgstr "Urządzenie '%s' wybrane."
-
-#~ msgid "Select connection device:"
-#~ msgstr "Wybierz urządzenie do połączenia:"
-
-#~ msgid "Starting COMAR"
-#~ msgstr "Startowanie COMAR"
-
-#~ msgid "Stopping COMAR"
-#~ msgstr "Zatrzymywanie COMAR"
-
-#~ msgid "Starting Coldplug"
-#~ msgstr "Uruchamianie Coldplug"
-
-#~ msgid "You dont have permission to do this operation."
-#~ msgstr "Nie masz uprawnień do wykonania tej operacji."
-
-#~ msgid "There is no such service."
-#~ msgstr "Brak urządzenia"
-
-#~ msgid "Service doesn't provide this operation."
-#~ msgstr "Usługa nie wspiera tej operacji"
-
-#~ msgid "You should be the root user in order to control the comar service."
-#~ msgstr "Musisz być użytkownikiem root by kontrolować usługę comar"
-
-#~ msgid "Service '%s' started."
-#~ msgstr "Usługa '%s' uruchomiona"
-
-#~ msgid "Service '%s' stopped."
-#~ msgstr "Usługa '%s' zatrzymana"
