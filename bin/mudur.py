@@ -189,6 +189,7 @@ class Config:
             "tty_number": "6",
             "debug": False,
             "livecd": False,
+            "lvm": False,
             "safe": False,
             "forcefsck": False,
             "head_start": "",
@@ -226,6 +227,8 @@ class Config:
             for opt in opts:
                 if opt == "livecd" or opt == "livedisk" or opt == "thin":
                     self.opts["livecd"] = True
+                elif opt == "lvm":
+                    self.opts["lvm"] = True
                 elif opt == "debug":
                     self.opts["debug"] = True
                 elif opt == "safe":
@@ -776,6 +779,12 @@ def setupUdev():
     run("/sbin/udevadm", "settle", "--timeout=180")
 
     # NOTE: handle lvm here when used by pardus
+
+    if config.get("lvm"):
+        run_quiet("/sbin/modprobe", "dm-mod")
+        run_quiet("/usr/sbin/dmsetup", "mknodes")
+        run_quiet("/usr/sbin/lvm", "vgscan", "--ignorelockingfailure")
+        run_quiet("/usr/sbin/lvm", "vgchange", "-ay", "--ignorelockingfailure")
 
 def checkRoot():
     if not config.get("livecd"):
