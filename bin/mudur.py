@@ -700,12 +700,16 @@ def startServices(extras=None):
             services.remove(head_start)
         for service in services:
             readyService(service)
-        waitBus("/tmp/.X11-unix/X0")
-        splash.updateProgressBar(100)
 
-        # Avoid users trying to login using VT
-        # because of the X startup delay.
-        time.sleep(2)
+        xorg_opts = config.get_kernel_opt("xorg")
+        if xorg_opts is None or "off" not in xorg_opts.split(","):
+            waitBus("/tmp/.X11-unix/X0", timeout=10)
+
+            # Avoid users trying to login using VT
+            # because of the X startup delay.
+            time.sleep(1)
+
+        splash.updateProgressBar(100)
 
 def stopServices():
     import dbus

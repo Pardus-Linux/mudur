@@ -1,3 +1,8 @@
+2009-02-21  Fatih Aşıcı <fatih@pardus.org.tr>
+	* bin/mudur.py (startServices): Increase timeout for waiting X
+	socket to be ready and do not wait if xorg=off is passed on kernel
+	command line.
+
 2009-02-02  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (stopSystem): Use lambda function for sort helper.
 
