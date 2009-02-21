@@ -1114,7 +1114,7 @@ def stopSystem():
         ents = map(lambda x: x.split(), ents)
         ents = filter(lambda x: len(x) > 2, ents)
         ents = filter(lambda x: x[0] != "none", ents)
-        ents.sort(key=proc_key, reverse=True)
+        ents.sort(key=lambda x: x[1], reverse=True)
 
         if ents:
             run("/bin/sync")
