@@ -1,3 +1,12 @@
+2009-02-23  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (setupUdev):
+	Use start-stop-daemon for udev startup,
+	The default timeout is 180, no need to give it as a parameter,
+	Call "udevadm monitor" for logging into /dev/.udev.log,
+	Call /usr/bin/udevsync after rw remounting of the root filesystem
+	for copying the log file and the persistent network/cdrom rules
+	from /dev into /var/log and /etc (#8458, #8520).
+
 2009-02-21  Fatih Aşıcı <fatih@pardus.org.tr>
 	* bin/mudur.py (startServices): Increase timeout for waiting X
 	socket to be ready and do not wait if xorg=off is passed on kernel

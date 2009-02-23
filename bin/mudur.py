@@ -733,6 +733,7 @@ def stopDBus():
 
 def setupUdev():
     ui.info(_("Mounting /dev"))
+
     # many video drivers require exec access in /dev
     mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755 udev /dev")
 
@@ -765,22 +766,34 @@ def setupUdev():
         if not os.path.lexists(link[0]):
             os.symlink(link[1], link[0])
 
-    ui.info(_("Starting udev"))
 
     # disable uevent helper, udevd listens to netlink
     write("/sys/kernel/uevent_helper", " ")
-    run("/sbin/udevd", "--daemon")
 
-    ui.info(_("Populating /dev"))
+    # Start udev daemon
+    ui.info(_("Starting udev"))
+
+    run("/sbin/start-stop-daemon", "--start", "--quiet",
+        "--exec", "/sbin/udevd", "--", "--daemon")
 
     # create needed queue directory
     ensureDirs("/dev/.udev/queue/")
+
+
+    # Log things that trigger does
+    pid = subprocess.Popen(["/sbin/udevadm", "monitor", "--env"],
+                           stdout=open("/dev/.udev.log", "w")).pid
+
+    ui.info(_("Populating /dev"))
 
     # trigger events for all devices
     run("/sbin/udevadm", "trigger")
 
     # wait for events to finish
-    run("/sbin/udevadm", "settle", "--timeout=180")
+    run("/sbin/udevadm", "settle")
+
+    # Kill udev monitor with SIGTERM
+    os.kill(pid, 15)
 
     # NOTE: handle lvm here when used by pardus
 
@@ -1215,6 +1228,10 @@ if __name__ == "__main__":
         run("/bin/dmesg", "-n", "1")
 
         checkRoot()
+
+        # Grab persistent rules and udev.log file from /dev
+        run("/usr/bin/udevsync")
+
         setHostname()
 
         modules()
