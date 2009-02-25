@@ -856,14 +856,14 @@ def checkRoot():
                 ui.warn(_("Rebooting..."))
                 run("/sbin/reboot", "-f")
             else:
-                ui.error(_("Filesystem couldn't be fixed :("))
+                ui.error(_("Filesystem could not be fixed"))
                 run_full("/sbin/sulogin")
         else:
             ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
 
     ui.info(_("Remounting root filesystem read/write"))
     if run_quiet("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
-        ui.error(_("Root filesystem could not be mounted read/write :("))
+        ui.error(_("Root filesystem could not be mounted read/write"))
 
     # Fix mtab
     write("/etc/mtab", "")
@@ -1168,7 +1168,7 @@ def stopSystem():
             run_quiet("killall5", "-9")
         return ret
 
-    ui.info(_("Remounting remaining filesystems readonly"))
+    ui.info(_("Remounting remaining filesystems read-only"))
     splash.updateProgressBar(0)
     # we parse /proc/mounts but use umount, so this have to agree
     run("cp", "/proc/mounts", "/etc/mtab")
