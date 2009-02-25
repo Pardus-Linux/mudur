@@ -10,17 +10,18 @@
 # option) any later version. Please read the COPYING file.
 #
 
-import sys
 import os
+import sys
 import glob
-import stat
-import subprocess
-import gettext
 import time
-import signal
+import stat
 import fcntl
-import termios
+import signal
+import shutil
 import socket
+import termios
+import gettext
+import subprocess
 
 import pardus.iniutils
 from pardus.netutils import waitNet
@@ -731,6 +732,29 @@ def stopDBus():
 # Initialization functions
 #
 
+def copyUdevFiles():
+    # Copy udevtrigger log file to /var/log
+    if os.path.exists("/dev/.udev.log"):
+        try:
+            shutil.move("/dev/.udev.log", "/var/log/udev.log")
+        except IOError:
+            # Can't move it, no problem.
+            pass
+
+    # Moves any persistent rules from /dev/.udev to /etc/udev/rules.d
+    for rule in glob.glob("/dev/.udev/tmp-rules--*"):
+        dest = "/etc/udev/rules.d/%s" % os.path.basename(rule).split("tmp-rules--")[1]
+        try:
+            shutil.move(rule, dest)
+        except IOError:
+            ui.warn(_("Can't move persistent udev rules from /dev/.udev"))
+            pass
+
+    # If any persistent rules exist in /etc/udev/rules.d, trigger udev
+    # for processing them.
+    if glob.glob("/etc/udev/rules.d/70-persistent-*"):
+        run(["/sbin/udevadm", "trigger"])
+
 def setupUdev():
     ui.info(_("Mounting /dev"))
 
@@ -1230,7 +1254,7 @@ if __name__ == "__main__":
         checkRoot()
 
         # Grab persistent rules and udev.log file from /dev
-        run("/usr/bin/udevsync")
+        copyUdevFiles()
 
         setHostname()
 

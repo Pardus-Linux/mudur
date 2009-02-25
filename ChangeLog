@@ -1,3 +1,7 @@
+2009-02-25  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (copyUdevFiles): Implement a new method for
+	copying the rules and log file instead of spawning a new process.
+
 2009-02-23  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (setupUdev):
 	Use start-stop-daemon for udev startup,
