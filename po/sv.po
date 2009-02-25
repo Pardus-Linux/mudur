@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: sv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-25 09:53+0200\n"
-"PO-Revision-Date: 2009-01-06 11:00+0100\n"
+"PO-Revision-Date: 2009-02-25 16:37+0100\n"
 "Last-Translator: Patrik Karlsson <patrik@pardus.nu>\n"
 "Language-Team:  <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "Stoppar D-Bus"
 
 #: bin/mudur.py:750
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
+msgstr "Kan inte flytta beständiga udev-regler från /dev/.udev"
 
 #: bin/mudur.py:759
 msgid "Mounting /dev"
@@ -223,7 +223,7 @@ msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
-"Ett intern fel har uppstått. Vänligen rapportera följande fel till bugs."
+"Ett internt fel har uppstått. Vänligen rapportera följande fel till bugs."
 "pardus.org.tr:"
 
 #: bin/mudur.py:1242
@@ -414,7 +414,7 @@ msgstr "Förmedlingsnod         : %s "
 #: bin/network.py:77
 #, python-format
 msgid "Netmode         : %s "
-msgstr "Nätläge         : %s "
+msgstr "Nätverksläge         : %s "
 
 #: bin/network.py:79
 #, python-format
@@ -570,3 +570,4 @@ msgstr "D-Bus-fel: %s"
 #: bin/network.py:538
 msgid "Cancelled"
 msgstr "Avbruten"
+
