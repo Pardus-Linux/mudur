@@ -395,7 +395,7 @@ msgstr "Adres           : %s "
 #: bin/network.py:69
 #, python-format
 msgid "Device Name     : %s "
-msgstr "Aygıt adı       :%s "
+msgstr "Aygıt adı       : %s "
 
 #: bin/network.py:71
 #, python-format
