@@ -1,3 +1,23 @@
+2009-02-26  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/network.py: Remove useless import.
+	* bin/service.py (loadConfig, Service.__init__): Rename shadowed builtin variables.
+	* bin/update-environment.py (read_env_d): Rename shadowed builtin variables.
+	* bin/mudur.py:
+	Comment the code,
+	Rename some functions for better self-explanation,
+	Split setupUdev() to setupUdev() and startUdev(),
+	Make the code pychecker clean.
+	* bin/mudur.py (loadFile, writeToFile):
+	Use open() instead of file().
+	* bin/mudur.py (setupUdev):
+	Limit the size of /dev to 10M,
+	No need to traverse /lib/udev/devices, just copy it recursively,
+	Remove uevent_helper hack for older kernels.
+	* bin/mudur.py (startUdev):
+	Use start-stop-daemon for udev monitor startup/cleanup.
+	* bin/mudur.py (stopSystem):
+	Call stopUdev() to stop udev daemon.
+
 2009-02-25  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (copyUdevFiles): Implement a new method for
 	copying the rules and log file instead of spawning a new process.

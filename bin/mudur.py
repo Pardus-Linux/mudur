@@ -39,13 +39,13 @@ _ = __trans.ugettext
 
 def loadFile(path):
     """Read contents of a file"""
-    f = file(path)
+    f = open(path, "r")
     data = f.read()
     f.close()
     return data
 
 def loadConfig(path):
-    dict = {}
+    d = {}
     for line in file(path):
         if line != "" and not line.startswith("#") and "=" in line:
             key, value = line.split("=", 1)
@@ -53,19 +53,25 @@ def loadConfig(path):
             value = value.strip()
             if value.startswith('"') or value.startswith("'"):
                 value = value[1:-1]
-            dict[key] = value
-    return dict
+            d[key] = value
+    return d
 
-def ensureDirs(path):
+def createDirectory(path):
     """Create missing directories in the path"""
     if not os.path.exists(path):
         os.makedirs(path)
 
-def write(filename, data):
+def writeToFile(filename, data):
     """Write data to file"""
-    f = file(filename, "w")
+    f = open(filename, "w")
     f.write(data)
     f.close()
+
+def mount(part, args):
+    ent = config.get_mount(part)
+    if ent and len(ent) > 3:
+        args = "-t %s -o %s %s %s" % (ent[2], ent[3], ent[0], ent[1])
+    os.system("/bin/mount -n %s" % args)
 
 def mdate(filename):
     """Return last modification date of a file"""
@@ -144,6 +150,7 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
             timeout -= wait
         time.sleep(wait)
     return False
+
 
 class Logger:
     def __init__(self):
@@ -302,19 +309,19 @@ class Splash:
 
     def silent(self):
         if self.enabled:
-            write("/proc/splash", "silent\n")
+            writeToFile("/proc/splash", "silent\n")
             self.updateProgressBar()
 
     def verbose(self):
         if self.enabled:
-            write("/proc/splash", "verbose\n")
+            writeToFile("/proc/splash", "verbose\n")
 
     def updateProgressBar(self, percent=None):
         if self.enabled:
             if percent is not None:
                 self.percent = percent
             pe = int(655.35 * self.percent)
-            write("/proc/splash", "show %d" % pe)
+            writeToFile("/proc/splash", "show %d" % pe)
 
     def progress(self, delta=3):
         if self.enabled:
@@ -526,18 +533,20 @@ def setSystemLanguage():
     lang = config.get("language")
     keymap = config.get("keymap")
     language = languages[lang]
+
     # Put them in /etc, so other programs like kdm can use them
     # without duplicating default->mudur.conf->kernel-option logic
     # we do here. Note that these are system-wide not per user,
     # and only for reading.
-    ensureDirs("/etc/mudur")
-    write("/etc/mudur/language", "%s\n" % lang)
-    write("/etc/mudur/keymap", "%s\n" % keymap)
-    write("/etc/mudur/locale", "%s\n" % language.locale)
+    createDirectory("/etc/mudur")
+    writeToFile("/etc/mudur/language", "%s\n" % lang)
+    writeToFile("/etc/mudur/keymap", "%s\n" % keymap)
+    writeToFile("/etc/mudur/locale", "%s\n" % language.locale)
+
     # Update environment if necessary
     content = "LANG=%s\nLC_ALL=%s\n" % (language.locale, language.locale)
     if content != loadFile("/etc/env.d/03locale"):
-        write("/etc/env.d/03locale", content)
+        writeToFile("/etc/env.d/03locale", content)
 
 def setTranslation():
     """Load translation"""
@@ -565,11 +574,6 @@ def ttyUnicode():
         except:
             ui.error(_("Could not set unicode mode on tty %d") % i)
 
-def mount(part, args):
-    ent = config.get_mount(part)
-    if ent and len(ent) > 3:
-        args = "-t %s -o %s %s %s" % (ent[2], ent[3], ent[0], ent[1])
-    os.system("/bin/mount -n %s" % args)
 
 
 #
@@ -728,11 +732,12 @@ def stopDBus():
     run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
 
 
-#
-# Initialization functions
-#
+#############################
+# UDEV management functions #
+#############################
 
-def copyUdevFiles():
+def copyUdevRules():
+
     # Copy udevtrigger log file to /var/log
     if os.path.exists("/dev/.udev.log"):
         try:
@@ -756,29 +761,32 @@ def copyUdevFiles():
         run(["/sbin/udevadm", "trigger"])
 
 def setupUdev():
+
     ui.info(_("Mounting /dev"))
 
-    # many video drivers require exec access in /dev
-    mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755 udev /dev")
+    # Many video drivers require exec access in /dev
+    mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755,size=10M udev /dev")
 
     # At this point, an empty /dev is mounted on ramdisk
     # We need /dev/null for calling run_quiet
     os.mknod("/dev/null", 0666 | stat.S_IFCHR, os.makedev(1, 3))
 
+    # Copy over any persistent things
     devpath = "/lib/udev/devices"
     if os.path.exists(devpath):
-        ui.info(_("Restoring saved device states"))
-        for name in os.listdir(devpath):
-            run_quiet(
-                "/bin/cp",
-                "--preserve=all", "--recursive", "--update",
-                "%s/%s" % (devpath, name), "/dev/"
-            )
+        ui.info(_("Restoring saved device nodes"))
+        run_quiet(
+            "/bin/cp",
+            "--preserve=all", "--recursive",
+            "--update", "--no-dereference",
+            "%s/*" % (devpath), "/dev/"
+        )
 
     # When these files are missing, lots of trouble happens
-    # so we double check that they are there
-    ensureDirs("/dev/pts")
-    ensureDirs("/dev/shm")
+    # so we double check their existence
+    createDirectory("/dev/pts")
+    createDirectory("/dev/shm")
+
     devlinks = (
         ("/dev/fd", "/proc/self/fd"),
         ("/dev/stdin", "fd/0"),
@@ -786,38 +794,44 @@ def setupUdev():
         ("/dev/stderr", "fd/2"),
         ("/dev/core", "/proc/kcore"),
     )
+
+    # Create if any of the above links is missing
     for link in devlinks:
         if not os.path.lexists(link[0]):
             os.symlink(link[1], link[0])
 
-
-    # disable uevent helper, udevd listens to netlink
-    write("/sys/kernel/uevent_helper", " ")
+def startUdev():
 
     # Start udev daemon
     ui.info(_("Starting udev"))
 
-    run("/sbin/start-stop-daemon", "--start", "--quiet",
+    run("/sbin/start-stop-daemon",
+        "--start", "--quiet",
         "--exec", "/sbin/udevd", "--", "--daemon")
 
-    # create needed queue directory
-    ensureDirs("/dev/.udev/queue/")
-
+    # Create needed queue directory
+    createDirectory("/dev/.udev/queue/")
 
     # Log things that trigger does
-    pid = subprocess.Popen(["/sbin/udevadm", "monitor", "--env"],
-                           stdout=open("/dev/.udev.log", "w")).pid
+    run("/sbin/start-stop-daemon",
+        "--start", "--stdout", "/dev/.udevmonitor.log",
+        "--make-pidfile", "--pidfile", "/dev/.udevmonitor.pid",
+        "--background", "--exec", "/sbin/udevadm", "--",
+        "monitor", "--env")
 
+    # Filling up /dev by triggering uevents
     ui.info(_("Populating /dev"))
 
-    # trigger events for all devices
+    # Trigger events for all devices
     run("/sbin/udevadm", "trigger")
 
-    # wait for events to finish
-    run("/sbin/udevadm", "settle")
+    # Wait for events to finish
+    run("/sbin/udevadm", "settle", "--timeout=60")
 
-    # Kill udev monitor with SIGTERM
-    os.kill(pid, 15)
+    # Stop udevmonitor
+    run("/sbin/start-stop-daemon",
+        "--stop", "--pidfile", "/dev/.udevmonitor.pid",
+        "--exec", "/sbin/udevadm")
 
     # NOTE: handle lvm here when used by pardus
 
@@ -827,7 +841,12 @@ def setupUdev():
         run_quiet("/usr/sbin/lvm", "vgscan", "--ignorelockingfailure")
         run_quiet("/usr/sbin/lvm", "vgchange", "-ay", "--ignorelockingfailure")
 
-def checkRoot():
+def stopUdev():
+    run("/sbin/start-stop-daemon",
+        "--stop", "--exec", "/sbin/udevd")
+
+
+def checkRootFileSystem():
     if not config.get("livecd"):
         ui.info(_("Remounting root filesystem read-only"))
         run("/bin/mount", "-n", "-o", "remount,ro", "/")
@@ -838,7 +857,7 @@ def checkRoot():
                 splash.verbose()
                 ui.info(_("Checking root filesystem (full check forced)"))
                 t = run_full("/sbin/fsck", "-C", "-a", "-f", "/")
-                # /forcefsck isn't deleted because checkFS needs it.
+                # /forcefsck isn't deleted because checkFileSystems needs it.
                 # it'll be deleted in that function.
             else:
                 ui.info(_("Checking root filesystem"))
@@ -866,7 +885,7 @@ def checkRoot():
         ui.error(_("Root filesystem could not be mounted read/write"))
 
     # Fix mtab
-    write("/etc/mtab", "")
+    writeToFile("/etc/mtab", "")
     run("/bin/mount", "-f", "/")
     ents = loadFile("/proc/mounts").split("\n")
     for ent in ents:
@@ -904,13 +923,13 @@ def setHostname():
                 data = data[:i+10] + host + data[j:]
         else:
             data = 'HOSTNAME="' + host + '"\n' + data
-        write("/etc/env.d/01hostname", data)
+        writeToFile("/etc/env.d/01hostname", data)
 
     ui.info(_("Setting up hostname as '%s'") % host)
     run("/bin/hostname", host)
 
-def modules():
-    # dont fail if kernel do not have module support compiled in
+def autoloadModules():
+    # Don't fail if kernel do not have module support compiled in
     if not os.path.exists("/proc/modules"):
         return
 
@@ -923,7 +942,7 @@ def modules():
         for mod in data:
             run("/sbin/modprobe", "-q", mod)
 
-def checkFS():
+def checkFileSystems():
     if config.get("livecd"):
         return
 
@@ -1005,27 +1024,27 @@ def remoteMount(dry_run=False):
         time.sleep(1)
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
-def hdparm():
+def setDiskParameters():
     if config.get("safe"):
         return
 
     if not os.path.exists("/sbin/hdparm") or not os.path.exists("/etc/conf.d/hdparm"):
         return
 
-    dict = loadConfig("/etc/conf.d/hdparm")
-    if len(dict) > 0:
+    d = loadConfig("/etc/conf.d/hdparm")
+    if len(d) > 0:
         ui.info(_("Setting disk parameters"))
-        if dict.has_key("all"):
+        if d.has_key("all"):
             for name in os.listdir("/sys/block/"):
-                if name.startswith("hd") and len(name) == 3 and not dict.has_key(name):
+                if name.startswith("hd") and len(name) == 3 and not d.has_key(name):
                     args = [ "/sbin/hdparm" ]
-                    args.extend(dict["all"].split())
+                    args.extend(d["all"].split())
                     args.append("/dev/%s" % name)
                     run_quiet(*args)
-        for key in dict:
+        for key in d:
             if key != "all":
-                args = [ "/sbin/hdparm" ]
-                args.extend(dict[key].split())
+                args = ["/sbin/hdparm"]
+                args.extend(d[key].split())
                 args.append("/dev/%s" % key)
                 run_quiet(*args)
 
@@ -1044,7 +1063,7 @@ def setClock():
         if not touch("/etc/adjtime"):
             adj = "--noadjfile"
         elif os.stat("/etc/adjtime").st_size == 0:
-            write("/etc/adjtime", "0.0 0 0.0\n")
+            writeToFile("/etc/adjtime", "0.0 0 0.0\n")
         t = capture("/sbin/hwclock", adj, opts)
         if t[1] != '':
             ui.error(_("Failed to adjust systematic drift of the hardware clock"))
@@ -1083,11 +1102,11 @@ def cleanupTmp():
     )
     map(delete, cleanup_list)
 
-    ensureDirs("/tmp/.ICE-unix")
+    createDirectory("/tmp/.ICE-unix")
     os.chown("/tmp/.ICE-unix", 0, 0)
     os.chmod("/tmp/.ICE-unix", 01777)
 
-    ensureDirs("/tmp/.X11-unix")
+    createDirectory("/tmp/.X11-unix")
     os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.X11-unix", 01777)
 
@@ -1111,6 +1130,7 @@ def saveClock():
 def stopSystem():
 
     stopServices()
+    stopUdev()
     stopDBus()
 
     saveClock()
@@ -1192,9 +1212,8 @@ def except_hook(eType, eValue, eTrace):
     run_full("/sbin/sulogin")
 
 
-# Global variables
+# Global objects
 
-# Setup output and load configuration
 logger = Logger()
 config = Config()
 splash = Splash()
@@ -1220,10 +1239,13 @@ if __name__ == "__main__":
 
         # This is who we are...
         ui.greet()
+
         # Mount /proc
         mount("/proc", "-t proc proc /proc")
+
         # We need /proc mounted before accessing kernel boot options
         config.parse_kernel_opts()
+
         # Now we know which language and keymap to use
         setConsole()
 
@@ -1239,10 +1261,15 @@ if __name__ == "__main__":
     if sys.argv[1] == "sysinit":
         splash.init(0)
 
+        # Mount sysfs
         ui.info(_("Mounting /sys"))
         mount("/sys", "-t sysfs sysfs /sys")
 
+        # Prepare the /dev directory for udev startup
         setupUdev()
+
+        # Start udev and event triggering
+        startUdev()
 
         ui.info(_("Mounting /dev/pts"))
         mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
@@ -1251,26 +1278,35 @@ if __name__ == "__main__":
         # only panic messages will be printed
         run("/bin/dmesg", "-n", "1")
 
-        checkRoot()
+        # Check root file system
+        checkRootFileSystem()
 
         # Grab persistent rules and udev.log file from /dev
-        copyUdevFiles()
+        copyUdevRules()
 
+        # Set hostname
         setHostname()
 
-        modules()
+        # Load modules manually written in /etc/modules.autoload.d/kernel-x.y
+        autoloadModules()
 
-        checkFS()
+        # Check all filesystems
+        checkFileSystems()
+
+        # Mount local filesystems
         localMount()
 
-        hdparm()
+        # Set disk parameters using hdparm
+        setDiskParameters()
 
+        # Set the clock
         setClock()
 
+        # Set the system language
         setSystemLanguage()
 
-        # when we exit this runlevel, init will write a boot record to utmp
-        write("/var/run/utmp", "")
+        # When we exit this runlevel, init will write a boot record to utmp
+        writeToFile("/var/run/utmp", "")
         touch("/var/log/wtmp")
         run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
         run("/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
@@ -1280,13 +1316,16 @@ if __name__ == "__main__":
 
         ui.info(_("Setting up localhost"))
         run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
-        run("/sbin/route", "add", "-net", "127.0.0.0", "netmask", "255.0.0.0",
-            "gw", "127.0.0.1", "dev", "lo")
+        run("/sbin/route", "add", "-net", "127.0.0.0",
+            "netmask", "255.0.0.0", "gw", "127.0.0.1", "dev", "lo")
 
         run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
 
+        # Cleanup /var
         cleanupVar()
 
+        # Update environment variables according to the modification
+        # time of the relevant files
         if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
             ui.info(_("Updating environment variables"))
             if config.get("livecd"):
@@ -1294,27 +1333,34 @@ if __name__ == "__main__":
             else:
                 run("/sbin/update-environment")
 
+        # Cleanup /tmp
         cleanupTmp()
 
+        # Start DBUS
         startDBus()
 
+        # Set unicode properties for ttys
         ttyUnicode()
 
     elif sys.argv[1] == "default":
         splash.init(75)
 
+        # Trigger only the events which are failed during a previous run
         ui.info(_("Triggering udev events which are failed during a previous run"))
-        # Trigger only the events which are failed during a previous run.
         run("/sbin/udevadm", "trigger", "--retry-failed")
 
+        # Source local.start
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
             run("/bin/bash", "/etc/conf.d/local.start")
 
+        # Probe and load CPUFreq kernel modules
         ui.info(_("Loading CPUFreq modules"))
         cpu = CPU()
         cpu.loadCPUfreq()
 
+        # Start services
         startServices()
+
         splash.verbose()
 
     elif sys.argv[1] == "single":
@@ -1327,15 +1373,20 @@ if __name__ == "__main__":
         # Log the operation before unmounting file systems
         logger.sync()
 
+        # Source local.stop
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
             run("/bin/bash", "/etc/conf.d/local.stop")
+
         splash.progress(40)
 
+        # Stop the system
         stopSystem()
 
         if sys.argv[1] == "reboot":
+
             # Try to reboot using kexec, if kernel supports it.
             kexecFile = "/sys/kernel/kexec_loaded"
+
             if os.path.exists(kexecFile) and int(file(kexecFile).read().strip()):
                 ui.info(_("Trying initiate a warm reboot (skipping BIOS with kexec kernel)"))
                 run_quiet("/usr/sbin/kexec", "-e")
@@ -1344,11 +1395,14 @@ if __name__ == "__main__":
             # When halting the system do a poweroff. This is the default when halt is called as powerof
             # Don't write the wtmp record.
             run("/sbin/reboot", "-idp")
+
             # Force halt or reboot, don't call shutdown
             run("/sbin/reboot", "-f")
+
         else:
             run("/sbin/halt", "-ihdp")
             run("/sbin/halt", "-f")
+
         # Control never reaches here
 
     try:

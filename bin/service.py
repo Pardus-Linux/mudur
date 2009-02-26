@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2006-2007, TUBITAK/UEKAE
+# Copyright (C) 2006-2009, TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -26,7 +26,7 @@ _ = __trans.ugettext
 # Utilities
 
 def loadConfig(path):
-    dict = {}
+    d = {}
     for line in file(path):
         if line != "" and not line.startswith("#") and "=" in line:
             key, value = line.split("=", 1)
@@ -34,8 +34,8 @@ def loadConfig(path):
             value = value.strip()
             if value.startswith('"') or value.startswith("'"):
                 value = value[1:-1]
-            dict[key] = value
-    return dict
+            d[key] = value
+    return d
 
 def waitBus(unix_name, timeout=10, wait=0.1, stream=True):
     if stream:
@@ -65,9 +65,9 @@ class Service:
         self.running = ""
         self.autostart = ""
         if info:
-            type, self.description, state = info
+            servicetype, self.description, state = info
             self.state = state
-            self.type = self.types[type]
+            self.servicetype = self.types[servicetype]
             if state in ("on", "started", "conditional_started"):
                 self.running = _("running")
             if state in ("on", "stopped"):

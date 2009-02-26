@@ -48,7 +48,7 @@ specials = (
 )
 
 def read_env_d(envdir):
-    dict = {}
+    d = {}
 
     paths = []
     for name in os.listdir(envdir):
@@ -81,14 +81,14 @@ def read_env_d(envdir):
 
                 # Merge for special variables, override for others
                 if key in specials:
-                    if dict.has_key(key):
-                        dict[key].extend(value.split(":"))
+                    if d.has_key(key):
+                        d[key].extend(value.split(":"))
                     else:
-                        dict[key] = value.split(":")
+                        d[key] = value.split(":")
                 else:
-                    dict[key] = value
+                    d[key] = value
 
-    return dict
+    return d
 
 def generate_profile_env(envdict, format='export %s="%s"\n'):
     profile = ""
