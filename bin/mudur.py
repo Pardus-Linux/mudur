@@ -114,6 +114,16 @@ def capture(*cmd):
     a = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return a.communicate()
 
+def run_async(cmd, fstdout=None, fstderr=None):
+    """Runs a command in background and redirects the outputs optionally"""
+    if fstdout and fstderr:
+        return subprocess.Popen(cmd, stdout=open(fstdout, "w"),
+                                     stderr=open(fstderr, "w")).pid
+    elif fstdout:
+        return subprocess.Popen(cmd, stdout=open(fstdout, "w")).pid
+    else:
+        return subprocess.Popen(cmd, stderr=open(fstdout, "w")).pid
+
 def run(*cmd):
     """Run a command without running a shell, only output errors"""
     f = file("/dev/null", "w")
@@ -739,9 +749,9 @@ def stopDBus():
 def copyUdevRules():
 
     # Copy udevtrigger log file to /var/log
-    if os.path.exists("/dev/.udev.log"):
+    if os.path.exists("/dev/.udevmonitor.log"):
         try:
-            shutil.move("/dev/.udev.log", "/var/log/udev.log")
+            shutil.move("/dev/.udevmonitor.log", "/var/log/udev.log")
         except IOError:
             # Can't move it, no problem.
             pass
@@ -813,11 +823,8 @@ def startUdev():
     createDirectory("/dev/.udev/queue/")
 
     # Log things that trigger does
-    run("/sbin/start-stop-daemon",
-        "--start", "--stdout", "/dev/.udevmonitor.log",
-        "--make-pidfile", "--pidfile", "/dev/.udevmonitor.pid",
-        "--background", "--exec", "/sbin/udevadm", "--",
-        "monitor", "--env")
+    pid = run_async(["/sbin/udevadm", "monitor", "--env"],
+                    fstdout="/dev/.udevmonitor.log")
 
     # Filling up /dev by triggering uevents
     ui.info(_("Populating /dev"))
@@ -829,11 +836,10 @@ def startUdev():
     run("/sbin/udevadm", "settle", "--timeout=60")
 
     # Stop udevmonitor
-    run("/sbin/start-stop-daemon",
-        "--stop", "--pidfile", "/dev/.udevmonitor.pid",
-        "--exec", "/sbin/udevadm")
+    os.kill(pid, 15)
 
     # NOTE: handle lvm here when used by pardus
+    # These could be achieved using some udev rules.
 
     if config.get("lvm"):
         run_quiet("/sbin/modprobe", "dm-mod")

@@ -1,3 +1,11 @@
+2009-03-03  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: The I/O redirection of start-stop-daemon
+	doesn't work at all. Implemented a new method run_async()
+	which runs a command in background and optionally redirects
+	its output and error streams.
+	* bin/mudur.py (startUdev): Use run_async() for spawning
+	udevadm monitor instead of buggy start-stop-daemon.
+
 2009-02-26  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/network.py: Remove useless import.
 	* bin/service.py (loadConfig, Service.__init__): Rename shadowed builtin variables.
