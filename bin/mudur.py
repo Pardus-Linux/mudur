@@ -164,20 +164,17 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
 
 class Logger:
     def __init__(self):
-        self.lines = []
+        self.lines = ["\n"]
 
     def log(self, msg):
         stamp = time.strftime("%b %d %H:%M:%S")
-        try:
-            up = loadFile("/proc/uptime").split()[0]
-        except:
-            up = "..."
-        self.lines.append("%s (up %s) %s\n" % (stamp, up, msg))
+        self.lines.append("[%.3f] %s %s\n" % (time.time(), stamp, msg))
 
     def sync(self):
         try:
-            f = file("/var/log/mudur.log", "a")
-            map(f.write, self.lines)
+            f = open("/var/log/mudur.log", "a")
+            self.lines.append("\n")
+            f.writelines(self.lines)
             f.close()
         except IOError:
             ui.error(_("Cannot write mudur.log, read-only file system"))

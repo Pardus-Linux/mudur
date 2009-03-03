@@ -5,6 +5,9 @@
 	its output and error streams.
 	* bin/mudur.py (startUdev): Use run_async() for spawning
 	udevadm monitor instead of buggy start-stop-daemon.
+	* bin/mudur.py (Logger.sync): Use epoch time instead of
+	uptime for not reading /proc/uptime for every log attempt.
+	Use writelines() instead of map().
 
 2009-02-26  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/network.py: Remove useless import.
