@@ -758,7 +758,7 @@ def copyUdevRules():
     # If any persistent rules exist in /etc/udev/rules.d, trigger udev
     # for processing them.
     if glob.glob("/etc/udev/rules.d/70-persistent-*"):
-        run(["/sbin/udevadm", "trigger"])
+        run("/sbin/udevadm", "trigger")
 
 def setupUdev():
 
