@@ -158,6 +158,7 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
             return True
         except:
             timeout -= wait
+        ui.debug("Waiting %f seconds for '%s'" % (wait, unix_name))
         time.sleep(wait)
     return False
 
@@ -195,6 +196,7 @@ class Config:
             else:
                 vpart += c
         self.kernel.append(vpart)
+
         # default options
         self.opts = {
             "language": "tr",
@@ -210,6 +212,7 @@ class Config:
             "head_start": "",
             "services": "",
         }
+
         # load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
             dict_ = loadConfig("/etc/conf.d/mudur")
@@ -617,12 +620,16 @@ def startDBus():
 
 def readyService(service):
     cmd = ["/bin/service", "--quiet", service, "ready"]
+    ui.debug("Calling '%s'" % " ".join(cmd))
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    ui.debug("'%s' returned" % " ".join(cmd))
     splash.progress(1)
 
 def startService(service):
     cmd = ["/bin/service", "--quiet", service, "start"]
+    ui.debug("Calling '%s'" % " ".join(cmd))
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    ui.debug("'%s' returned" % " ".join(cmd))
     splash.progress(1)
 
 def stopService(service):

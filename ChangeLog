@@ -1,3 +1,7 @@
+2009-03-04  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Add occasional debug calls for
+	better logging into /var/log/mudur.log
+
 2009-03-03  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: The I/O redirection of start-stop-daemon
 	doesn't work at all. Implemented a new method run_async()
