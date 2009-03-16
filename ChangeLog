@@ -1,3 +1,7 @@
+2009-03-16  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Disable CPUFreq probing as they will be
+	built into kernel.
+
 2009-03-04  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Add occasional debug calls for
 	better logging into /var/log/mudur.log

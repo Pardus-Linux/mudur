@@ -1365,8 +1365,10 @@ if __name__ == "__main__":
 
         # Probe and load CPUFreq kernel modules
         ui.info(_("Loading CPUFreq modules"))
-        cpu = CPU()
-        cpu.loadCPUfreq()
+
+        # We wont need these in 2009
+        #cpu = CPU()
+        #cpu.loadCPUfreq()
 
         # Start services
         startServices()
