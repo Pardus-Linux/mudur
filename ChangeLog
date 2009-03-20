@@ -1,3 +1,7 @@
+2009-03-20  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (copyUdevRules): Upstream says that we don't have to
+	retrigger for persistent rules.
+
 2009-03-16  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Disable CPUFreq probing as they will be
 	built into kernel.
