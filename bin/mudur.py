@@ -204,7 +204,7 @@ class Config:
             "clock": "local",
             "clock_adjust": "no",
             "tty_number": "6",
-            "debug": False,
+            "debug": True,
             "livecd": False,
             "lvm": False,
             "safe": False,
@@ -248,6 +248,7 @@ class Config:
                 elif opt == "lvm":
                     self.opts["lvm"] = True
                 elif opt == "debug":
+                    # Backward compatibility
                     self.opts["debug"] = True
                 elif opt == "safe":
                     self.opts["safe"] = True
@@ -381,123 +382,6 @@ class UI:
         if config.get("debug"):
             logger.log(msg)
 
-#
-# CPUfreq
-#
-
-class CPU:
-    def __init__(self):
-        self.vendor = "unknown"
-        self.family = None
-        self.model = None
-        self.name = ""
-        self.flags = []
-        for line in file("/proc/cpuinfo"):
-            if line.startswith("vendor_id"):
-                self.vendor = line.split(":")[1].strip()
-            elif line.startswith("cpu family"):
-                self.family = int(line.split(":")[1].strip())
-            elif line.startswith("model") and not line.startswith("model name"):
-                self.model = int(line.split(":")[1].strip())
-            elif line.startswith("model name"):
-                self.name = line.split(":")[1].strip()
-            elif line.startswith("flags"):
-                self.flags = line.split(":", 1)[1].strip().split()
-
-    def _find_pci(self, vendor, device):
-        path = "/sys/bus/pci/devices"
-        for item in os.listdir(path):
-            ven = file(os.path.join(path, item, "vendor")).read().rstrip("\n")
-            dev = file(os.path.join(path, item, "device")).read().rstrip("\n")
-            if ven == vendor and dev == device:
-                return item
-        return None
-
-    def _detect_ich(self):
-        ich = 0
-        if self._find_pci("0x8086", "0x24cc"):
-            # ICH4-M
-            ich = 4
-        if self._find_pci("0x8086", "0x248c"):
-            # ICH3-M
-            ich = 3
-        if self._find_pci("0x8086", "0x244c"):
-            # ICH2-M
-            # has trouble with old 82815 host bridge revisions
-            if not self._find_pci("0x8086", "0x"):
-                ich = 2
-        return ich
-
-    def _detect_acpi_pps(self):
-        # NOTE: This may not be a correct way to detect this
-        if os.path.exists("/proc/acpi/processor/CPU0/info"):
-            for line in file("/proc/acpi/processor/CPU0/info"):
-                if line.startswith("power management"):
-                    if line.split(":")[1].strip() == "yes":
-                        return True
-        return False
-
-    def detect(self):
-        modules = set()
-        if self.vendor == "GenuineIntel":
-            # Pentium M, Enhanced SpeedStep
-            if "est" in self.flags:
-                modules.add("acpi-cpufreq")
-            # Some kind of Mobile Pentium
-            elif self.name.find("Mobile") != -1:
-                # ACPI Processor Performance States
-                if self._detect_acpi_pps():
-                    modules.add("acpi_cpufreq")
-                # SpeedStep ICH, PIII-M and P4-M with ICH2/3/4 southbridges
-                elif self._detect_ich():
-                    modules.add("speedstep_ich")
-            # P4 and XEON processors with thermal control
-            # Disabled due to lots of problems
-            #elif "acpi" in self.flags and "tm" in self.flags:
-            #    modules.add("p4-clockmod")
-
-        elif self.vendor == "AuthenticAMD":
-            # Mobile K6-1/2 CPUs
-            if self.family == 5 and (self.model == 12 or self.model == 13):
-                modules.add("powernow_k6")
-            # Mobile Athlon/Duron
-            elif self.family == 6:
-                modules.add("powernow_k7")
-            # AMD Opteron/Athlon64
-            elif self.family == 15:
-                modules.add("powernow_k8")
-
-        elif self.vendor == "CentaurHauls":
-            # VIA Cyrix III Longhaul
-            if self.family == 6:
-                if self.model >= 6 and self.model <= 9:
-                    modules.add("longhaul")
-
-        elif self.vendor == "GenuineTMx86":
-            # Transmeta LongRun
-            if "longrun" in self.flags:
-                modules.add("longrun")
-
-        return modules
-
-    def loadCPUfreq(self):
-        if os.path.exists("/sys/devices/system/cpu/cpu0/cpufreq/"):
-            # User already specified a frequency module in
-            # modules.autoload.d or compiled it into the kernel
-            return True
-
-        modules = self.detect()
-        if len(modules) > 0:
-            modules.add("cpufreq_userspace")
-            modules.add("cpufreq_powersave")
-            modules.add("cpufreq_ondemand")
-
-            for module in modules:
-                run_quiet("/sbin/modprobe", module)
-
-    def debug(self):
-        if config.get("debug"):
-            logger.log("CPU: %s" % ", ".join(self.detect()))
 
 #
 # Language and keymap
@@ -618,22 +502,16 @@ def startDBus():
         "--", "--system")
     waitBus("/var/run/dbus/system_bus_socket")
 
-def readyService(service):
-    cmd = ["/bin/service", "--quiet", service, "ready"]
-    ui.debug("Calling '%s'" % " ".join(cmd))
+def startService(service, command="start"):
+    cmd = ["/bin/service", "--quiet", service, command]
+    ui.debug("Starting service %s" % service)
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    ui.debug("'%s' returned" % " ".join(cmd))
-    splash.progress(1)
-
-def startService(service):
-    cmd = ["/bin/service", "--quiet", service, "start"]
-    ui.debug("Calling '%s'" % " ".join(cmd))
-    subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    ui.debug("'%s' returned" % " ".join(cmd))
+    ui.debug("%s started." % service)
     splash.progress(1)
 
 def stopService(service):
     cmd = ["/bin/service", "--quiet", service, "stop"]
+    ui.debug("Stopping service %s" % service)
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     splash.progress(1)
 
@@ -715,10 +593,10 @@ def startServices(extras=None):
         # Give login screen a headstart
         head_start = config.get("head_start")
         if head_start and head_start in services:
-            readyService(head_start)
+            startService(head_start, command="ready")
             services.remove(head_start)
         for service in services:
-            readyService(service)
+            startService(service, command="ready")
 
         xorg_opts = config.get_kernel_opt("xorg")
         if xorg_opts is None or "off" not in xorg_opts.split(","):
@@ -755,7 +633,7 @@ def copyUdevRules():
     # Copy udevtrigger log file to /var/log
     if os.path.exists("/dev/.udevmonitor.log"):
         try:
-            shutil.move("/dev/.udevmonitor.log", "/var/log/udev.log")
+            shutil.move("/dev/.udevmonitor.log", "/var/log/udevmonitor.log")
         except IOError:
             # Can't move it, no problem.
             pass
@@ -957,8 +835,10 @@ def checkFileSystems():
         splash.verbose()
         ui.info(_("A full fsck has been forced"))
         t = run_full("/sbin/fsck", "-C", "-R", "-A", "-a", "-f")
-        # remove forcefsck file
-        os.unlink("/forcefsck")
+
+        # remove forcefsck file if it exists
+        if os.path.exists("/forcefsck"):
+            os.unlink("/forcefsck")
     else:
         t = run_full("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
 
@@ -1351,19 +1231,13 @@ if __name__ == "__main__":
         splash.init(75)
 
         # Trigger only the events which are failed during a previous run
+        # FIXME: Failed events fails again. Probably no need to do the below.
         ui.info(_("Triggering udev events which are failed during a previous run"))
         run("/sbin/udevadm", "trigger", "--retry-failed")
 
         # Source local.start
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
             run("/bin/bash", "/etc/conf.d/local.start")
-
-        # Probe and load CPUFreq kernel modules
-        ui.info(_("Loading CPUFreq modules"))
-
-        # We wont need these in 2009
-        #cpu = CPU()
-        #cpu.loadCPUfreq()
 
         # Start services
         startServices()

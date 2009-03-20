@@ -1,6 +1,17 @@
 2009-03-20  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (copyUdevRules): Upstream says that we don't have to
-	retrigger for persistent rules.
+	retrigger for persistent rules,
+	* bin/mudur.py (CPU): Completely remove the CPU class as cpufreq
+	probing will be done by kernel,
+	* bin/mudur.py (checkFileSystems): Delete /forcefsck only if it
+	exists. Fixes an unhandled exception during boot if mudur=forcefsck
+	is given,
+	* bin/mudur.py (readyService): Remove this method and use startService
+	with a second parameter equal to 'ready' instead of this,
+	* bin/mudur.py (startService): Add a second parameter command= for
+	being able to call "service --ready" for some services.
+	* bin/mudur.py (Config.__init__): Enable debug by default as we don't
+	flood the mudur.log with millions of lines when it's enabled.
 
 2009-03-16  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Disable CPUFreq probing as they will be
