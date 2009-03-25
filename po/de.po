@@ -7,13 +7,14 @@
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2007.
 # Mustafa Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
 # Mustafa Ölcerman <m.oelcerman@pardus-linux.de>, 2007, 2008.
+# Mustafa Ölcerman <m.oelcerman@pardus-linux.eu>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-25 09:53+0200\n"
-"PO-Revision-Date: 2008-06-17 15:39+0200\n"
-"Last-Translator: Mustafa Ölcerman <m.oelcerman@pardus-linux.de>\n"
+"PO-Revision-Date: 2009-03-25 11:18+0100\n"
+"Last-Translator: Mustafa Ölcerman <m.oelcerman@pardus-linux.eu>\n"
 "Language-Team: Deutsch <pardus-translation-de@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,8 +23,7 @@ msgstr ""
 
 #: bin/mudur.py:166
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
-"Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
+msgstr "Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
 
 #: bin/mudur.py:341
 msgid "Cannot find /etc/pardus-release"
@@ -34,7 +34,8 @@ msgstr "/etc/pardus-release kann nicht gefunden werden"
 msgid "Could not set unicode mode on tty %d"
 msgstr "Unicode konnte nicht an tty %d gesetzt werden"
 
-#: bin/mudur.py:599 bin/service.py:236
+#: bin/mudur.py:599
+#: bin/service.py:236
 msgid "Starting DBus..."
 msgstr "DBus wird gestartet..."
 
@@ -50,7 +51,7 @@ msgstr "Schnittstelle %s konnte nicht bereitgestellt werden"
 
 #: bin/mudur.py:657
 msgid "No network connection, skipping remote mount."
-msgstr ""
+msgstr "Keine Netwerkverbindung vorhanden, Remote-Einbindung wird übersprungen."
 
 #: bin/mudur.py:665
 msgid "Cannot connect to DBus, services won't be started"
@@ -74,7 +75,7 @@ msgstr "DBus wird angehalten"
 
 #: bin/mudur.py:750
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
+msgstr "Die beständigen udev-Regeln können nicht von /dev/.udev verschoben werden."
 
 #: bin/mudur.py:759
 msgid "Mounting /dev"
@@ -130,8 +131,7 @@ msgstr "Root Dateisystem wird neu mit Lese-/Schreibzugriff gemountet"
 
 #: bin/mudur.py:866
 msgid "Root filesystem could not be mounted read/write"
-msgstr ""
-"Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
+msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
 
 #: bin/mudur.py:909
 #, python-format
@@ -152,8 +152,7 @@ msgstr "Dateisystem Fehler korrigiert"
 
 #: bin/mudur.py:946
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
+msgstr "Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
 
 #: bin/mudur.py:959
 msgid "Mounting USB filesystem"
@@ -177,8 +176,7 @@ msgstr "Remote-Dateisysteme werden gemountet (STRG-C stoppt den Versuch)"
 
 #: bin/mudur.py:1004
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
+msgstr "Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
 
 #: bin/mudur.py:1017
 msgid "Setting disk parameters"
@@ -190,9 +188,7 @@ msgstr "Systemuhr wird von der Hardwareuhr gesetzt"
 
 #: bin/mudur.py:1050
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Abgleichung der systematischen Abweichung von der Hardware-Uhr ist "
-"fehlgeschlagen"
+msgstr "Abgleichung der systematischen Abweichung von der Hardware-Uhr ist fehlgeschlagen"
 
 #: bin/mudur.py:1054
 msgid "Failed to set system clock to hardware clock"
@@ -227,12 +223,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Restliche Dateisysteme werden mit Lesezugriff erneut gemountet"
 
 #: bin/mudur.py:1186
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.tr with "
-"following information:"
-msgstr ""
-"Ein Interner Fehler ist vorgekommen. Bitte an bugs.pardus.org.tr mit der "
-"folgenden Information melden:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.tr with following information:"
+msgstr "Ein Interner Fehler ist vorgekommen. Bitte an bugs.pardus.org.tr mit der folgenden Information melden:"
 
 #: bin/mudur.py:1242
 msgid "Mounting /sys"
@@ -252,9 +244,7 @@ msgstr "Umgebungsvariablen werden aktualisiert"
 
 #: bin/mudur.py:1306
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
-"Udev-Ereignisse, die bei der vorherigen Ausführung fehlgeschlagen sind, "
-"werden angesteuert"
+msgstr "Udev-Ereignisse, die bei der vorherigen Ausführung fehlgeschlagen sind, werden angesteuert"
 
 #: bin/mudur.py:1313
 msgid "Loading CPUFreq modules"
@@ -262,8 +252,7 @@ msgstr "CPUFreq-Module werden geladen"
 
 #: bin/mudur.py:1340
 msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
+msgstr "Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
 
 #: bin/service.py:58
 msgid "local"
@@ -326,16 +315,17 @@ msgid "Service '%s' won't be auto started."
 msgstr "Dienst '%s' wird nicht automatisch gestartet."
 
 #: bin/service.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Service '%s' will be started if required."
-msgstr "Dienst '%s' wird automatisch gestartet."
+msgstr "Dienst '%s' wird bei Bedarf gestartet."
 
 #: bin/service.py:167
 #, python-format
 msgid "Reloading %s..."
 msgstr "%s wird neu geladen..."
 
-#: bin/service.py:193 bin/service.py:225
+#: bin/service.py:193
+#: bin/service.py:225
 msgid "You must be root to use that."
 msgstr "Sie müssen als root angemeldet sein, um dies zu verwenden."
 
@@ -372,8 +362,8 @@ msgid ""
 " -N, --no-color  Don't use color in output\n"
 " -q, --quiet     Don't print replies"
 msgstr ""
-"Verwendung: service [<Option>][<Dienst>] <Kommando>\n"
-"wo Kommando folgendes ist:\n"
+"Verwendung: service [<Option>][<Dienst>] <Befehl>\n"
+"wo Befehl folgendes ist:\n"
 " list    Dienste auflisten \n"
 " status   Status des Dienstes anzeigen\n"
 " info    Status des Dienstes anzeigen\n"
@@ -458,8 +448,8 @@ msgid ""
 " up           Connect given connection\n"
 " down         Disconnect given connection"
 msgstr ""
-"Anwendung: %s <Kommando> <Argumente>\n"
-"wobei Kommando folgendes sein kann:\n"
+"Anwendung: %s <Befehl> <Argumente>\n"
+"wobei Befehl folgendes sein kann:\n"
 " devices      Listet Netzwerkgeräte auf\n"
 " connections  Listet Verbindungen auf\n"
 " info         Listet Eigenschaften einer gegebenen Verbindung\n"
@@ -468,24 +458,31 @@ msgstr ""
 " up           Gegebene Verbindung verbinden\n"
 " down         Gegebene Verbindung trennen"
 
-#: bin/network.py:176 bin/network.py:217 bin/network.py:272 bin/network.py:438
-#: bin/network.py:460 bin/network.py:501
+#: bin/network.py:176
+#: bin/network.py:217
+#: bin/network.py:272
+#: bin/network.py:438
+#: bin/network.py:460
+#: bin/network.py:501
 #, python-format
 msgid "Error: %s"
 msgstr "Fehler: %s"
 
-#: bin/network.py:257 bin/network.py:486
+#: bin/network.py:257
+#: bin/network.py:486
 msgid "No such profile."
 msgstr "Kein derartiges Profil."
 
-#: bin/network.py:261 bin/network.py:490
+#: bin/network.py:261
+#: bin/network.py:490
 #, python-format
 msgid "There are more than one profiles named '%s'"
 msgstr "Es existieren mehr als ein Profil, die '%s' heissen"
 
-#: bin/network.py:262 bin/network.py:491
+#: bin/network.py:262
+#: bin/network.py:491
 msgid "Use one of the following commands:"
-msgstr "Verwenden Sie eines der folgenden Kommandos:"
+msgstr "Verwenden Sie eine der folgenden Befehle:"
 
 #: bin/network.py:288
 msgid "Profile name"
@@ -511,7 +508,9 @@ msgstr "Dienste:"
 msgid "Device"
 msgstr "Gerät"
 
-#: bin/network.py:330 bin/network.py:354 bin/network.py:358
+#: bin/network.py:330
+#: bin/network.py:354
+#: bin/network.py:358
 #, python-format
 msgid "%s:"
 msgstr "%s:"
@@ -532,7 +531,8 @@ msgstr "Kein Fernzugriffspunkt gefunden"
 msgid "Choose authentication type:"
 msgstr "Authentifizierungs-Typ auswählen:"
 
-#: bin/network.py:388 bin/network.py:392
+#: bin/network.py:388
+#: bin/network.py:392
 msgid "Password"
 msgstr "Passwort"
 
@@ -582,5 +582,3 @@ msgstr "D-Bus-Fehler: %s"
 msgid "Cancelled"
 msgstr "Abgebrochen"
 
-#~ msgid "Calculating module dependencies for %s"
-#~ msgstr "Modulabhängigkeit für %s werden berechnet"
