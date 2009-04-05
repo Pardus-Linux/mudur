@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Willem Gielen <w.gielen@gmail.com>, 2007, 2008.
+# Willem Gielen <w.gielen@gmail.com>, 2007, 2008, 2009.
 # W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-25 09:53+0200\n"
-"PO-Revision-Date: 2008-11-04 13:07+0100\n"
+"PO-Revision-Date: 2009-04-05 19:52+0200\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr "Stoppen DBus"
 
 #: bin/mudur.py:750
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
+msgstr "Kan aanhoudende udevl regels niet verplaatsten van /dev/.udev"
 
 #: bin/mudur.py:759
 msgid "Mounting /dev"
@@ -126,8 +126,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:866
 msgid "Root filesystem could not be mounted read/write"
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven'"
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven'"
 
 #: bin/mudur.py:909
 #, python-format
@@ -148,8 +147,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:946
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:959
 msgid "Mounting USB filesystem"
@@ -173,8 +171,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:1004
 msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:1017
 msgid "Setting disk parameters"
@@ -573,5 +570,3 @@ msgstr "D-Bus fout: %s"
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-#~ msgid "Calculating module dependencies for %s"
-#~ msgstr "Berekenen module afhankelijkheden voor %s"
