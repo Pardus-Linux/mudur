@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-02-25 09:53+0200\n"
-"PO-Revision-Date: 2009-02-27 18:59-0300\n"
+"PO-Revision-Date: 2009-04-07 20:17-0400\n"
 "Last-Translator: Klemens Häckel <click3d at linuxmail dot org>\n"
 "Language-Team: spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Archivo /etc/pardus-release no encontrado"
 #: bin/mudur.py:566
 #, python-format
 msgid "Could not set unicode mode on tty %d"
-msgstr "No posible setear modo unicode para tty %d"
+msgstr "No posible establecer modo unicode para tty %d"
 
 #: bin/mudur.py:599 bin/service.py:236
 msgid "Starting DBus..."
@@ -182,19 +182,19 @@ msgstr ""
 
 #: bin/mudur.py:1017
 msgid "Setting disk parameters"
-msgstr "Seteando parametros de disco"
+msgstr "Estableciendo parámetros de disco"
 
 #: bin/mudur.py:1036
 msgid "Setting system clock to hardware clock"
-msgstr "Seteando hora del sistema a hora de hardware"
+msgstr "Estableciendo hora del sistema a hora de hardware"
 
 #: bin/mudur.py:1050
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr "No posible sincronizar desajuste sistematico de la hora de hardware"
+msgstr "No posible corregir el desajuste sistemático de la hora de hardware"
 
 #: bin/mudur.py:1054
 msgid "Failed to set system clock to hardware clock"
-msgstr "No posible setear hora del sistema a hora de hardware"
+msgstr "No posible establecer hora del sistema a hora de hardware"
 
 #: bin/mudur.py:1057
 msgid "Cleaning up /var"
@@ -214,7 +214,7 @@ msgstr "No posible sincronizar relojes"
 
 #: bin/mudur.py:1118
 msgid "Deactivating swap"
-msgstr "Deactivando swap"
+msgstr "Desactivando swap"
 
 #: bin/mudur.py:1139
 msgid "Unmounting filesystems"
@@ -229,7 +229,7 @@ msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
-"Ocurrió un eror interno. Por favor reporte a bugs.pardus.org.tr con las "
+"Ocurrió un error interno. Por favor reporte a bugs.pardus.org.tr con las "
 "informaciones siguientes:"
 
 #: bin/mudur.py:1242
@@ -282,9 +282,11 @@ msgid "yes"
 msgstr "si"
 
 # no estoy seguro del contexto, what is the context of this ?
+# favor revisar
+# obligatorio, mandatorio, requerido ??
 #: bin/service.py:76
 msgid "conditional"
-msgstr ""
+msgstr "mandatorio"
 
 #: bin/service.py:98
 msgid "Service"
@@ -541,7 +543,7 @@ msgstr "Nombre de usuario"
 
 #: bin/network.py:400
 msgid "Network settings:"
-msgstr "Preferencias de Red:"
+msgstr "Configuración de Red:"
 
 #: bin/network.py:403
 msgid "Automatic query (DHCP)"
