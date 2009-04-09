@@ -662,12 +662,12 @@ def setupUdev():
     devpath = "/lib/udev/devices"
     if os.path.exists(devpath):
         ui.info(_("Restoring saved device nodes"))
-        run_quiet(
-            "/bin/cp",
-            "--preserve=all", "--recursive",
-            "--update", "--no-dereference",
-            "%s/*" % (devpath), "/dev/"
-        )
+        for name in os.listdir(devpath):
+            run_quiet(
+                "/bin/cp",
+                "--preserve=all", "--recursive", "--update",
+                "%s/%s" % (devpath, name), "/dev/"
+            )
 
     # When these files are missing, lots of trouble happens
     # so we double check their existence

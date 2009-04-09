@@ -1,3 +1,7 @@
+2009-04-09  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (setupUdev): This modification caused /dev/ppp
+	to disappear upon reboot (#9497).
+
 2009-03-20  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (copyUdevRules): Upstream says that we don't have to
 	retrigger for persistent rules,
