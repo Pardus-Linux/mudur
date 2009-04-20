@@ -1,3 +1,7 @@
+2009-04-20  Ozan Çağlayan <ozan@pardus.org.tr>
+	* etc/mudur.conf: Comment the head_start for now,
+	* setup.py: Prepare for the 3.0.0 release.
+
 2009-04-09  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (setupUdev): This modification caused /dev/ppp
 	to disappear upon reboot (#9497).

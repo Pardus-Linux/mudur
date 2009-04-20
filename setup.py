@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2006-2008, TUBITAK/UEKAE
+# Copyright (C) 2006-2009, TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -15,7 +15,7 @@ import glob
 import shutil
 import parser
 
-version = "2.1.0"
+version = "3.0.0"
 
 distfiles = """
     setup.py
@@ -70,11 +70,11 @@ def install(args):
         prefix = "/"
     else:
         prefix = args[0]
-    
+
     # Make sure that there isn't a syntax error in mudur.py
     code = file("bin/mudur.py").read()
     parser.suite(code).compile()
-    
+
     install_file("bin/mudur.py", prefix, "sbin/mudur.py")
     install_file("bin/update-environment.py", prefix, "sbin/update-environment")
     install_file("bin/update-fstab.py", prefix, "sbin/update-fstab")
@@ -82,7 +82,7 @@ def install(args):
     install_file("bin/service.py", prefix, "bin/service")
     install_file("bin/network.py", prefix, "bin/network")
     install_file("etc/mudur.conf", prefix, "etc/conf.d/mudur")
-    
+
     for item in os.listdir("po"):
         if item.endswith(".po"):
             lang = item[:-3]
@@ -103,16 +103,16 @@ def usage():
 def do_setup(args):
     if args == []:
         usage()
-    
+
     elif args[0] == "install":
         install(args[1:])
-    
+
     elif args[0] == "update_messages":
         update_messages()
-    
+
     elif args[0] == "dist":
         make_dist()
-    
+
     else:
         usage()
 
