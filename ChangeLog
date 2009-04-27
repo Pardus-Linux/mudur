@@ -1,3 +1,7 @@
+2009-04-27  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py(localMount): Remove probing of usbcore as it's
+	now in-kernel.
+
 2009-04-20  Ozan Çağlayan <ozan@pardus.org.tr>
 	* etc/mudur.conf: Comment the head_start for now,
 	* setup.py: Prepare for the 3.0.0 release.

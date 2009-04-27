@@ -851,9 +851,6 @@ def checkFileSystems():
         run_full("/sbin/sulogin")
 
 def localMount():
-    if os.path.exists("/proc/modules") and not os.path.exists("/proc/bus/usb"):
-        run_quiet("/sbin/modprobe", "usbcore")
-
     if os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
         gid = None
         for line in file("/etc/group"):
