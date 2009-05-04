@@ -525,27 +525,54 @@ def getServices(bus, all=False):
         return enabled.union(conditional)
 
 def startNetwork(bus):
-    import dbus
     # Remote mount required?
     need_remount = remoteMount(dry_run=True)
-    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
-    for script in obj.listModelApplications("Net.Link", dbus_interface="tr.org.pardus.comar"):
-        db = pardus.iniutils.iniDB(os.path.join("/etc/network", script))
-        for profile in db.listDB():
-            if db.getDB(profile).get("state", "down") == "up":
-                device = db.getDB(profile).get("device", None)
-                if not device:
-                    continue
-                device = device.rsplit("_")[-1]
-                try:
-                    ui.info(_("Bringing up interface %s") % device)
-                    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % script, introspect=False)
-                    if need_remount:
-                        obj.setState(profile, "up", dbus_interface="tr.org.pardus.comar.Net.Link")
-                    else:
-                        obj.setState(profile, "up", dbus_interface="tr.org.pardus.comar.Net.Link", ignore_reply=True)
-                except dbus.DBusException:
-                    ui.error(_("Unable to bring up interface %s") % device)
+
+    import comar
+    import dbus
+    link = comar.Link()
+
+    def ifUp(package, profileInfo):
+        ifname = profileInfo["device_id"].split("_")[-1]
+        ui.info(_("Bringing up %s") % ifname)
+        if need_remount:
+            try:
+                link.Network.Link[package].setState(profileName, "up")
+            except dbus.DBusException, e:
+                ui.error(_("Unable to bring up %s") % ifname)
+        else:
+            link.Network.Link[package].setState(profileName, "up", quiet=True)
+
+    for package in link.Network.Link:
+        info = link.Network.Link[package].linkInfo()
+        if info["type"] == "net":
+            for profileName in link.Network.Link[package].connections():
+                profileInfo = link.Network.Link[package].connectionInfo(profileName)
+                if profileInfo.get("state", "down").startswith("up"):
+                    ifUp(package, profileInfo)
+        elif info["type"] == "wifi":
+            # Scan remote access points
+            devices = {}
+            for deviceId in link.Network.Link[package].deviceList():
+                devices[deviceId] = []
+                for point in link.Network.Link[package].scanRemote(deviceId):
+                    devices[deviceId].append(point["remote"])
+            # Try to connect last connected profile
+            skip = False
+            for profileName in link.Network.Link[package].connections():
+                profileInfo = link.Network.Link[package].connectionInfo(profileName)
+                if profileInfo.get("state", "down").startswith("up") and profileInfo.get("device_id", None) in devices:
+                    ifUp(package, profileInfo)
+                    skip = True
+                    break
+            # There's no last connected profile, try to connect other profiles
+            if not skip:
+                for profileName in link.Network.Link[package].connections():
+                    profileInfo = link.Network.Link[package].connectionInfo(profileName)
+                    if profileInfo.get("device_id", None) in devices and profileInfo["remote"] in devices[profileInfo["device_id"]]:
+                        ifUp(package, profileInfo)
+                        break
+
     if need_remount:
         if waitNet():
             remoteMount()
@@ -575,7 +602,10 @@ def startServices(extras=None):
             os.unlink(os.path.join("/etc/network", _file))
 
     # Start network service
-    startNetwork(bus)
+    try:
+        startNetwork(bus)
+    except:
+        ui.error(_("Unable to start network."))
 
     # Almost everything depends on logger, so start manually
     startService("sysklogd")
