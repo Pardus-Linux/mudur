@@ -201,11 +201,11 @@ msgstr "/tmp dizini temizleniyor"
 
 #: bin/mudur.py:1106
 msgid "Syncing system clock to hardware clock"
-msgstr "Donanım saati sistem saati ile senkronize ediliyor"
+msgstr "Donanım saati sistem saatine göre ayarlanıyor"
 
 #: bin/mudur.py:1109
 msgid "Failed to sync clocks"
-msgstr "Saatler senkronize edilemedi"
+msgstr "Saatler eşlenemedi"
 
 #: bin/mudur.py:1118
 msgid "Deactivating swap"
