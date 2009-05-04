@@ -23,7 +23,6 @@ import termios
 import gettext
 import subprocess
 
-import pardus.iniutils
 from pardus.netutils import waitNet
 
 #
