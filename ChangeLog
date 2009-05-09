@@ -1,3 +1,7 @@
+2009-05-09  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* bin/mudur.py (startNetwork): Fixed a race condition, also cleaned up
+	code.
+
 2009-05-04  Ozan Çağlayan <ozan@pardus.org.tr>
 	* etc/mudur.conf: Set head_start to xdm
 	* bin/mudur.py (startNetwork): Switch to new network backend.

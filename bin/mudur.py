@@ -531,25 +531,33 @@ def startNetwork(bus):
     import dbus
     link = comar.Link()
 
-    def ifUp(package, profileInfo):
-        ifname = profileInfo["device_id"].split("_")[-1]
-        ui.info(_("Bringing up %s") % ifname)
+    def ifUp(package, name, info):
+        ifname = info["device_id"].split("_")[-1]
+        ui.info(_("Bringing up %s (%s)") % (ifname, name))
         if need_remount:
             try:
-                link.Network.Link[package].setState(profileName, "up")
+                link.Network.Link[package].setState(name, "up")
             except dbus.DBusException, e:
                 ui.error(_("Unable to bring up %s") % ifname)
+                return False
         else:
-            link.Network.Link[package].setState(profileName, "up", quiet=True)
+            link.Network.Link[package].setState(name, "up", quiet=True)
+        return True
+
+    def getConnections(package):
+        connections = {}
+        for name in link.Network.Link[package].connections():
+            connections[name] = link.Network.Link[package].connectionInfo(name)
+        return connections
 
     for package in link.Network.Link:
-        info = link.Network.Link[package].linkInfo()
-        if info["type"] == "net":
-            for profileName in link.Network.Link[package].connections():
-                profileInfo = link.Network.Link[package].connectionInfo(profileName)
-                if profileInfo.get("state", "down").startswith("up"):
-                    ifUp(package, profileInfo)
-        elif info["type"] == "wifi":
+        linkInfo = link.Network.Link[package].linkInfo()
+        if linkInfo["type"] == "net":
+            for name, info in getConnections(package).iteritems():
+                if info.get("state", "down").startswith("up"):
+                    ifUp(package, name, info)
+                    break
+        elif linkInfo["type"] == "wifi":
             # Scan remote access points
             devices = {}
             for deviceId in link.Network.Link[package].deviceList():
@@ -558,18 +566,16 @@ def startNetwork(bus):
                     devices[deviceId].append(point["remote"])
             # Try to connect last connected profile
             skip = False
-            for profileName in link.Network.Link[package].connections():
-                profileInfo = link.Network.Link[package].connectionInfo(profileName)
-                if profileInfo.get("state", "down").startswith("up") and profileInfo.get("device_id", None) in devices:
-                    ifUp(package, profileInfo)
+            for name, info in getConnections(package).iteritems():
+                if info.get("state", "down").startswith("up") and info.get("device_id", None) in devices:
+                    ifUp(package, name, info)
                     skip = True
                     break
             # There's no last connected profile, try to connect other profiles
             if not skip:
-                for profileName in link.Network.Link[package].connections():
-                    profileInfo = link.Network.Link[package].connectionInfo(profileName)
-                    if profileInfo.get("device_id", None) in devices and profileInfo["remote"] in devices[profileInfo["device_id"]]:
-                        ifUp(package, profileInfo)
+                for name, info in getConnections(package).iteritems():
+                    if info.get("device_id", None) in devices and info["remote"] in devices[info["device_id"]]:
+                        ifUp(package, name, info)
                         break
 
     if need_remount:
@@ -603,8 +609,8 @@ def startServices(extras=None):
     # Start network service
     try:
         startNetwork(bus)
-    except:
-        ui.error(_("Unable to start network."))
+    except Exception, e:
+        ui.error(_("Unable to start network:\n  %s") % e)
 
     # Almost everything depends on logger, so start manually
     startService("sysklogd")
