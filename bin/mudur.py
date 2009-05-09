@@ -538,7 +538,7 @@ def startNetwork(bus):
             try:
                 link.Network.Link[package].setState(name, "up")
             except dbus.DBusException, e:
-                ui.error(_("Unable to bring up %s") % ifname)
+                ui.error(_("Unable to bring up %s (%s)") % (ifname, name))
                 return False
         else:
             link.Network.Link[package].setState(name, "up", quiet=True)
@@ -563,11 +563,11 @@ def startNetwork(bus):
             for deviceId in link.Network.Link[package].deviceList():
                 devices[deviceId] = []
                 for point in link.Network.Link[package].scanRemote(deviceId):
-                    devices[deviceId].append(point["remote"])
+                    devices[deviceId].append(unicode(point["remote"]))
             # Try to connect last connected profile
             skip = False
             for name, info in getConnections(package).iteritems():
-                if info.get("state", "down").startswith("up") and info.get("device_id", None) in devices:
+                if info.get("state", "down").startswith("up") and info["remote"] in devices[info["device_id"]]:
                     ifUp(package, name, info)
                     skip = True
                     break
