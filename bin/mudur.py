@@ -556,7 +556,6 @@ def startNetwork(bus):
             for name, info in getConnections(package).iteritems():
                 if info.get("state", "down").startswith("up"):
                     ifUp(package, name, info)
-                    break
         elif linkInfo["type"] == "wifi":
             # Scan remote access points
             devices = {}
