@@ -898,7 +898,7 @@ def localMount():
             run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
 
     ui.info(_("Mounting local filesystems"))
-    run("/bin/mount", "-at", "noproc,noshm,nocifs,nonfs,nonfs4")
+    run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4")
 
     ui.info(_("Activating swap"))
     run("/sbin/swapon", "-a")

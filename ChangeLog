@@ -1,3 +1,7 @@
+2009-05-15  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (localMount): Remove noshm as mount don't have an option
+	like that.
+
 2009-05-15  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* bin/mudur.py (startNetwork): Fixed not recognizing other wired devices.
 
