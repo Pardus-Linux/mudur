@@ -192,7 +192,7 @@ class Config:
 
         # Default options for mudur= in /proc/cmdline
         self.opts = {
-            "language": "tr",
+            "language": "en",
             "keymap": None,
             "clock": "local",
             "clock_adjust": "no",

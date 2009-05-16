@@ -1,3 +1,8 @@
+2009-05-17  Fatih Aşıcı <fatih@pardus.org.tr>
+	* bin/mudur.py: Get back the kernel version parsing. It is used by
+	autoloadModules().
+	* bin/mudur.py: Change default language to "en".
+
 2009-05-16  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (Config.__init__): Remove unused kernel version parsing.
 	Should be implemented in pardus-python if mudur needs it one day.
