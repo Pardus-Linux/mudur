@@ -186,6 +186,10 @@ class Config:
         self.fstab = None
         self.cmdline = None
 
+        # Parse kernel version
+        vers = os.uname()[2].replace("_", ".").replace("-", ".")
+        self.kernel = vers[:3]
+
         # Default options for mudur= in /proc/cmdline
         self.opts = {
             "language": "tr",
