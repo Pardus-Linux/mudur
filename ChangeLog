@@ -1,3 +1,17 @@
+2009-05-16  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (Config.__init__): Remove unused kernel version parsing.
+	Should be implemented in pardus-python if mudur needs it one day.
+	* bin/mudur.py: Python functions return None by default, no need to
+	explicitly return it.
+	* bin/mudur.py: Make /forcefsck detection a one-liner.
+	* bin/mudur.py: Trigger udev for failed events only if /dev/.udev/failed
+	exists,
+	* bin/mudur.py (startNetwork): Remove the bus parameter as it wasn't used
+	at all in the function,
+	* bin/mudur.py: Use get_kernel_option from pardus.sysutils which carefully
+	parses /proc/cmdline and returns an appropriate dictionary, adapt the
+	relevant parts of mudur to handle it.
+
 2009-05-15  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (localMount): Remove noshm as mount don't have an option
 	like that.

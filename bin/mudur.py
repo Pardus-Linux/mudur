@@ -24,6 +24,7 @@ import gettext
 import subprocess
 
 from pardus.netutils import waitNet
+from pardus.sysutils import get_kernel_option
 
 #
 # i18n
@@ -184,19 +185,8 @@ class Config:
     def __init__(self):
         self.fstab = None
         self.cmdline = None
-        # parse kernel version
-        self.kernel = []
-        vers = os.uname()[2]
-        vpart = ""
-        for c in vers:
-            if c == "." or c == "_" or c == "-":
-                self.kernel.append(vpart)
-                vpart = ""
-            else:
-                vpart += c
-        self.kernel.append(vpart)
 
-        # default options
+        # Default options for mudur= in /proc/cmdline
         self.opts = {
             "language": "tr",
             "keymap": None,
@@ -212,51 +202,28 @@ class Config:
             "services": "",
         }
 
-        # load config file if exists
+        # Load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
-            dict_ = loadConfig("/etc/conf.d/mudur")
-            for key in dict_:
-                self.opts[key] = dict_[key]
-        # file system check can be requested with a file
-        if os.path.exists("/forcefsck"):
-            self.opts["forcefsck"] = True
+            for k,v in loadConfig("/etc/conf.d/mudur").items():
+                self.opts[k] = v
 
-    def get_kernel_opt(self, cmdopt):
-        if not self.cmdline:
-            self.cmdline = loadFile("/proc/cmdline").split()
-
-        for cmd in self.cmdline:
-            pos = len(cmdopt)
-            if cmd == cmdopt:
-                return cmd
-            if cmd.startswith(cmdopt) and cmd[pos] == '=':
-                return cmd[pos+1:]
-
-        return None
+        # File system check can be requested with a file
+        self.opts["forcefsck"] = os.path.exists("/forcefsck")
 
     def parse_kernel_opts(self):
         # We need to mount /proc before accessing kernel options
         # This function is called after that, and finish parsing options
         # We dont print any messages before, cause language is not known
-        opts = self.get_kernel_opt("mudur")
-        if opts:
-            opts = opts.split(",")
-            for opt in opts:
-                if opt == "livecd" or opt == "livedisk" or opt == "thin":
-                    self.opts["livecd"] = True
-                elif opt == "lvm":
-                    self.opts["lvm"] = True
-                elif opt == "debug":
-                    # Backward compatibility
-                    self.opts["debug"] = True
-                elif opt == "safe":
-                    self.opts["safe"] = True
-                elif opt.startswith("language:"):
-                    self.opts["language"] = opt[9:]
-                elif opt.startswith("keymap:"):
-                    self.opts["keymap"] = opt[7:]
-                elif opt == "forcefsck":
-                    self.opts["forcefsck"] = True
+        opts = get_kernel_option("mudur")
+
+        # Fill in the options
+        self.opts["livecd"] = opts.has_key("livecd") or opts.has_key("livedisk") or opts.has_key("thin")
+
+        for k in [_k for _k in opts.keys() if _k not in ("livecd", "livedisk", "thin")]:
+            if opts[k]:
+                self.opts[k] = opts[k]
+            else:
+                self.opts[k] = True
 
         # Normalize options
 
@@ -280,7 +247,6 @@ class Config:
         except:
             print "Unknown option '%s' requested" % key
             time.sleep(3)
-            return None
 
     def get_mount(self, path):
         if not self.fstab:
@@ -291,8 +257,6 @@ class Config:
         for ent in self.fstab:
             if len(ent) > 3 and ent[1] == path:
                 return ent
-
-        return None
 
     def is_virtual(self):
         # Xen detection
@@ -312,8 +276,7 @@ class Splash:
 
     def init(self, percent, increasing=True):
         if os.path.exists("/proc/splash"):
-            splash_opts = config.get_kernel_opt("splash")
-            self.enabled = splash_opts and "silent" in splash_opts.split(",")
+            self.enabled = get_kernel_option("splash").has_key("silent")
             self.increasing = increasing
             self.percent = percent
 
@@ -523,7 +486,7 @@ def getServices(bus, all=False):
         conditional = set(os.listdir("/etc/mudur/services/conditional"))
         return enabled.union(conditional)
 
-def startNetwork(bus):
+def startNetwork():
     # Remote mount required?
     need_remount = remoteMount(dry_run=True)
 
@@ -537,7 +500,7 @@ def startNetwork(bus):
         if need_remount:
             try:
                 link.Network.Link[package].setState(name, "up")
-            except dbus.DBusException, e:
+            except dbus.DBusException:
                 ui.error(_("Unable to bring up %s (%s)") % (ifname, name))
                 return False
         else:
@@ -607,7 +570,7 @@ def startServices(extras=None):
 
     # Start network service
     try:
-        startNetwork(bus)
+        startNetwork()
     except Exception, e:
         ui.error(_("Unable to start network:\n  %s") % e)
 
@@ -632,8 +595,7 @@ def startServices(extras=None):
         for service in services:
             startService(service, command="ready")
 
-        xorg_opts = config.get_kernel_opt("xorg")
-        if xorg_opts is None or "off" not in xorg_opts.split(","):
+        if get_kernel_option("xorg").has_key("off"):
             waitBus("/tmp/.X11-unix/X0", timeout=10)
 
             # Avoid users trying to login using VT
@@ -1262,9 +1224,9 @@ if __name__ == "__main__":
         splash.init(75)
 
         # Trigger only the events which are failed during a previous run
-        # FIXME: Failed events fails again. Probably no need to do the below.
-        ui.info(_("Triggering udev events which are failed during a previous run"))
-        run("/sbin/udevadm", "trigger", "--retry-failed")
+        if os.path.exists("/dev/.udev/failed"):
+            ui.info(_("Triggering udev events which are failed during a previous run"))
+            run("/sbin/udevadm", "trigger", "--retry-failed")
 
         # Source local.start
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
