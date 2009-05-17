@@ -25,6 +25,7 @@ import subprocess
 
 from pardus.netutils import waitNet
 from pardus.sysutils import get_kernel_option
+from pardus.shellutils import touch
 
 #
 # i18n
@@ -89,25 +90,6 @@ def mdirdate(dirname):
         if d2 > d:
             d = d2
     return d
-
-def touch(filename):
-    """Update file modification date, create file if necessary"""
-    try:
-        if os.path.exists(filename):
-            os.utime(filename, None)
-        else:
-            file(filename, "w").close()
-    except IOError, e:
-        if e.errno != 13:
-            raise
-        else:
-            return False
-    except OSError, e:
-        if e.errno != 13:
-            raise
-        else:
-            return False
-    return True
 
 def capture(*cmd):
     """Capture output of the command without running a shell"""
