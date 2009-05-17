@@ -189,7 +189,8 @@ class Config:
         }
 
         # Load config file if exists
-        self.opts.update(loadConfig("/etc/conf.d/mudur"))
+        if os.path.exists("/etc/conf.d/mudur"):
+            self.opts.update(loadConfig("/etc/conf.d/mudur"))
 
         # File system check can be requested with a file
         self.opts["forcefsck"] = os.path.exists("/forcefsck")
