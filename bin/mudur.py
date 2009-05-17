@@ -175,10 +175,10 @@ class Config:
         # Default options for mudur= in /proc/cmdline
         self.opts = {
             "language": "en",
-            "keymap": None,
             "clock": "local",
             "clock_adjust": "no",
             "tty_number": "6",
+            "keymap": None,
             "debug": True,
             "livecd": False,
             "lvm": False,
@@ -793,9 +793,6 @@ def setHostname():
     run("/bin/hostname", host)
 
 def autoloadModules():
-    # Don't fail if kernel do not have module support compiled in
-    if not os.path.exists("/proc/modules"):
-        return
 
     fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
     if not os.path.exists(fn):
