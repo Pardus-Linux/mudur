@@ -170,7 +170,7 @@ class Config:
 
         # Parse kernel version
         vers = os.uname()[2].replace("_", ".").replace("-", ".")
-        self.kernel = vers[:3]
+        self.kernel = vers.split(".")
 
         # Default options for mudur= in /proc/cmdline
         self.opts = {
