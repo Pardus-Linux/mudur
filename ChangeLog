@@ -1,3 +1,8 @@
+2009-05-18  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Revert /proc/modules check,
+	* bin/mudur.py (waitBus): Don't flood mudur.log, just write the waited
+	time once upon exit.
+
 2009-05-17  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Use touch from pardus.shellutils.
 
