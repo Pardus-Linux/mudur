@@ -130,6 +130,7 @@ def delete(pattern):
             run("rm", "-f", path)
 
 def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
+    itimeout = timeout
     if stream:
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     else:
@@ -137,11 +138,13 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
     while timeout > 0:
         try:
             sock.connect(unix_name)
+            ui.debug("Waited %f seconds for '%s'" % (itimeout-timeout, unix_name))
             return True
         except:
             timeout -= wait
-        ui.debug("Waiting %f seconds for '%s'" % (wait, unix_name))
         time.sleep(wait)
+
+    ui.debug("Waited %f seconds for '%s'" % (itimeout-timeout, unix_name))
     return False
 
 
