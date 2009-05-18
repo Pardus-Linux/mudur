@@ -580,7 +580,7 @@ def startServices(extras=None):
         for service in services:
             startService(service, command="ready")
 
-        if get_kernel_option("xorg").has_key("off"):
+        if not get_kernel_option("xorg").has_key("off"):
             waitBus("/tmp/.X11-unix/X0", timeout=10)
 
             # Avoid users trying to login using VT
