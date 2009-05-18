@@ -793,6 +793,9 @@ def setHostname():
     run("/bin/hostname", host)
 
 def autoloadModules():
+    # Don't fail if kernel do not have module support compiled in
+    if not os.path.exists("/proc/modules"):
+        return
 
     fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
     if not os.path.exists(fn):
