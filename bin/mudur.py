@@ -300,6 +300,21 @@ class UI:
         self.BAD = '\x1b[31;01m'
         self.NORMAL = '\x1b[0m'
 
+        # maybe a dict would be better
+        self.BLUE= '\x1b[34;01m'
+        self.BLUEDARK= '\x1b[34;0m'
+        self.CYAN = '\x1b[36;01m'
+        self.CYANDARK = '\x1b[36;0m'
+        self.GRAY = '\x1b[30;01m'
+        self.GRAYDARK = '\x1b[30;0m'
+        self.GREEN = '\x1b[32;01m'
+        self.GREENDARK = '\x1b[32;0m'
+        self.LIGHT = '\x1b[37;01m'
+        self.MAGENTA = '\x1b[35;01m'
+        self.MAGENTADARK = '\x1b[35;0m'
+        self.RED = '\x1b[31;01m'
+        self.REDDARK = '\x1b[31;0m'
+
     def greet(self):
         print self.UNICODE_MAGIC
         if os.path.exists("/etc/pardus-release"):
@@ -332,6 +347,8 @@ class UI:
         if config.get("debug"):
             logger.log(msg)
 
+    def colorize(self, uicolor, msg):
+        return "%s%s%s" % (uicolor, msg, self.NORMAL)
 
 #
 # Language and keymap
@@ -485,7 +502,7 @@ def startNetwork():
 
     def ifUp(package, name, info):
         ifname = info["device_id"].split("_")[-1]
-        ui.info(_("Bringing up %s (%s)") % (ifname, name))
+        ui.info(_("Bringing up %s (%s)") % (ui.colorize(ui.LIGHT, ifname), ui.colorize(ui.CYAN, name)))
         if need_remount:
             try:
                 link.Network.Link[package].setState(name, "up")
@@ -793,7 +810,7 @@ def setHostname():
             data = 'HOSTNAME="' + host + '"\n' + data
         writeToFile("/etc/env.d/01hostname", data)
 
-    ui.info(_("Setting up hostname as '%s'") % host)
+    ui.info(_("Setting up hostname as '%s'") % ui.colorize(ui.LIGHT, host))
     run("/bin/hostname", host)
 
 def autoloadModules():

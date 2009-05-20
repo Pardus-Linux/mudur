@@ -1,3 +1,7 @@
+2009-05-20  Onur Küçük <onur@pardus.org.tr>
+	* bin/mudur.py: Add easy colorize support
+	* bin/mudur.py: Add color to network and hostname info
+
 2009-05-18  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Revert /proc/modules check,
 	* bin/mudur.py (waitBus): Don't flood mudur.log, just write the waited
