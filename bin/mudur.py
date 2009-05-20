@@ -535,7 +535,7 @@ def startNetwork():
             # Try to connect last connected profile
             skip = False
             for name, info in getConnections(package).iteritems():
-                if info.get("state", "down").startswith("up") and info["remote"] in devices[info["device_id"]]:
+                if info.get("state", "down").startswith("up") and info.get("device_id", None) in devices and info["remote"] in devices[info["device_id"]]:
                     ifUp(package, name, info)
                     skip = True
                     break
