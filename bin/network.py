@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import comar
+import dbus
 import sys
 
 link = comar.Link()
@@ -191,20 +192,24 @@ def createProfile():
             net_gateway = getInput("Gateway")
             settings.append(("net", ("manual", net_address, net_mask, net_gateway)))
     # Create
-    for key, value in settings:
-        if key == "device":
-            link.Network.Link[package].setDevice(profile, value)
-        elif key == "device_mode":
-            link.Network.Link[package].setDeviceMode(profile, value)
-        elif key == "remote":
-            link.Network.Link[package].setRemote(profile, value)
-        elif key == "auth":
-            link.Network.Link[package].setAuthMethod(profile, value)
-        elif key.startswith("auth_"):
-            link.Network.Link[package].setAuthParameters(profile, key[5:], value)
-        elif key == "net":
-            mode_, address_, mask_, gateway_ = value
-            link.Network.Link[package].setAddress(profile, mode_, address_, mask_, gateway_)
+    try:
+        for key, value in settings:
+            if key == "device":
+                link.Network.Link[package].setDevice(profile, value)
+            elif key == "device_mode":
+                link.Network.Link[package].setDeviceMode(profile, value)
+            elif key == "remote":
+                link.Network.Link[package].setRemote(profile, value)
+            elif key == "auth":
+                link.Network.Link[package].setAuthMethod(profile, value)
+            elif key.startswith("auth_"):
+                link.Network.Link[package].setAuthParameters(profile, key[5:], value)
+            elif key == "net":
+                mode_, address_, mask_, gateway_ = value
+                link.Network.Link[package].setAddress(profile, mode_, address_, mask_, gateway_)
+    except dbus.DBusException, e:
+        print e
+        return 1
     return 0
 
 def deleteProfile():
