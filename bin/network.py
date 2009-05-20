@@ -149,7 +149,9 @@ def createProfile():
     info = link.Network.Link[package].linkInfo()
     modes = info["modes"].split(",")
     # Get name
-    profile = getInput("Profile name")
+    profile = None
+    while not profile:
+        profile = getInput("Profile name").strip()
     # Select device
     if "device" in modes:
         device = getDevice(package)
