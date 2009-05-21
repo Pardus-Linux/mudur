@@ -8,6 +8,7 @@
 	* bin/mudur.py: Refactor messages, drop a useless information message
 	about udev,
 	* bin/mudur.py (localMount): Drop unreachable code in localMount,
+	* bin/mudur.py (UI): Put all the special characters into the color dict,
 	* bin/service.py: bus variable is not used, fix translation logic.
 
 2009-05-20  Bahadır Kandemir <bahadir@pardus.org.tr>
