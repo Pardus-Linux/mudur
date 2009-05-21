@@ -301,19 +301,19 @@ class UI:
         self.NORMAL = '\x1b[0m'
 
         # maybe a dict would be better
-        self.BLUE= '\x1b[34;01m'
-        self.BLUEDARK= '\x1b[34;0m'
-        self.CYAN = '\x1b[36;01m'
-        self.CYANDARK = '\x1b[36;0m'
-        self.GRAY = '\x1b[30;01m'
-        self.GRAYDARK = '\x1b[30;0m'
-        self.GREEN = '\x1b[32;01m'
-        self.GREENDARK = '\x1b[32;0m'
-        self.LIGHT = '\x1b[37;01m'
-        self.MAGENTA = '\x1b[35;01m'
-        self.MAGENTADARK = '\x1b[35;0m'
-        self.RED = '\x1b[31;01m'
-        self.REDDARK = '\x1b[31;0m'
+        self.colors = {'red'        : '\x1b[31;01m',
+                       'blue'       : '\x1b[34;01m',
+                       'cyan'       : '\x1b[36;01m',
+                       'gray'       : '\x1b[30;01m',
+                       'green'      : '\x1b[32;01m',
+                       'light'      : '\x1b[37;01m',
+                       'magenta'    : '\x1b[35;01m',
+                       'reddark'    : '\x1b[31;0m',
+                       'bluedark'   : '\x1b[34;0m',
+                       'cyandark'   : '\x1b[36;0m',
+                       'graydark'   : '\x1b[30;0m',
+                       'greendark'  : '\x1b[32;0m',
+                       'magentadark': '\x1b[35;0m'}
 
     def greet(self):
         print self.UNICODE_MAGIC
@@ -348,7 +348,7 @@ class UI:
             logger.log(msg)
 
     def colorize(self, uicolor, msg):
-        return "%s%s%s" % (uicolor, msg, self.NORMAL)
+        return "%s%s%s" % (self.colors[uicolor], msg, self.NORMAL)
 
 #
 # Language and keymap
@@ -461,7 +461,7 @@ def fork_handler():
 
 def startDBus():
     os.setuid(0)
-    ui.info(_("Starting DBus..."))
+    ui.info(_("Starting DBus"))
     if not os.path.exists("/var/lib/dbus/machine-id"):
         run("/usr/bin/dbus-uuidgen", "--ensure")
     run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
@@ -502,12 +502,12 @@ def startNetwork():
 
     def ifUp(package, name, info):
         ifname = info["device_id"].split("_")[-1]
-        ui.info(_("Bringing up %s (%s)") % (ui.colorize(ui.LIGHT, ifname), ui.colorize(ui.CYAN, name)))
+        ui.info((_("Bringing up %s") + ' (%s)') % (ui.colorize("light", ifname), ui.colorize("cyan", name)))
         if need_remount:
             try:
                 link.Network.Link[package].setState(name, "up")
             except dbus.DBusException:
-                ui.error(_("Unable to bring up %s (%s)") % (ifname, name))
+                ui.error((_("Unable to bring up %s") + ' (%s)') % (ifname, name))
                 return False
         else:
             link.Network.Link[package].setState(name, "up", quiet=True)
@@ -664,7 +664,6 @@ def setupUdev():
     # Copy over any persistent things
     devpath = "/lib/udev/devices"
     if os.path.exists(devpath):
-        ui.info(_("Restoring saved device nodes"))
         for name in os.listdir(devpath):
             run_quiet(
                 "/bin/cp",
@@ -756,12 +755,12 @@ def checkRootFileSystem():
                 for i in range(4):
                     print "\07"
                     time.sleep(1)
-                ui.warn(_("Rebooting in 10 seconds ..."))
+                ui.warn(_("Rebooting in 10 seconds..."))
                 time.sleep(10)
                 ui.warn(_("Rebooting..."))
                 run("/sbin/reboot", "-f")
             else:
-                ui.error(_("Filesystem could not be fixed"))
+                ui.error(_("Filesystem could not be repaired"))
                 run_full("/sbin/sulogin")
         else:
             ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
@@ -811,7 +810,7 @@ def setHostname():
             data = 'HOSTNAME="' + host + '"\n' + data
         writeToFile("/etc/env.d/01hostname", data)
 
-    ui.info(_("Setting up hostname as '%s'") % ui.colorize(ui.LIGHT, host))
+    ui.info(_("Setting up hostname as '%s'") % ui.colorize("light", host))
     run("/bin/hostname", host)
 
 def autoloadModules():
@@ -869,7 +868,7 @@ def localMount():
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4")
 
-    ui.info(_("Activating swap"))
+    ui.info(_("Activating swap space"))
     run("/sbin/swapon", "-a")
 
 def remoteMount(dry_run=False):
@@ -905,7 +904,7 @@ def remoteMount(dry_run=False):
             netmounts = next_set
             time.sleep(0.5)
     except KeyboardInterrupt:
-        ui.error(_("Mounting skipped with CTRL-C, remote shares are not accessible!"))
+        ui.error(_("Mounting skipped with CTRL-C, remote shares will not be accessible!"))
         time.sleep(1)
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
@@ -1010,7 +1009,7 @@ def saveClock():
     ui.info(_("Syncing system clock to hardware clock"))
     t = capture("/sbin/hwclock", "--systohc", opts)
     if t[1] != '':
-        ui.error(_("Failed to sync clocks"))
+        ui.error(_("Failed to synchronize clocks"))
 
 def stopSystem():
 
@@ -1020,7 +1019,7 @@ def stopSystem():
 
     saveClock()
 
-    ui.info(_("Deactivating swap"))
+    ui.info(_("Deactivating swap space"))
     # unmount unused tmpfs filesystems before swap
     # (tmpfs can be swapped and you can get a deadlock)
     run_quiet("/bin/umount", "-at", "tmpfs")
@@ -1269,7 +1268,7 @@ if __name__ == "__main__":
             kexecFile = "/sys/kernel/kexec_loaded"
 
             if os.path.exists(kexecFile) and int(file(kexecFile).read().strip()):
-                ui.info(_("Trying initiate a warm reboot (skipping BIOS with kexec kernel)"))
+                ui.info(_("Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"))
                 run_quiet("/usr/sbin/kexec", "-e")
 
             # Shut down all network interfaces just before halt or reboot,
