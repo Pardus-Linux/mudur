@@ -598,10 +598,11 @@ def startServices(extras=None):
         if head_start and head_start in services:
             startService(head_start, command="ready")
             services.remove(head_start)
+            head_start = True
         for service in services:
             startService(service, command="ready")
 
-        if not get_kernel_option("xorg").has_key("off"):
+        if head_start and not get_kernel_option("xorg").has_key("off"):
             waitBus("/tmp/.X11-unix/X0", timeout=10)
 
             # Avoid users trying to login using VT
