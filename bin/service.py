@@ -142,13 +142,13 @@ def readyService(service, bus):
 def startService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
     if not quiet:
-        print _("Starting %s...") % service
+        print _("Starting %s") % service
     obj.start(dbus_interface="tr.org.pardus.comar.System.Service")
 
 def stopService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
     if not quiet:
-        print _("Stopping %s...") % service
+        print _("Stopping %s") % service
     obj.stop(dbus_interface="tr.org.pardus.comar.System.Service")
 
 def setServiceState(service, state, bus, quiet=False):
@@ -165,7 +165,7 @@ def setServiceState(service, state, bus, quiet=False):
 def reloadService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
     if not quiet:
-        print _("Reloading %s...") % service
+        print _("Reloading %s") % service
     obj.reload(dbus_interface="tr.org.pardus.comar.System.Service")
 
 def getServiceInfo(service, bus):
@@ -234,7 +234,7 @@ def manage_dbus(op, use_color, quiet):
             pass
     if op == "start":
         if not quiet:
-            print _("Starting %s...") % "DBus"
+            print _("Starting %s") % "DBus"
         cleanup()
         if not os.path.exists("/var/lib/dbus/machine-id"):
             run("/usr/bin/dbus-uuidgen", "--ensure")
@@ -246,7 +246,7 @@ def manage_dbus(op, use_color, quiet):
             return -1
     elif op == "stop":
         if not quiet:
-            print _("Stopping %s...") % "DBus"
+            print _("Stopping %s") % "DBus"
         run("/sbin/start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
         cleanup()
     elif op == "restart":

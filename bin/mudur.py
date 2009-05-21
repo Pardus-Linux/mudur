@@ -461,7 +461,7 @@ def fork_handler():
 
 def startDBus():
     os.setuid(0)
-    ui.info(_("Starting DBus"))
+    ui.info(_("Starting %s") % "DBus")
     if not os.path.exists("/var/lib/dbus/machine-id"):
         run("/usr/bin/dbus-uuidgen", "--ensure")
     run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
@@ -623,7 +623,7 @@ def stopServices():
         stopService(service)
 
 def stopDBus():
-    ui.info(_("Stopping DBus"))
+    ui.info(_("Stopping %s") % "DBus")
     run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
 
 
