@@ -484,13 +484,14 @@ def stopService(service):
     splash.progress(1)
 
 def getServices(bus, all=False):
+    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
+    services = obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
     if all:
-        obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
-        return obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
+        return services
     else:
         enabled = set(os.listdir("/etc/mudur/services/enabled"))
         conditional = set(os.listdir("/etc/mudur/services/conditional"))
-        return enabled.union(conditional)
+        return enabled.union(conditional).intersection(set(services))
 
 def startNetwork():
     # Remote mount required?

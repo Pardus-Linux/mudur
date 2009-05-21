@@ -1,3 +1,6 @@
+2009-05-21  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* bin/mudur.py (getServices): Omit non existing services
+
 2009-05-21  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (startServices): Don't wait for X11 socket if no head_start
 	is defined,
