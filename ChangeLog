@@ -4,6 +4,7 @@
 	* bin/mudur.py (UI): Make color characters a dictionary,
 	* bin/mudur.py: Refactor messages, drop a useless information message
 	about udev,
+	* bin/mudur.py (localMount): Drop unreachable code in localMount,
 	* bin/service.py: bus variable is not used, fix translation logic.
 
 2009-05-20  Bahadır Kandemir <bahadir@pardus.org.tr>

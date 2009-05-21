@@ -853,17 +853,10 @@ def checkFileSystems():
         run_full("/sbin/sulogin")
 
 def localMount():
+    # FIXME: /proc/bus/usb is deprecated by /dev/bus/usb, we shouldn't mount it.
     if os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
-        gid = None
-        for line in file("/etc/group"):
-            if line.startswith("usb:"):
-                gid = line.split(":")[2]
-                break
         ui.info(_("Mounting USB filesystem"))
-        if gid:
-            run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb", "-o", "devmode=0664,devgid=%s" % gid)
-        else:
-            run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
+        run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
 
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4")
