@@ -3,7 +3,8 @@
 	is defined,
 	* bin/mudur.py (UI): Make color characters a dictionary,
 	* bin/mudur.py: Refactor messages, drop a useless information message
-	about udev.
+	about udev,
+	* bin/service.py: bus variable is not used, fix translation logic.
 
 2009-05-20  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* bin/mudur.py: Do nothing if device is unplugged.

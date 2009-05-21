@@ -9,12 +9,12 @@
 # option) any later version. Please read the COPYING file.
 #
 
-import sys
 import os
-import locale
+import sys
 import time
 import dbus
 import socket
+import locale
 import subprocess
 
 # i18n
@@ -95,13 +95,14 @@ def format_service_list(services, use_color=True):
             "conditional_started": '[0;32m',
             "conditional_stopped": '[0;33m',
         }
+
+    run_title  = _("Status")
     name_title = _("Service")
-    run_title = _("Status")
     auto_title = _("Autostart")
     desc_title = _("Description")
 
+    run_size  = max(max(map(lambda x: len(x.running), services)), len(run_title))
     name_size = max(max(map(lambda x: len(x.name), services)), len(name_title))
-    run_size = max(max(map(lambda x: len(x.running), services)), len(run_title))
     auto_size = max(max(map(lambda x: len(x.autostart), services)), len(auto_title))
     desc_size = len(desc_title)
 
@@ -141,13 +142,13 @@ def readyService(service, bus):
 def startService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
     if not quiet:
-        print _("Starting %s..." % service)
+        print _("Starting %s...") % service
     obj.start(dbus_interface="tr.org.pardus.comar.System.Service")
 
 def stopService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
     if not quiet:
-        print _("Stopping %s..." % service)
+        print _("Stopping %s...") % service
     obj.stop(dbus_interface="tr.org.pardus.comar.System.Service")
 
 def setServiceState(service, state, bus, quiet=False):
@@ -164,7 +165,7 @@ def setServiceState(service, state, bus, quiet=False):
 def reloadService(service, bus, quiet=False):
     obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
     if not quiet:
-        print _("Reloading %s..." % service)
+        print _("Reloading %s...") % service
     obj.reload(dbus_interface="tr.org.pardus.comar.System.Service")
 
 def getServiceInfo(service, bus):
@@ -223,7 +224,7 @@ def run(*cmd):
 def manage_dbus(op, use_color, quiet):
     if os.getuid() != 0 and op not in ["status", "info", "list"]:
         print _("You must be root to use that.")
-        return -1 
+        return -1
 
     def cleanup():
         try:
@@ -233,7 +234,7 @@ def manage_dbus(op, use_color, quiet):
             pass
     if op == "start":
         if not quiet:
-            print _("Starting DBus...")
+            print _("Starting %s...") % "DBus"
         cleanup()
         if not os.path.exists("/var/lib/dbus/machine-id"):
             run("/usr/bin/dbus-uuidgen", "--ensure")
@@ -245,7 +246,7 @@ def manage_dbus(op, use_color, quiet):
             return -1
     elif op == "stop":
         if not quiet:
-            print _("Stopping DBus...")
+            print _("Stopping %s...") % "DBus"
         run("/sbin/start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
         cleanup()
     elif op == "restart":
@@ -253,7 +254,7 @@ def manage_dbus(op, use_color, quiet):
         manage_dbus("start", use_color, quiet)
     elif op in ["info", "status", "list"]:
         try:
-            bus = dbus.SystemBus()
+            dbus.SystemBus()
         except dbus.DBusException:
             print _("DBus is not running.")
             return
@@ -326,8 +327,6 @@ def main(args):
         usage()
 
     return 0
-
-#
 
 if __name__ == "__main__":
     locale.setlocale(locale.LC_ALL, '')
