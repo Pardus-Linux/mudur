@@ -469,14 +469,14 @@ def startService(service, command="start"):
     cmd = ["/bin/service", "--quiet", service, command]
     ui.debug("Starting service %s" % service)
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    ui.debug("%s started." % service)
+    ui.debug("%s started" % service)
     splash.progress(1)
 
 def stopService(service):
     cmd = ["/bin/service", "--quiet", service, "stop"]
     ui.debug("Stopping service %s" % service)
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    ui.debug("%s stopped." % service)
+    ui.debug("%s stopped" % service)
     splash.progress(1)
 
 def getServices(bus, all=False):
