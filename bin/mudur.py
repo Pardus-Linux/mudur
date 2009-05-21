@@ -138,13 +138,13 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
     while timeout > 0:
         try:
             sock.connect(unix_name)
-            ui.debug("Waited %f seconds for '%s'" % (itimeout-timeout, unix_name))
+            ui.debug("Waited %.2f seconds for '%s'" % (itimeout-timeout, unix_name))
             return True
         except:
             timeout -= wait
         time.sleep(wait)
 
-    ui.debug("Waited %f seconds for '%s'" % (itimeout-timeout, unix_name))
+    ui.debug("Waited %.2f seconds for '%s'" % (itimeout-timeout, unix_name))
     return False
 
 
@@ -295,25 +295,21 @@ class UI:
     UNICODE_MAGIC = "\x1b%G"
 
     def __init__(self):
-        self.GOOD = '\x1b[32;01m'
-        self.WARN = '\x1b[33;01m'
-        self.BAD = '\x1b[31;01m'
-        self.NORMAL = '\x1b[0m'
-
-        # maybe a dict would be better
-        self.colors = {'red'        : '\x1b[31;01m',
+        self.colors = {'red'        : '\x1b[31;01m', # BAD
                        'blue'       : '\x1b[34;01m',
                        'cyan'       : '\x1b[36;01m',
                        'gray'       : '\x1b[30;01m',
-                       'green'      : '\x1b[32;01m',
+                       'green'      : '\x1b[32;01m', # GOOD
                        'light'      : '\x1b[37;01m',
+                       'yellow'     : '\x1b[33;01m', # WARN
                        'magenta'    : '\x1b[35;01m',
                        'reddark'    : '\x1b[31;0m',
                        'bluedark'   : '\x1b[34;0m',
                        'cyandark'   : '\x1b[36;0m',
                        'graydark'   : '\x1b[30;0m',
                        'greendark'  : '\x1b[32;0m',
-                       'magentadark': '\x1b[35;0m'}
+                       'magentadark': '\x1b[35;0m',
+                       'normal'     : '\x1b[0m'}     # NORMAL
 
     def greet(self):
         print self.UNICODE_MAGIC
@@ -327,13 +323,13 @@ class UI:
     def info(self, msg):
         if config.get("debug"):
             logger.log(msg)
-        sys.stdout.write(" %s*%s %s\n" % (self.GOOD, self.NORMAL, msg.encode("utf-8")))
+        sys.stdout.write(" %s*%s %s\n" % (self.colors['green'], self.colors['normal'], msg.encode("utf-8")))
         splash.progress()
 
     def warn(self, msg):
         splash.verbose()
         logger.log(msg)
-        sys.stdout.write(" %s*%s %s\n" % (self.WARN, self.NORMAL, msg.encode("utf-8")))
+        sys.stdout.write(" %s*%s %s\n" % (self.colors['yellow'], self.colors['normal'], msg.encode("utf-8")))
 
     def error(self, msg):
         try:
@@ -341,14 +337,14 @@ class UI:
         except IOError:
             pass
         logger.log(msg)
-        sys.stdout.write(" %s*%s %s\n" % (self.BAD, self.NORMAL, msg.encode("utf-8")))
+        sys.stdout.write(" %s*%s %s\n" % (self.colors['red'], self.colors['normal'], msg.encode("utf-8")))
 
     def debug(self, msg):
         if config.get("debug"):
             logger.log(msg)
 
     def colorize(self, uicolor, msg):
-        return "%s%s%s" % (self.colors[uicolor], msg, self.NORMAL)
+        return "%s%s%s" % (self.colors[uicolor], msg, self.colors['normal'])
 
 #
 # Language and keymap
