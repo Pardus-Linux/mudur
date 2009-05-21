@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-21 10:16+0300\n"
-"PO-Revision-Date: 2009-04-07 20:17-0400\n"
+"PO-Revision-Date: 2009-05-21 18:51-0400\n"
 "Last-Translator: Klemens Häckel <click3d at linuxmail dot org>\n"
 "Language-Team: spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,19 +35,19 @@ msgid "Could not set unicode mode on tty %d"
 msgstr "No posible establecer modo unicode para tty %d"
 
 #: bin/mudur.py:464 bin/service.py:145 bin/service.py:237
-#, fuzzy, python-format
+#, python-format
 msgid "Starting %s"
-msgstr "Iniciando %s..."
+msgstr "Iniciando %s"
 
 #: bin/mudur.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "Bringing up %s"
-msgstr "Activando interfaz %s"
+msgstr "Activando %s"
 
 #: bin/mudur.py:510
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to bring up %s"
-msgstr "No posible activar interfaz %s"
+msgstr "No posible activar %s"
 
 #: bin/mudur.py:553
 msgid "No network connection, skipping remote mount."
@@ -58,11 +58,13 @@ msgid "Cannot connect to DBus, services won't be started"
 msgstr "No posible conectar a DBus, servicios no se iniciarán"
 
 #: bin/mudur.py:581
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to start network:\n"
 "  %s"
-msgstr "No posible iniciar D-Bus"
+msgstr ""
+"No posible iniciar le red:\n"
+"  %s"
 
 #: bin/mudur.py:586
 msgid "Cannot start system logger"
@@ -77,9 +79,9 @@ msgid "Stopping services"
 msgstr "Parando servicios"
 
 #: bin/mudur.py:626 bin/service.py:151 bin/service.py:249
-#, fuzzy, python-format
+#, python-format
 msgid "Stopping %s"
-msgstr "Deteniendo %s..."
+msgstr "Deteniendo %s"
 
 #: bin/mudur.py:650
 msgid "Can't move persistent udev rules from /dev/.udev"
@@ -114,7 +116,6 @@ msgid "Filesystem repaired, but reboot needed!"
 msgstr "Sistema de archivos reparado, pero requiere rebootear!"
 
 #: bin/mudur.py:758
-#, fuzzy
 msgid "Rebooting in 10 seconds..."
 msgstr "Rebooteando en 10 segundos ..."
 
@@ -123,9 +124,8 @@ msgid "Rebooting..."
 msgstr "Rebooteando..."
 
 #: bin/mudur.py:763
-#, fuzzy
 msgid "Filesystem could not be repaired"
-msgstr "Sistema de archivos no se pudo corregir"
+msgstr "Sistema de archivos no se pudo reparar"
 
 #: bin/mudur.py:766
 msgid "Skipping root filesystem check (fstab's passno == 0)"
@@ -169,9 +169,8 @@ msgid "Mounting local filesystems"
 msgstr "Montando sistemas de archivos locales"
 
 #: bin/mudur.py:871
-#, fuzzy
 msgid "Activating swap space"
-msgstr "Activando swap"
+msgstr "Activando área de swap"
 
 #: bin/mudur.py:890
 msgid "Starting portmap service for NFS"
@@ -182,11 +181,8 @@ msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Montando sistema de archivos remotos (CTRL-C aborta el intento)"
 
 #: bin/mudur.py:907
-#, fuzzy
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Proceso de montar interrumpido con CTRL-C, directorios remotos no están "
-"accesibles !"
+msgstr "Proceso de montar interrumpido con CTRL-C, directorios remotos no están accesibles !"
 
 #: bin/mudur.py:920
 msgid "Setting disk parameters"
@@ -217,14 +213,12 @@ msgid "Syncing system clock to hardware clock"
 msgstr "Sincronizando reloj del sistema a reloj de hardware"
 
 #: bin/mudur.py:1012
-#, fuzzy
 msgid "Failed to synchronize clocks"
-msgstr "No posible sincronizar relojes"
+msgstr "No posible sincronizar reloj"
 
 #: bin/mudur.py:1022
-#, fuzzy
 msgid "Deactivating swap space"
-msgstr "Desactivando swap"
+msgstr "Desactivando área de swap"
 
 #: bin/mudur.py:1043
 msgid "Unmounting filesystems"
@@ -264,9 +258,8 @@ msgid "Triggering udev events which are failed during a previous run"
 msgstr "Ejecutando eventos udev que fallaron durante un intento anterior"
 
 #: bin/mudur.py:1271
-#, fuzzy
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr "Intentando reboot caliente (saltando BIOS con kernel kexec)"
+msgstr "Intentando reboot caliente (omitiendo BIOS con kernel kexec)"
 
 #: bin/service.py:58
 msgid "local"
@@ -328,9 +321,9 @@ msgstr "Servicio '%s' se iniciará en caso que sea requerido."
 
 # recargando o reiniciando, favor opinar
 #: bin/service.py:168
-#, fuzzy, python-format
+#, python-format
 msgid "Reloading %s"
-msgstr "Reiniciando %s..."
+msgstr "Recargando %s"
 
 #: bin/service.py:194 bin/service.py:226
 msgid "You must be root to use that."
@@ -380,157 +373,3 @@ msgstr ""
 " -N, --no-color  No usar color en la salida\n"
 " -q, --quiet     No imprimir mensajes"
 
-#~ msgid "Starting DBus..."
-#~ msgstr "Iniciando DBus..."
-
-#~ msgid "Stopping DBus"
-#~ msgstr "Parando DBus"
-
-# i skipped out the word "saved", i hope it is ok
-#~ msgid "Restoring saved device states"
-#~ msgstr "Restaurando estados de dispositivos"
-
-#~ msgid "Loading CPUFreq modules"
-#~ msgstr "Cargando módulos CPUFreq "
-
-#~ msgid "Stopping DBus..."
-#~ msgstr "Parando DBus..."
-
-#~ msgid "Connection Name : %s "
-#~ msgstr "Nombre de conexión : %s "
-
-#~ msgid "Status          : %s "
-#~ msgstr "Estado          : %s "
-
-#~ msgid "Adress          : %s "
-#~ msgstr "Dirección          : %s "
-
-#~ msgid "Device Name     : %s "
-#~ msgstr "Nombre Dispositivo     : %s "
-
-#~ msgid "Device Id       : %s "
-#~ msgstr "ID de Dispositivo       : %s "
-
-#~ msgid "Mask            : %s "
-#~ msgstr "Máscara            : %s "
-
-#~ msgid "Gateway         : %s "
-#~ msgstr "Puerta de Enlace         : %s "
-
-#~ msgid "Netmode         : %s "
-#~ msgstr "Modo de red         : %s "
-
-#~ msgid "Namemode        : %s "
-#~ msgstr "Modo de nombre        : %s "
-
-#~ msgid "Remote          : %s "
-#~ msgstr "Remoto          : %s "
-
-#~ msgid "Up"
-#~ msgstr "Activo"
-
-#~ msgid "Down"
-#~ msgstr "Inactivo"
-
-#~ msgid ""
-#~ "usage: %s <command> <arguments>\n"
-#~ "where command is:\n"
-#~ " devices      List network devices\n"
-#~ " connections  List connections\n"
-#~ " info         List properties of a given connection\n"
-#~ " create       Create a new connection\n"
-#~ " delete       Delete a connection\n"
-#~ " up           Connect given connection\n"
-#~ " down         Disconnect given connection"
-#~ msgstr ""
-#~ "uso: %s <command> <arguments>\n"
-#~ "command puede ser:\n"
-#~ " devices      Listar dispositivos de red\n"
-#~ " connections  Listar conexiones\n"
-#~ " info         Listar las propiedades de una conexión específica\n"
-#~ " create       Crear una nueva conexión\n"
-#~ " delete       Eliminar una conexión\n"
-#~ " up           Conectar usando una conexión existente\n"
-#~ " down         Desconectar una conexión"
-
-#~ msgid "Error: %s"
-#~ msgstr "Error: %s"
-
-#~ msgid "No such profile."
-#~ msgstr "Perfil no existe."
-
-#~ msgid "There are more than one profiles named '%s'"
-#~ msgstr "Existe más de un perfil con el nombre '%s'"
-
-#~ msgid "Use one of the following commands:"
-#~ msgstr "Use uno de los comandos siguientes:"
-
-#~ msgid "Profile name"
-#~ msgstr "Nombre de Perfil"
-
-#~ msgid "Connection types:"
-#~ msgstr "Tipos de conexión:"
-
-#~ msgid "Type"
-#~ msgstr "Tipo"
-
-#~ msgid "No avaible device for this type of connection"
-#~ msgstr "No hay dispositivo disponible para este tipo de conexión"
-
-#~ msgid "Devices:"
-#~ msgstr "Dispositivos:"
-
-#~ msgid "Device"
-#~ msgstr "Dispositivo"
-
-#~ msgid "%s:"
-#~ msgstr "%s:"
-
-#~ msgid "Enter manually"
-#~ msgstr "Ingrese manualmente"
-
-# supongo que buscar esta bien, pero escucho otras sugerencias, favor revisar
-#~ msgid "Scan"
-#~ msgstr "Buscar"
-
-#~ msgid "No remote access points found"
-#~ msgstr "Puntos de acceso remoto no encontrado"
-
-#~ msgid "Choose authentication type:"
-#~ msgstr "Elija el tipo de autenticación:"
-
-#~ msgid "Password"
-#~ msgstr "Contraseña"
-
-#~ msgid "Username"
-#~ msgstr "Nombre de usuario"
-
-#~ msgid "Network settings:"
-#~ msgstr "Configuración de Red:"
-
-#~ msgid "Automatic query (DHCP)"
-#~ msgstr "Asignación automática (DHCP)"
-
-#~ msgid "Manual configuration"
-#~ msgstr "Configuración manual"
-
-#~ msgid "IP Address"
-#~ msgstr "Dirección IP"
-
-#~ msgid "Network mask"
-#~ msgstr "Máscara de Red"
-
-#~ msgid "Gateway"
-#~ msgstr "Puerto de enlace"
-
-#~ msgid "Profile"
-#~ msgstr "Perfil"
-
-#~ msgid "Profile %s removed."
-#~ msgstr "Perfil %s eliminado."
-
-#~ msgid "D-Bus Error: %s"
-#~ msgstr "Error de D-Bus: %s"
-
-#~ msgid "Cancelled"
-#~ msgstr "Cancelado"
