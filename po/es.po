@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-25 09:53+0200\n"
+"POT-Creation-Date: 2009-05-21 10:16+0300\n"
 "PO-Revision-Date: 2009-04-07 20:17-0400\n"
 "Last-Translator: Klemens Häckel <click3d at linuxmail dot org>\n"
 "Language-Team: spanish <es@li.org>\n"
@@ -25,206 +25,216 @@ msgstr ""
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "No posible grabar mudur.log, sistema de archivo solo-lectura"
 
-#: bin/mudur.py:341
+#: bin/mudur.py:324
 msgid "Cannot find /etc/pardus-release"
 msgstr "Archivo /etc/pardus-release no encontrado"
 
-#: bin/mudur.py:566
+#: bin/mudur.py:436
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "No posible establecer modo unicode para tty %d"
 
-#: bin/mudur.py:599 bin/service.py:236
-msgid "Starting DBus..."
-msgstr "Iniciando DBus..."
+#: bin/mudur.py:464 bin/service.py:145 bin/service.py:237
+#, fuzzy, python-format
+msgid "Starting %s"
+msgstr "Iniciando %s..."
 
-#: bin/mudur.py:645
-#, python-format
-msgid "Bringing up interface %s"
+#: bin/mudur.py:505
+#, fuzzy, python-format
+msgid "Bringing up %s"
 msgstr "Activando interfaz %s"
 
-#: bin/mudur.py:652
-#, python-format
-msgid "Unable to bring up interface %s"
+#: bin/mudur.py:510
+#, fuzzy, python-format
+msgid "Unable to bring up %s"
 msgstr "No posible activar interfaz %s"
 
-#: bin/mudur.py:657
+#: bin/mudur.py:553
 msgid "No network connection, skipping remote mount."
 msgstr "No hay conexión de red, se omite montar las unidades remotas."
 
-#: bin/mudur.py:665
+#: bin/mudur.py:561
 msgid "Cannot connect to DBus, services won't be started"
 msgstr "No posible conectar a DBus, servicios no se iniciarán"
 
-#: bin/mudur.py:687
+#: bin/mudur.py:581
+#, fuzzy, python-format
+msgid ""
+"Unable to start network:\n"
+"  %s"
+msgstr "No posible iniciar D-Bus"
+
+#: bin/mudur.py:586
 msgid "Cannot start system logger"
 msgstr "No posible iniciar log del sistema"
 
-#: bin/mudur.py:690
+#: bin/mudur.py:589
 msgid "Starting services"
 msgstr "Iniciando servicios"
 
-#: bin/mudur.py:717
+#: bin/mudur.py:616
 msgid "Stopping services"
 msgstr "Parando servicios"
 
-#: bin/mudur.py:727
-msgid "Stopping DBus"
-msgstr "Parando DBus"
+#: bin/mudur.py:626 bin/service.py:151 bin/service.py:249
+#, fuzzy, python-format
+msgid "Stopping %s"
+msgstr "Deteniendo %s..."
 
-#: bin/mudur.py:750
+#: bin/mudur.py:650
 msgid "Can't move persistent udev rules from /dev/.udev"
 msgstr "No posible mover reglas udev persistente de /dev/.udev"
 
-#: bin/mudur.py:759
+#: bin/mudur.py:655
 msgid "Mounting /dev"
 msgstr "Montando /dev"
 
-# i skipped out the word "saved", i hope it is ok
-#: bin/mudur.py:770
-msgid "Restoring saved device states"
-msgstr "Restaurando estados de dispositivos"
-
-#: bin/mudur.py:798
+#: bin/mudur.py:695
 msgid "Starting udev"
 msgstr "Iniciando udev"
 
-#: bin/mudur.py:811
+#: bin/mudur.py:709
 msgid "Populating /dev"
 msgstr "Populando /dev"
 
-#: bin/mudur.py:832
+#: bin/mudur.py:736
 msgid "Remounting root filesystem read-only"
 msgstr "Montando de nuevo sistema de archivos raíz (root) solo-lectura"
 
-#: bin/mudur.py:839
+#: bin/mudur.py:743
 msgid "Checking root filesystem (full check forced)"
 msgstr "Verificando sistema de archivos raíz (verificación completa forzada)"
 
-#: bin/mudur.py:844
+#: bin/mudur.py:748
 msgid "Checking root filesystem"
 msgstr "Verificando sistema de archivos raíz (root)"
 
-#: bin/mudur.py:850
+#: bin/mudur.py:754
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Sistema de archivos reparado, pero requiere rebootear!"
 
-#: bin/mudur.py:854
-msgid "Rebooting in 10 seconds ..."
+#: bin/mudur.py:758
+#, fuzzy
+msgid "Rebooting in 10 seconds..."
 msgstr "Rebooteando en 10 segundos ..."
 
-#: bin/mudur.py:856
+#: bin/mudur.py:760
 msgid "Rebooting..."
 msgstr "Rebooteando..."
 
-#: bin/mudur.py:859
-msgid "Filesystem could not be fixed"
+#: bin/mudur.py:763
+#, fuzzy
+msgid "Filesystem could not be repaired"
 msgstr "Sistema de archivos no se pudo corregir"
 
-#: bin/mudur.py:862
+#: bin/mudur.py:766
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Saltando chequeo de sistema de archivos root (fstab's passno == 0)"
 
-#: bin/mudur.py:864
+#: bin/mudur.py:768
 msgid "Remounting root filesystem read/write"
 msgstr "Montando de nuevo sistema de archivos raíz (root) lectura/escritura"
 
-#: bin/mudur.py:866
+#: bin/mudur.py:770
 msgid "Root filesystem could not be mounted read/write"
 msgstr "No posible montar sistema de archivos raíz (root) read/write"
 
-#: bin/mudur.py:909
+#: bin/mudur.py:813
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Estableciendo hostname como '%s'"
 
-#: bin/mudur.py:930
+#: bin/mudur.py:834
 msgid "Checking all filesystems"
 msgstr "Verificando todos los sistemas de archivos"
 
-#: bin/mudur.py:934
+#: bin/mudur.py:838
 msgid "A full fsck has been forced"
 msgstr "Verificación completa fsck fue forzado"
 
-#: bin/mudur.py:944
+#: bin/mudur.py:850
 msgid "Filesystem errors corrected"
 msgstr "Errores del sistema de archivos corregidos"
 
-#: bin/mudur.py:946
+#: bin/mudur.py:852
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr "Fsck no pudo corregir todos los errores, se requiere reparación manual"
 
-#: bin/mudur.py:959
+#: bin/mudur.py:862
 msgid "Mounting USB filesystem"
 msgstr "Montando sistema de archivos USB"
 
-#: bin/mudur.py:965
+#: bin/mudur.py:868
 msgid "Mounting local filesystems"
 msgstr "Montando sistemas de archivos locales"
 
-#: bin/mudur.py:968
-msgid "Activating swap"
+#: bin/mudur.py:871
+#, fuzzy
+msgid "Activating swap space"
 msgstr "Activando swap"
 
-#: bin/mudur.py:987
+#: bin/mudur.py:890
 msgid "Starting portmap service for NFS"
 msgstr "Iniciando servicio portmap para NFS"
 
-#: bin/mudur.py:990
+#: bin/mudur.py:893
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Montando sistema de archivos remotos (CTRL-C aborta el intento)"
 
-#: bin/mudur.py:1004
-msgid "Mounting skipped with CTRL-C, remote shares are not accessible!"
+#: bin/mudur.py:907
+#, fuzzy
+msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 msgstr ""
 "Proceso de montar interrumpido con CTRL-C, directorios remotos no están "
 "accesibles !"
 
-#: bin/mudur.py:1017
+#: bin/mudur.py:920
 msgid "Setting disk parameters"
 msgstr "Estableciendo parámetros de disco"
 
-#: bin/mudur.py:1036
+#: bin/mudur.py:939
 msgid "Setting system clock to hardware clock"
 msgstr "Estableciendo hora del sistema a hora de hardware"
 
-#: bin/mudur.py:1050
+#: bin/mudur.py:953
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr "No posible corregir el desajuste sistemático de la hora de hardware"
 
-#: bin/mudur.py:1054
+#: bin/mudur.py:957
 msgid "Failed to set system clock to hardware clock"
 msgstr "No posible establecer hora del sistema a hora de hardware"
 
-#: bin/mudur.py:1057
+#: bin/mudur.py:960
 msgid "Cleaning up /var"
 msgstr "Limpiando /var"
 
-#: bin/mudur.py:1067
+#: bin/mudur.py:970
 msgid "Cleaning up /tmp"
 msgstr "Limpiando /tmp"
 
-#: bin/mudur.py:1106
+#: bin/mudur.py:1009
 msgid "Syncing system clock to hardware clock"
 msgstr "Sincronizando reloj del sistema a reloj de hardware"
 
-#: bin/mudur.py:1109
-msgid "Failed to sync clocks"
+#: bin/mudur.py:1012
+#, fuzzy
+msgid "Failed to synchronize clocks"
 msgstr "No posible sincronizar relojes"
 
-#: bin/mudur.py:1118
-msgid "Deactivating swap"
+#: bin/mudur.py:1022
+#, fuzzy
+msgid "Deactivating swap space"
 msgstr "Desactivando swap"
 
-#: bin/mudur.py:1139
+#: bin/mudur.py:1043
 msgid "Unmounting filesystems"
 msgstr "Desmontando sistemas de archivos"
 
-#: bin/mudur.py:1171
+#: bin/mudur.py:1075
 msgid "Remounting remaining filesystems read-only"
 msgstr "Montando de nuevo sistemas de archivos restantes solo-lectura"
 
-#: bin/mudur.py:1186
+#: bin/mudur.py:1090
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -232,33 +242,30 @@ msgstr ""
 "Ocurrió un error interno. Por favor reporte a bugs.pardus.org.tr con las "
 "informaciones siguientes:"
 
-#: bin/mudur.py:1242
+#: bin/mudur.py:1149
 msgid "Mounting /sys"
 msgstr "Montando /sys"
 
-#: bin/mudur.py:1247
+#: bin/mudur.py:1158
 msgid "Mounting /dev/pts"
 msgstr "Montando /dev/pts"
 
-#: bin/mudur.py:1281
+#: bin/mudur.py:1201
 msgid "Setting up localhost"
 msgstr "Configurando localhost"
 
-#: bin/mudur.py:1291
+#: bin/mudur.py:1214
 msgid "Updating environment variables"
 msgstr "Actualizando variables del entorno"
 
 # please proofread, sort of free translation, traduccion libre
-#: bin/mudur.py:1306
+#: bin/mudur.py:1234
 msgid "Triggering udev events which are failed during a previous run"
 msgstr "Ejecutando eventos udev que fallaron durante un intento anterior"
 
-#: bin/mudur.py:1313
-msgid "Loading CPUFreq modules"
-msgstr "Cargando módulos CPUFreq "
-
-#: bin/mudur.py:1340
-msgid "Trying initiate a warm reboot (skipping BIOS with kexec kernel)"
+#: bin/mudur.py:1271
+#, fuzzy
+msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr "Intentando reboot caliente (saltando BIOS con kernel kexec)"
 
 #: bin/service.py:58
@@ -288,74 +295,60 @@ msgstr "si"
 msgid "conditional"
 msgstr "mandatorio"
 
-#: bin/service.py:98
-msgid "Service"
-msgstr "Servicio"
-
 #: bin/service.py:99
 msgid "Status"
 msgstr "Estado"
 
 #: bin/service.py:100
+msgid "Service"
+msgstr "Servicio"
+
+#: bin/service.py:101
 msgid "Autostart"
 msgstr "Arranque automatico"
 
-#: bin/service.py:101
+#: bin/service.py:102
 msgid "Description"
 msgstr "Descripción"
 
-#: bin/service.py:144
-#, python-format
-msgid "Starting %s..."
-msgstr "Iniciando %s..."
-
-#: bin/service.py:150
-#, python-format
-msgid "Stopping %s..."
-msgstr "Deteniendo %s..."
-
-#: bin/service.py:158
+#: bin/service.py:159
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "Servicio '%s' se iniciará automaticamente."
 
-#: bin/service.py:160
+#: bin/service.py:161
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "Servicio '%s' no se iniciará automaticamente."
 
-#: bin/service.py:162
+#: bin/service.py:163
 #, python-format
 msgid "Service '%s' will be started if required."
 msgstr "Servicio '%s' se iniciará en caso que sea requerido."
 
 # recargando o reiniciando, favor opinar
-#: bin/service.py:167
-#, python-format
-msgid "Reloading %s..."
+#: bin/service.py:168
+#, fuzzy, python-format
+msgid "Reloading %s"
 msgstr "Reiniciando %s..."
 
-#: bin/service.py:193 bin/service.py:225
+#: bin/service.py:194 bin/service.py:226
 msgid "You must be root to use that."
 msgstr "Solamente el usuario root puede realizar esta operación."
 
-#: bin/service.py:244
+#: bin/service.py:245
 msgid "Unable to start D-Bus"
 msgstr "No posible iniciar D-Bus"
 
-#: bin/service.py:248
-msgid "Stopping DBus..."
-msgstr "Parando DBus..."
-
-#: bin/service.py:258
+#: bin/service.py:259
 msgid "DBus is not running."
 msgstr "DBus no se está ejecutando."
 
-#: bin/service.py:260
+#: bin/service.py:261
 msgid "DBus is running."
 msgstr "Dbus se está ejecutando"
 
-#: bin/service.py:265
+#: bin/service.py:266
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -387,199 +380,157 @@ msgstr ""
 " -N, --no-color  No usar color en la salida\n"
 " -q, --quiet     No imprimir mensajes"
 
-#: bin/network.py:64
-#, python-format
-msgid "Connection Name : %s "
-msgstr "Nombre de conexión : %s "
+#~ msgid "Starting DBus..."
+#~ msgstr "Iniciando DBus..."
 
-#: bin/network.py:65
-#, python-format
-msgid "Status          : %s "
-msgstr "Estado          : %s "
+#~ msgid "Stopping DBus"
+#~ msgstr "Parando DBus"
 
-#: bin/network.py:66
-#, python-format
-msgid "Adress          : %s "
-msgstr "Dirección          : %s "
+# i skipped out the word "saved", i hope it is ok
+#~ msgid "Restoring saved device states"
+#~ msgstr "Restaurando estados de dispositivos"
 
-#: bin/network.py:69
-#, python-format
-msgid "Device Name     : %s "
-msgstr "Nombre Dispositivo     : %s "
+#~ msgid "Loading CPUFreq modules"
+#~ msgstr "Cargando módulos CPUFreq "
 
-#: bin/network.py:71
-#, python-format
-msgid "Device Id       : %s "
-msgstr "ID de Dispositivo       : %s "
+#~ msgid "Stopping DBus..."
+#~ msgstr "Parando DBus..."
 
-#: bin/network.py:73
-#, python-format
-msgid "Mask            : %s "
-msgstr "Máscara            : %s "
+#~ msgid "Connection Name : %s "
+#~ msgstr "Nombre de conexión : %s "
 
-#: bin/network.py:75
-#, python-format
-msgid "Gateway         : %s "
-msgstr "Puerta de Enlace         : %s "
+#~ msgid "Status          : %s "
+#~ msgstr "Estado          : %s "
 
-#: bin/network.py:77
-#, python-format
-msgid "Netmode         : %s "
-msgstr "Modo de red         : %s "
+#~ msgid "Adress          : %s "
+#~ msgstr "Dirección          : %s "
 
-#: bin/network.py:79
-#, python-format
-msgid "Namemode        : %s "
-msgstr "Modo de nombre        : %s "
+#~ msgid "Device Name     : %s "
+#~ msgstr "Nombre Dispositivo     : %s "
 
-#: bin/network.py:81
-#, python-format
-msgid "Remote          : %s "
-msgstr "Remoto          : %s "
+#~ msgid "Device Id       : %s "
+#~ msgstr "ID de Dispositivo       : %s "
 
-#: bin/network.py:86
-msgid "Up"
-msgstr "Activo"
+#~ msgid "Mask            : %s "
+#~ msgstr "Máscara            : %s "
 
-#: bin/network.py:87
-msgid "Down"
-msgstr "Inactivo"
+#~ msgid "Gateway         : %s "
+#~ msgstr "Puerta de Enlace         : %s "
 
-#: bin/network.py:113
-#, python-format
-msgid ""
-"usage: %s <command> <arguments>\n"
-"where command is:\n"
-" devices      List network devices\n"
-" connections  List connections\n"
-" info         List properties of a given connection\n"
-" create       Create a new connection\n"
-" delete       Delete a connection\n"
-" up           Connect given connection\n"
-" down         Disconnect given connection"
-msgstr ""
-"uso: %s <command> <arguments>\n"
-"command puede ser:\n"
-" devices      Listar dispositivos de red\n"
-" connections  Listar conexiones\n"
-" info         Listar las propiedades de una conexión específica\n"
-" create       Crear una nueva conexión\n"
-" delete       Eliminar una conexión\n"
-" up           Conectar usando una conexión existente\n"
-" down         Desconectar una conexión"
+#~ msgid "Netmode         : %s "
+#~ msgstr "Modo de red         : %s "
 
-#: bin/network.py:176 bin/network.py:217 bin/network.py:272 bin/network.py:438
-#: bin/network.py:460 bin/network.py:501
-#, python-format
-msgid "Error: %s"
-msgstr "Error: %s"
+#~ msgid "Namemode        : %s "
+#~ msgstr "Modo de nombre        : %s "
 
-#: bin/network.py:257 bin/network.py:486
-msgid "No such profile."
-msgstr "Perfil no existe."
+#~ msgid "Remote          : %s "
+#~ msgstr "Remoto          : %s "
 
-#: bin/network.py:261 bin/network.py:490
-#, python-format
-msgid "There are more than one profiles named '%s'"
-msgstr "Existe más de un perfil con el nombre '%s'"
+#~ msgid "Up"
+#~ msgstr "Activo"
 
-#: bin/network.py:262 bin/network.py:491
-msgid "Use one of the following commands:"
-msgstr "Use uno de los comandos siguientes:"
+#~ msgid "Down"
+#~ msgstr "Inactivo"
 
-#: bin/network.py:288
-msgid "Profile name"
-msgstr "Nombre de Perfil"
+#~ msgid ""
+#~ "usage: %s <command> <arguments>\n"
+#~ "where command is:\n"
+#~ " devices      List network devices\n"
+#~ " connections  List connections\n"
+#~ " info         List properties of a given connection\n"
+#~ " create       Create a new connection\n"
+#~ " delete       Delete a connection\n"
+#~ " up           Connect given connection\n"
+#~ " down         Disconnect given connection"
+#~ msgstr ""
+#~ "uso: %s <command> <arguments>\n"
+#~ "command puede ser:\n"
+#~ " devices      Listar dispositivos de red\n"
+#~ " connections  Listar conexiones\n"
+#~ " info         Listar las propiedades de una conexión específica\n"
+#~ " create       Crear una nueva conexión\n"
+#~ " delete       Eliminar una conexión\n"
+#~ " up           Conectar usando una conexión existente\n"
+#~ " down         Desconectar una conexión"
 
-#: bin/network.py:294
-msgid "Connection types:"
-msgstr "Tipos de conexión:"
+#~ msgid "Error: %s"
+#~ msgstr "Error: %s"
 
-#: bin/network.py:298
-msgid "Type"
-msgstr "Tipo"
+#~ msgid "No such profile."
+#~ msgstr "Perfil no existe."
 
-#: bin/network.py:312
-msgid "No avaible device for this type of connection"
-msgstr "No hay dispositivo disponible para este tipo de conexión"
+#~ msgid "There are more than one profiles named '%s'"
+#~ msgstr "Existe más de un perfil con el nombre '%s'"
 
-#: bin/network.py:320
-msgid "Devices:"
-msgstr "Dispositivos:"
+#~ msgid "Use one of the following commands:"
+#~ msgstr "Use uno de los comandos siguientes:"
 
-#: bin/network.py:324
-msgid "Device"
-msgstr "Dispositivo"
+#~ msgid "Profile name"
+#~ msgstr "Nombre de Perfil"
 
-#: bin/network.py:330 bin/network.py:354 bin/network.py:358
-#, python-format
-msgid "%s:"
-msgstr "%s:"
+#~ msgid "Connection types:"
+#~ msgstr "Tipos de conexión:"
 
-#: bin/network.py:335
-msgid "Enter manually"
-msgstr "Ingrese manualmente"
+#~ msgid "Type"
+#~ msgstr "Tipo"
+
+#~ msgid "No avaible device for this type of connection"
+#~ msgstr "No hay dispositivo disponible para este tipo de conexión"
+
+#~ msgid "Devices:"
+#~ msgstr "Dispositivos:"
+
+#~ msgid "Device"
+#~ msgstr "Dispositivo"
+
+#~ msgid "%s:"
+#~ msgstr "%s:"
+
+#~ msgid "Enter manually"
+#~ msgstr "Ingrese manualmente"
 
 # supongo que buscar esta bien, pero escucho otras sugerencias, favor revisar
-#: bin/network.py:336
-msgid "Scan"
-msgstr "Buscar"
+#~ msgid "Scan"
+#~ msgstr "Buscar"
 
-#: bin/network.py:356
-msgid "No remote access points found"
-msgstr "Puntos de acceso remoto no encontrado"
+#~ msgid "No remote access points found"
+#~ msgstr "Puntos de acceso remoto no encontrado"
 
-#: bin/network.py:375
-msgid "Choose authentication type:"
-msgstr "Elija el tipo de autenticación:"
+#~ msgid "Choose authentication type:"
+#~ msgstr "Elija el tipo de autenticación:"
 
-#: bin/network.py:388 bin/network.py:392
-msgid "Password"
-msgstr "Contraseña"
+#~ msgid "Password"
+#~ msgstr "Contraseña"
 
-#: bin/network.py:391
-msgid "Username"
-msgstr "Nombre de usuario"
+#~ msgid "Username"
+#~ msgstr "Nombre de usuario"
 
-#: bin/network.py:400
-msgid "Network settings:"
-msgstr "Configuración de Red:"
+#~ msgid "Network settings:"
+#~ msgstr "Configuración de Red:"
 
-#: bin/network.py:403
-msgid "Automatic query (DHCP)"
-msgstr "Asignación automática (DHCP)"
+#~ msgid "Automatic query (DHCP)"
+#~ msgstr "Asignación automática (DHCP)"
 
-#: bin/network.py:404
-msgid "Manual configuration"
-msgstr "Configuración manual"
+#~ msgid "Manual configuration"
+#~ msgstr "Configuración manual"
 
-#: bin/network.py:409
-msgid "IP Address"
-msgstr "Dirección IP"
+#~ msgid "IP Address"
+#~ msgstr "Dirección IP"
 
-#: bin/network.py:410
-msgid "Network mask"
-msgstr "Máscara de Red"
+#~ msgid "Network mask"
+#~ msgstr "Máscara de Red"
 
-#: bin/network.py:411
-msgid "Gateway"
-msgstr "Puerto de enlace"
+#~ msgid "Gateway"
+#~ msgstr "Puerto de enlace"
 
-#: bin/network.py:453
-msgid "Profile"
-msgstr "Perfil"
+#~ msgid "Profile"
+#~ msgstr "Perfil"
 
-#: bin/network.py:463
-#, python-format
-msgid "Profile %s removed."
-msgstr "Perfil %s eliminado."
+#~ msgid "Profile %s removed."
+#~ msgstr "Perfil %s eliminado."
 
-#: bin/network.py:514
-#, python-format
-msgid "D-Bus Error: %s"
-msgstr "Error de D-Bus: %s"
+#~ msgid "D-Bus Error: %s"
+#~ msgstr "Error de D-Bus: %s"
 
-#: bin/network.py:538
-msgid "Cancelled"
-msgstr "Cancelado"
-
+#~ msgid "Cancelled"
+#~ msgstr "Cancelado"
