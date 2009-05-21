@@ -592,14 +592,14 @@ def startServices(extras=None):
 
         # Give login screen a headstart
         head_start = config.get("head_start")
-        if head_start and head_start in services:
+        run_head_start = head_start and head_start in services
+        if run_head_start:
             startService(head_start, command="ready")
             services.remove(head_start)
-            head_start = True
         for service in services:
             startService(service, command="ready")
 
-        if head_start and not get_kernel_option("xorg").has_key("off"):
+        if run_head_start and not get_kernel_option("xorg").has_key("off"):
             waitBus("/tmp/.X11-unix/X0", timeout=10)
 
             # Avoid users trying to login using VT
