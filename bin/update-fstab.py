@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
+# /etc/fstab updater/generator
 # Copyright (C) 2005-2009 TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it under

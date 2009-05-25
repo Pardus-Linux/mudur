@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2007, TUBITAK/UEKAE
+# Copyright (C) 2007-2009 TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -9,20 +9,27 @@
 # option) any later version. Please read the COPYING file.
 #
 
+import subprocess
 import sys
 import os
-import subprocess
+
+# This script populates the /etc/init.d directory by creating symlinks to the
+# compat.py. This way, when /etc/init.d/<service_name> <action> is called, the symlink
+# delegates this transparently to the /bin/service command.
+
+# Usage:
+# python compat.py
+# /etc/init.d/samba start
+
 
 def wrap_service(package, op):
     cmd = ["service", package, op]
     return subprocess.call(cmd)
 
 def populate_initd():
-    for name in os.listdir("/var/db/comar/code"):
-        if name.startswith("System_Service_"):
-            srvname = name[15:-3]
-            if not os.path.exists("/etc/init.d/%s" % srvname):
-                os.symlink("compat.py", "/etc/init.d/%s" % srvname)
+    for name in os.listdir("/var/db/comar3/scripts/System.Service"):
+        if not os.path.exists("/etc/init.d/%s" % name[:-3]):
+            os.symlink("compat.py", "/etc/init.d/%s" % name[:-3])
 
 if __name__ == "__main__":
     myname = os.path.basename(sys.argv[0])
