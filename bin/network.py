@@ -15,9 +15,35 @@ import dbus
 import sys
 
 link = comar.Link()
+useColor = True
+
+# Color characters
+colors = {'red'       : '\x1b[31;01m',
+         'blue'       : '\x1b[34;01m',
+         'cyan'       : '\x1b[36;01m',
+         'gray'       : '\x1b[30;01m',
+         'green'      : '\x1b[32;01m',
+         'light'      : '\x1b[37;01m',
+         'yellow'     : '\x1b[33;01m',
+         'magenta'    : '\x1b[35;01m',
+         'reddark'    : '\x1b[31;0m',
+         'bluedark'   : '\x1b[34;0m',
+         'cyandark'   : '\x1b[36;0m',
+         'graydark'   : '\x1b[30;0m',
+         'greendark'  : '\x1b[32;0m',
+         'magentadark': '\x1b[35;0m',
+         'normal'     : '\x1b[0m'}
+
+
+def colorize(msg, color):
+    global useColor
+    if not useColor:
+        return msg
+    else:
+        return "%s%s%s" % (colors[color], msg, colors['normal'])
 
 def printUsage():
-    print "Usage: %s <command>" % sys.argv[0]
+    print "Usage: %s <command> <option>" % sys.argv[0]
     print
     print "Commands:"
     print "    connections     Show connections"
@@ -26,10 +52,14 @@ def printUsage():
     print "    delete          Delete profile"
     print "    up <profile>    Bring profile up"
     print "    down <profile>  Bring profile down"
+    print
+    print "Options:"
+    print "    --no-color      Don't colorize output"
+    print
 
 def getInput(label):
     try:
-        return raw_input("%s > " % label)
+        return raw_input(colorize(("%s > " % label), 'light'))
     except (KeyboardInterrupt, EOFError):
         print
         sys.exit(1)
@@ -38,7 +68,7 @@ def getNumber(label, min_, max_):
     index_ = min_ - 1
     while index_ < min_ or index_ > max_:
         try:
-            index_ = int(raw_input("%s > " % label))
+            index_ = int(raw_input(colorize(("%s > " % label), 'light')))
         except ValueError:
             pass
         except (KeyboardInterrupt, EOFError):
@@ -49,54 +79,70 @@ def getNumber(label, min_, max_):
 def printConnections():
     for package in link.Network.Link:
         info = link.Network.Link[package].linkInfo()
-        print info["name"]
-        for profile in link.Network.Link[package].connections():
-            profileInfo = link.Network.Link[package].connectionInfo(profile)
-            devname = profileInfo["device_name"].split(" - ")[0]
-            print "  %s [%s]" % (profile, devname)
+        profiles = link.Network.Link[package].connections()
+        if len(profiles) > 0:
+            maxstringlen = max([len(l) for l in profiles])
+            print colorize("%s profiles" % info["name"], 'green')
+            for profile in profiles:
+                profileInfo = link.Network.Link[package].connectionInfo(profile)
+                devname = profileInfo["device_name"].split(" - ")[0]
+                print "  %s%s    [%s]" % (colorize(profile, 'cyan'), (' '*(maxstringlen-len(profile))), devname)
     return 0
 
 def printDevices():
     for package in link.Network.Link:
         info = link.Network.Link[package].linkInfo()
-        print info["name"]
-        for devid, devname in link.Network.Link[package].deviceList().iteritems():
-            print "  %s" % devname
+        devices = link.Network.Link[package].deviceList().values()
+        if len(devices) > 0:
+            print colorize("%s devices" % info["name"], 'green')
+            for d in devices:
+                print "  %s" % d
     return 0
 
 def getPackage():
     packages = []
-    print "Select package:"
     index_ = 1
+    print colorize("Select interface:", "yellow")
+
     for package in link.Network.Link:
         info = link.Network.Link[package].linkInfo()
         packages.append(package)
         print "  [%s] %s" % (index_, info["name"])
         index_ += 1
+
     if not len(packages):
-        print "No network backends registered"
-        return 1
-    packageNo = getNumber("Package", 1, len(packages)) - 1
+        print colorize("No network backends registered", "red")
+        return -1
+
+    packageNo = getNumber("Interface", 1, len(packages)) - 1
     return packages[packageNo]
 
 def getDevice(package):
     devices = []
-    print
     index_ = 1
-    for devid, devname in link.Network.Link[package].deviceList().iteritems():
+    _devices = link.Network.Link[package].deviceList()
+
+    if len(_devices) > 0:
+        print
+        print colorize("Select device:", "yellow")
+
+    for devid, devname in _devices.iteritems():
         devices.append(devid)
-        print "  %s %s" % (index_, devname)
+        print "  [%s] %s" % (index_, devname)
         index_ += 1
+
     if not len(devices):
-        print "No devices on that backend"
-        return 1
+        print colorize("No devices on that backend", "red")
+        return -1
+
     devNo = getNumber("Device", 1, len(devices)) - 1
     return devices[devNo]
 
 def getDeviceMode(package):
     device_modes = []
-    print
     index_ = 1
+    print
+    print colorize("Select device mode:", "yellow")
     for modeName, modeDesc  in link.Network.Link[package].deviceModes():
         print "  [%s] %s" % (index_, modeDesc)
         device_modes.append(modeName)
@@ -107,6 +153,7 @@ def getDeviceMode(package):
 def getRemote(package, device):
     remote = None
     remoteName = link.Network.Link[package].remoteName()
+
     def scanRemote():
         remotes = []
         print
@@ -115,8 +162,8 @@ def getRemote(package, device):
             remotes.append(remotePoint["remote"])
             print "  [%s] %s" % (index_, remotePoint["remote"])
             index_ += 1
-        print "  [%s] Scan Again" % index_
-        print "  [%s] Enter Manually" % (index_ + 1)
+        print "  [%s] Rescan" % index_
+        print "  [%s] Enter SSID manually" % (index_ + 1)
         remoteNo = getNumber(remoteName, 1, len(remotes) + 2) - 1
         if remoteNo < len(remotes):
             return remotes[remoteNo]
@@ -124,15 +171,17 @@ def getRemote(package, device):
             return None
         else:
             return getInput(remoteName)
+
     while not remote:
         remote = scanRemote()
     return remote
 
 def getAuth(package):
-    print
-    print "  [1] No authentication"
     auths = []
     index_ = 2
+    print
+    print colorize("Select authentication method:", "yellow")
+    print "  [1] No authentication"
     for authName, authDesc in link.Network.Link[package].authMethods():
         auths.append(authName)
         print "  [%s] %s" % (index_, authDesc)
@@ -153,23 +202,28 @@ def getAuthSettings(package, auth):
 
 def createProfile():
     settings = []
+
     # Select package
     package = getPackage()
+
     # Get backend info
     info = link.Network.Link[package].linkInfo()
     modes = info["modes"].split(",")
-    # Get name
-    profile = None
-    while not profile:
-        profile = getInput("Profile name").strip()
+
     # Select device
     if "device" in modes:
         device = getDevice(package)
+        if device == -1:
+            # Backend provides no device
+            return 1
+
         settings.append(("device", device))
+
         # Select device mode
         if "device_mode" in modes:
             deviceMode = getDeviceMode(package)
             settings.append(("device_mode", deviceMode))
+
     # Remote
     if "remote" in modes:
         if "remote_scan" in modes and "device" in modes:
@@ -178,20 +232,23 @@ def createProfile():
             print
             remote = getInput("Enter Remote")
         settings.append(("remote", remote,))
-    # Auth
+
+    # Authentication
     if "auth" in modes:
         auth = getAuth(package)
         settings.append(("auth", auth,))
         if auth:
             for key, value in getAuthSettings(package, auth):
                 settings.append(("auth_%s" % key, value,))
+
     # Address
     if "net" in modes:
         print
+        print colorize("Select IP assignment method:", "yellow")
         auto = False
         if "auto" in modes:
-            print "  [1] Enter manually"
-            print "  [2] Get address automatically"
+            print "  [1] Enter an IP address manually"
+            print "  [2] Automatically obtain an IP address"
             auto = getNumber("Type", 1, 2) == 2
         if auto:
             settings.append(("net", ("auto", "", "", "")))
@@ -200,7 +257,13 @@ def createProfile():
             net_mask = getInput("Mask")
             net_gateway = getInput("Gateway")
             settings.append(("net", ("manual", net_address, net_mask, net_gateway)))
-    # Create
+
+    # Get name and create it
+    profile = None
+    print
+    while not profile:
+        profile = getInput("Profile name").strip()
+
     try:
         for key, value in settings:
             if key == "device":
@@ -225,14 +288,20 @@ def deleteProfile():
     _index = 1
     profiles = []
     for package in link.Network.Link:
-        info = link.Network.Link[package].linkInfo()
-        print info["name"]
-        for profile in link.Network.Link[package].connections():
-            profileInfo = link.Network.Link[package].connectionInfo(profile)
-            devname = profileInfo["device_name"].split(" - ")[0]
-            print "  [%2.d] %s [%s]" % (_index, profile, devname)
-            profiles.append((package, profile, ))
-            _index += 1
+        _profiles = link.Network.Link[package].connections()
+        if len(_profiles) > 0:
+            maxstringlen = max([len(l) for l in _profiles])
+            info = link.Network.Link[package].linkInfo()
+            print colorize("%s profiles" % info["name"], 'green')
+
+            for profile in _profiles:
+                profileInfo = link.Network.Link[package].connectionInfo(profile)
+                devname = profileInfo["device_name"].split(" - ")[0]
+
+                print "  [%d] %s%s    [%s]" % (_index, profile, (' '*(maxstringlen-len(profile))), devname)
+                profiles.append((package, profile, ))
+                _index += 1
+
     package, profile = profiles[getNumber("Delete", 1, _index - 1) - 1]
     link.Network.Link[package].deleteConnection(profile)
     return 0
@@ -256,6 +325,11 @@ def main():
     except:
         printUsage()
         return 1
+
+    if "--no-color" in sys.argv:
+        global useColor
+        useColor = False
+        sys.argv.remove("--no-color")
 
     if command == "connections":
         return printConnections()

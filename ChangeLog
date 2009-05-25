@@ -1,9 +1,16 @@
 2009-05-25  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/*.py: Update copyright dates,
 	* bin/mudur.py (Logger.log): Strip color characters before writing to the
 	mudur.log file,
 	* bin/compat.py: Port the code to COMAR 3.0 structure,
-	* setup.py: Bump version to 3.0.3,
-	* bin/*.py: Update copyright dates,
+	* bin/network.py:
+	- Better formatting on screen,
+	- Don't write backend names if there aren't any profiles or devices on that backend,
+	- Add support for fancy colors, can be disabled with --no-color,
+	- Ask the profile name at the end,
+	- Quit immediately if the backend doesn't provide any device
+	  instead of asking useless questions.
+	* setup.py: Bump version to 3.0.3.
 
 2009-05-21  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* bin/mudur.py (getServices): Omit non existing services
