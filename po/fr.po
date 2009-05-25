@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-21 10:16+0300\n"
+"POT-Creation-Date: 2009-05-25 18:23+0300\n"
 "PO-Revision-Date: 2008-06-27 02:32+0200\n"
 "Last-Translator: Amine Chadly <amine.chadly@gmail.com>\n"
 "Language-Team: French <pardus-translators@liste.pardus.org.tr>\n"
@@ -16,20 +16,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: bin/mudur.py:166
+#: bin/mudur.py:169
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "Impossible d'écrire mudur.log, système de fichier en lecture seule"
 
-#: bin/mudur.py:324
+#: bin/mudur.py:323
 msgid "Cannot find /etc/pardus-release"
 msgstr "Impossible de trouver le fichier /etc/pardus-release"
 
-#: bin/mudur.py:436
+#: bin/mudur.py:435
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "Impossible d'établir le mode unicode sur le terminal (tty) %d"
 
-#: bin/mudur.py:464 bin/service.py:145 bin/service.py:237
+#: bin/mudur.py:463 bin/service.py:146 bin/service.py:238
 #, fuzzy, python-format
 msgid "Starting %s"
 msgstr "Démarrage de %s..."
@@ -72,7 +72,7 @@ msgstr "Démarrage des services"
 msgid "Stopping services"
 msgstr "Arrêt des services"
 
-#: bin/mudur.py:626 bin/service.py:151 bin/service.py:249
+#: bin/mudur.py:626 bin/service.py:152 bin/service.py:250
 #, fuzzy, python-format
 msgid "Stopping %s"
 msgstr "Arrêt de %s..."
@@ -161,83 +161,83 @@ msgstr ""
 "Fsck n'a pu corriger toutes les erreurs, une réparation manuelle est "
 "nécessaire"
 
-#: bin/mudur.py:862
+#: bin/mudur.py:858
 msgid "Mounting USB filesystem"
 msgstr "Montage du système de fichier USB"
 
-#: bin/mudur.py:868
+#: bin/mudur.py:861
 msgid "Mounting local filesystems"
 msgstr "Montage des systèmes de fichier locaux"
 
-#: bin/mudur.py:871
+#: bin/mudur.py:864
 #, fuzzy
 msgid "Activating swap space"
 msgstr "Activation du système de fichier d'échange (swap)"
 
-#: bin/mudur.py:890
+#: bin/mudur.py:883
 msgid "Starting portmap service for NFS"
 msgstr "Démarrage du service portmap pour NFS"
 
-#: bin/mudur.py:893
+#: bin/mudur.py:886
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr ""
 "Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
 
-#: bin/mudur.py:907
+#: bin/mudur.py:900
 #, fuzzy
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 msgstr ""
 "Montage désactivé avec CTRL-C, les partages distants ne sont pas "
 "accessibles !"
 
-#: bin/mudur.py:920
+#: bin/mudur.py:913
 msgid "Setting disk parameters"
 msgstr "Établissement des paramètres du disque"
 
-#: bin/mudur.py:939
+#: bin/mudur.py:932
 msgid "Setting system clock to hardware clock"
 msgstr "Établissement de l'horloge système à l'heure du matériel"
 
-#: bin/mudur.py:953
+#: bin/mudur.py:946
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr ""
 "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
-#: bin/mudur.py:957
+#: bin/mudur.py:950
 msgid "Failed to set system clock to hardware clock"
 msgstr "Échec de l'établissement de l'horloge du système à l'heure du matériel"
 
-#: bin/mudur.py:960
+#: bin/mudur.py:953
 msgid "Cleaning up /var"
 msgstr "Nettoyage de /var"
 
-#: bin/mudur.py:970
+#: bin/mudur.py:963
 msgid "Cleaning up /tmp"
 msgstr "Nettoyage de /tmp"
 
-#: bin/mudur.py:1009
+#: bin/mudur.py:1002
 msgid "Syncing system clock to hardware clock"
 msgstr "Synchronisation de l'horloge système à l'heure du matériel"
 
-#: bin/mudur.py:1012
+#: bin/mudur.py:1005
 #, fuzzy
 msgid "Failed to synchronize clocks"
 msgstr "Échec de la synchronisation des horloges"
 
-#: bin/mudur.py:1022
+#: bin/mudur.py:1015
 #, fuzzy
 msgid "Deactivating swap space"
 msgstr "Désactivation du système de fichier d'échange (swap)"
 
-#: bin/mudur.py:1043
+#: bin/mudur.py:1036
 msgid "Unmounting filesystems"
 msgstr "Démontage des systèmes de fichier"
 
-#: bin/mudur.py:1075
+#: bin/mudur.py:1068
 msgid "Remounting remaining filesystems read-only"
 msgstr "Remontage des systèmes de fichier restants en lecture seule"
 
-#: bin/mudur.py:1090
+#: bin/mudur.py:1083
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -245,110 +245,110 @@ msgstr ""
 "Une erreur interne est survenue. Veuillez reporter le bug à bugs.pardus.org."
 "tr avec l'information suivante s'il vous plaît : "
 
-#: bin/mudur.py:1149
+#: bin/mudur.py:1142
 msgid "Mounting /sys"
 msgstr "Montage de /sys"
 
-#: bin/mudur.py:1158
+#: bin/mudur.py:1151
 msgid "Mounting /dev/pts"
 msgstr "Montage de /dev/pts "
 
-#: bin/mudur.py:1201
+#: bin/mudur.py:1194
 msgid "Setting up localhost"
 msgstr "Établissement de l'hôte local (localhost)"
 
-#: bin/mudur.py:1214
+#: bin/mudur.py:1207
 msgid "Updating environment variables"
 msgstr "Mise à jour des variables d'environnement"
 
-#: bin/mudur.py:1234
+#: bin/mudur.py:1227
 msgid "Triggering udev events which are failed during a previous run"
 msgstr ""
 "Lancement des événements udev qui ont échoué lors d'un lancement précédent"
 
-#: bin/mudur.py:1271
+#: bin/mudur.py:1264
 #, fuzzy
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 "Tente d'initier un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
 
-#: bin/service.py:58
+#: bin/service.py:59
 msgid "local"
 msgstr "local"
 
-#: bin/service.py:59
+#: bin/service.py:60
 msgid "script"
 msgstr "script"
 
-#: bin/service.py:60
+#: bin/service.py:61
 msgid "server"
 msgstr "serveur"
 
-#: bin/service.py:72
+#: bin/service.py:73
 msgid "running"
 msgstr "en cours d'exécution"
 
-#: bin/service.py:74
+#: bin/service.py:75
 msgid "yes"
 msgstr "oui"
 
-#: bin/service.py:76
+#: bin/service.py:77
 msgid "conditional"
 msgstr "conditionnel"
 
-#: bin/service.py:99
+#: bin/service.py:100
 msgid "Status"
 msgstr "Statut"
 
-#: bin/service.py:100
+#: bin/service.py:101
 msgid "Service"
 msgstr "Service"
 
-#: bin/service.py:101
+#: bin/service.py:102
 msgid "Autostart"
 msgstr "Démarrage automatique (Autostart)"
 
-#: bin/service.py:102
+#: bin/service.py:103
 msgid "Description"
 msgstr "Description"
 
-#: bin/service.py:159
+#: bin/service.py:160
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "Le service '%s' sera automatiquement démarré."
 
-#: bin/service.py:161
+#: bin/service.py:162
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "Le service '%s' ne sera pas automatiquement démarré."
 
-#: bin/service.py:163
+#: bin/service.py:164
 #, python-format
 msgid "Service '%s' will be started if required."
 msgstr "Le service '%s' sera démarré quand nécessaire."
 
-#: bin/service.py:168
+#: bin/service.py:169
 #, fuzzy, python-format
 msgid "Reloading %s"
 msgstr "Arrêt-Relance de %s..."
 
-#: bin/service.py:194 bin/service.py:226
+#: bin/service.py:195 bin/service.py:227
 msgid "You must be root to use that."
 msgstr "Vous devez être root pour utiliser cela."
 
-#: bin/service.py:245
-msgid "Unable to start D-Bus"
-msgstr "Impossible de démarrer D-Bus"
+#: bin/service.py:246
+msgid "Unable to start DBus"
+msgstr "Impossible de démarrer DBus"
 
-#: bin/service.py:259
+#: bin/service.py:260
 msgid "DBus is not running."
 msgstr "DBus n'est pas en cours d'exécution."
 
-#: bin/service.py:261
+#: bin/service.py:262
 msgid "DBus is running."
 msgstr "Dbus fonctionne."
 
-#: bin/service.py:266
+#: bin/service.py:267
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"

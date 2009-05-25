@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-21 10:16+0300\n"
+"POT-Creation-Date: 2009-05-25 18:23+0300\n"
 "PO-Revision-Date: 2007-04-01 21:58+0100\n"
 "Last-Translator: Jaume Villalba <javs@tinet.cat>\n"
 "Language-Team: Catalan <Pardus-translation-ca@uludag.org.tr>\n"
@@ -15,22 +15,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: bin/mudur.py:166
+#: bin/mudur.py:169
 msgid "Cannot write mudur.log, read-only file system"
 msgstr ""
 "No s'ha pogut escriure el mudur.log, aquest és un sistema d'arxius només de "
 "lectura"
 
-#: bin/mudur.py:324
+#: bin/mudur.py:323
 msgid "Cannot find /etc/pardus-release"
 msgstr "No s'ha pogut trobar el /etc/pardus-release"
 
-#: bin/mudur.py:436
+#: bin/mudur.py:435
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "No s'ha pogut establir el mode unicode en el tty %d"
 
-#: bin/mudur.py:464 bin/service.py:145 bin/service.py:237
+#: bin/mudur.py:463 bin/service.py:146 bin/service.py:238
 #, fuzzy, python-format
 msgid "Starting %s"
 msgstr "L'udev s'està engegant"
@@ -73,7 +73,7 @@ msgstr "Els serveis s'estan engegant"
 msgid "Stopping services"
 msgstr "Els serveis s'estan aturant"
 
-#: bin/mudur.py:626 bin/service.py:151 bin/service.py:249
+#: bin/mudur.py:626 bin/service.py:152 bin/service.py:250
 #, fuzzy, python-format
 msgid "Stopping %s"
 msgstr "Els serveis s'estan aturant"
@@ -167,88 +167,88 @@ msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 "El Fsck no ha pogut corregir tots els errors, la reparació manual s'escau"
 
-#: bin/mudur.py:862
+#: bin/mudur.py:858
 msgid "Mounting USB filesystem"
 msgstr "El sistema d'arxius USB s'està muntant"
 
-#: bin/mudur.py:868
+#: bin/mudur.py:861
 msgid "Mounting local filesystems"
 msgstr "El sistema d'arxius local s'està muntant"
 
-#: bin/mudur.py:871
+#: bin/mudur.py:864
 #, fuzzy
 msgid "Activating swap space"
 msgstr "Activació de l'espai de bescanvi (swap)"
 
-#: bin/mudur.py:890
+#: bin/mudur.py:883
 #, fuzzy
 msgid "Starting portmap service for NFS"
 msgstr "Els serveis s'estan engegant"
 
-#: bin/mudur.py:893
+#: bin/mudur.py:886
 #, fuzzy
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr ""
 "El sistema d'arxius de l'arrel en mode de només lectura r'està tornant a "
 "muntar"
 
-#: bin/mudur.py:907
+#: bin/mudur.py:900
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 msgstr ""
 
-#: bin/mudur.py:920
+#: bin/mudur.py:913
 msgid "Setting disk parameters"
 msgstr "Configuració els paràmetres de disc"
 
-#: bin/mudur.py:939
+#: bin/mudur.py:932
 msgid "Setting system clock to hardware clock"
 msgstr "L'hora del sistema s'està configurant d'acord amb la del maquinari"
 
-#: bin/mudur.py:953
+#: bin/mudur.py:946
 #, fuzzy
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr ""
 "No s'ha pogut configurar l'hora del sistema d'acord amb la del maquinari"
 
-#: bin/mudur.py:957
+#: bin/mudur.py:950
 msgid "Failed to set system clock to hardware clock"
 msgstr ""
 "No s'ha pogut configurar l'hora del sistema d'acord amb la del maquinari"
 
-#: bin/mudur.py:960
+#: bin/mudur.py:953
 msgid "Cleaning up /var"
 msgstr "El /var s'està netejant"
 
-#: bin/mudur.py:970
+#: bin/mudur.py:963
 msgid "Cleaning up /tmp"
 msgstr "El /tmp s'està netejant"
 
-#: bin/mudur.py:1009
+#: bin/mudur.py:1002
 msgid "Syncing system clock to hardware clock"
 msgstr "Sincronització de l'hora del sistema d'acord amb la del maquinari"
 
-#: bin/mudur.py:1012
+#: bin/mudur.py:1005
 #, fuzzy
 msgid "Failed to synchronize clocks"
 msgstr "No s'ha pogut sincronitzar l'hora"
 
-#: bin/mudur.py:1022
+#: bin/mudur.py:1015
 #, fuzzy
 msgid "Deactivating swap space"
 msgstr "Desactivació de l'espai de bescanvi (swap)"
 
-#: bin/mudur.py:1043
+#: bin/mudur.py:1036
 msgid "Unmounting filesystems"
 msgstr "El sistema d'arxius s'està desmuntant"
 
-#: bin/mudur.py:1075
+#: bin/mudur.py:1068
 #, fuzzy
 msgid "Remounting remaining filesystems read-only"
 msgstr ""
 "S'estan tornant a muntar els sistemes d'arxius restants en mode de només "
 "lectura"
 
-#: bin/mudur.py:1090
+#: bin/mudur.py:1083
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -256,108 +256,108 @@ msgstr ""
 "S'ha produït un error intern. Si us plau, reporteu aquest error a bugs."
 "pardus.org.tr amb la següent informació:"
 
-#: bin/mudur.py:1149
+#: bin/mudur.py:1142
 msgid "Mounting /sys"
 msgstr "El /sys s'està muntant"
 
-#: bin/mudur.py:1158
+#: bin/mudur.py:1151
 msgid "Mounting /dev/pts"
 msgstr "El /dev/pts s'està muntant"
 
-#: bin/mudur.py:1201
+#: bin/mudur.py:1194
 msgid "Setting up localhost"
 msgstr "Configuració del nom de la màquina (localhost)"
 
-#: bin/mudur.py:1214
+#: bin/mudur.py:1207
 msgid "Updating environment variables"
 msgstr "Actualització de les variables de l'entorn"
 
-#: bin/mudur.py:1234
+#: bin/mudur.py:1227
 msgid "Triggering udev events which are failed during a previous run"
 msgstr ""
 
-#: bin/mudur.py:1271
+#: bin/mudur.py:1264
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 
-#: bin/service.py:58
+#: bin/service.py:59
 msgid "local"
 msgstr "local"
 
-#: bin/service.py:59
+#: bin/service.py:60
 msgid "script"
 msgstr "seqüència"
 
-#: bin/service.py:60
+#: bin/service.py:61
 msgid "server"
 msgstr "servidor"
 
-#: bin/service.py:72
+#: bin/service.py:73
 msgid "running"
 msgstr "Està en marxa"
 
-#: bin/service.py:74
+#: bin/service.py:75
 msgid "yes"
 msgstr "sí"
 
-#: bin/service.py:76
+#: bin/service.py:77
 msgid "conditional"
 msgstr ""
 
-#: bin/service.py:99
+#: bin/service.py:100
 msgid "Status"
 msgstr "Estat"
 
-#: bin/service.py:100
+#: bin/service.py:101
 msgid "Service"
 msgstr "Servei"
 
-#: bin/service.py:101
+#: bin/service.py:102
 msgid "Autostart"
 msgstr "Inici automàtic"
 
-#: bin/service.py:102
+#: bin/service.py:103
 msgid "Description"
 msgstr "Descripció"
 
-#: bin/service.py:159
+#: bin/service.py:160
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "El servei '%s' s'iniciarà automàticament."
 
-#: bin/service.py:161
+#: bin/service.py:162
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "El servei '%s' no s'iniciarà automàticament."
 
-#: bin/service.py:163
+#: bin/service.py:164
 #, fuzzy, python-format
 msgid "Service '%s' will be started if required."
 msgstr "El servei '%s' s'iniciarà automàticament."
 
-#: bin/service.py:168
+#: bin/service.py:169
 #, fuzzy, python-format
 msgid "Reloading %s"
 msgstr "S'està reiniciant..."
 
-#: bin/service.py:194 bin/service.py:226
+#: bin/service.py:195 bin/service.py:227
 msgid "You must be root to use that."
 msgstr ""
 
-#: bin/service.py:245
-msgid "Unable to start D-Bus"
+#: bin/service.py:246
+msgid "Unable to start DBus"
 msgstr ""
 
-#: bin/service.py:259
+#: bin/service.py:260
 msgid "DBus is not running."
 msgstr ""
 
-#: bin/service.py:261
+#: bin/service.py:262
 #, fuzzy
 msgid "DBus is running."
 msgstr "Està en marxa"
 
-#: bin/service.py:266
+#: bin/service.py:267
 #, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"

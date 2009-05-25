@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-21 10:16+0300\n"
+"POT-Creation-Date: 2009-05-25 18:23+0300\n"
 "PO-Revision-Date: 2008-06-20 10:09+0300\n"
 "Last-Translator: Ozan Çağlayan <ozan@pardus.org.tr>\n"
 "Language-Team:  <tr@li.org>\n"
@@ -17,20 +17,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: bin/mudur.py:166
+#: bin/mudur.py:169
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "Müdür kayıtları yazılamıyor, dosya sistemi sadece okunabilir durumda"
 
-#: bin/mudur.py:324
+#: bin/mudur.py:323
 msgid "Cannot find /etc/pardus-release"
 msgstr "/etc/pardus-release dosyası bulunamadı"
 
-#: bin/mudur.py:436
+#: bin/mudur.py:435
 #, python-format
 msgid "Could not set unicode mode on tty %d"
-msgstr "tty %d unicode moduna alınamadı"
+msgstr "tty %d unicode kipine geçirilemedi"
 
-#: bin/mudur.py:464 bin/service.py:145 bin/service.py:237
+#: bin/mudur.py:463 bin/service.py:146 bin/service.py:238
 #, python-format
 msgid "Starting %s"
 msgstr "%s başlatılıyor"
@@ -47,7 +47,7 @@ msgstr "Ağ arayüzü %s etkinleştirilemedi"
 
 #: bin/mudur.py:553
 msgid "No network connection, skipping remote mount."
-msgstr "Ağ bağlantısı yok, uzak dosya sistemleri bağlanamayacak."
+msgstr "Ağ bağlantısı yok, uzak dosya sistemleri bağlanamayacak"
 
 #: bin/mudur.py:561
 msgid "Cannot connect to DBus, services won't be started"
@@ -58,7 +58,8 @@ msgstr "DBus'a bağlanılamadı, servisler başlatılamayacak"
 msgid ""
 "Unable to start network:\n"
 "  %s"
-msgstr "Ağ hizmeti başlatılamadı:\n"
+msgstr ""
+"Ağ hizmeti başlatılamadı:\n"
 "  %s"
 
 #: bin/mudur.py:586
@@ -73,7 +74,7 @@ msgstr "Servisler başlatılıyor"
 msgid "Stopping services"
 msgstr "Servisler durduruluyor"
 
-#: bin/mudur.py:626 bin/service.py:151 bin/service.py:249
+#: bin/mudur.py:626 bin/service.py:152 bin/service.py:250
 #, python-format
 msgid "Stopping %s"
 msgstr "%s durduruluyor"
@@ -96,11 +97,11 @@ msgstr "/dev içeriği dolduruluyor"
 
 #: bin/mudur.py:736
 msgid "Remounting root filesystem read-only"
-msgstr "Kök dosya sistemi salt okunur halde yeniden bağlanıyor"
+msgstr "Kök dosya sistemi salt okunur olarak yeniden bağlanıyor"
 
 #: bin/mudur.py:743
 msgid "Checking root filesystem (full check forced)"
-msgstr "Kök dosya sistemi denetleniyor (tam kontrol istendi)"
+msgstr "Kök dosya sistemi denetleniyor (Tam denetleme istendi)"
 
 #: bin/mudur.py:748
 msgid "Checking root filesystem"
@@ -128,11 +129,11 @@ msgstr "Kök dosya sistemi denetimi atlandı (fstab pass değeri = 0)"
 
 #: bin/mudur.py:768
 msgid "Remounting root filesystem read/write"
-msgstr "Kök dosya sistemi okunur/yazılır halde yeniden bağlanıyor"
+msgstr "Kök dosya sistemi okunur/yazılır olarak yeniden bağlanıyor"
 
 #: bin/mudur.py:770
 msgid "Root filesystem could not be mounted read/write"
-msgstr "Kök dizini oku-yaz olarak bağlanamadı"
+msgstr "Kök dizini okunur/yazılır olarak bağlanamadı"
 
 #: bin/mudur.py:813
 #, python-format
@@ -145,7 +146,7 @@ msgstr "Tüm dosya sistemleri denetleniyor"
 
 #: bin/mudur.py:838
 msgid "A full fsck has been forced"
-msgstr "Tam bir fsck işlemi zorunlu"
+msgstr "Tam dosya sistemi denetlemesi istendi"
 
 #: bin/mudur.py:850
 msgid "Filesystem errors corrected"
@@ -157,183 +158,183 @@ msgstr ""
 "Fsck programı tüm hataları düzeltemedi. Düzeltme işleminin elle yapılması "
 "gerekiyor"
 
-#: bin/mudur.py:862
+#: bin/mudur.py:858
 msgid "Mounting USB filesystem"
 msgstr "USB dosya sistemi bağlanıyor"
 
-#: bin/mudur.py:868
+#: bin/mudur.py:861
 msgid "Mounting local filesystems"
 msgstr "Yerel dosya sistemleri bağlanıyor"
 
-#: bin/mudur.py:871
+#: bin/mudur.py:864
 msgid "Activating swap space"
 msgstr "Takas alanı etkinleştiriliyor"
 
-#: bin/mudur.py:890
+#: bin/mudur.py:883
 msgid "Starting portmap service for NFS"
 msgstr "NFS için portmap servisi başlatılıyor"
 
-#: bin/mudur.py:893
+#: bin/mudur.py:886
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Uzak dosya sistemleri bağlanıyor (CTRL-C ile kesebilirsiniz)"
 
-#: bin/mudur.py:907
+#: bin/mudur.py:900
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 msgstr "Bağlama CTRL-C ile kesildi, uzak paylaşımlara erişilemeyecek!"
 
-#: bin/mudur.py:920
+#: bin/mudur.py:913
 msgid "Setting disk parameters"
 msgstr "Disk parametreleri ayarlanıyor"
 
-#: bin/mudur.py:939
+#: bin/mudur.py:932
 msgid "Setting system clock to hardware clock"
-msgstr "Sistem saati donanım saatinden ayarlanıyor"
+msgstr "Sistem saati donanım saatine göre ayarlanıyor"
 
-#: bin/mudur.py:953
+#: bin/mudur.py:946
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr "Donanım saatinin sistematik kayması hesaplanamadı"
 
-#: bin/mudur.py:957
+#: bin/mudur.py:950
 msgid "Failed to set system clock to hardware clock"
 msgstr "Sistem saati donanım saatine göre ayarlanamadı"
 
-#: bin/mudur.py:960
+#: bin/mudur.py:953
 msgid "Cleaning up /var"
 msgstr "/var dizini temizleniyor"
 
-#: bin/mudur.py:970
+#: bin/mudur.py:963
 msgid "Cleaning up /tmp"
 msgstr "/tmp dizini temizleniyor"
 
-#: bin/mudur.py:1009
+#: bin/mudur.py:1002
 msgid "Syncing system clock to hardware clock"
 msgstr "Donanım saati sistem saatine göre ayarlanıyor"
 
-#: bin/mudur.py:1012
+#: bin/mudur.py:1005
 msgid "Failed to synchronize clocks"
 msgstr "Saatler eşlenemedi"
 
-#: bin/mudur.py:1022
+#: bin/mudur.py:1015
 msgid "Deactivating swap space"
 msgstr "Takas alanı bırakılıyor"
 
-#: bin/mudur.py:1043
+#: bin/mudur.py:1036
 msgid "Unmounting filesystems"
 msgstr "Dosya sistemleri ayrılıyor"
 
-#: bin/mudur.py:1075
+#: bin/mudur.py:1068
 msgid "Remounting remaining filesystems read-only"
-msgstr "Diğer dosya sistemleri salt okunur şekilde yeniden bağlanıyor"
+msgstr "Kalan dosya sistemleri salt okunur olarak yeniden bağlanıyor"
 
-#: bin/mudur.py:1090
+#: bin/mudur.py:1083
 msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.tr with "
+"An internal error occured. Please report to the bugs.pardus.org.tr with the "
 "following information:"
 msgstr ""
-"Bir hata oluştu. Lütfen bu hatayı hata.pardus.org.tr'ye girin. Hata girişi "
-"yaparken aşağıdaki çıktıyı da yazın."
+"Bir hata oluştu. Lütfen bu hatayı aşağıdaki çıktıları da ekleyerek http://hata.pardus.org.tr adresine "
+"bildirin."
 
-#: bin/mudur.py:1149
+#: bin/mudur.py:1142
 msgid "Mounting /sys"
 msgstr "/sys dizini bağlanıyor"
 
-#: bin/mudur.py:1158
+#: bin/mudur.py:1151
 msgid "Mounting /dev/pts"
 msgstr "/dev/pts dizini bağlanıyor"
 
-#: bin/mudur.py:1201
+#: bin/mudur.py:1194
 msgid "Setting up localhost"
 msgstr "Yerel ağ ayarlanıyor"
 
-#: bin/mudur.py:1214
+#: bin/mudur.py:1207
 msgid "Updating environment variables"
 msgstr "Çevresel değişkenler güncelleniyor"
 
-#: bin/mudur.py:1234
+#: bin/mudur.py:1227
 msgid "Triggering udev events which are failed during a previous run"
 msgstr "Daha önce başarısız olan udev olayları tekrar tetikleniyor"
 
-#: bin/mudur.py:1271
+#: bin/mudur.py:1264
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr "Sistem BIOS atlanarak yeniden başlatılıyor"
+msgstr "Sistem BIOS'u atlanarak yeniden başlatılıyor"
 
-#: bin/service.py:58
+#: bin/service.py:59
 msgid "local"
 msgstr "yerel"
 
-#: bin/service.py:59
+#: bin/service.py:60
 msgid "script"
 msgstr "betik"
 
-#: bin/service.py:60
+#: bin/service.py:61
 msgid "server"
 msgstr "sunucu"
 
-#: bin/service.py:72
+#: bin/service.py:73
 msgid "running"
 msgstr "çalışıyor"
 
-#: bin/service.py:74
+#: bin/service.py:75
 msgid "yes"
 msgstr "evet"
 
-#: bin/service.py:76
+#: bin/service.py:77
 msgid "conditional"
 msgstr "koşullu"
 
-#: bin/service.py:99
+#: bin/service.py:100
 msgid "Status"
 msgstr "Durum"
 
-#: bin/service.py:100
+#: bin/service.py:101
 msgid "Service"
 msgstr "Servis"
 
-#: bin/service.py:101
+#: bin/service.py:102
 msgid "Autostart"
 msgstr "Otobaşla"
 
-#: bin/service.py:102
+#: bin/service.py:103
 msgid "Description"
 msgstr "Açıklama"
 
-#: bin/service.py:159
+#: bin/service.py:160
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "'%s' hizmeti otomatik başlatılacak."
 
-#: bin/service.py:161
+#: bin/service.py:162
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "'%s' hizmeti otomatik başlatılmayacak."
 
-#: bin/service.py:163
+#: bin/service.py:164
 #, python-format
 msgid "Service '%s' will be started if required."
 msgstr "'%s' hizmeti gerektiğinde başlatılacak."
 
-#: bin/service.py:168
+#: bin/service.py:169
 #, python-format
 msgid "Reloading %s"
 msgstr "%s yeniden başlatılıyor"
 
-#: bin/service.py:194 bin/service.py:226
+#: bin/service.py:195 bin/service.py:227
 msgid "You must be root to use that."
 msgstr "Bunu kullanmak için root olmalısınız."
 
-#: bin/service.py:245
-msgid "Unable to start D-Bus"
-msgstr "D-Bus başlatılamadı"
+#: bin/service.py:246
+msgid "Unable to start DBus"
+msgstr "DBus başlatılamadı"
 
-#: bin/service.py:259
+#: bin/service.py:260
 msgid "DBus is not running."
 msgstr "DBus çalışmıyor"
 
-#: bin/service.py:261
+#: bin/service.py:262
 msgid "DBus is running."
 msgstr "DBus çalışıyor"
 
-#: bin/service.py:266
+#: bin/service.py:267
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
