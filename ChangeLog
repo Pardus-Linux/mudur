@@ -1,3 +1,7 @@
+2009-05-25  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (Logger.log): Strip color characters before writing to the
+	mudur.log file.
+
 2009-05-21  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* bin/mudur.py (getServices): Omit non existing services
 

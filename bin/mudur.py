@@ -154,6 +154,8 @@ class Logger:
 
     def log(self, msg):
         stamp = time.strftime("%b %d %H:%M:%S")
+        # Strip color characters
+        msg = re.sub("(\033.*?m)", "", msg)
         self.lines.append("[%.3f] %s %s\n" % (time.time(), stamp, msg))
 
     def sync(self):
