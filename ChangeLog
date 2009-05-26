@@ -1,3 +1,8 @@
+2009-05-26  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/network.py: Print colorized message when bringing up/down the
+	profiles, don't offer packages providing no devices when creating
+	connections.
+
 2009-05-25  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/*.py: Update copyright dates,
 	* bin/mudur.py (Logger.log): Strip color characters before writing to the

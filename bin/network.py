@@ -101,14 +101,24 @@ def printDevices():
 
 def getPackage():
     packages = []
+    devicecount = 0
     index_ = 1
+
+    for package in link.Network.Link:
+        devicecount += len(link.Network.Link[package].deviceList())
+
+    if devicecount == 0:
+        print colorize("No network interface found", "red")
+        return -1
+
     print colorize("Select interface:", "yellow")
 
     for package in link.Network.Link:
-        info = link.Network.Link[package].linkInfo()
-        packages.append(package)
-        print "  [%s] %s" % (index_, info["name"])
-        index_ += 1
+        if len(link.Network.Link[package].deviceList()) > 0:
+            info = link.Network.Link[package].linkInfo()
+            packages.append(package)
+            print "  [%s] %s" % (index_, info["name"])
+            index_ += 1
 
     if not len(packages):
         print colorize("No network backends registered", "red")
@@ -205,6 +215,10 @@ def createProfile():
 
     # Select package
     package = getPackage()
+
+    if package == -1:
+        # No network devices
+        return 1
 
     # Get backend info
     info = link.Network.Link[package].linkInfo()
@@ -315,6 +329,8 @@ def stateProfile(state):
 
     for package in link.Network.Link:
         if profile in link.Network.Link[package].connections():
+            ifname = link.Network.Link[package].connectionInfo(profile)["device_id"].split("_")[-1]
+            print "Bringing %s %s (%s)" % (state, colorize(profile, "light"), colorize(ifname, "cyan"))
             link.Network.Link[package].setState(profile, state)
 
     return 0
