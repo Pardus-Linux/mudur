@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-25 18:23+0300\n"
-"PO-Revision-Date: 2009-05-21 18:51-0400\n"
+"PO-Revision-Date: 2009-05-25 20:51-0400\n"
 "Last-Translator: Klemens Häckel <click3d at linuxmail dot org>\n"
 "Language-Team: spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -332,9 +332,8 @@ msgid "You must be root to use that."
 msgstr "Solamente el usuario root puede realizar esta operación."
 
 #: bin/service.py:246
-#, fuzzy
 msgid "Unable to start DBus"
-msgstr "No posible iniciar D-Bus"
+msgstr "No posible iniciar DBus"
 
 #: bin/service.py:260
 msgid "DBus is not running."
@@ -375,3 +374,4 @@ msgstr ""
 "y option es:\n"
 " -N, --no-color  No usar color en la salida\n"
 " -q, --quiet     No imprimir mensajes"
+
