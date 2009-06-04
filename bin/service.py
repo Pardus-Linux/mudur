@@ -29,6 +29,7 @@ _ = __trans.ugettext
 
 link = comar.Link()
 link.setLocale()
+link.useAgent(False)
 
 # Utilities
 
