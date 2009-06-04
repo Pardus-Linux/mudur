@@ -13,6 +13,7 @@
 import os
 import sys
 import time
+import comar
 import dbus
 import socket
 import locale
@@ -23,6 +24,11 @@ import subprocess
 import gettext
 __trans = gettext.translation('mudur', fallback=True)
 _ = __trans.ugettext
+
+# COMAR
+
+link = comar.Link()
+link.setLocale()
 
 # Utilities
 
@@ -136,25 +142,33 @@ def format_service_list(services, use_color=True):
         )
         print line
 
-def readyService(service, bus):
-    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-    obj.ready(dbus_interface="tr.org.pardus.comar.System.Service")
+def readyService(service):
+    try:
+        link.System.Service[service].ready(quiet=True)
+    except:
+        pass
 
-def startService(service, bus, quiet=False):
-    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+def startService(service, quiet=False):
+    try:
+        link.System.Service[service].start(quiet=quiet)
+    except:
+        return
     if not quiet:
         print _("Starting %s") % service
-    obj.start(dbus_interface="tr.org.pardus.comar.System.Service")
 
-def stopService(service, bus, quiet=False):
-    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+def stopService(service, quiet=False):
+    try:
+        link.System.Service[service].stop(quiet=quiet)
+    except:
+        return
     if not quiet:
         print _("Stopping %s") % service
-    obj.stop(dbus_interface="tr.org.pardus.comar.System.Service")
 
-def setServiceState(service, state, bus, quiet=False):
-    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-    obj.setState(state, dbus_interface="tr.org.pardus.comar.System.Service")
+def setServiceState(service, state, quiet=False):
+    try:
+        link.System.Service[service].setState(state, quiet=quiet)
+    except:
+        return
     if not quiet:
         if state == "on":
             print _("Service '%s' will be auto started.") % service
@@ -163,25 +177,24 @@ def setServiceState(service, state, bus, quiet=False):
         else:
             print _("Service '%s' will be started if required.") % service
 
-def reloadService(service, bus, quiet=False):
-    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
+def reloadService(service, quiet=False):
+    try:
+        link.System.Service[service].reload(quiet=quiet)
+    except:
+        return
     if not quiet:
-        print _("Reloading %s") % service
-    obj.reload(dbus_interface="tr.org.pardus.comar.System.Service")
+        print _("Stopping %s") % service
 
-def getServiceInfo(service, bus):
-    obj = bus.get_object("tr.org.pardus.comar", "/package/%s" % service, introspect=False)
-    return obj.info(dbus_interface="tr.org.pardus.comar.System.Service")
+def getServiceInfo(service):
+    return link.System.Service[service].info()
 
-def getServices(bus):
-    obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
-    return obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
+def getServices():
+    return list(link.System.Service)
 
 def list_services(use_color=True):
-    bus = dbus.SystemBus()
     services = []
-    for service in getServices(bus):
-        services.append((service, getServiceInfo(service, bus), ))
+    for service in getServices():
+        services.append((service, getServiceInfo(service), ))
 
     if len(services) > 0:
         services.sort(key=lambda x: x[0])
@@ -191,28 +204,22 @@ def list_services(use_color=True):
         format_service_list(lala, use_color)
 
 def manage_service(service, op, use_color=True, quiet=False):
-    if os.getuid() != 0 and op not in ["status", "info", "list"]:
-        print _("You must be root to use that.")
-        return -1
-
-    bus = dbus.SystemBus()
-
     if op == "ready":
-        readyService(service, bus)
+        readyService(service)
     elif op == "start":
-        startService(service, bus, quiet)
+        startService(service, quiet)
     elif op == "stop":
-        stopService(service, bus, quiet)
+        stopService(service, quiet)
     elif op == "reload":
-        reloadService(service, bus, quiet)
+        reloadService(service, quiet)
     elif op == "on":
-        setServiceState(service, "on", bus, quiet)
+        setServiceState(service, "on", quiet)
     elif op == "off":
-        setServiceState(service, "off", bus, quiet)
+        setServiceState(service, "off", quiet)
     elif op == "conditional":
-        setServiceState(service, "conditional", bus, quiet)
+        setServiceState(service, "conditional", quiet)
     elif op in ["info", "status", "list"]:
-        info = getServiceInfo(service, bus)
+        info = getServiceInfo(service)
         s = Service(service, info)
         format_service_list([s], use_color)
     elif op == "restart":
