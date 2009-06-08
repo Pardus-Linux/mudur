@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-25 18:23+0300\n"
-"PO-Revision-Date: 2009-04-05 19:52+0200\n"
+"PO-Revision-Date: 2009-06-08 20:43+0200\n"
 "Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
 "Language-Team: Nederlands <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,19 +31,19 @@ msgid "Could not set unicode mode on tty %d"
 msgstr "Kan unicode modus niet instellen op tty %d"
 
 #: bin/mudur.py:463 bin/service.py:146 bin/service.py:238
-#, fuzzy, python-format
+#, python-format
 msgid "Starting %s"
-msgstr "Opstarten %s..."
+msgstr "Starten %s"
 
 #: bin/mudur.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "Bringing up %s"
-msgstr "Breng interface %s naar voren"
+msgstr "Opbrengen %s"
 
 #: bin/mudur.py:510
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to bring up %s"
-msgstr "Niet in staat om interface %s naar voren te brengen"
+msgstr "Niet in staat om %s op te brengen"
 
 #: bin/mudur.py:553
 msgid "No network connection, skipping remote mount."
@@ -54,11 +54,13 @@ msgid "Cannot connect to DBus, services won't be started"
 msgstr "Kan geen verbinding maken met DBus, diensten worden niet gestart."
 
 #: bin/mudur.py:581
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to start network:\n"
 "  %s"
-msgstr "Kon D-Bus niet starten"
+msgstr ""
+"Kan netwerk niet starten:\n"
+" %s"
 
 #: bin/mudur.py:586
 msgid "Cannot start system logger"
@@ -73,9 +75,9 @@ msgid "Stopping services"
 msgstr "Stoppen diensten"
 
 #: bin/mudur.py:626 bin/service.py:152 bin/service.py:250
-#, fuzzy, python-format
+#, python-format
 msgid "Stopping %s"
-msgstr "Stoppen %s..."
+msgstr "Stoppen %s"
 
 #: bin/mudur.py:650
 msgid "Can't move persistent udev rules from /dev/.udev"
@@ -110,18 +112,16 @@ msgid "Filesystem repaired, but reboot needed!"
 msgstr "Bestandsysteem gerepareerd, maar herstarten is nodig!"
 
 #: bin/mudur.py:758
-#, fuzzy
 msgid "Rebooting in 10 seconds..."
-msgstr "Herstart na 10 seconden..."
+msgstr "Herstarten over 10 seconden..."
 
 #: bin/mudur.py:760
 msgid "Rebooting..."
 msgstr "Herstarten..."
 
 #: bin/mudur.py:763
-#, fuzzy
 msgid "Filesystem could not be repaired"
-msgstr "Bestandsysteem kon niet gerepareerd worden"
+msgstr "Bestandsysteem kon niet worden gerepareerd"
 
 #: bin/mudur.py:766
 msgid "Skipping root filesystem check (fstab's passno == 0)"
@@ -133,8 +133,7 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:770
 msgid "Root filesystem could not be mounted read/write"
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven'"
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven'"
 
 #: bin/mudur.py:813
 #, python-format
@@ -155,8 +154,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:852
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
 
 #: bin/mudur.py:858
 msgid "Mounting USB filesystem"
@@ -167,9 +165,8 @@ msgid "Mounting local filesystems"
 msgstr "Aankoppelen lokale bestandssystemen"
 
 #: bin/mudur.py:864
-#, fuzzy
 msgid "Activating swap space"
-msgstr "Activeren swap"
+msgstr "Activeren swap ruimte"
 
 #: bin/mudur.py:883
 msgid "Starting portmap service for NFS"
@@ -182,8 +179,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 #: bin/mudur.py:900
 #, fuzzy
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:913
 msgid "Setting disk parameters"
@@ -372,155 +368,3 @@ msgstr ""
 " -N, --no-color  Gebruik geen kleur in uitvoer  -q, --quiet     Print geen "
 "antwoorden"
 
-#~ msgid "Starting DBus..."
-#~ msgstr "Opstarten DBus..."
-
-#~ msgid "Stopping DBus"
-#~ msgstr "Stoppen DBus"
-
-#~ msgid "Restoring saved device states"
-#~ msgstr "Herstellen opgeslagen apparaat statussen"
-
-#~ msgid "Loading CPUFreq modules"
-#~ msgstr "Laden CPUFreq modules"
-
-#~ msgid "Stopping DBus..."
-#~ msgstr "Stoppen DBus..."
-
-#~ msgid "Connection Name : %s "
-#~ msgstr "Naam verbinding: %s "
-
-#~ msgid "Status          : %s "
-#~ msgstr "Status          : %s "
-
-#~ msgid "Adress          : %s "
-#~ msgstr "Adres          : %s "
-
-#~ msgid "Device Name     : %s "
-#~ msgstr "Apparaat naam     : %s "
-
-#~ msgid "Device Id       : %s "
-#~ msgstr "Apparaat Id       : %s "
-
-#~ msgid "Mask            : %s "
-#~ msgstr "Masker            : %s "
-
-#~ msgid "Gateway         : %s "
-#~ msgstr "Gateway         : %s "
-
-#~ msgid "Netmode         : %s "
-#~ msgstr "Netmodus         : %s "
-
-#~ msgid "Namemode        : %s "
-#~ msgstr "Naammodus        : %s "
-
-#~ msgid "Remote          : %s "
-#~ msgstr "Op afstand          : %s "
-
-#~ msgid "Up"
-#~ msgstr "Omhoog"
-
-#~ msgid "Down"
-#~ msgstr "Omlaag"
-
-#~ msgid ""
-#~ "usage: %s <command> <arguments>\n"
-#~ "where command is:\n"
-#~ " devices      List network devices\n"
-#~ " connections  List connections\n"
-#~ " info         List properties of a given connection\n"
-#~ " create       Create a new connection\n"
-#~ " delete       Delete a connection\n"
-#~ " up           Connect given connection\n"
-#~ " down         Disconnect given connection"
-#~ msgstr ""
-#~ "gebruik: %s <commando> <argumenten>\n"
-#~ "waar commando is:\n"
-#~ " devices      Lijst met netwerkapparaten\n"
-#~ " connections  Lijst met verbindingen\n"
-#~ " info         Lijst met instellingen van een verbinding\n"
-#~ " create       Maak een nieuwe verbinding\n"
-#~ " delete       Verwijder een verbinding\n"
-#~ " up           Opgegeven verbinding verbinden\n"
-#~ " down         Opgegeven verbinding verbreken"
-
-#~ msgid "Error: %s"
-#~ msgstr "Fout: %s"
-
-#~ msgid "No such profile."
-#~ msgstr "Profiel bestaat niet."
-
-#~ msgid "There are more than one profiles named '%s'"
-#~ msgstr "Er zijn meer dan één profielen met de naam '%s'"
-
-#~ msgid "Use one of the following commands:"
-#~ msgstr "Gebruik één van de volgende commando's:"
-
-#~ msgid "Profile name"
-#~ msgstr "Profiel naam"
-
-#~ msgid "Connection types:"
-#~ msgstr "Verbindingstypes:"
-
-#~ msgid "Type"
-#~ msgstr "Type"
-
-#~ msgid "No avaible device for this type of connection"
-#~ msgstr "Geen apparaten voorhanden voor dit type verbinding"
-
-#~ msgid "Devices:"
-#~ msgstr "Apparaten:"
-
-#~ msgid "Device"
-#~ msgstr "Apparaat"
-
-#~ msgid "%s:"
-#~ msgstr "%s:"
-
-#~ msgid "Enter manually"
-#~ msgstr "Voer handmatig in"
-
-#~ msgid "Scan"
-#~ msgstr "Scan"
-
-#~ msgid "No remote access points found"
-#~ msgstr "Geen toegangspunten op afstand vonden"
-
-#~ msgid "Choose authentication type:"
-#~ msgstr "Kies aanmeld type:"
-
-#~ msgid "Password"
-#~ msgstr "Wachtwoord"
-
-#~ msgid "Username"
-#~ msgstr "Gebruikersnaam"
-
-#~ msgid "Network settings:"
-#~ msgstr "Netwerkinstellingen:"
-
-#~ msgid "Automatic query (DHCP)"
-#~ msgstr "Automatische opvragen (DHCP)"
-
-#~ msgid "Manual configuration"
-#~ msgstr "Handmatig configureren"
-
-#~ msgid "IP Address"
-#~ msgstr "IP adres"
-
-#~ msgid "Network mask"
-#~ msgstr "Netwerkmasker"
-
-#~ msgid "Gateway"
-#~ msgstr "Poort"
-
-#~ msgid "Profile"
-#~ msgstr "Profiel"
-
-#~ msgid "Profile %s removed."
-#~ msgstr "Profiel %s verwijderd."
-
-#~ msgid "D-Bus Error: %s"
-#~ msgstr "D-Bus fout: %s"
-
-#~ msgid "Cancelled"
-#~ msgstr "Geannuleerd"
