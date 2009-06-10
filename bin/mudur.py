@@ -513,6 +513,9 @@ def startNetwork():
             link.Network.Link[package].setState(name, "up", quiet=True)
         return True
 
+    def ifDown(package, name):
+        link.Network.Link[package].setState(name, "down", quiet=True)
+
     def getConnections(package):
         connections = {}
         for name in link.Network.Link[package].connections():
@@ -525,6 +528,8 @@ def startNetwork():
             for name, info in getConnections(package).iteritems():
                 if info.get("state", "down").startswith("up"):
                     ifUp(package, name, info)
+                else:
+                    ifDown(package, name)
         elif linkInfo["type"] == "wifi":
             # Scan remote access points
             devices = {}
@@ -539,6 +544,8 @@ def startNetwork():
                     ifUp(package, name, info)
                     skip = True
                     break
+                else:
+                    ifDown(package, name)
             # There's no last connected profile, try to connect other profiles
             if not skip:
                 for name, info in getConnections(package).iteritems():

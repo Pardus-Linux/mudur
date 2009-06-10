@@ -1,3 +1,6 @@
+2009-06-10  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* bin/mudur.py: Clear previous connection states
+
 2009-06-04  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* bin/service.py: Use comar.Link()
 
