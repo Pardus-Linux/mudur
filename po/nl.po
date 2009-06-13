@@ -4,14 +4,15 @@
 #
 # Willem Gielen <w.gielen@gmail.com>, 2007, 2008, 2009.
 # W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2008.
+# Antoon Tolboom <atolboo@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-25 18:23+0300\n"
-"PO-Revision-Date: 2009-06-08 20:43+0200\n"
-"Last-Translator: Willem Gielen <w.gielen@gmail.com>\n"
-"Language-Team: Nederlands <nl@li.org>\n"
+"PO-Revision-Date: 09/06/09 20:43\n"
+"Last-Translator: Antoon Tolboom <atolboo@gmail.com>\n"
+"Language-Team: Nederlands <kde-i18n-nl@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,17 +34,17 @@ msgstr "Kan unicode modus niet instellen op tty %d"
 #: bin/mudur.py:463 bin/service.py:146 bin/service.py:238
 #, python-format
 msgid "Starting %s"
-msgstr "Starten %s"
+msgstr "Opstarten %s"
 
 #: bin/mudur.py:505
 #, python-format
 msgid "Bringing up %s"
-msgstr "Opbrengen %s"
+msgstr "Breng %s naar voren"
 
 #: bin/mudur.py:510
 #, python-format
 msgid "Unable to bring up %s"
-msgstr "Niet in staat om %s op te brengen"
+msgstr "Kan %s niet naar voren te brengen"
 
 #: bin/mudur.py:553
 msgid "No network connection, skipping remote mount."
@@ -51,7 +52,7 @@ msgstr "Geen netwerkverbinding, overslaan aankoppelen op afstand."
 
 #: bin/mudur.py:561
 msgid "Cannot connect to DBus, services won't be started"
-msgstr "Kan geen verbinding maken met DBus, diensten worden niet gestart."
+msgstr "Kan geen verbinding maken met DBus, diensten worden niet gestart"
 
 #: bin/mudur.py:581
 #, python-format
@@ -60,7 +61,7 @@ msgid ""
 "  %s"
 msgstr ""
 "Kan netwerk niet starten:\n"
-" %s"
+"  %s"
 
 #: bin/mudur.py:586
 msgid "Cannot start system logger"
@@ -113,7 +114,7 @@ msgstr "Bestandsysteem gerepareerd, maar herstarten is nodig!"
 
 #: bin/mudur.py:758
 msgid "Rebooting in 10 seconds..."
-msgstr "Herstarten over 10 seconden..."
+msgstr "Herstart na 10 seconden..."
 
 #: bin/mudur.py:760
 msgid "Rebooting..."
@@ -121,7 +122,7 @@ msgstr "Herstarten..."
 
 #: bin/mudur.py:763
 msgid "Filesystem could not be repaired"
-msgstr "Bestandsysteem kon niet worden gerepareerd"
+msgstr "Bestandsysteem kon niet gerepareerd worden"
 
 #: bin/mudur.py:766
 msgid "Skipping root filesystem check (fstab's passno == 0)"
@@ -154,7 +155,7 @@ msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
 #: bin/mudur.py:852
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist."
+msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist"
 
 #: bin/mudur.py:858
 msgid "Mounting USB filesystem"
@@ -166,7 +167,7 @@ msgstr "Aankoppelen lokale bestandssystemen"
 
 #: bin/mudur.py:864
 msgid "Activating swap space"
-msgstr "Activeren swap ruimte"
+msgstr "Activeren swapruimte"
 
 #: bin/mudur.py:883
 msgid "Starting portmap service for NFS"
@@ -177,7 +178,6 @@ msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:900
-#, fuzzy
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
@@ -210,14 +210,12 @@ msgid "Syncing system clock to hardware clock"
 msgstr "Systeemklok synchroniseren met hardwareklok"
 
 #: bin/mudur.py:1005
-#, fuzzy
 msgid "Failed to synchronize clocks"
 msgstr "Synchroniseren van klokken mislukt"
 
 #: bin/mudur.py:1015
-#, fuzzy
 msgid "Deactivating swap space"
-msgstr "Deactiveren swap"
+msgstr "Deactiveren swapruimte"
 
 #: bin/mudur.py:1036
 msgid "Unmounting filesystems"
@@ -256,7 +254,6 @@ msgid "Triggering udev events which are failed during a previous run"
 msgstr "Aansturen udev events welke eerde mislikt zijn"
 
 #: bin/mudur.py:1264
-#, fuzzy
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr "Probeer een warme herstart (BIOS overslaan met kexec kernel)"
 
@@ -316,13 +313,13 @@ msgid "Service '%s' will be started if required."
 msgstr "Dienst '%s' zal, indien nodig, automatisch gestart worden."
 
 #: bin/service.py:169
-#, fuzzy, python-format
+#, python-format
 msgid "Reloading %s"
-msgstr "Herstarten %s..."
+msgstr "Herladen %s"
 
 #: bin/service.py:195 bin/service.py:227
 msgid "You must be root to use that."
-msgstr "U dient root te zijn om dit te gebruiken"
+msgstr "U dient root te zijn om dit te gebruiken."
 
 #: bin/service.py:246
 msgid "Unable to start DBus"
