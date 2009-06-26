@@ -518,12 +518,23 @@ def startNetwork():
 
     def getConnections(package):
         connections = {}
-        for name in link.Network.Link[package].connections():
-            connections[name] = link.Network.Link[package].connectionInfo(name)
+        try:
+            for name in link.Network.Link[package].connections():
+                connections[name] = link.Network.Link[package].connectionInfo(name)
+        except dbus.DBusException:
+            pass
         return connections
 
-    for package in link.Network.Link:
-        linkInfo = link.Network.Link[package].linkInfo()
+    try:
+        packages = list(link.Network.Link)
+    except dbus.DBusException:
+        packages = []
+
+    for package in packages:
+        try:
+            linkInfo = link.Network.Link[package].linkInfo()
+        except dbus.DBusException:
+            break
         if linkInfo["type"] == "net":
             for name, info in getConnections(package).iteritems():
                 if info.get("state", "down").startswith("up"):
@@ -533,10 +544,13 @@ def startNetwork():
         elif linkInfo["type"] == "wifi":
             # Scan remote access points
             devices = {}
-            for deviceId in link.Network.Link[package].deviceList():
-                devices[deviceId] = []
-                for point in link.Network.Link[package].scanRemote(deviceId):
-                    devices[deviceId].append(unicode(point["remote"]))
+            try:
+                for deviceId in link.Network.Link[package].deviceList():
+                    devices[deviceId] = []
+                    for point in link.Network.Link[package].scanRemote(deviceId):
+                        devices[deviceId].append(unicode(point["remote"]))
+            except dbus.DBusException:
+                break
             # Try to connect last connected profile
             skip = False
             for name, info in getConnections(package).iteritems():
