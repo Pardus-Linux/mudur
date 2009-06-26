@@ -86,7 +86,12 @@ def printConnections():
             for profile in profiles:
                 profileInfo = link.Network.Link[package].connectionInfo(profile)
                 devname = profileInfo["device_name"].split(" - ")[0]
-                print "  %s%s    [%s]" % (colorize(profile, 'cyan'), (' '*(maxstringlen-len(profile))), devname)
+                stateInfo = link.Network.Link[package].getState(profile)
+                if stateInfo.startswith("up"):
+                    stateMark = "X"
+                else:
+                    stateMark = " "
+                print "[%s]  %s%s    [%s]" % (colorize(stateMark, 'green'), colorize(profile, 'cyan'), (' ' * (maxstringlen-len(profile))), devname)
     return 0
 
 def printDevices():
