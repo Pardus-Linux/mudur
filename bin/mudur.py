@@ -514,7 +514,10 @@ def startNetwork():
         return True
 
     def ifDown(package, name):
-        link.Network.Link[package].setState(name, "down", quiet=True)
+        try:
+            link.Network.Link[package].setState(name, "down", quiet=True)
+        except dbus.DBusException:
+            pass
 
     def getConnections(package):
         connections = {}
@@ -558,10 +561,12 @@ def startNetwork():
                     ifUp(package, name, info)
                     skip = True
                     break
-                else:
-                    ifDown(package, name)
             # There's no last connected profile, try to connect other profiles
             if not skip:
+                # Reset connection states
+                for name, info in getConnections(package).iteritems():
+                    ifDown(package, name)
+                # Try to connect other profiles
                 for name, info in getConnections(package).iteritems():
                     if info.get("device_id", None) in devices and info["remote"] in devices[info["device_id"]]:
                         ifUp(package, name, info)

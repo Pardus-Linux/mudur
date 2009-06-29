@@ -1,4 +1,8 @@
 2009-06-26  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* bin/mudur.py: Reset all profile states before trying to connect network
+	profiles.
+
+2009-06-26  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* bin/mudur.py: Even simplest methods may reply after minutes on virtual
 	machines, thus boot fails while bringing up network devices.
 
