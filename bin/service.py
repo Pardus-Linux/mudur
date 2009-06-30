@@ -145,13 +145,13 @@ def format_service_list(services, use_color=True):
 
 def readyService(service):
     try:
-        link.System.Service[service].ready(quiet=True)
+        link.System.Service[service].ready()
     except:
         pass
 
 def startService(service, quiet=False):
     try:
-        link.System.Service[service].start(quiet=quiet)
+        link.System.Service[service].start()
     except:
         return
     if not quiet:
@@ -159,7 +159,7 @@ def startService(service, quiet=False):
 
 def stopService(service, quiet=False):
     try:
-        link.System.Service[service].stop(quiet=quiet)
+        link.System.Service[service].stop()
     except:
         return
     if not quiet:
@@ -167,7 +167,7 @@ def stopService(service, quiet=False):
 
 def setServiceState(service, state, quiet=False):
     try:
-        link.System.Service[service].setState(state, quiet=quiet)
+        link.System.Service[service].setState(state)
     except:
         return
     if not quiet:
@@ -180,7 +180,7 @@ def setServiceState(service, state, quiet=False):
 
 def reloadService(service, quiet=False):
     try:
-        link.System.Service[service].reload(quiet=quiet)
+        link.System.Service[service].reload()
     except:
         return
     if not quiet:
