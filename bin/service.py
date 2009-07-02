@@ -25,12 +25,6 @@ import gettext
 __trans = gettext.translation('mudur', fallback=True)
 _ = __trans.ugettext
 
-# COMAR
-
-link = comar.Link()
-link.setLocale()
-link.useAgent(False)
-
 # Utilities
 
 def loadConfig(path):
@@ -145,12 +139,18 @@ def format_service_list(services, use_color=True):
 
 def readyService(service):
     try:
+        link = comar.Link()
+        link.setLocale()
+        link.useAgent(False)
         link.System.Service[service].ready()
     except:
         pass
 
 def startService(service, quiet=False):
     try:
+        link = comar.Link()
+        link.setLocale()
+        link.useAgent(False)
         link.System.Service[service].start()
     except:
         return
@@ -159,6 +159,9 @@ def startService(service, quiet=False):
 
 def stopService(service, quiet=False):
     try:
+        link = comar.Link()
+        link.setLocale()
+        link.useAgent(False)
         link.System.Service[service].stop()
     except:
         return
@@ -167,6 +170,9 @@ def stopService(service, quiet=False):
 
 def setServiceState(service, state, quiet=False):
     try:
+        link = comar.Link()
+        link.setLocale()
+        link.useAgent(False)
         link.System.Service[service].setState(state)
     except:
         return
@@ -180,6 +186,9 @@ def setServiceState(service, state, quiet=False):
 
 def reloadService(service, quiet=False):
     try:
+        link = comar.Link()
+        link.setLocale()
+        link.useAgent(False)
         link.System.Service[service].reload()
     except:
         return
@@ -187,9 +196,15 @@ def reloadService(service, quiet=False):
         print _("Stopping %s") % service
 
 def getServiceInfo(service):
+    link = comar.Link()
+    link.setLocale()
+    link.useAgent(False)
     return link.System.Service[service].info()
 
 def getServices():
+    link = comar.Link()
+    link.setLocale()
+    link.useAgent(False)
     return list(link.System.Service)
 
 def list_services(use_color=True):

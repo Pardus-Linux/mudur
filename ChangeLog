@@ -1,3 +1,6 @@
+2009-07-02  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* bin/service.py: Open COMAR Link when necessary.
+
 2009-06-26  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* bin/mudur.py: Reset all profile states before trying to connect network
 	profiles.
