@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: sv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-25 18:23+0300\n"
-"PO-Revision-Date: 2009-06-27 23:41+0200\n"
+"PO-Revision-Date: 2009-07-12 17:25+0200\n"
 "Last-Translator: Patrik Karlsson <patrik@pardus.nu>\n"
 "Language-Team: Swedish <pardus-translators@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgstr "Omstart om 10 sekunder..."
 
 #: bin/mudur.py:760
 msgid "Rebooting..."
-msgstr "Omstart..."
+msgstr "Startar om..."
 
 #: bin/mudur.py:763
 msgid "Filesystem could not be repaired"
@@ -187,7 +187,7 @@ msgstr "Sätter systemklockan till hårdvaruklockan"
 
 #: bin/mudur.py:946
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr "Kunde inte justera systemklockans systematiska avvikelse"
+msgstr "Kunde inte justera systemklockans systematiska avdrift"
 
 #: bin/mudur.py:950
 msgid "Failed to set system clock to hardware clock"
@@ -318,7 +318,7 @@ msgstr "Du måste vara root för att använda det."
 
 #: bin/service.py:246
 msgid "Unable to start DBus"
-msgstr "Kan inte starta DBus"
+msgstr "Kan inte starta D-Bus"
 
 #: bin/service.py:260
 msgid "DBus is not running."
