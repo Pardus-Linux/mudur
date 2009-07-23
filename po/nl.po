@@ -1,4 +1,4 @@
-# translation of nl.po to Nederlands
+# translation of nl.po to Nederlansd
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
@@ -10,13 +10,14 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-23 20:03+0300\n"
-"PO-Revision-Date: 09/06/09 20:43\n"
+"PO-Revision-Date: 23/07/09 21:10\n"
 "Last-Translator: Antoon Tolboom <atolboo@gmail.com>\n"
-"Language-Team: Nederlands <kde-i18n-nl@kde.org>\n"
+"Language-Team: Nederlansd <kde-i18n-nl@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: bin/mudur.py:169
 msgid "Cannot write mudur.log, read-only file system"
@@ -24,7 +25,7 @@ msgstr "Kan niet schrijven naar mudur.log, alleen-lezen"
 
 #: bin/mudur.py:322
 msgid "Safe Mode"
-msgstr ""
+msgstr "Veilige modus"
 
 #: bin/mudur.py:325
 msgid "Cannot find /etc/pardus-release"
@@ -138,12 +139,11 @@ msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
 #: bin/mudur.py:811
 msgid "Root filesystem could not be mounted read/write"
-msgstr ""
-"Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven'"
+msgstr "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven'"
 
 #: bin/mudur.py:821
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Kan /etc/mtab van /proc/mounts niet synchroniseren"
 
 #: bin/mudur.py:864
 #, python-format
@@ -188,8 +188,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:957
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:970
 msgid "Setting disk parameters"
@@ -370,5 +369,3 @@ msgstr ""
 " -N, --no-color  Gebruik geen kleur in uitvoer  -q, --quiet     Print geen "
 "antwoorden"
 
-#~ msgid "Reloading %s"
-#~ msgstr "Herladen %s"
