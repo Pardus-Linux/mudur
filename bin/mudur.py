@@ -63,7 +63,7 @@ def createDirectory(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def writeToFile(filename, data):
+def writeToFile(filename, data=""):
     """Write data to file"""
     f = open(filename, "w")
     f.write(data)
@@ -318,6 +318,8 @@ class UI:
         print self.UNICODE_MAGIC
         if os.path.exists("/etc/pardus-release"):
             release = loadFile("/etc/pardus-release").rstrip("\n")
+            if config.get("safe"):
+                release = "%s (%s)" % (release, _("Safe Mode"))
             print "\x1b[1m  %s  \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m" % release
         else:
             self.error(_("Cannot find /etc/pardus-release"))
@@ -759,23 +761,30 @@ def stopUdev():
 
 def checkRootFileSystem():
     if not config.get("livecd"):
-        ui.info(_("Remounting root filesystem read-only"))
-        run("/bin/mount", "-n", "-o", "remount,ro", "/")
 
         ent = config.get_mount("/")
         if config.get("forcefsck") or (len(ent) > 5 and ent[5] != "0"):
+
+            # Remount root filesystem read-only for fsck
+            ui.info(_("Remounting root filesystem read-only"))
+            run("/bin/mount", "-n", "-o", "remount,ro", "/")
+
             if config.get("forcefsck"):
                 splash.verbose()
                 ui.info(_("Checking root filesystem (full check forced)"))
-                t = run_full("/sbin/fsck", "-C", "-a", "-f", "/")
+                # -y: Fix whatever the error is without user's intervention
+                t = run_full("/sbin/fsck", "-C", "-y", "-f", "/")
                 # /forcefsck isn't deleted because checkFileSystems needs it.
                 # it'll be deleted in that function.
             else:
                 ui.info(_("Checking root filesystem"))
                 t = run_full("/sbin/fsck", "-C", "-T", "-a", "/")
             if t == 0:
+                # No errors,just go on
                 pass
             elif t == 2 or t == 3:
+                # Actually 2 means that a reboot is required, fsck man page doesn't
+                # mention about 3 but let's leave it as it's harmless.
                 splash.verbose()
                 ui.warn(_("Filesystem repaired, but reboot needed!"))
                 for i in range(4):
@@ -785,25 +794,41 @@ def checkRootFileSystem():
                 time.sleep(10)
                 ui.warn(_("Rebooting..."))
                 run("/sbin/reboot", "-f")
+                # Code should never reach here
             else:
                 ui.error(_("Filesystem could not be repaired"))
                 run_full("/sbin/sulogin")
+                # Code should never reach here
+
         else:
             ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
 
+def mountRootFileSystem():
+    # Let's remount read/write again.
     ui.info(_("Remounting root filesystem read/write"))
+    # We remount here without writing to mtab (-n)
     if run_quiet("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
         ui.error(_("Root filesystem could not be mounted read/write"))
 
-    # Fix mtab
-    writeToFile("/etc/mtab", "")
+        # Fail if can't remount r/w
+        run_full("/sbin/sulogin")
+
+    # Fix mtab as we didn't update it yet
+    try:
+        # Double guard against IO exceptions
+        writeToFile("/etc/mtab")
+    except IOError:
+        ui.warn(_("Couldn't synchronize /etc/mtab from /proc/mounts"))
+        pass
+
     run("/bin/mount", "-f", "/")
-    ents = loadFile("/proc/mounts").split("\n")
-    for ent in ents:
-        if ent != "":
-            data = ent.split()
-            if config.get_mount(data[1]):
-                run("/bin/mount", "-f", "-o", "remount", data[1])
+    for entry in loadFile("/proc/mounts").split("\n"):
+        try:
+            devpath = entry.split()[1]
+        except IndexError:
+            continue
+        if config.get_mount(devpath):
+            run("/bin/mount", "-f", "-o", "remount", devpath)
 
 def setHostname():
     khost = capture("/bin/hostname")[0].rstrip("\n")
@@ -862,12 +887,18 @@ def checkFileSystems():
     if config.get("forcefsck"):
         splash.verbose()
         ui.info(_("A full fsck has been forced"))
+        # -C: Display completion bars
+        # -R: Skip the root file system
+        # -A: Check all filesystems found in /etc/fstab
+        # -a: Automatically repair without any questions
+        # -f: Force checking even it's clean (e2fsck)
         t = run_full("/sbin/fsck", "-C", "-R", "-A", "-a", "-f")
 
         # remove forcefsck file if it exists
         if os.path.exists("/forcefsck"):
             os.unlink("/forcefsck")
     else:
+        # -T: Don't show the title on startup
         t = run_full("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
 
     if t == 0:
@@ -1140,14 +1171,14 @@ if __name__ == "__main__":
 
     if sys.argv[1] == "sysinit":
 
-        # This is who we are...
-        ui.greet()
-
         # Mount /proc
         mount("/proc", "-t proc proc /proc")
 
         # We need /proc mounted before accessing kernel boot options
         config.parse_kernel_opts()
+
+        # This is who we are...
+        ui.greet()
 
         # Now we know which language and keymap to use
         setConsole()
@@ -1184,6 +1215,9 @@ if __name__ == "__main__":
         # Check root file system
         checkRootFileSystem()
 
+        # Mount root file system
+        mountRootFileSystem()
+
         # Grab persistent rules and udev.log file from /dev
         copyUdevRules()
 
@@ -1209,7 +1243,7 @@ if __name__ == "__main__":
         setSystemLanguage()
 
         # When we exit this runlevel, init will write a boot record to utmp
-        writeToFile("/var/run/utmp", "")
+        writeToFile("/var/run/utmp")
         touch("/var/log/wtmp")
         run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
         run("/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
