@@ -988,10 +988,12 @@ def setClock():
 
     ui.info(_("Setting system clock to hardware clock"))
 
+    # Default is UTC
     opts = "--utc"
     if config.get("clock") != "UTC":
         opts = "--localtime"
 
+    # Default is no
     if config.get("clock_adjust") == "yes":
         adj = "--adjust"
         if not touch("/etc/adjtime"):
@@ -1285,7 +1287,7 @@ if __name__ == "__main__":
         # Trigger only the events which are failed during a previous run
         if os.path.exists("/dev/.udev/failed"):
             ui.info(_("Triggering udev events which are failed during a previous run"))
-            run("/sbin/udevadm", "trigger", "--retry-failed")
+            run("/sbin/udevadm", "trigger", "--type=failed")
 
         # Source local.start
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):

@@ -1,4 +1,6 @@
 2009-07-23  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (main): --retry-failed is removed, use --type=failed instead.
+2009-07-23  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (writeToFile): Give an empty string to the writeToFile
 	function by default,
 	* bin/mudur.py (checkRootFileSystem):
