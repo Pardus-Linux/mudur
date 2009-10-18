@@ -8,18 +8,20 @@
 # Klemens Haeckel <click3d at linuxmail org>, 2008.
 # Klemens Häckel <click3d at linuxmail dot org>, 2008, 2009.
 # Klemens Häckel <click3d at linuxmail dot com>, 2008.
+# Klemens Häckel <click3d at linuxmail (dot) org>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-23 20:03+0300\n"
-"PO-Revision-Date: 2009-05-25 20:51-0400\n"
-"Last-Translator: Klemens Häckel <click3d at linuxmail dot org>\n"
-"Language-Team: spanish <es@li.org>\n"
+"PO-Revision-Date: 2009-10-17 21:22-0400\n"
+"Last-Translator: Klemens Häckel <click3d at linuxmail (dot) org>\n"
+"Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: bin/mudur.py:169
 msgid "Cannot write mudur.log, read-only file system"
@@ -27,7 +29,7 @@ msgstr "No posible grabar mudur.log, sistema de archivo solo-lectura"
 
 #: bin/mudur.py:322
 msgid "Safe Mode"
-msgstr ""
+msgstr "Modo Seguro"
 
 #: bin/mudur.py:325
 msgid "Cannot find /etc/pardus-release"
@@ -145,7 +147,7 @@ msgstr "No posible montar sistema de archivos raíz (root) read/write"
 
 #: bin/mudur.py:821
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "No posible sincronizar /etc/mtab desde /proc/mounts"
 
 #: bin/mudur.py:864
 #, python-format
