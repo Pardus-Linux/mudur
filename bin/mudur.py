@@ -763,7 +763,7 @@ def checkRootFileSystem():
     if not config.get("livecd"):
 
         ent = config.get_mount("/")
-        if config.get("forcefsck") or (len(ent) > 5 and ent[5] != "0"):
+        if config.get("forcefsck") or (ent and (len(ent) > 5 and ent[5] != "0")):
 
             # Remount root filesystem read-only for fsck
             ui.info(_("Remounting root filesystem read-only"))
