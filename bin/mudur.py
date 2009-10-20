@@ -107,9 +107,10 @@ def mount(part, args):
 
 def mdate(filename):
     """Returns the last modification date of a file."""
+    mtime = 0
     if os.path.exists(filename):
-        return os.stat(filename).st_mtime
-    return 0
+        mtime = os.path.getmtime(filename)
+    return mtime
 
 def mdirdate(dirname):
     """Returns the last modification date of a directory."""
@@ -133,13 +134,16 @@ def capture(*cmd):
 
 def run_async(cmd, fstdout=None, fstderr=None):
     """Runs a command in background and redirects the outputs optionally."""
+    pid = 0
     if fstdout and fstderr:
-        return subprocess.Popen(cmd, stdout=open(fstdout, "w"),
+        pid = subprocess.Popen(cmd, stdout=open(fstdout, "w"),
                                      stderr=open(fstderr, "w")).pid
     elif fstdout:
-        return subprocess.Popen(cmd, stdout=open(fstdout, "w")).pid
+        pid = subprocess.Popen(cmd, stdout=open(fstdout, "w")).pid
     else:
-        return subprocess.Popen(cmd, stderr=open(fstdout, "w")).pid
+        pid = subprocess.Popen(cmd, stderr=open(fstdout, "w")).pid
+
+    return pid
 
 def run(*cmd):
     """Runs a command without running a shell, only output errors."""
@@ -187,11 +191,6 @@ class Config:
     """Configuration class which parsing /proc/cmdline to get mudur related options."""
     def __init__(self):
         self.fstab = None
-        self.cmdline = None
-
-        # Parse kernel version
-        vers = os.uname()[2].replace("_", ".").replace("-", ".")
-        self.kernel = vers.split(".")
 
         # Default options for mudur= in /proc/cmdline
         self.opts = {
@@ -406,17 +405,15 @@ languages = {
 
 def setConsole():
     """Setups encoding, font and mapping for console."""
-    if config.is_virtual():
-        """Xen is just a serial console """
-        return
+    if not config.is_virtual():
+        lang = config.get("language")
+        keymap = config.get("keymap")
+        language = languages[lang]
 
-    lang = config.get("language")
-    keymap = config.get("keymap")
-    language = languages[lang]
-    # Now actually set the values
-    run("/usr/bin/kbd_mode", "-u")
-    run_quiet("/bin/loadkeys", keymap)
-    run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
+        # Now actually set the values
+        run("/usr/bin/kbd_mode", "-u")
+        run_quiet("/bin/loadkeys", keymap)
+        run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
 
 def setSystemLanguage():
     """Sets the system language."""
@@ -615,54 +612,58 @@ def startServices(extras=None):
         return
 
     if extras:
+        # Start only the services given in extras
         for service in extras:
             try:
                 startService(service)
             except dbus.DBusException:
                 pass
-        return
 
-    # Remove unnecessary lock files - bug #7212
-    for _file in os.listdir("/etc/network"):
-        if _file.startswith("."):
-            os.unlink(os.path.join("/etc/network", _file))
+    else:
+        # Remove unnecessary lock files - bug #7212
+        for _file in os.listdir("/etc/network"):
+            if _file.startswith("."):
+                os.unlink(os.path.join("/etc/network", _file))
 
-    # Start network service
-    try:
-        startNetwork()
-    except Exception, e:
-        ui.error(_("Unable to start network:\n  %s") % e)
+        # Start network service
+        try:
+            startNetwork()
+        except Exception, e:
+            ui.error(_("Unable to start network:\n  %s") % e)
 
-    # Almost everything depends on logger, so start manually
-    startService("sysklogd")
-    if not waitBus("/dev/log", stream=False, timeout=15):
-        ui.warn(_("Cannot start system logger"))
+        # Almost everything depends on logger, so start manually
+        startService("sysklogd")
+        if not waitBus("/dev/log", stream=False, timeout=15):
+            ui.warn(_("Cannot start system logger"))
 
-    if not config.get("safe"):
-        ui.info(_("Starting services"))
-        services = getServices(bus)
+        if not config.get("safe"):
+            ui.info(_("Starting services"))
+            services = getServices(bus)
 
-        # Remove redundant sysklogd
-        if "sysklogd" in services:
-            services.remove("sysklogd")
+            # Remove redundant sysklogd
+            if "sysklogd" in services:
+                services.remove("sysklogd")
 
-        # Give login screen a headstart
-        head_start = config.get("head_start")
-        run_head_start = head_start and head_start in services
-        if run_head_start:
-            startService(head_start, command="ready")
-            services.remove(head_start)
-        for service in services:
-            startService(service, command="ready")
+            # Give login screen a headstart
+            head_start = config.get("head_start")
+            run_head_start = head_start and head_start in services
+            if run_head_start:
+                startService(head_start, command="ready")
+                services.remove(head_start)
+            for service in services:
+                startService(service, command="ready")
 
-        if run_head_start and not get_kernel_option("xorg").has_key("off"):
-            waitBus("/tmp/.X11-unix/X0", timeout=10)
+            if run_head_start and not get_kernel_option("xorg").has_key("off"):
+                waitBus("/tmp/.X11-unix/X0", timeout=10)
 
-            # Avoid users trying to login using VT
-            # because of the X startup delay.
-            time.sleep(1)
+                # Avoid users trying to login using VT
+                # because of the X startup delay.
+                time.sleep(1)
 
-        splash.updateProgressBar(100)
+            splash.updateProgressBar(100)
+
+        # Close the handle
+        bus.close()
 
 def stopServices():
     """Sends stop signals to all available services through D-Bus."""
@@ -675,6 +676,9 @@ def stopServices():
 
     for service in getServices(bus, all=True):
         stopService(service)
+
+    # Close the handle
+    bus.close()
 
 
 ############################
@@ -856,8 +860,10 @@ def checkRootFileSystem():
 
 def mountRootFileSystem():
     """Mounts root filesystem."""
+
     # Let's remount read/write again.
     ui.info(_("Remounting root filesystem read/write"))
+
     # We remount here without writing to mtab (-n)
     if run_quiet("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
         ui.error(_("Root filesystem could not be mounted read/write"))
@@ -884,35 +890,33 @@ def mountRootFileSystem():
 
 def checkFileSystems():
     """Checks all the filesystems with fsck if required."""
-    if config.get("livecd"):
-        return
+    if not config.get("livecd"):
+        ui.info(_("Checking all filesystems"))
 
-    ui.info(_("Checking all filesystems"))
+        if config.get("forcefsck"):
+            splash.verbose()
+            ui.info(_("A full fsck has been forced"))
+            # -C: Display completion bars
+            # -R: Skip the root file system
+            # -A: Check all filesystems found in /etc/fstab
+            # -a: Automatically repair without any questions
+            # -f: Force checking even it's clean (e2fsck)
+            t = run_full("/sbin/fsck", "-C", "-R", "-A", "-a", "-f")
 
-    if config.get("forcefsck"):
-        splash.verbose()
-        ui.info(_("A full fsck has been forced"))
-        # -C: Display completion bars
-        # -R: Skip the root file system
-        # -A: Check all filesystems found in /etc/fstab
-        # -a: Automatically repair without any questions
-        # -f: Force checking even it's clean (e2fsck)
-        t = run_full("/sbin/fsck", "-C", "-R", "-A", "-a", "-f")
+            # remove forcefsck file if it exists
+            if os.path.exists("/forcefsck"):
+                os.unlink("/forcefsck")
+        else:
+            # -T: Don't show the title on startup
+            t = run_full("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
 
-        # remove forcefsck file if it exists
-        if os.path.exists("/forcefsck"):
-            os.unlink("/forcefsck")
-    else:
-        # -T: Don't show the title on startup
-        t = run_full("/sbin/fsck", "-C", "-T", "-R", "-A", "-a")
-
-    if t == 0:
-        pass
-    elif t >= 2 and t <= 3:
-        ui.warn(_("Filesystem errors corrected"))
-    else:
-        ui.error(_("Fsck could not correct all errors, manual repair needed"))
-        run_full("/sbin/sulogin")
+        if t == 0:
+            pass
+        elif t >= 2 and t <= 3:
+            ui.warn(_("Filesystem errors corrected"))
+        else:
+            ui.error(_("Fsck could not correct all errors, manual repair needed"))
+            run_full("/sbin/sulogin")
 
 def localMount():
     """Mounts local filesystems and enables swaps if any."""
@@ -985,11 +989,8 @@ def setHostname():
         # kernel already got a hostname (pxeboot or something)
         host = khost
     else:
-        if uhost:
-            host = uhost
-        else:
-            # nothing found, use the default hostname
-            host = "pardus"
+        # if nothing found, use the default hostname 'pardus'
+        host = uhost if uhost else "pardus"
 
     if uhost and host != uhost:
         i = data.find('HOSTNAME="')
@@ -1006,20 +1007,18 @@ def setHostname():
 
 def autoloadModules():
     """Traverses /etc/modules.autoload.d to autoload kernel modules if any."""
-    # Don't fail if kernel do not have module support compiled in
-    if not os.path.exists("/proc/modules"):
-        return
-
-    fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
-    if not os.path.exists(fn):
-        fn = "/etc/modules.autoload.d/kernel-%s.%s" % (config.kernel[0], config.kernel[1])
-    if os.path.exists(fn):
-        data = loadFile(fn).split("\n")
-        data = filter(lambda x: x != "" and not x.startswith('#'), data)
-        for mod in data:
-            run("/sbin/modprobe", "-q", "-b", mod)
+    if os.path.exists("/proc/modules"):
+        fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
+        if not os.path.exists(fn):
+            fn = "/etc/modules.autoload.d/kernel-%s.%s" % (config.kernel[0], config.kernel[1])
+        if os.path.exists(fn):
+            data = loadFile(fn).split("\n")
+            data = filter(lambda x: x != "" and not x.startswith('#'), data)
+            for mod in data:
+                run("/sbin/modprobe", "-q", "-b", mod)
 
 def setDiskParameters():
+    # FIXME: Why do we have this, is it really crucial for booting?
     if config.get("safe"):
         return
 
@@ -1091,30 +1090,28 @@ def cleanupTmp():
 
 def setClock():
     """Sets the system time according to /etc."""
-    if config.is_virtual():
-        return
+    if not config.is_virtual():
+        ui.info(_("Setting system clock to hardware clock"))
 
-    ui.info(_("Setting system clock to hardware clock"))
+        # Default is UTC
+        opts = "--utc"
+        if config.get("clock") != "UTC":
+            opts = "--localtime"
 
-    # Default is UTC
-    opts = "--utc"
-    if config.get("clock") != "UTC":
-        opts = "--localtime"
+        # Default is no
+        if config.get("clock_adjust") == "yes":
+            adj = "--adjust"
+            if not touch("/etc/adjtime"):
+                adj = "--noadjfile"
+            elif os.stat("/etc/adjtime").st_size == 0:
+                writeToFile("/etc/adjtime", "0.0 0 0.0\n")
+            t = capture("/sbin/hwclock", adj, opts)
+            if t[1] != '':
+                ui.error(_("Failed to adjust systematic drift of the hardware clock"))
 
-    # Default is no
-    if config.get("clock_adjust") == "yes":
-        adj = "--adjust"
-        if not touch("/etc/adjtime"):
-            adj = "--noadjfile"
-        elif os.stat("/etc/adjtime").st_size == 0:
-            writeToFile("/etc/adjtime", "0.0 0 0.0\n")
-        t = capture("/sbin/hwclock", adj, opts)
+        t = capture("/sbin/hwclock", "--hctosys", opts)
         if t[1] != '':
-            ui.error(_("Failed to adjust systematic drift of the hardware clock"))
-
-    t = capture("/sbin/hwclock", "--hctosys", opts)
-    if t[1] != '':
-        ui.error(_("Failed to set system clock to hardware clock"))
+            ui.error(_("Failed to set system clock to hardware clock"))
 
 def saveClock():
     """Saves the system time for further boots."""

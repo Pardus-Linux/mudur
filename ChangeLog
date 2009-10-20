@@ -1,6 +1,13 @@
 2009-10-20  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (autoloadModules): Pass -b to modprobe to obey blacklist
-	files.
+	files,
+	* bin/mudur.py (mtime): Use os.path.getmtime() instead of os.stat(),
+	* bin/mudur.py (setHostname):
+	- Use ternary if-else construction for better readability,
+	* bin/mudur.py (startServices, stopServices): Don't leak D-Bus connection
+	handles, close them.
+	* bin/mudur.py: Fix some inverted logic if-else blocks,
+	* bin/mudur.py: Drop unused cmdline and kernel members from Config class,
 2009-10-19  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (checkRootFileSystem): Don't fail if /etc/fstab doesn't
 	somehow have an entry for the root filesystem.
