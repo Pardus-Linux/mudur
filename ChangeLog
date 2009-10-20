@@ -1,3 +1,6 @@
+2009-10-20  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (autoloadModules): Pass -b to modprobe to obey blacklist
+	files.
 2009-10-19  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (checkRootFileSystem): Don't fail if /etc/fstab doesn't
 	somehow have an entry for the root filesystem.

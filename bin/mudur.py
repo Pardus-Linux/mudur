@@ -876,7 +876,7 @@ def autoloadModules():
         data = loadFile(fn).split("\n")
         data = filter(lambda x: x != "" and not x.startswith('#'), data)
         for mod in data:
-            run("/sbin/modprobe", "-q", mod)
+            run("/sbin/modprobe", "-q", "-b", mod)
 
 def checkFileSystems():
     if config.get("livecd"):
