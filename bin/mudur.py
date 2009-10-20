@@ -89,15 +89,6 @@ def createDirectory(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def delete(pattern):
-    """rmdir with glob support."""
-    for path in glob.glob(pattern):
-        mode = os.lstat(path).st_mode
-        if stat.S_ISDIR(mode):
-            run("rm", "-rf", path)
-        else:
-            run("rm", "-f", path)
-
 def mount(part, args):
     """Mounts the partition with arguments."""
     ent = config.get_fstab_entry_with_mountpoint(part)
@@ -191,6 +182,10 @@ class Config:
     """Configuration class which parsing /proc/cmdline to get mudur related options."""
     def __init__(self):
         self.fstab = None
+
+        # Parse kernel version
+        vers = os.uname()[2].replace("_", ".").replace("-", ".")
+        self.kernel = vers.split(".")
 
         # Default options for mudur= in /proc/cmdline
         self.opts = {
@@ -813,14 +808,29 @@ def stopUdev():
 # Filesystem related methods #
 ##############################
 
+def updateMtab(mountpoint):
+    """Calls mount -f to update mtab for a previous mount."""
+    MOUNT_FAILED_LOCK = 16
+    if run_quiet("/bin/mount", "-f", mountpoint) == MOUNT_FAILED_LOCK:
+        # Locking problem, probably a stale mtab~ file exists
+        if os.path.exists("/etc/mtab~"):
+            ui.warn(_("Removing stale lock file /etc/mtab~"))
+            try:
+                os.unlink("/etc/mtab~")
+            except OSError:
+                ui.warn(_("Failed removing stale lock file /etc/mtab~"))
+                pass
+            else:
+                run_quiet("/bin/mount", "-f", mountpoint)
+
 def checkRootFileSystem():
     """Checks root filesystem with fsck if required."""
     if not config.get("livecd"):
 
-        ent = config.get_fstab_entry_with_mountpoint("/")
-        if config.get("forcefsck") or (ent and (len(ent) > 5 and ent[5] != "0")):
+        entry = config.get_fstab_entry_with_mountpoint("/")
+        if config.get("forcefsck") or (entry and (len(entry) > 5 and entry[5] != "0")):
 
-            # Remount root filesystem read-only for fsck
+            # Remount root filesystem read-only for fsck without writing to mtab (-n)
             ui.info(_("Remounting root filesystem read-only"))
             run("/bin/mount", "-n", "-o", "remount,ro", "/")
 
@@ -879,14 +889,12 @@ def mountRootFileSystem():
         ui.warn(_("Couldn't synchronize /etc/mtab from /proc/mounts"))
         pass
 
-    run("/bin/mount", "-f", "/")
-    for entry in loadFile("/proc/mounts").split("\n"):
-        try:
-            devpath = entry.split()[1]
-        except IndexError:
-            continue
-        if config.get_fstab_entry_with_mountpoint(devpath):
-            run("/bin/mount", "-f", "-o", "remount", devpath)
+    # This will actually try to update mtab for /. If it fails because
+    # of a stale lock file, it will clear it and return.
+    updateMtab("/")
+
+    # Update mtab for all mounts
+    run("/bin/mount", "-af")
 
 def checkFileSystems():
     """Checks all the filesystems with fsck if required."""
@@ -1048,7 +1056,7 @@ def setDiskParameters():
 
 def cleanupVar():
     ui.info(_("Cleaning up /var"))
-    for root,dirs,files in os.walk("/var/run"):
+    for root, dirs, files in os.walk("/var/run"):
         for f in files:
             if f != "utmp" and f != "random-seed":
                 try:
@@ -1074,7 +1082,9 @@ def cleanupTmp():
         "/tmp/.*-unix",
         "/tmp/.X*-lock"
     )
-    map(delete, cleanup_list)
+
+    # Remove directories
+    run("rm", "-rf", " ".join(cleanup_list))
 
     createDirectory("/tmp/.ICE-unix")
     os.chown("/tmp/.ICE-unix", 0, 0)
@@ -1126,7 +1136,6 @@ def saveClock():
     t = capture("/sbin/hwclock", "--systohc", opts)
     if t[1] != '':
         ui.error(_("Failed to synchronize clocks"))
-
 
 def stopSystem():
     """Stops the system."""
@@ -1193,7 +1202,7 @@ def stopSystem():
     ui.info(_("Remounting remaining filesystems read-only"))
     splash.updateProgressBar(0)
     # we parse /proc/mounts but use umount, so this have to agree
-    run("cp", "/proc/mounts", "/etc/mtab")
+    shutil.copy("/proc/mounts", "/etc/mtab")
     if remount_ro():
         if remount_ro():
             remount_ro(True)

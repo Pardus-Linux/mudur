@@ -7,7 +7,16 @@
 	* bin/mudur.py (startServices, stopServices): Don't leak D-Bus connection
 	handles, close them.
 	* bin/mudur.py: Fix some inverted logic if-else blocks,
-	* bin/mudur.py: Drop unused cmdline and kernel members from Config class,
+	* bin/mudur.py (Config): Rename get_mount() to
+	get_fstab_entry_with_mountpoint(),
+	* bin/mudur.py (updateMtab): New function to update mtab entry for a given
+	partition and clear existing mtab~ lock files (#10562),
+	* bin/mudur.py (stopSystem): Use shutil.copy instead of forking 'cp',
+	* bin/mudur.py (mountRootFileSystem): Call mount -af instead of calling
+	mount -f for each partition in /etc/fstab,
+	* bin/mudur.py (cleanupTmp): Call rm -rf once without extending each
+	pattern through glob,
+
 2009-10-19  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (checkRootFileSystem): Don't fail if /etc/fstab doesn't
 	somehow have an entry for the root filesystem.
