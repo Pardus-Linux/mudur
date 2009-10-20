@@ -876,10 +876,13 @@ def mountRootFileSystem():
 
     # We remount here without writing to mtab (-n)
     if run_quiet("/bin/mount", "-n", "-o", "remount,rw", "/") != 0:
-        ui.error(_("Root filesystem could not be mounted read/write"))
+        ui.error(_("Root filesystem could not be mounted read/write\n\
+   You can either login below and manually check your filesytem(s) OR\n\
+   restart your system, press F3 and select 'FS check' from boot menu\n"))
 
         # Fail if can't remount r/w
         run_full("/sbin/sulogin")
+
 
     # Fix mtab as we didn't update it yet
     try:
@@ -1039,7 +1042,7 @@ def setDiskParameters():
         if d.has_key("all"):
             for name in os.listdir("/sys/block/"):
                 if name.startswith("hd") and len(name) == 3 and not d.has_key(name):
-                    args = [ "/sbin/hdparm" ]
+                    args = ["/sbin/hdparm"]
                     args.extend(d["all"].split())
                     args.append("/dev/%s" % name)
                     run_quiet(*args)
