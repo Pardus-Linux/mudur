@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Pardus boot and initialization system
-# Copyright (C) 2006-2009, TUBITAK/UEKAE
+# Copyright (C) 2006-2009 TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -28,109 +28,19 @@ from pardus.netutils import waitNet
 from pardus.sysutils import get_kernel_option
 from pardus.shellutils import touch
 
-#
-# i18n
-#
+########
+# i18n #
+########
 
 __trans = gettext.translation('mudur', fallback=True)
 _ = __trans.ugettext
 
-#
-# Utilities
-#
-
-def loadFile(path):
-    """Read contents of a file"""
-    f = open(path, "r")
-    data = f.read()
-    f.close()
-    return data
-
-def loadConfig(path):
-    d = {}
-    for line in file(path):
-        if line != "" and not line.startswith("#") and "=" in line:
-            key, value = line.split("=", 1)
-            key = key.strip()
-            value = value.strip()
-            if value.startswith('"') or value.startswith("'"):
-                value = value[1:-1]
-            d[key] = value
-    return d
-
-def createDirectory(path):
-    """Create missing directories in the path"""
-    if not os.path.exists(path):
-        os.makedirs(path)
-
-def writeToFile(filename, data=""):
-    """Write data to file"""
-    f = open(filename, "w")
-    f.write(data)
-    f.close()
-
-def mount(part, args):
-    ent = config.get_mount(part)
-    if ent and len(ent) > 3:
-        args = "-t %s -o %s %s %s" % (ent[2], ent[3], ent[0], ent[1])
-    os.system("/bin/mount -n %s" % args)
-
-def mdate(filename):
-    """Return last modification date of a file"""
-    if os.path.exists(filename):
-        return os.stat(filename).st_mtime
-    return 0
-
-def mdirdate(dirname):
-    """Return last modification date of a directory"""
-    # Directory mdate is not updated for file updates, so we check each file
-    # Note that we dont recurse into subdirs, modules.d, env.d etc are all flat
-    d = mdate(dirname)
-    for f in os.listdir(dirname):
-        d2 = mdate(os.path.join(dirname, f))
-        if d2 > d:
-            d = d2
-    return d
-
-def capture(*cmd):
-    """Capture output of the command without running a shell"""
-    a = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return a.communicate()
-
-def run_async(cmd, fstdout=None, fstderr=None):
-    """Runs a command in background and redirects the outputs optionally"""
-    if fstdout and fstderr:
-        return subprocess.Popen(cmd, stdout=open(fstdout, "w"),
-                                     stderr=open(fstderr, "w")).pid
-    elif fstdout:
-        return subprocess.Popen(cmd, stdout=open(fstdout, "w")).pid
-    else:
-        return subprocess.Popen(cmd, stderr=open(fstdout, "w")).pid
-
-def run(*cmd):
-    """Run a command without running a shell, only output errors"""
-    f = file("/dev/null", "w")
-    return subprocess.call(cmd, stdout=f)
-
-def run_full(*cmd):
-    """Run a command without running a shell, with full output"""
-    return subprocess.call(cmd)
-
-def run_quiet(*cmd):
-    """Run the command without running a shell and no output"""
-    f = file("/dev/null", "w")
-    return subprocess.call(cmd, stdout=f, stderr=f)
-
-def delete(pattern):
-    """rmdir with glob support"""
-    for path in glob.glob(pattern):
-        mode = os.lstat(path).st_mode
-        if stat.S_ISDIR(mode):
-            run("rm", "-rf", path)
-        else:
-            run("rm", "-f", path)
+#######################
+# Convenience methods #
+#######################
 
 def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
+    """Waits over a AF_UNIX socket for a given duration."""
     itimeout = timeout
     if stream:
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
@@ -148,8 +58,109 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
     ui.debug("Waited %.2f seconds for '%s'" % (itimeout-timeout, unix_name))
     return False
 
+def loadFile(path):
+    """Reads the contents of a file and returns it."""
+    f = open(path, "r")
+    data = f.read()
+    f.close()
+    return data
+
+def loadConfig(path):
+    """Reads key=value formatted config files and returns a dictionary."""
+    d = {}
+    for line in file(path):
+        if line != "" and not line.startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip()
+            if value.startswith('"') or value.startswith("'"):
+                value = value[1:-1]
+            d[key] = value
+    return d
+
+def writeToFile(filename, data=""):
+    """Write data to file."""
+    f = open(filename, "w")
+    f.write(data)
+    f.close()
+
+def createDirectory(path):
+    """Create missing directories in the path."""
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+def delete(pattern):
+    """rmdir with glob support."""
+    for path in glob.glob(pattern):
+        mode = os.lstat(path).st_mode
+        if stat.S_ISDIR(mode):
+            run("rm", "-rf", path)
+        else:
+            run("rm", "-f", path)
+
+def mount(part, args):
+    """Mounts the partition with arguments."""
+    ent = config.get_mount(part)
+    if ent and len(ent) > 3:
+        args = "-t %s -o %s %s %s" % (ent[2], ent[3], ent[0], ent[1])
+    os.system("/bin/mount -n %s" % args)
+
+def mdate(filename):
+    """Returns the last modification date of a file."""
+    if os.path.exists(filename):
+        return os.stat(filename).st_mtime
+    return 0
+
+def mdirdate(dirname):
+    """Returns the last modification date of a directory."""
+    # Directory mdate is not updated for file updates, so we check each file
+    # Note that we dont recurse into subdirs, modules.d, env.d etc are all flat
+    d = mdate(dirname)
+    for f in os.listdir(dirname):
+        d2 = mdate(os.path.join(dirname, f))
+        if d2 > d:
+            d = d2
+    return d
+
+####################################
+# Process spawning related methods #
+####################################
+
+def capture(*cmd):
+    """Captures the output of a command without running a shell."""
+    a = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return a.communicate()
+
+def run_async(cmd, fstdout=None, fstderr=None):
+    """Runs a command in background and redirects the outputs optionally."""
+    if fstdout and fstderr:
+        return subprocess.Popen(cmd, stdout=open(fstdout, "w"),
+                                     stderr=open(fstderr, "w")).pid
+    elif fstdout:
+        return subprocess.Popen(cmd, stdout=open(fstdout, "w")).pid
+    else:
+        return subprocess.Popen(cmd, stderr=open(fstdout, "w")).pid
+
+def run(*cmd):
+    """Runs a command without running a shell, only output errors."""
+    f = file("/dev/null", "w")
+    return subprocess.call(cmd, stdout=f)
+
+def run_full(*cmd):
+    """Runs a command without running a shell, with full output."""
+    return subprocess.call(cmd)
+
+def run_quiet(*cmd):
+    """Runs a command without running a shell and no output."""
+    f = file("/dev/null", "w")
+    return subprocess.call(cmd, stdout=f, stderr=f)
+
+################
+# Logger class #
+################
 
 class Logger:
+    """Logger class for dumping into /var/log/mudur.log."""
     def __init__(self):
         self.lines = ["\n"]
 
@@ -168,8 +179,12 @@ class Logger:
         except IOError:
             ui.error(_("Cannot write mudur.log, read-only file system"))
 
+################
+# Config class #
+################
 
 class Config:
+    """Configuration class which parsing /proc/cmdline to get mudur related options."""
     def __init__(self):
         self.fstab = None
         self.cmdline = None
@@ -245,9 +260,9 @@ class Config:
             data = filter(lambda x: not (x.startswith("#") or x == ""), data)
             self.fstab = map(lambda x: x.split(), data)
 
-        for ent in self.fstab:
-            if len(ent) > 3 and ent[1] == path:
-                return ent
+        for entry in self.fstab:
+            if entry and len(entry) > 3 and entry[1] == path:
+                return entry
 
     def is_virtual(self):
         # Xen detection
@@ -258,6 +273,10 @@ class Config:
                 # if we are in domU then no need to set/sync clock and others
                 return True
         return False
+
+################
+# Splash class #
+################
 
 class Splash:
     def __init__(self):
@@ -293,6 +312,10 @@ class Splash:
                 self.updateProgressBar(self.percent + delta)
             else:
                 self.updateProgressBar(self.percent - delta)
+
+############
+# UI class #
+############
 
 class UI:
     UNICODE_MAGIC = "\x1b%G"
@@ -351,9 +374,9 @@ class UI:
     def colorize(self, uicolor, msg):
         return "%s%s%s" % (self.colors[uicolor], msg, self.colors['normal'])
 
-#
-# Language and keymap
-#
+##################
+# Language class #
+##################
 
 class Language:
     def __init__(self, keymap, font, trans, locale):
@@ -362,6 +385,10 @@ class Language:
         self.trans = trans
         self.locale = locale
 
+
+########################################
+# Language and console related methods #
+########################################
 
 languages = {
     "en": Language("us", "iso01.16", "8859-1", "en_US.UTF-8"),
@@ -378,7 +405,7 @@ languages = {
 }
 
 def setConsole():
-    """Setup encoding, font and mapping for console"""
+    """Setups encoding, font and mapping for console."""
     if config.is_virtual():
         """Xen is just a serial console """
         return
@@ -392,6 +419,7 @@ def setConsole():
     run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
 
 def setSystemLanguage():
+    """Sets the system language."""
     lang = config.get("language")
     keymap = config.get("keymap")
     language = languages[lang]
@@ -411,7 +439,7 @@ def setSystemLanguage():
         writeToFile("/etc/env.d/03locale", content)
 
 def setTranslation():
-    """Load translation"""
+    """Loads the translation catalogue for mudur."""
     global __trans
     global _
     lang = config.get("language")
@@ -419,6 +447,7 @@ def setTranslation():
     _ = __trans.ugettext
 
 def ttyUnicode():
+    """Makes TTYs unicode compatible."""
     lang = config.get("language")
     language = languages[lang]
 
@@ -436,12 +465,12 @@ def ttyUnicode():
         except:
             ui.error(_("Could not set unicode mode on tty %d") % i)
 
+######################################
+# Service management related methods #
+######################################
 
-
-#
-# COMAR functions
-#
 def fork_handler():
+    """Callback which is passed to Popen as preexec_fn."""
     # Set umask to a sane value
     # (other and group has no write permission by default)
     os.umask(022)
@@ -460,17 +489,8 @@ def fork_handler():
     # Detach from process group
     os.setsid()
 
-def startDBus():
-    os.setuid(0)
-    ui.info(_("Starting %s") % "DBus")
-    if not os.path.exists("/var/lib/dbus/machine-id"):
-        run("/usr/bin/dbus-uuidgen", "--ensure")
-    run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
-        "--pidfile", "/var/run/dbus/pid", "--exec", "/usr/bin/dbus-daemon",
-        "--", "--system")
-    waitBus("/var/run/dbus/system_bus_socket")
-
 def startService(service, command="start"):
+    """Starts the service."""
     cmd = ["/bin/service", "--quiet", service, command]
     ui.debug("Starting service %s" % service)
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -478,6 +498,7 @@ def startService(service, command="start"):
     splash.progress(1)
 
 def stopService(service):
+    """Stops the service."""
     cmd = ["/bin/service", "--quiet", service, "stop"]
     ui.debug("Stopping service %s" % service)
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -485,6 +506,7 @@ def stopService(service):
     splash.progress(1)
 
 def getServices(bus, all=False):
+    """Requests and returns the list of system services through COMAR."""
     obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
     services = obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
     if all:
@@ -495,6 +517,8 @@ def getServices(bus, all=False):
         return enabled.union(conditional).intersection(set(services))
 
 def startNetwork():
+    """Sets up network connections if any."""
+
     # Remote mount required?
     need_remount = remoteMount(dry_run=True)
 
@@ -581,6 +605,7 @@ def startNetwork():
             ui.error(_("No network connection, skipping remote mount."))
 
 def startServices(extras=None):
+    """Sends start signals to the required services through D-Bus."""
     import dbus
     os.setuid(0)
     try:
@@ -640,6 +665,7 @@ def startServices(extras=None):
         splash.updateProgressBar(100)
 
 def stopServices():
+    """Sends stop signals to all available services through D-Bus."""
     import dbus
     ui.info(_("Stopping services"))
     try:
@@ -650,16 +676,33 @@ def stopServices():
     for service in getServices(bus, all=True):
         stopService(service)
 
+
+############################
+# D-Bus start/stop methods #
+############################
+
+def startDBus():
+    """Starts the D-Bus service."""
+    os.setuid(0)
+    ui.info(_("Starting %s") % "DBus")
+    if not os.path.exists("/var/lib/dbus/machine-id"):
+        run("/usr/bin/dbus-uuidgen", "--ensure")
+    run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
+        "--pidfile", "/var/run/dbus/pid", "--exec", "/usr/bin/dbus-daemon",
+        "--", "--system")
+    waitBus("/var/run/dbus/system_bus_socket")
+
 def stopDBus():
+    """Stops the D-Bus service."""
     ui.info(_("Stopping %s") % "DBus")
     run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
-
 
 #############################
 # UDEV management functions #
 #############################
 
 def copyUdevRules():
+    """Copies persistent udev rules from /dev into /etc/udev/rules."""
 
     # Copy udevtrigger log file to /var/log
     if os.path.exists("/dev/.udevmonitor.log"):
@@ -679,6 +722,7 @@ def copyUdevRules():
             pass
 
 def setupUdev():
+    """Prepares the initial setup for udev daemon initialization."""
 
     ui.info(_("Mounting /dev"))
 
@@ -718,6 +762,7 @@ def setupUdev():
             os.symlink(link[1], link[0])
 
 def startUdev():
+    """Prepares the startup of udev daemon and starts it."""
 
     # Start udev daemon
     ui.info(_("Starting udev"))
@@ -755,11 +800,17 @@ def startUdev():
         run_quiet("/usr/sbin/lvm", "vgchange", "-ay", "--ignorelockingfailure")
 
 def stopUdev():
+    """Stops udev daemon."""
     run("/sbin/start-stop-daemon",
         "--stop", "--exec", "/sbin/udevd")
 
 
+##############################
+# Filesystem related methods #
+##############################
+
 def checkRootFileSystem():
+    """Checks root filesystem with fsck if required."""
     if not config.get("livecd"):
 
         ent = config.get_mount("/")
@@ -804,6 +855,7 @@ def checkRootFileSystem():
             ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
 
 def mountRootFileSystem():
+    """Mounts root filesystem."""
     # Let's remount read/write again.
     ui.info(_("Remounting root filesystem read/write"))
     # We remount here without writing to mtab (-n)
@@ -830,55 +882,8 @@ def mountRootFileSystem():
         if config.get_mount(devpath):
             run("/bin/mount", "-f", "-o", "remount", devpath)
 
-def setHostname():
-    khost = capture("/bin/hostname")[0].rstrip("\n")
-    uhost = None
-    if os.path.exists("/etc/env.d/01hostname"):
-        data = loadFile("/etc/env.d/01hostname")
-        i = data.find('HOSTNAME="')
-        if i != -1:
-            j = data.find('"',i+10)
-            if j != -1:
-                uhost = data[i+10:j]
-
-    if khost != "" and khost != "(none)":
-        # kernel already got a hostname (pxeboot or something)
-        host = khost
-    else:
-        if uhost:
-            host = uhost
-        else:
-            # nothing found, use the default hostname
-            host = "pardus"
-
-    if uhost and host != uhost:
-        i = data.find('HOSTNAME="')
-        if i != -1:
-            j = data.find('"', i+10)
-            if j != -1:
-                data = data[:i+10] + host + data[j:]
-        else:
-            data = 'HOSTNAME="' + host + '"\n' + data
-        writeToFile("/etc/env.d/01hostname", data)
-
-    ui.info(_("Setting up hostname as '%s'") % ui.colorize("light", host))
-    run("/bin/hostname", host)
-
-def autoloadModules():
-    # Don't fail if kernel do not have module support compiled in
-    if not os.path.exists("/proc/modules"):
-        return
-
-    fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
-    if not os.path.exists(fn):
-        fn = "/etc/modules.autoload.d/kernel-%s.%s" % (config.kernel[0], config.kernel[1])
-    if os.path.exists(fn):
-        data = loadFile(fn).split("\n")
-        data = filter(lambda x: x != "" and not x.startswith('#'), data)
-        for mod in data:
-            run("/sbin/modprobe", "-q", "-b", mod)
-
 def checkFileSystems():
+    """Checks all the filesystems with fsck if required."""
     if config.get("livecd"):
         return
 
@@ -910,6 +915,7 @@ def checkFileSystems():
         run_full("/sbin/sulogin")
 
 def localMount():
+    """Mounts local filesystems and enables swaps if any."""
     # FIXME: /proc/bus/usb is deprecated by /dev/bus/usb, we shouldn't mount it.
     if os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
         ui.info(_("Mounting USB filesystem"))
@@ -922,6 +928,7 @@ def localMount():
     run("/sbin/swapon", "-a")
 
 def remoteMount(dry_run=False):
+    """Mounts remote filesystems."""
     data = loadFile("/etc/fstab").split("\n")
     data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     fstab = map(lambda x: x.split(), data)
@@ -958,6 +965,60 @@ def remoteMount(dry_run=False):
         time.sleep(1)
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
+################################################################################
+# Other system related methods for hostname setting, modules autoloading, etc. #
+################################################################################
+
+def setHostname():
+    """Sets the system's hostname."""
+    khost = capture("/bin/hostname")[0].rstrip("\n")
+    uhost = None
+    if os.path.exists("/etc/env.d/01hostname"):
+        data = loadFile("/etc/env.d/01hostname")
+        i = data.find('HOSTNAME="')
+        if i != -1:
+            j = data.find('"',i+10)
+            if j != -1:
+                uhost = data[i+10:j]
+
+    if khost != "" and khost != "(none)":
+        # kernel already got a hostname (pxeboot or something)
+        host = khost
+    else:
+        if uhost:
+            host = uhost
+        else:
+            # nothing found, use the default hostname
+            host = "pardus"
+
+    if uhost and host != uhost:
+        i = data.find('HOSTNAME="')
+        if i != -1:
+            j = data.find('"', i+10)
+            if j != -1:
+                data = data[:i+10] + host + data[j:]
+        else:
+            data = 'HOSTNAME="' + host + '"\n' + data
+        writeToFile("/etc/env.d/01hostname", data)
+
+    ui.info(_("Setting up hostname as '%s'") % ui.colorize("light", host))
+    run("/bin/hostname", host)
+
+def autoloadModules():
+    """Traverses /etc/modules.autoload.d to autoload kernel modules if any."""
+    # Don't fail if kernel do not have module support compiled in
+    if not os.path.exists("/proc/modules"):
+        return
+
+    fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
+    if not os.path.exists(fn):
+        fn = "/etc/modules.autoload.d/kernel-%s.%s" % (config.kernel[0], config.kernel[1])
+    if os.path.exists(fn):
+        data = loadFile(fn).split("\n")
+        data = filter(lambda x: x != "" and not x.startswith('#'), data)
+        for mod in data:
+            run("/sbin/modprobe", "-q", "-b", mod)
+
 def setDiskParameters():
     if config.get("safe"):
         return
@@ -982,31 +1043,9 @@ def setDiskParameters():
                 args.append("/dev/%s" % key)
                 run_quiet(*args)
 
-def setClock():
-    if config.is_virtual():
-        return
-
-    ui.info(_("Setting system clock to hardware clock"))
-
-    # Default is UTC
-    opts = "--utc"
-    if config.get("clock") != "UTC":
-        opts = "--localtime"
-
-    # Default is no
-    if config.get("clock_adjust") == "yes":
-        adj = "--adjust"
-        if not touch("/etc/adjtime"):
-            adj = "--noadjfile"
-        elif os.stat("/etc/adjtime").st_size == 0:
-            writeToFile("/etc/adjtime", "0.0 0 0.0\n")
-        t = capture("/sbin/hwclock", adj, opts)
-        if t[1] != '':
-            ui.error(_("Failed to adjust systematic drift of the hardware clock"))
-
-    t = capture("/sbin/hwclock", "--hctosys", opts)
-    if t[1] != '':
-        ui.error(_("Failed to set system clock to hardware clock"))
+##############################
+# Filesystem cleanup methods #
+##############################
 
 def cleanupVar():
     ui.info(_("Cleaning up /var"))
@@ -1046,11 +1085,39 @@ def cleanupTmp():
     os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.X11-unix", 01777)
 
-#
-# Finalization functions
-#
+########################################
+# System time/Clock management methods #
+########################################
+
+def setClock():
+    """Sets the system time according to /etc."""
+    if config.is_virtual():
+        return
+
+    ui.info(_("Setting system clock to hardware clock"))
+
+    # Default is UTC
+    opts = "--utc"
+    if config.get("clock") != "UTC":
+        opts = "--localtime"
+
+    # Default is no
+    if config.get("clock_adjust") == "yes":
+        adj = "--adjust"
+        if not touch("/etc/adjtime"):
+            adj = "--noadjfile"
+        elif os.stat("/etc/adjtime").st_size == 0:
+            writeToFile("/etc/adjtime", "0.0 0 0.0\n")
+        t = capture("/sbin/hwclock", adj, opts)
+        if t[1] != '':
+            ui.error(_("Failed to adjust systematic drift of the hardware clock"))
+
+    t = capture("/sbin/hwclock", "--hctosys", opts)
+    if t[1] != '':
+        ui.error(_("Failed to set system clock to hardware clock"))
 
 def saveClock():
+    """Saves the system time for further boots."""
     if config.get("livecd") or config.is_virtual():
         return
 
@@ -1064,6 +1131,7 @@ def saveClock():
         ui.error(_("Failed to synchronize clocks"))
 
 def stopSystem():
+    """Stops the system."""
 
     stopServices()
     stopUdev()
@@ -1156,9 +1224,9 @@ splash = Splash()
 ui = UI()
 
 
-#
-# Main program
-#
+############################
+# Main program starts here #
+############################
 
 if __name__ == "__main__":
 
