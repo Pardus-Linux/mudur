@@ -100,7 +100,7 @@ def delete(pattern):
 
 def mount(part, args):
     """Mounts the partition with arguments."""
-    ent = config.get_mount(part)
+    ent = config.get_fstab_entry_with_mountpoint(part)
     if ent and len(ent) > 3:
         args = "-t %s -o %s %s %s" % (ent[2], ent[3], ent[0], ent[1])
     os.system("/bin/mount -n %s" % args)
@@ -253,14 +253,14 @@ class Config:
             print "Unknown option '%s' requested" % key
             time.sleep(3)
 
-    def get_mount(self, path):
+    def get_fstab_entry_with_mountpoint(self, mountpoint):
         if not self.fstab:
             data = loadFile("/etc/fstab").split("\n")
             data = filter(lambda x: not (x.startswith("#") or x == ""), data)
             self.fstab = map(lambda x: x.split(), data)
 
         for entry in self.fstab:
-            if entry and len(entry) > 3 and entry[1] == path:
+            if entry and len(entry) > 3 and entry[1] == mountpoint:
                 return entry
 
     def is_virtual(self):
@@ -817,7 +817,7 @@ def checkRootFileSystem():
     """Checks root filesystem with fsck if required."""
     if not config.get("livecd"):
 
-        ent = config.get_mount("/")
+        ent = config.get_fstab_entry_with_mountpoint("/")
         if config.get("forcefsck") or (ent and (len(ent) > 5 and ent[5] != "0")):
 
             # Remount root filesystem read-only for fsck
@@ -885,7 +885,7 @@ def mountRootFileSystem():
             devpath = entry.split()[1]
         except IndexError:
             continue
-        if config.get_mount(devpath):
+        if config.get_fstab_entry_with_mountpoint(devpath):
             run("/bin/mount", "-f", "-o", "remount", devpath)
 
 def checkFileSystems():
@@ -1126,6 +1126,7 @@ def saveClock():
     t = capture("/sbin/hwclock", "--systohc", opts)
     if t[1] != '':
         ui.error(_("Failed to synchronize clocks"))
+
 
 def stopSystem():
     """Stops the system."""
