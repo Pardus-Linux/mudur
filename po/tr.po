@@ -103,11 +103,11 @@ msgstr "/dev içeriği dolduruluyor"
 
 #: bin/mudur.py:817
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Kirli kilit dosyası /etc/mtab~ siliniyor"
 
 #: bin/mudur.py:821
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Kirli kilit dosyası /etc/mtab~ silinemedi"
 
 #: bin/mudur.py:834
 msgid "Remounting root filesystem read-only"
@@ -151,6 +151,10 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"Kök dosya sistemi yazılır/okunur olarak bağlanamadı\n"
+"   Sisteme giriş yapıp el ile dosya sistemlerinizi denetleyebilir VEYA\n"
+"   bilgisayarınızı baştan başlatıp, açılış menüsünde F3'e basıp 'Diski onar'\n"
+"   seçeneğini kullanabilirsiniz\n"
 
 #: bin/mudur.py:892
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
