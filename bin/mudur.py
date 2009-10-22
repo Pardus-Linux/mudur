@@ -10,23 +10,16 @@
 # option) any later version. Please read the COPYING file.
 #
 
-import os
-import re
-import sys
-import glob
-import time
-import stat
 import fcntl
 import signal
 import shutil
-import socket
-import termios
+
+import os
+import re
+import sys
+import time
 import gettext
 import subprocess
-
-from pardus.netutils import waitNet
-from pardus.sysutils import get_kernel_option
-from pardus.shellutils import touch
 
 ########
 # i18n #
@@ -41,6 +34,7 @@ _ = __trans.ugettext
 
 def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
     """Waits over a AF_UNIX socket for a given duration."""
+    import socket
     itimeout = timeout
     if stream:
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
@@ -113,6 +107,50 @@ def mdirdate(dirname):
         if d2 > d:
             d = d2
     return d
+
+def touch(filename):
+    """Updates file modification date, create file if necessary"""
+    try:
+        if os.path.exists(filename):
+            os.utime(filename, None)
+        else:
+            file(filename, "w").close()
+    except IOError, e:
+        if e.errno != 13:
+            raise
+        else:
+            return False
+    except OSError, e:
+        if e.errno != 13:
+            raise
+        else:
+            return False
+    return True
+
+def getKernelOption(option):
+    """Get a dictionary of args for the given kernel command line option"""
+    args = {}
+
+    try:
+        cmdline = open("/proc/cmdline").read().split()
+    except IOError:
+        return args
+
+    for cmd in cmdline:
+        if "=" in cmd:
+            optname, optargs = cmd.split("=", 1)
+        else:
+            optname = cmd
+            optargs = ""
+
+        if optname == option:
+            for arg in optargs.split(","):
+                if ":" in arg:
+                    k, v = arg.split(":", 1)
+                    args[k] = v
+                else:
+                    args[arg] = ""
+    return args
 
 ####################################
 # Process spawning related methods #
@@ -214,7 +252,7 @@ class Config:
         # We need to mount /proc before accessing kernel options
         # This function is called after that, and finish parsing options
         # We dont print any messages before, cause language is not known
-        opts = get_kernel_option("mudur")
+        opts = getKernelOption("mudur")
 
         # Fill in the options
         self.opts["livecd"] = opts.has_key("livecd") or opts.has_key("livedisk") or opts.has_key("thin")
@@ -280,7 +318,7 @@ class Splash:
 
     def init(self, percent, increasing=True):
         if os.path.exists("/proc/splash"):
-            self.enabled = get_kernel_option("splash").has_key("silent")
+            self.enabled = getKernelOption("splash").has_key("silent")
             self.increasing = increasing
             self.percent = percent
 
@@ -463,6 +501,8 @@ def ttyUnicode():
 
 def fork_handler():
     """Callback which is passed to Popen as preexec_fn."""
+    import termios
+
     # Set umask to a sane value
     # (other and group has no write permission by default)
     os.umask(022)
@@ -510,12 +550,12 @@ def getServices(bus, all=False):
 
 def startNetwork():
     """Sets up network connections if any."""
+    import dbus
+    import comar
 
     # Remote mount required?
     need_remount = remoteMount(dry_run=True)
 
-    import comar
-    import dbus
     link = comar.Link()
 
     def ifUp(package, name, info):
@@ -591,6 +631,7 @@ def startNetwork():
                         break
 
     if need_remount:
+        from pardus.netutils import waitNet
         if waitNet():
             remoteMount()
         else:
@@ -599,6 +640,7 @@ def startNetwork():
 def startServices(extras=None):
     """Sends start signals to the required services through D-Bus."""
     import dbus
+
     os.setuid(0)
     try:
         bus = dbus.SystemBus()
@@ -648,7 +690,7 @@ def startServices(extras=None):
             for service in services:
                 startService(service, command="ready")
 
-            if run_head_start and not get_kernel_option("xorg").has_key("off"):
+            if run_head_start and not getKernelOption("xorg").has_key("off"):
                 waitBus("/tmp/.X11-unix/X0", timeout=10)
 
                 # Avoid users trying to login using VT
@@ -663,6 +705,7 @@ def startServices(extras=None):
 def stopServices():
     """Sends stop signals to all available services through D-Bus."""
     import dbus
+
     ui.info(_("Stopping services"))
     try:
         bus = dbus.SystemBus()
@@ -702,6 +745,7 @@ def stopDBus():
 
 def copyUdevRules():
     """Copies persistent udev rules from /dev into /etc/udev/rules."""
+    import glob
 
     # Copy udevtrigger log file to /var/log
     if os.path.exists("/dev/.udevmonitor.log"):
@@ -730,7 +774,8 @@ def setupUdev():
 
     # At this point, an empty /dev is mounted on ramdisk
     # We need /dev/null for calling run_quiet
-    os.mknod("/dev/null", 0666 | stat.S_IFCHR, os.makedev(1, 3))
+    S_IFCHR = 8192
+    os.mknod("/dev/null", 0666 | S_IFCHR, os.makedev(1, 3))
 
     # Copy over any persistent things
     devpath = "/lib/udev/devices"
@@ -811,24 +856,26 @@ def stopUdev():
 def updateMtab(mountpoint):
     """Calls mount -f to update mtab for a previous mount."""
     MOUNT_FAILED_LOCK = 16
-    if run_quiet("/bin/mount", "-f", mountpoint) == MOUNT_FAILED_LOCK:
-        # Locking problem, probably a stale mtab~ file exists
-        if os.path.exists("/etc/mtab~"):
+    if os.path.exists("/etc/mtab~"):
+        try:
             ui.warn(_("Removing stale lock file /etc/mtab~"))
-            try:
-                os.unlink("/etc/mtab~")
-            except OSError:
-                ui.warn(_("Failed removing stale lock file /etc/mtab~"))
-                pass
-            else:
-                run_quiet("/bin/mount", "-f", mountpoint)
+            os.unlink("/etc/mtab~")
+        except OSError:
+            ui.warn(_("Failed removing stale lock file /etc/mtab~"))
+            pass
+
+    return (run_quiet("/bin/mount", "-f", mountpoint) == MOUNT_FAILED_LOCK)
 
 def checkRootFileSystem():
     """Checks root filesystem with fsck if required."""
     if not config.get("livecd"):
 
         entry = config.get_fstab_entry_with_mountpoint("/")
-        if config.get("forcefsck") or (entry and (len(entry) > 5 and entry[5] != "0")):
+        if not entry:
+            ui.warn(_("/etc/fstab doesn't contain an entry for the root filesystem"))
+            return
+
+        if config.get("forcefsck") or (len(entry) > 5 and entry[5] != "0"):
 
             # Remount root filesystem read-only for fsck without writing to mtab (-n)
             ui.info(_("Remounting root filesystem read-only"))
@@ -995,6 +1042,12 @@ def setHostname():
             j = data.find('"',i+10)
             if j != -1:
                 uhost = data[i+10:j]
+        """
+        try:
+            data = loadFile("/etc/env.d/01hostname").strip().split("HOSTNAME=")[1].strip("\"")
+        except IndexError:
+            pass
+        """
 
     if khost != "" and khost != "(none)":
         # kernel already got a hostname (pxeboot or something)
@@ -1204,35 +1257,36 @@ def stopSystem():
 
     ui.info(_("Remounting remaining filesystems read-only"))
     splash.updateProgressBar(0)
-    # we parse /proc/mounts but use umount, so this have to agree
+
+    # We parse /proc/mounts but use umount, so this have to agree
     shutil.copy("/proc/mounts", "/etc/mtab")
     if remount_ro():
         if remount_ro():
             remount_ro(True)
 
-
-#
-# Exception hook
-#
+##################
+# Exception hook #
+##################
 
 def except_hook(eType, eValue, eTrace):
+    import traceback
     print
     print _("An internal error occured. Please report to the bugs.pardus.org.tr with following information:").encode("utf-8")
     print
     print eType, eValue
-    import traceback
     traceback.print_tb(eTrace)
     print
     run_full("/sbin/sulogin")
 
 
-# Global objects
+##################
+# Global objects #
+##################
 
 logger = Logger()
 config = Config()
 splash = Splash()
 ui = UI()
-
 
 ############################
 # Main program starts here #
