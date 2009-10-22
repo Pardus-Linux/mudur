@@ -1140,7 +1140,7 @@ def cleanupTmp():
     )
 
     # Remove directories
-    run("rm", "-rf", " ".join(cleanup_list))
+    os.system("rm -rf %s" % " ".join(cleanup_list))
 
     createDirectory("/tmp/.ICE-unix")
     os.chown("/tmp/.ICE-unix", 0, 0)
