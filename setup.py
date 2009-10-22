@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2006-2009, TUBITAK/UEKAE
+# Copyright (C) 2006-2009 TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -15,7 +15,7 @@ import glob
 import shutil
 import parser
 
-version = "3.0.6"
+version = "3.1.0"
 
 distfiles = """
     setup.py
@@ -25,7 +25,7 @@ distfiles = """
     po/*.po
 """
 
-i18n_source_list = [ "bin/mudur.py", "bin/service.py", "bin/network.py" ]
+i18n_source_list = ["bin/mudur.py", "bin/service.py", "bin/network.py"]
 
 def update_messages():
     os.system("xgettext -o po/mudur.pot %s" % " ".join(i18n_source_list))
