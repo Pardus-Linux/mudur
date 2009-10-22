@@ -1,4 +1,4 @@
-2009-10-20  Ozan Çağlayan <ozan@pardus.org.tr>
+2009-10-21  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (autoloadModules): Pass -b to modprobe to obey blacklist
 	files,
 	* bin/mudur.py (mtime): Use os.path.getmtime() instead of os.stat(),
@@ -16,6 +16,12 @@
 	mount -f for each partition in /etc/fstab,
 	* bin/mudur.py (cleanupTmp): Call rm -rf once without extending each
 	pattern through glob,
+	* bin/mudur.py (mountRootFileSystem): Suggest F3/FS Check when rootfs
+	can't be mounted as R/W (#10408),
+	* bin/mudur.py: Bring back get_kernel_option() and touch() from
+	pardus-python to reduce external dependencies,
+	Move imports to the related functions as mudur is called and called again
+	through the boot process.
 
 2009-10-19  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (checkRootFileSystem): Don't fail if /etc/fstab doesn't

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-20 16:39+0300\n"
+"POT-Creation-Date: 2009-10-22 15:40+0300\n"
 "PO-Revision-Date: 23/07/09 21:10\n"
 "Last-Translator: Antoon Tolboom <atolboo@gmail.com>\n"
 "Language-Team: Nederlansd <kde-i18n-nl@kde.org>\n"
@@ -19,42 +19,42 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: bin/mudur.py:175
+#: bin/mudur.py:213
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "Kan niet schrijven naar mudur.log, alleen-lezen"
 
-#: bin/mudur.py:339
+#: bin/mudur.py:377
 msgid "Safe Mode"
 msgstr "Veilige modus"
 
-#: bin/mudur.py:342
+#: bin/mudur.py:380
 msgid "Cannot find /etc/pardus-release"
 msgstr "Kan /etc/pardus-release niet vinden"
 
-#: bin/mudur.py:458
+#: bin/mudur.py:496
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "Kan unicode modus niet instellen op tty %d"
 
-#: bin/mudur.py:523
+#: bin/mudur.py:563
 #, python-format
 msgid "Bringing up %s"
 msgstr "Breng %s naar voren"
 
-#: bin/mudur.py:528
+#: bin/mudur.py:568
 #, python-format
 msgid "Unable to bring up %s"
 msgstr "Kan %s niet naar voren te brengen"
 
-#: bin/mudur.py:597
+#: bin/mudur.py:638
 msgid "No network connection, skipping remote mount."
 msgstr "Geen netwerkverbinding, overslaan aankoppelen op afstand."
 
-#: bin/mudur.py:606
+#: bin/mudur.py:648
 msgid "Cannot connect to DBus, services won't be started"
 msgstr "Kan geen verbinding maken met DBus, diensten worden niet gestart"
 
-#: bin/mudur.py:627
+#: bin/mudur.py:669
 #, python-format
 msgid ""
 "Unable to start network:\n"
@@ -63,190 +63,194 @@ msgstr ""
 "Kan netwerk niet starten:\n"
 "  %s"
 
-#: bin/mudur.py:632
+#: bin/mudur.py:674
 msgid "Cannot start system logger"
 msgstr "Kan systeem logger niet starten"
 
-#: bin/mudur.py:635
+#: bin/mudur.py:677
 msgid "Starting services"
 msgstr "Opstarten diensten"
 
-#: bin/mudur.py:666
+#: bin/mudur.py:709
 msgid "Stopping services"
 msgstr "Stoppen diensten"
 
-#: bin/mudur.py:686 bin/service.py:158 bin/service.py:261
+#: bin/mudur.py:729 bin/service.py:158 bin/service.py:261
 #, python-format
 msgid "Starting %s"
 msgstr "Opstarten %s"
 
-#: bin/mudur.py:696 bin/service.py:169 bin/service.py:196 bin/service.py:273
+#: bin/mudur.py:739 bin/service.py:169 bin/service.py:196 bin/service.py:273
 #, python-format
 msgid "Stopping %s"
 msgstr "Stoppen %s"
 
-#: bin/mudur.py:720
+#: bin/mudur.py:764
 msgid "Can't move persistent udev rules from /dev/.udev"
 msgstr "Kan aanhoudende udevl regels niet verplaatsten van /dev/.udev"
 
-#: bin/mudur.py:726
+#: bin/mudur.py:770
 msgid "Mounting /dev"
 msgstr "Aankoppelen /dev"
 
-#: bin/mudur.py:767
+#: bin/mudur.py:812
 msgid "Starting udev"
 msgstr "Opstarten udev"
 
-#: bin/mudur.py:781
+#: bin/mudur.py:826
 msgid "Populating /dev"
 msgstr "Opvulen /dev"
 
-#: bin/mudur.py:817
+#: bin/mudur.py:861
 msgid "Removing stale lock file /etc/mtab~"
 msgstr ""
 
-#: bin/mudur.py:821
+#: bin/mudur.py:864
 msgid "Failed removing stale lock file /etc/mtab~"
 msgstr ""
 
-#: bin/mudur.py:834
+#: bin/mudur.py:875
+msgid "/etc/fstab doesn't contain an entry for the root filesystem"
+msgstr ""
+
+#: bin/mudur.py:881
 msgid "Remounting root filesystem read-only"
 msgstr "Opnieuw aankoppelen hoofdbestandsysteem als alleen-lezen"
 
-#: bin/mudur.py:839
+#: bin/mudur.py:886
 msgid "Checking root filesystem (full check forced)"
 msgstr "Controleren root bestandssysteem (volledige controle geforceerd)"
 
-#: bin/mudur.py:845
+#: bin/mudur.py:892
 msgid "Checking root filesystem"
 msgstr "Controleren root bestandssysteem"
 
-#: bin/mudur.py:854
+#: bin/mudur.py:901
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Bestandsysteem gerepareerd, maar herstarten is nodig!"
 
-#: bin/mudur.py:858
+#: bin/mudur.py:905
 msgid "Rebooting in 10 seconds..."
 msgstr "Herstart na 10 seconden..."
 
-#: bin/mudur.py:860
+#: bin/mudur.py:907
 msgid "Rebooting..."
 msgstr "Herstarten..."
 
-#: bin/mudur.py:864
+#: bin/mudur.py:911
 msgid "Filesystem could not be repaired"
 msgstr "Bestandsysteem kon niet gerepareerd worden"
 
-#: bin/mudur.py:869
+#: bin/mudur.py:916
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Overslaan controle van root bestandssysteem (fstab's overslagno == 0)"
 
-#: bin/mudur.py:875
+#: bin/mudur.py:922
 msgid "Remounting root filesystem read/write"
 msgstr "Opnieuw aankoppelen root bestandssysteem als lezen/schrijven"
 
-#: bin/mudur.py:879
+#: bin/mudur.py:926
 msgid ""
 "Root filesystem could not be mounted read/write\n"
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
 
-#: bin/mudur.py:892
+#: bin/mudur.py:939
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
 msgstr "Kan /etc/mtab van /proc/mounts niet synchroniseren"
 
-#: bin/mudur.py:905
+#: bin/mudur.py:952
 msgid "Checking all filesystems"
 msgstr "Controleren alle bestandssystemen"
 
-#: bin/mudur.py:909
+#: bin/mudur.py:956
 msgid "A full fsck has been forced"
 msgstr "Een volledige fsck is afgedwongen"
 
-#: bin/mudur.py:927
+#: bin/mudur.py:974
 msgid "Filesystem errors corrected"
 msgstr "Fouten in het bestandssysteem gecorrigeerd"
 
-#: bin/mudur.py:929
+#: bin/mudur.py:976
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr "Fsck kon niet alle problemen oplossen. Handmatige reparatie is vereist"
 
-#: bin/mudur.py:936
+#: bin/mudur.py:983
 msgid "Mounting USB filesystem"
 msgstr "Aankoppelen USB bestandssysteem"
 
-#: bin/mudur.py:939
+#: bin/mudur.py:986
 msgid "Mounting local filesystems"
 msgstr "Aankoppelen lokale bestandssystemen"
 
-#: bin/mudur.py:942
+#: bin/mudur.py:989
 msgid "Activating swap space"
 msgstr "Activeren swapruimte"
 
-#: bin/mudur.py:962
+#: bin/mudur.py:1009
 msgid "Starting portmap service for NFS"
 msgstr "Starten poortmap dienst voor NFS"
 
-#: bin/mudur.py:965
+#: bin/mudur.py:1012
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
-#: bin/mudur.py:979
+#: bin/mudur.py:1026
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 msgstr ""
 "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
-#: bin/mudur.py:1016
+#: bin/mudur.py:1069
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Hostnaam instellen als '%s'"
 
-#: bin/mudur.py:1041
+#: bin/mudur.py:1094
 msgid "Setting disk parameters"
 msgstr "Instellen schijf parameters"
 
-#: bin/mudur.py:1061
+#: bin/mudur.py:1114
 msgid "Cleaning up /var"
 msgstr "Opschonen /var"
 
-#: bin/mudur.py:1071
+#: bin/mudur.py:1124
 msgid "Cleaning up /tmp"
 msgstr "Opschonen /tmp"
 
-#: bin/mudur.py:1107
+#: bin/mudur.py:1160
 msgid "Setting system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok"
 
-#: bin/mudur.py:1123
+#: bin/mudur.py:1176
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr "Aanpassen systematische afwijking van de hardware klok mislukt"
 
-#: bin/mudur.py:1127
+#: bin/mudur.py:1180
 msgid "Failed to set system clock to hardware clock"
 msgstr "Systeemklok instellen op hardwareklok mislukt"
 
-#: bin/mudur.py:1138
+#: bin/mudur.py:1191
 msgid "Syncing system clock to hardware clock"
 msgstr "Systeemklok synchroniseren met hardwareklok"
 
-#: bin/mudur.py:1141
+#: bin/mudur.py:1194
 msgid "Failed to synchronize clocks"
 msgstr "Synchroniseren van klokken mislukt"
 
-#: bin/mudur.py:1152
+#: bin/mudur.py:1205
 msgid "Deactivating swap space"
 msgstr "Deactiveren swapruimte"
 
-#: bin/mudur.py:1173
+#: bin/mudur.py:1226
 msgid "Unmounting filesystems"
 msgstr "Afkoppelen bestandssystemen"
 
-#: bin/mudur.py:1205
+#: bin/mudur.py:1258
 msgid "Remounting remaining filesystems read-only"
 msgstr "Opnieuw aankoppelen bestandssystemen als alleen-lezen"
 
-#: bin/mudur.py:1220
+#: bin/mudur.py:1274
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -254,27 +258,27 @@ msgstr ""
 "Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs."
 "pardus.org.tr met de volgende informatie:"
 
-#: bin/mudur.py:1279
+#: bin/mudur.py:1333
 msgid "Mounting /sys"
 msgstr "Aankoppelen /sys"
 
-#: bin/mudur.py:1288
+#: bin/mudur.py:1342
 msgid "Mounting /dev/pts"
 msgstr "Aankoppelen /dev/pts"
 
-#: bin/mudur.py:1334
+#: bin/mudur.py:1388
 msgid "Setting up localhost"
 msgstr "Instellen localhost"
 
-#: bin/mudur.py:1347
+#: bin/mudur.py:1401
 msgid "Updating environment variables"
 msgstr "Bijwerken omgevingsvariabelen"
 
-#: bin/mudur.py:1367
+#: bin/mudur.py:1421
 msgid "Triggering udev events which are failed during a previous run"
 msgstr "Aansturen udev events welke eerde mislikt zijn"
 
-#: bin/mudur.py:1404
+#: bin/mudur.py:1458
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr "Probeer een warme herstart (BIOS overslaan met kexec kernel)"
 
