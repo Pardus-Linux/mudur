@@ -3,18 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Amine Chadly <amine.chadly@gmail.com>, 2007, 2008.
+# Philippe Svetoslavsky <philsvet@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-22 15:40+0300\n"
-"PO-Revision-Date: 2008-06-27 02:32+0200\n"
-"Last-Translator: Amine Chadly <amine.chadly@gmail.com>\n"
-"Language-Team: French <pardus-translators@liste.pardus.org.tr>\n"
+"PO-Revision-Date: 2009-08-26 19:59+0200\n"
+"Last-Translator: Philippe Svetoslavsky <philsvet@gmail.com>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: bin/mudur.py:213
 msgid "Cannot write mudur.log, read-only file system"
@@ -22,7 +24,7 @@ msgstr "Impossible d'écrire mudur.log, système de fichier en lecture seule"
 
 #: bin/mudur.py:377
 msgid "Safe Mode"
-msgstr ""
+msgstr "Mode sûr"
 
 #: bin/mudur.py:380
 msgid "Cannot find /etc/pardus-release"
@@ -33,35 +35,37 @@ msgstr "Impossible de trouver le fichier /etc/pardus-release"
 msgid "Could not set unicode mode on tty %d"
 msgstr "Impossible d'établir le mode unicode sur le terminal (tty) %d"
 
-#: bin/mudur.py:563
-#, fuzzy, python-format
-msgid "Bringing up %s"
-msgstr "Levée de l'interface %s"
+#: bin/mudur.py:465 bin/service.py:158 bin/service.py:261, python-format
+msgid "Starting %s"
+msgstr "Démarrage de %s"
 
-#: bin/mudur.py:568
-#, fuzzy, python-format
+#: bin/mudur.py:507, python-format
+msgid "Bringing up %s"
+msgstr "Activation de %s"
+
+#: bin/mudur.py:512, python-format
 msgid "Unable to bring up %s"
-msgstr "Échec de la levée de l'interface %s"
+msgstr "Échec de l'activation de %s"
 
 #: bin/mudur.py:638
 msgid "No network connection, skipping remote mount."
-msgstr ""
+msgstr "Aucune connexion réseau. Exemption du montage distant."
 
 #: bin/mudur.py:648
 msgid "Cannot connect to DBus, services won't be started"
-msgstr ""
-"Impossible de se connecter au DBus, les services ne seront pas démarrés"
+msgstr "Impossible de se connecter à DBus, les services ne seront pas démarrés"
 
-#: bin/mudur.py:669
-#, fuzzy, python-format
+#: bin/mudur.py:609, python-format
 msgid ""
 "Unable to start network:\n"
 "  %s"
-msgstr "Impossible de démarrer D-Bus"
+msgstr ""
+"Impossible de démarrer le réseau :\n"
+"  %s"
 
 #: bin/mudur.py:674
 msgid "Cannot start system logger"
-msgstr "Impossible de démarrer le système d'archivage du système"
+msgstr "Impossible de démarrer les journeaux du système"
 
 #: bin/mudur.py:677
 msgid "Starting services"
@@ -71,19 +75,19 @@ msgstr "Démarrage des services"
 msgid "Stopping services"
 msgstr "Arrêt des services"
 
-#: bin/mudur.py:729 bin/service.py:158 bin/service.py:261
-#, fuzzy, python-format
+#: bin/mudur.py:654 bin/service.py:169 bin/service.py:196 bin/service.py:273, python-format
 msgid "Starting %s"
-msgstr "Démarrage de %s..."
+msgstr "Démarrage de %s"
 
 #: bin/mudur.py:739 bin/service.py:169 bin/service.py:196 bin/service.py:273
 #, fuzzy, python-format
 msgid "Stopping %s"
-msgstr "Arrêt de %s..."
+msgstr "Arrêt de %s"
 
 #: bin/mudur.py:764
 msgid "Can't move persistent udev rules from /dev/.udev"
 msgstr ""
+"Impossible de déplacer les règles persistentes de udev à partir de /dev/.udev"
 
 #: bin/mudur.py:770
 msgid "Mounting /dev"
@@ -91,7 +95,7 @@ msgstr "Montage de /dev"
 
 #: bin/mudur.py:812
 msgid "Starting udev"
-msgstr "Démarrage d'udev"
+msgstr "Démarrage de udev"
 
 #: bin/mudur.py:826
 msgid "Populating /dev"
@@ -99,35 +103,34 @@ msgstr "Peuplement de /dev"
 
 #: bin/mudur.py:861
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Suppression du fichier verrou périmé /etc/mtab~"
 
 #: bin/mudur.py:864
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Échec de la suppression du fichier verrou périmé /etc/mtab~"
 
 #: bin/mudur.py:875
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "/etc/fstab ne contient pas d'entrée pour la racine du système de fichiers"
 
 #: bin/mudur.py:881
 msgid "Remounting root filesystem read-only"
-msgstr "Remontage du système de ficher racine (root) en lecture seule"
+msgstr "Remontage de la racine du système de ficher (root) en lecture seule"
 
 #: bin/mudur.py:886
 msgid "Checking root filesystem (full check forced)"
 msgstr ""
-"Vérification du système de fichier racine (vérification complète forcée)"
+"Vérification de la racine du système de fichiers (vérification complète forcée)"
 
 #: bin/mudur.py:892
 msgid "Checking root filesystem"
-msgstr "Vérification du système de fichier racine"
+msgstr "Vérification de la racine du système de fichier"
 
 #: bin/mudur.py:901
 msgid "Filesystem repaired, but reboot needed!"
-msgstr "Le système de fichier est réparé, mais un redémarrage est nécessaire !"
+msgstr "Le système de fichier a été réparé, mais un redémarrage est nécessaire !"
 
 #: bin/mudur.py:905
-#, fuzzy
 msgid "Rebooting in 10 seconds..."
 msgstr "Redémarrage dans 10 secondes..."
 
@@ -136,19 +139,17 @@ msgid "Rebooting..."
 msgstr "Redémarrage..."
 
 #: bin/mudur.py:911
-#, fuzzy
 msgid "Filesystem could not be repaired"
 msgstr "Le système de fichier n'a pas pu être réparé"
 
 #: bin/mudur.py:916
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr ""
-"Exemption de la vérification pour le système de fichier racine (passno == 0 "
-"dans fstab)"
+"Exemption de la vérification de la racine du système de fichiers (passno == 0 dans fstab)"
 
 #: bin/mudur.py:922
 msgid "Remounting root filesystem read/write"
-msgstr "Remontage du système de fichier racine en lecture/écriture"
+msgstr "Remontage de la racine du système de fichiers lecture/écriture"
 
 #: bin/mudur.py:926
 msgid ""
@@ -156,14 +157,22 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"La racine du système de fichiers n'a pas pu être montée en lecture/écriture\n"
+"   Vous pouvez soit vous identifier ci-dessous et vérifier manuellement votre système de fichiers OU\n"
+"   redémarrer votre PC, appuyer sur F3 et choisir 'Vérification du FS' dans le menu de démarrage\n"
 
 #: bin/mudur.py:939
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Impossible de synchroniser /etc/mtab à partir de /proc/mounts"
 
-#: bin/mudur.py:952
+#: bin/mudur.py:864
+#, python-format
+msgid "Setting up hostname as '%s'"
+msgstr "Établissement du nom d'hôte '%s'"
+
+#: bin/mudur.py:885
 msgid "Checking all filesystems"
-msgstr "Vérification de tous les systèmes de fichier"
+msgstr "Vérification de tous les systèmes de fichiers"
 
 #: bin/mudur.py:956
 msgid "A full fsck has been forced"
@@ -171,26 +180,23 @@ msgstr "Un fsck complet a été forcé"
 
 #: bin/mudur.py:974
 msgid "Filesystem errors corrected"
-msgstr "Erreurs des systèmes de fichier corrigées"
+msgstr "Erreurs des systèmes de fichiers corrigées"
 
 #: bin/mudur.py:976
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck n'a pu corriger toutes les erreurs, une réparation manuelle est "
-"nécessaire"
+msgstr "Fsck n'a pu corriger toutes les erreurs, une réparation manuelle est nécessaire"
 
 #: bin/mudur.py:983
 msgid "Mounting USB filesystem"
-msgstr "Montage du système de fichier USB"
+msgstr "Montage du système de fichiers USB"
 
 #: bin/mudur.py:986
 msgid "Mounting local filesystems"
-msgstr "Montage des systèmes de fichier locaux"
+msgstr "Montage des systèmes de fichiers locaux"
 
 #: bin/mudur.py:989
-#, fuzzy
 msgid "Activating swap space"
-msgstr "Activation du système de fichier d'échange (swap)"
+msgstr "Activation de l'espace d'échange (swap)"
 
 #: bin/mudur.py:1009
 msgid "Starting portmap service for NFS"
@@ -198,20 +204,16 @@ msgstr "Démarrage du service portmap pour NFS"
 
 #: bin/mudur.py:1012
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr ""
-"Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
+msgstr "Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
 
 #: bin/mudur.py:1026
-#, fuzzy
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Montage désactivé avec CTRL-C, les partages distants ne sont pas "
-"accessibles !"
+msgstr "Montage avorté avec CTRL-C, les partages distants ne seront pas accessibles !"
 
 #: bin/mudur.py:1069
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr "Établissement du nom d'hôte à '%s'"
+msgstr "Établissement du nom d'hôte '%s'"
 
 #: bin/mudur.py:1094
 msgid "Setting disk parameters"
@@ -227,46 +229,43 @@ msgstr "Nettoyage de /tmp"
 
 #: bin/mudur.py:1160
 msgid "Setting system clock to hardware clock"
-msgstr "Établissement de l'horloge système à l'heure du matériel"
+msgstr "Mise de l'horloge système à l'heure du matériel"
 
 #: bin/mudur.py:1176
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Échec de l'ajustement du décalage systématique de l'horloge du matériel."
+msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
 #: bin/mudur.py:1180
 msgid "Failed to set system clock to hardware clock"
-msgstr "Échec de l'établissement de l'horloge du système à l'heure du matériel"
+msgstr "Échec de la mise de l'horloge du système à l'heure du matériel"
 
 #: bin/mudur.py:1191
 msgid "Syncing system clock to hardware clock"
-msgstr "Synchronisation de l'horloge système à l'heure du matériel"
+msgstr "Synchronisation de l'horloge du système et de l'heure du matériel"
 
 #: bin/mudur.py:1194
-#, fuzzy
 msgid "Failed to synchronize clocks"
 msgstr "Échec de la synchronisation des horloges"
 
 #: bin/mudur.py:1205
-#, fuzzy
 msgid "Deactivating swap space"
-msgstr "Désactivation du système de fichier d'échange (swap)"
+msgstr "Désactivation de l'espace d'échange (swap)"
 
 #: bin/mudur.py:1226
 msgid "Unmounting filesystems"
-msgstr "Démontage des systèmes de fichier"
+msgstr "Démontage des systèmes de fichiers"
 
 #: bin/mudur.py:1258
 msgid "Remounting remaining filesystems read-only"
-msgstr "Remontage des systèmes de fichier restants en lecture seule"
+msgstr "Remontage en lecture seule des systèmes de fichiers restants"
 
 #: bin/mudur.py:1274
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
-"Une erreur interne est survenue. Veuillez reporter le bug à bugs.pardus.org."
-"tr avec l'information suivante s'il vous plaît : "
+"Une erreur interne est survenue. Veuillez reporter le bug à bugs.pardus.org.tr avec "
+"l'information suivante s'il vous plaît : "
 
 #: bin/mudur.py:1333
 msgid "Mounting /sys"
@@ -286,14 +285,11 @@ msgstr "Mise à jour des variables d'environnement"
 
 #: bin/mudur.py:1421
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
-"Lancement des événements udev qui ont échoué lors d'un lancement précédent"
+msgstr "Lancement des événements udev qui ont échoué lors d'un lancement précédent"
 
 #: bin/mudur.py:1458
-#, fuzzy
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Tente d'initier un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
+msgstr "Tente de faire un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
 
 #: bin/service.py:60
 msgid "local"
@@ -329,7 +325,7 @@ msgstr "Service"
 
 #: bin/service.py:103
 msgid "Autostart"
-msgstr "Démarrage automatique (Autostart)"
+msgstr "Démarrage automatique"
 
 #: bin/service.py:104
 msgid "Description"
@@ -348,11 +344,11 @@ msgstr "Le service '%s' ne sera pas automatiquement démarré."
 #: bin/service.py:185
 #, python-format
 msgid "Service '%s' will be started if required."
-msgstr "Le service '%s' sera démarré quand nécessaire."
+msgstr "Le service '%s' sera démarré si nécessaire."
 
 #: bin/service.py:250
 msgid "You must be root to use that."
-msgstr "Vous devez être root pour utiliser cela."
+msgstr "Vous devez être administrateur (root)."
 
 #: bin/service.py:269
 msgid "Unable to start DBus"
