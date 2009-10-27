@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-22 15:40+0300\n"
-"PO-Revision-Date: 2009-08-26 19:59+0200\n"
+"PO-Revision-Date: 2009-10-26 19:59+0200\n"
 "Last-Translator: Philippe Svetoslavsky <philsvet@gmail.com>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr "Échec de l'activation de %s"
 
 #: bin/mudur.py:638
 msgid "No network connection, skipping remote mount."
-msgstr "Aucune connexion réseau. Exemption du montage distant."
+msgstr "Non connecté au réseau. Exemption du montage distant."
 
 #: bin/mudur.py:648
 msgid "Cannot connect to DBus, services won't be started"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: bin/mudur.py:674
 msgid "Cannot start system logger"
-msgstr "Impossible de démarrer les journeaux du système"
+msgstr "Impossible de démarrer les journaux du système"
 
 #: bin/mudur.py:677
 msgid "Starting services"
@@ -80,14 +80,13 @@ msgid "Starting %s"
 msgstr "Démarrage de %s"
 
 #: bin/mudur.py:739 bin/service.py:169 bin/service.py:196 bin/service.py:273
-#, fuzzy, python-format
+#,python-format
 msgid "Stopping %s"
 msgstr "Arrêt de %s"
 
 #: bin/mudur.py:764
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
-"Impossible de déplacer les règles persistentes de udev à partir de /dev/.udev"
+msgstr "Impossible de déplacer les règles persistentes de udev à partir de /dev/.udev"
 
 #: bin/mudur.py:770
 msgid "Mounting /dev"
@@ -115,12 +114,11 @@ msgstr "/etc/fstab ne contient pas d'entrée pour la racine du système de fichi
 
 #: bin/mudur.py:881
 msgid "Remounting root filesystem read-only"
-msgstr "Remontage de la racine du système de ficher (root) en lecture seule"
+msgstr "Remontage de la racine du système de fichers (root) en lecture seule"
 
 #: bin/mudur.py:886
 msgid "Checking root filesystem (full check forced)"
-msgstr ""
-"Vérification de la racine du système de fichiers (vérification complète forcée)"
+msgstr "Vérification de la racine du système de fichiers (vérification complète forcée)"
 
 #: bin/mudur.py:892
 msgid "Checking root filesystem"
@@ -128,7 +126,7 @@ msgstr "Vérification de la racine du système de fichier"
 
 #: bin/mudur.py:901
 msgid "Filesystem repaired, but reboot needed!"
-msgstr "Le système de fichier a été réparé, mais un redémarrage est nécessaire !"
+msgstr "Le système de fichiers a été réparé, mais un redémarrage est nécessaire !"
 
 #: bin/mudur.py:905
 msgid "Rebooting in 10 seconds..."
@@ -144,8 +142,7 @@ msgstr "Le système de fichier n'a pas pu être réparé"
 
 #: bin/mudur.py:916
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr ""
-"Exemption de la vérification de la racine du système de fichiers (passno == 0 dans fstab)"
+msgstr "Exemption de la vérification de la racine du système de fichiers (passno == 0 dans fstab)"
 
 #: bin/mudur.py:922
 msgid "Remounting root filesystem read/write"
@@ -237,7 +234,7 @@ msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matér
 
 #: bin/mudur.py:1180
 msgid "Failed to set system clock to hardware clock"
-msgstr "Échec de la mise de l'horloge du système à l'heure du matériel"
+msgstr "Échec de la mise de l'horloge du système à l'heure du matériel."
 
 #: bin/mudur.py:1191
 msgid "Syncing system clock to hardware clock"
@@ -360,7 +357,7 @@ msgstr "DBus n'est pas en cours d'exécution."
 
 #: bin/service.py:285
 msgid "DBus is running."
-msgstr "Dbus fonctionne."
+msgstr "Dbus est en cours d'exécution."
 
 #: bin/service.py:290
 msgid ""
