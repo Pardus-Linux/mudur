@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-22 15:40+0300\n"
-"PO-Revision-Date: 2009-10-20 18:56-0300\n"
+"PO-Revision-Date: 2009-10-22 18:25-0300\n"
 "Last-Translator: Klemens Häckel <click3d at linuxmail (dot) org>\n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgstr ""
 
 #: bin/mudur.py:875
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "en /etc/fstab falta la entrada para el sistema de archivos raíz"
 
 #: bin/mudur.py:881
 msgid "Remounting root filesystem read-only"
