@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-22 15:40+0300\n"
-"PO-Revision-Date: 23/07/09 21:10\n"
+"PO-Revision-Date: 30/10/09 23:08\n"
 "Last-Translator: Antoon Tolboom <atolboo@gmail.com>\n"
 "Language-Team: Nederlansd <kde-i18n-nl@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -103,15 +103,15 @@ msgstr "Opvulen /dev"
 
 #: bin/mudur.py:861
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Verwijderen van oud vergrendeld bestand /etc/mtab~"
 
 #: bin/mudur.py:864
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Verwijderen van oud vergrendeld bestand /etc/mtab~ is mislukt"
 
 #: bin/mudur.py:875
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "/etc/fstab bevat geen item voor het root systeembestand"
 
 #: bin/mudur.py:881
 msgid "Remounting root filesystem read-only"
@@ -155,6 +155,9 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"Root systeembestand kan niet aangekoppeld worden voor lezen/schrijven\n"
+"   Log hieronder in en controleer handmatig het bestandsysteem(en) OF\n"
+"   herstart het systeem, druk op F3 en selecteer FS-controle in het opstartmenu\n"
 
 #: bin/mudur.py:939
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
@@ -198,8 +201,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:1026
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:1069
 #, python-format
@@ -385,6 +387,3 @@ msgstr ""
 " -N, --no-color  Gebruik geen kleur in uitvoer  -q, --quiet     Print geen "
 "antwoorden"
 
-#~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr ""
-#~ "Root bestandssysteem kon niet aangekoppeld worden als 'lezen/schrijven'"
