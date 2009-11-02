@@ -1122,6 +1122,26 @@ def setDiskParameters():
                 args.append("/dev/%s" % key)
                 run_quiet(*args)
 
+
+################
+# Swap methods #
+################
+
+def swapOn():
+    """Calls swapon for all swaps in /etc/fstab."""
+    ui.info(_("Activating swap space"))
+    run("/sbin/swapon", "-a")
+
+def swapOff():
+    """Calls swapoff after unmounting tmpfs."""
+    # unmount unused tmpfs filesystems before swap
+    # (tmpfs can be swapped and you can get a deadlock)
+    run_quiet("/bin/umount", "-at", "tmpfs")
+
+    ui.info(_("Deactivating swap space"))
+    run_quiet("/sbin/swapoff", "-a")
+
+
 ##############################
 # Filesystem cleanup methods #
 ##############################
@@ -1217,12 +1237,7 @@ def stopSystem():
     stopDBus()
     stopPreload()
     saveClock()
-
-    ui.info(_("Deactivating swap space"))
-    # unmount unused tmpfs filesystems before swap
-    # (tmpfs can be swapped and you can get a deadlock)
-    run_quiet("/bin/umount", "-at", "tmpfs")
-    run_quiet("/sbin/swapoff", "-a")
+    swapOff()
 
     def getFS():
         ents = loadFile("/proc/mounts").split("\n")
@@ -1349,6 +1364,10 @@ if __name__ == "__main__":
         ui.info(_("Mounting /sys"))
         mount("/sys", "-t sysfs sysfs /sys")
 
+        # Set kernel console log level for cleaner boot
+        # only panic messages will be printed
+        run("/bin/dmesg", "-n", "1")
+
         # Prepare the /dev directory for udev startup
         setupUdev()
 
@@ -1357,10 +1376,6 @@ if __name__ == "__main__":
 
         ui.info(_("Mounting /dev/pts"))
         mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
-
-        # Set kernel console log level for cleaner boot
-        # only panic messages will be printed
-        run("/bin/dmesg", "-n", "1")
 
         # Check root file system
         checkRootFileSystem()
@@ -1387,8 +1402,7 @@ if __name__ == "__main__":
         localMount()
 
         # Activate swap space
-        ui.info(_("Activating swap space"))
-        run("/sbin/swapon", "-a")
+        swapOn()
 
         # Set disk parameters using hdparm
         setDiskParameters()

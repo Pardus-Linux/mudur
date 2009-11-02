@@ -2,7 +2,8 @@
 	* bin/mudur.py (mountRootFileSystem): Revert mount -af with the old loop
 	to fix /home mounts, separate swap activation.
 	* bin/mudur.py (run_async): Fix possible NoneType error.
-	* bin/mudur.py: Add support for starting preload daemon.
+	* bin/mudur.py: Add support for starting preload daemon,
+	* bin/mudur.py: Add methods for turning swap on/off,
 
 2009-10-21  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (autoloadModules): Pass -b to modprobe to obey blacklist
