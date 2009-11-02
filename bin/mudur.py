@@ -853,7 +853,7 @@ def stopUdev():
 # Filesystem related methods #
 ##############################
 
-def updateMtab(mountpoint):
+def updateMtabForRoot():
     """Calls mount -f to update mtab for a previous mount."""
     MOUNT_FAILED_LOCK = 16
     if os.path.exists("/etc/mtab~"):
@@ -864,7 +864,7 @@ def updateMtab(mountpoint):
             ui.warn(_("Failed removing stale lock file /etc/mtab~"))
             pass
 
-    return (run_quiet("/bin/mount", "-f", mountpoint) == MOUNT_FAILED_LOCK)
+    return (run_quiet("/bin/mount", "-f", "/") == MOUNT_FAILED_LOCK)
 
 def checkRootFileSystem():
     """Checks root filesystem with fsck if required."""
@@ -879,7 +879,7 @@ def checkRootFileSystem():
 
             # Remount root filesystem read-only for fsck without writing to mtab (-n)
             ui.info(_("Remounting root filesystem read-only"))
-            run("/bin/mount", "-n", "-o", "remount,ro", "/")
+            run_quiet("/bin/mount", "-n", "-o", "remount,ro", "/")
 
             if config.get("forcefsck"):
                 splash.verbose()
@@ -930,7 +930,6 @@ def mountRootFileSystem():
         # Fail if can't remount r/w
         run_full("/sbin/sulogin")
 
-
     # Fix mtab as we didn't update it yet
     try:
         # Double guard against IO exceptions
@@ -941,10 +940,16 @@ def mountRootFileSystem():
 
     # This will actually try to update mtab for /. If it fails because
     # of a stale lock file, it will clear it and return.
-    updateMtab("/")
+    updateMtabForRoot()
 
-    # Update mtab for all mounts
-    run("/bin/mount", "-af")
+    # Update mtab
+    for entry in loadFile("/proc/mounts").split("\n"):
+        try:
+            devpath = entry.split()[1]
+        except IndexError:
+            continue
+        if config.get_fstab_entry_with_mountpoint(devpath):
+            run("/bin/mount", "-f", "-o", "remount", devpath)
 
 def checkFileSystems():
     """Checks all the filesystems with fsck if required."""
@@ -986,8 +991,6 @@ def localMount():
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4")
 
-    ui.info(_("Activating swap space"))
-    run("/sbin/swapon", "-a")
 
 def remoteMount(dry_run=False):
     """Mounts remote filesystems."""
@@ -1366,6 +1369,10 @@ if __name__ == "__main__":
 
         # Mount local filesystems
         localMount()
+
+        # Activate swap space
+        ui.info(_("Activating swap space"))
+        run("/sbin/swapon", "-a")
 
         # Set disk parameters using hdparm
         setDiskParameters()

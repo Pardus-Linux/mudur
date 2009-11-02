@@ -1,3 +1,7 @@
+2009-11-02  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (mountRootFileSystem): Revert mount -af with the old loop
+	to fix /home mounts, separate swap activation.
+
 2009-10-21  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (autoloadModules): Pass -b to modprobe to obey blacklist
 	files,
