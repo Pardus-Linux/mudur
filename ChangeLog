@@ -4,6 +4,7 @@
 	* bin/mudur.py (run_async): Fix possible NoneType error.
 	* bin/mudur.py: Add support for starting preload daemon,
 	* bin/mudur.py: Add methods for turning swap on/off,
+	* bin/mudur.py: Add deprecated config option for testing future changes
 
 2009-10-21  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (autoloadModules): Pass -b to modprobe to obey blacklist

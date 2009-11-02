@@ -230,6 +230,7 @@ class Config:
             "lvm": False,
             "safe": False,
             "forcefsck": False,
+            "deprecated": True,
             "preload": False,
             "head_start": "",
             "services": "",
@@ -997,8 +998,8 @@ def checkFileSystems():
 def mountLocalFileSystems():
     """Mounts local filesystems and enables swaps if any."""
 
-    # FIXME: /proc/bus/usb is deprecated by /dev/bus/usb, we shouldn't mount it.
-    if os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
+    # DEPRECATE: /proc/bus/usb is deprecated by /dev/bus/usb, we shouldn't mount it.
+    if config.get("deprecated") and os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
         ui.info(_("Mounting USB filesystem"))
         run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
 
