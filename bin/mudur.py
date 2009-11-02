@@ -548,7 +548,7 @@ def startNetwork():
     import comar
 
     # Remote mount required?
-    need_remount = remoteMount(dry_run=True)
+    need_remount = mountRemoteFileSystems(dry_run=True)
 
     link = comar.Link()
 
@@ -627,7 +627,7 @@ def startNetwork():
     if need_remount:
         from pardus.netutils import waitNet
         if waitNet():
-            remoteMount()
+            mountRemoteFileSystems()
         else:
             ui.error(_("No network connection, skipping remote mount."))
 
@@ -994,8 +994,9 @@ def checkFileSystems():
             ui.error(_("Fsck could not correct all errors, manual repair needed"))
             run_full("/sbin/sulogin")
 
-def localMount():
+def mountLocalFileSystems():
     """Mounts local filesystems and enables swaps if any."""
+
     # FIXME: /proc/bus/usb is deprecated by /dev/bus/usb, we shouldn't mount it.
     if os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
         ui.info(_("Mounting USB filesystem"))
@@ -1004,8 +1005,7 @@ def localMount():
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4")
 
-
-def remoteMount(dry_run=False):
+def mountRemoteFileSystems(dry_run=False):
     """Mounts remote filesystems."""
     data = loadFile("/etc/fstab").split("\n")
     data = filter(lambda x: not (x.startswith("#") or x == ""), data)
@@ -1399,7 +1399,7 @@ if __name__ == "__main__":
         checkFileSystems()
 
         # Mount local filesystems
-        localMount()
+        mountLocalFileSystems()
 
         # Activate swap space
         swapOn()
