@@ -1334,6 +1334,7 @@ if __name__ == "__main__":
     # Setup path just in case
     os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 
+    ### SYSINIT ###
     if sys.argv[1] == "sysinit":
 
         # Mount /proc
@@ -1357,6 +1358,7 @@ if __name__ == "__main__":
     # Activate i18n, we can print localized messages from now on
     setTranslation()
 
+    ### SYSINIT ###
     if sys.argv[1] == "sysinit":
         splash.init(0)
 
@@ -1374,6 +1376,7 @@ if __name__ == "__main__":
         # Start udev and event triggering
         startUdev()
 
+        # Mount /dev/pts
         ui.info(_("Mounting /dev/pts"))
         mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
 
@@ -1419,6 +1422,7 @@ if __name__ == "__main__":
         run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
         run("/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
 
+    ### BOOT ###
     elif sys.argv[1] == "boot":
         splash.init(60)
 
@@ -1450,6 +1454,7 @@ if __name__ == "__main__":
         # Set unicode properties for ttys
         ttyUnicode()
 
+    ### DEFAULT ###
     elif sys.argv[1] == "default":
         splash.init(75)
 
@@ -1467,9 +1472,11 @@ if __name__ == "__main__":
 
         splash.verbose()
 
+    ### SINGLE ###
     elif sys.argv[1] == "single":
         stopServices()
 
+    ### REBOOT/SHUTDOWN ###
     elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
         splash.init(90, False)
         splash.silent()
