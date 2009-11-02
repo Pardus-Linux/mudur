@@ -161,23 +161,16 @@ def capture(*cmd):
     a = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return a.communicate()
 
-def run_async(cmd, fstdout=None, fstderr=None):
+def run_async(cmd, stdout=None, stderr=None):
     """Runs a command in background and redirects the outputs optionally."""
-    pid = 0
-    if fstdout and fstderr:
-        pid = subprocess.Popen(cmd, stdout=open(fstdout, "w"),
-                                     stderr=open(fstderr, "w")).pid
-    elif fstdout:
-        pid = subprocess.Popen(cmd, stdout=open(fstdout, "w")).pid
-    else:
-        pid = subprocess.Popen(cmd, stderr=open(fstdout, "w")).pid
+    fstdout = stdout if stdout else "/dev/null"
+    fstderr = stderr if stderr else "/dev/null"
 
-    return pid
+    return subprocess.Popen(cmd, stdout=open(fstdout, "w"), stderr=open(fstderr, "w")).pid
 
 def run(*cmd):
     """Runs a command without running a shell, only output errors."""
-    f = file("/dev/null", "w")
-    return subprocess.call(cmd, stdout=f)
+    return subprocess.call(cmd, stdout=open("/dev/null", "w"))
 
 def run_full(*cmd):
     """Runs a command without running a shell, with full output."""
@@ -237,6 +230,7 @@ class Config:
             "lvm": False,
             "safe": False,
             "forcefsck": False,
+            "preload": False,
             "head_start": "",
             "services": "",
         }
@@ -737,7 +731,26 @@ def startDBus():
 def stopDBus():
     """Stops the D-Bus service."""
     ui.info(_("Stopping %s") % "DBus")
-    run("start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
+    run("/sbin/start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
+
+###############################
+# Other boot related services #
+###############################
+
+def startPreload():
+    """Starts the Preload service."""
+    if os.path.exists("/sbin/preload") and config.get("preload"):
+        ui.info(_("Starting %s") % "Preload")
+        run("/sbin/start-stop-daemon", "-b", "-m", "--start", "--quiet",
+            "--pidfile", "/var/run/preload.pid", "--exec", "/sbin/preload",
+            "--", "-f")
+        run("/usr/bin/ionice", "-c3", "-p", open("/var/run/preload.pid", "r").read().strip())
+
+def stopPreload():
+    """Stops the Preload service."""
+    if os.path.exists("/sbin/preload") and config.get("preload"):
+        ui.info(_("Stopping %s") % "Preload")
+        run("/sbin/start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/preload.pid")
 
 #############################
 # UDEV management functions #
@@ -820,7 +833,7 @@ def startUdev():
 
     # Log things that trigger does
     pid = run_async(["/sbin/udevadm", "monitor", "--env"],
-                    fstdout="/dev/.udevmonitor.log")
+                    stdout="/dev/.udevmonitor.log")
 
     # Filling up /dev by triggering uevents
     ui.info(_("Populating /dev"))
@@ -1202,7 +1215,7 @@ def stopSystem():
     stopServices()
     stopUdev()
     stopDBus()
-
+    stopPreload()
     saveClock()
 
     ui.info(_("Deactivating swap space"))
@@ -1354,6 +1367,9 @@ if __name__ == "__main__":
 
         # Mount root file system
         mountRootFileSystem()
+
+        # Start preload if possible
+        startPreload()
 
         # Grab persistent rules and udev.log file from /dev
         copyUdevRules()
