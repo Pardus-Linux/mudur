@@ -28,6 +28,7 @@ import subprocess
 __trans = gettext.translation('mudur', fallback=True)
 _ = __trans.ugettext
 
+
 #######################
 # Convenience methods #
 #######################
@@ -742,14 +743,12 @@ def startPreload():
     """Starts the Preload service."""
     if os.path.exists("/sbin/preload") and config.get("preload"):
         ui.info(_("Starting %s") % "Preload")
-        run("/sbin/start-stop-daemon", "-b", "-m", "--start", "--quiet",
-            "--pidfile", "/var/run/preload.pid", "--exec", "/sbin/preload",
-            "--", "-f")
-        run("/usr/bin/ionice", "-c3", "-p", open("/var/run/preload.pid", "r").read().strip())
+        run("/sbin/start-stop-daemon", "--start", "--quiet", "--pidfile", "/var/run/preload.pid",
+            "--exec", "/usr/bin/ionice", "--", "-c3", "/sbin/preload")
 
 def stopPreload():
     """Stops the Preload service."""
-    if os.path.exists("/sbin/preload") and config.get("preload"):
+    if os.path.exists("/var/run/preload.pid"):
         ui.info(_("Stopping %s") % "Preload")
         run("/sbin/start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/preload.pid")
 
@@ -878,7 +877,7 @@ def updateMtabForRoot():
             ui.warn(_("Failed removing stale lock file /etc/mtab~"))
             pass
 
-    return (run_quiet("/bin/mount", "-f", "/") == MOUNT_FAILED_LOCK)
+    return (run_quiet("/bin/mount", "-f", "/") != MOUNT_FAILED_LOCK)
 
 def checkRootFileSystem():
     """Checks root filesystem with fsck if required."""
@@ -1149,9 +1148,10 @@ def swapOff():
 
 def cleanupVar():
     ui.info(_("Cleaning up /var"))
+    blacklist = ["utmp", "random-seed", "preload.pid"]
     for root, dirs, files in os.walk("/var/run"):
         for f in files:
-            if f != "utmp" and f != "random-seed":
+            if f not in blacklist:
                 try:
                     os.unlink(os.path.join(root, f))
                 except OSError:
