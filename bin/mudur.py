@@ -1236,7 +1236,7 @@ def stopSystem():
     stopServices()
     stopUdev()
     stopDBus()
-    stopPreload()
+    #stopPreload()
     saveClock()
     swapOff()
 
@@ -1388,7 +1388,7 @@ if __name__ == "__main__":
         mountRootFileSystem()
 
         # Start preload if possible
-        startPreload()
+        # startPreload()
 
         # Grab persistent rules and udev.log file from /dev
         copyUdevRules()
