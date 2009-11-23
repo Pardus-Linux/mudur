@@ -1,3 +1,6 @@
+2009-11-22  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* service.py: Error message if service is missing
+
 2009-11-09  Ozan Çağlayan <ozan@pardus.org.tr>
 	* setup.py: Bump to 3.1.1.
 

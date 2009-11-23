@@ -342,8 +342,11 @@ def main(args):
         try:
             manage_service(args[0].replace("-", "_"), args[1], use_color, quiet)
         except dbus.DBusException, e:
-            print e.args[0]
-            return -1
+            if "Unable to find" in str(e):
+                print _("No such service: %s") % args[0]
+            else:
+                print e.args[0]
+                return -1
         except ValueError, e:
             print e
             return -1
