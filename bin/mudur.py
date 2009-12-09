@@ -1148,7 +1148,7 @@ def swapOff():
 
 def cleanupVar():
     ui.info(_("Cleaning up /var"))
-    blacklist = ["utmp", "random-seed", "preload.pid"]
+    blacklist = ["utmp", "random-seed", "livemedia", "preload.pid"]
     for root, dirs, files in os.walk("/var/run"):
         for f in files:
             if f not in blacklist:

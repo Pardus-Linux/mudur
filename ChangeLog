@@ -1,3 +1,7 @@
+2009-12-09  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (cleanupVar): Don't remove livemedia file as it will be
+	used by our brand new, smart booting mechanism.
+
 2009-11-22  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* service.py: Error message if service is missing
 
