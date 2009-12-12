@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: sv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-23 12:19+0200\n"
-"PO-Revision-Date: 2009-07-12 17:25+0200\n"
+"PO-Revision-Date: 2009-12-01 21:20+0100\n"
 "Last-Translator: Patrik Karlsson <patrik@pardus.nu>\n"
 "Language-Team: Swedish <pardus-translators@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Kan inte skriva mudur.log, skrivskyddat filsystem."
 
 #: bin/mudur.py:373
 msgid "Safe Mode"
-msgstr ""
+msgstr "Säkert läge"
 
 #: bin/mudur.py:376
 msgid "Cannot find /etc/pardus-release"
@@ -103,15 +103,15 @@ msgstr "Fyller /dev"
 
 #: bin/mudur.py:874
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Tar bort gammal låsfil /etc/mtab~"
 
 #: bin/mudur.py:877
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Misslyckades med att ta bort gammal låsfil /etc/mtab~"
 
 #: bin/mudur.py:888
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "/etc/fstab innehåller inte en post för rotfilsystemet"
 
 #: bin/mudur.py:894
 msgid "Remounting root filesystem read-only"
@@ -155,10 +155,13 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"Rotfilsystemet kunde inte monteras läs/skriv\n"
+"   Du kan antingen logga in och själv kontrollera dina filsystem, ELLER\n"
+"   starta om datorn, trycka F3 och välja 'FS check' från uppstartsmenyn.\n"
 
 #: bin/mudur.py:951
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Kunde inte synkronisera /etc/mtab med /proc/mounts"
 
 #: bin/mudur.py:970
 msgid "Checking all filesystems"
@@ -384,10 +387,9 @@ msgstr ""
 " -N, --no-color  Använd inte färger i meddelanden\n"
 " -q, --quiet     Använd inte meddelanden"
 
-#: bin/service.py:346
-#, fuzzy, python-format
+#: bin/service.py:346, python-format
 msgid "No such service: %s"
-msgstr "Profil saknas."
+msgstr "Tjänst saknas: %s"
 
 #~ msgid "Root filesystem could not be mounted read/write"
 #~ msgstr "Kunde inte återmontera rotfilsystemet läs/skriv"
