@@ -461,8 +461,12 @@ def setSystemLanguage():
 
     # Update environment if necessary
     content = "LANG=%s\nLC_ALL=%s\n" % (language.locale, language.locale)
-    if content != loadFile("/etc/env.d/03locale"):
-        writeToFile("/etc/env.d/03locale", content)
+
+    try:
+        if content != loadFile("/etc/env.d/03locale"):
+            writeToFile("/etc/env.d/03locale", content)
+    except IOError:
+        ui.warn(_("/etc/env.d/03locale cannot be updated"))
 
 def setTranslation():
     """Loads the translation catalogue for mudur."""

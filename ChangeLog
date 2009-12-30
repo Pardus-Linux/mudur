@@ -1,3 +1,7 @@
+2009-12-30  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (setSystemLanguage): Don't fail if /etc/env.d/03locale is
+	missing.
+
 2009-12-09  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (cleanupVar): Don't remove livemedia file as it will be
 	used by our brand new, smart booting mechanism.
