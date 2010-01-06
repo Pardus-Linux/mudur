@@ -251,9 +251,9 @@ class Config:
         opts = getKernelOption("mudur")
 
         # Fill in the options
-        self.opts["livecd"] = opts.has_key("livecd") or opts.has_key("livedisk") or opts.has_key("thin")
+        self.opts["livecd"] = opts.has_key("thin") or os.path.exists("/var/run/pardus/livemedia")
 
-        for k in [_k for _k in opts.keys() if _k not in ("livecd", "livedisk", "thin")]:
+        for k in [_k for _k in opts.keys() if _k not in ("thin")]:
             if opts[k]:
                 self.opts[k] = opts[k]
             else:

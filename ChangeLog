@@ -1,3 +1,7 @@
+2010-01-06  Onur Küçük <onur@pardus.org.tr>
+	* bin/mudur.py: Check if mudur is in live environment from
+	/var/run/pardus/livemedia
+
 2009-12-30  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (setSystemLanguage): Don't fail if /etc/env.d/03locale is
 	missing.
