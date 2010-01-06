@@ -227,7 +227,7 @@ class Config:
             "tty_number": "6",
             "keymap": None,
             "debug": True,
-            "livecd": False,
+            "live": False,
             "lvm": False,
             "safe": False,
             "forcefsck": False,
@@ -251,7 +251,7 @@ class Config:
         opts = getKernelOption("mudur")
 
         # Fill in the options
-        self.opts["livecd"] = opts.has_key("thin") or os.path.exists("/var/run/pardus/livemedia")
+        self.opts["live"] = opts.has_key("thin") or os.path.exists("/var/run/pardus/livemedia")
 
         for k in [_k for _k in opts.keys() if _k not in ("thin")]:
             if opts[k]:
@@ -885,7 +885,7 @@ def updateMtabForRoot():
 
 def checkRootFileSystem():
     """Checks root filesystem with fsck if required."""
-    if not config.get("livecd"):
+    if not config.get("live"):
 
         entry = config.get_fstab_entry_with_mountpoint("/")
         if not entry:
@@ -970,7 +970,7 @@ def mountRootFileSystem():
 
 def checkFileSystems():
     """Checks all the filesystems with fsck if required."""
-    if not config.get("livecd"):
+    if not config.get("live"):
         ui.info(_("Checking all filesystems"))
 
         if config.get("forcefsck"):
@@ -1222,7 +1222,7 @@ def setClock():
 
 def saveClock():
     """Saves the system time for further boots."""
-    if config.get("livecd") or config.is_virtual():
+    if config.get("live") or config.is_virtual():
         return
 
     opts = "--utc"
@@ -1445,7 +1445,7 @@ if __name__ == "__main__":
         # time of the relevant files
         if mdirdate("/etc/env.d") > mdate("/etc/profile.env"):
             ui.info(_("Updating environment variables"))
-            if config.get("livecd"):
+            if config.get("live"):
                 run("/sbin/update-environment", "--live")
             else:
                 run("/sbin/update-environment")
