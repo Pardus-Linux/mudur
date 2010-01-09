@@ -1,292 +1,292 @@
-# Translation of pt_BR.po to Brazilian Portuguese
+# translation of fr.po to French
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Pedro Leite <pedro.leite@gmail.com>, 2007.
+# Amine Chadly <amine.chadly@gmail.com>, 2007, 2008.
+# Philippe Svetoslavsky <philsvet@gmail.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: pt_BR\n"
+"Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-23 12:19+0200\n"
-"PO-Revision-Date: 2007-02-19 22:23-0300\n"
-"Last-Translator: Pedro Leite <pedro.leite@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <http://liste.uludag.org.tr/mailman/"
-"listinfo/pardus-translation-ptbr>\n"
+"POT-Creation-Date: 2009-10-22 15:40+0300\n"
+"PO-Revision-Date: 2009-10-26 19:59+0200\n"
+"Last-Translator: Philippe Svetoslavsky <philsvet@gmail.com>\n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: bin/mudur.py:207
+#: bin/mudur.py:213
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
-"Não é possível escrever mudur.log, sistema de arquivos somente-leitura."
+msgstr "Impossible d'écrire mudur.log, système de fichier en lecture seule"
 
-#: bin/mudur.py:373
+#: bin/mudur.py:377
 msgid "Safe Mode"
-msgstr ""
+msgstr "Mode sûr"
 
-#: bin/mudur.py:376
+#: bin/mudur.py:380
 msgid "Cannot find /etc/pardus-release"
-msgstr "Não é possível achar /etc/pardus-release"
+msgstr "Impossible de trouver le fichier /etc/pardus-release"
 
-#: bin/mudur.py:492
+#: bin/mudur.py:496
 #, python-format
 msgid "Could not set unicode mode on tty %d"
-msgstr "Não foi possível modificar o modo unicode no tty %d"
+msgstr "Impossible d'établir le mode unicode sur le terminal (tty) %d"
 
-#: bin/mudur.py:559
-#, python-format
+#: bin/mudur.py:465 bin/service.py:158 bin/service.py:261, python-format
+msgid "Starting %s"
+msgstr "Démarrage de %s"
+
+#: bin/mudur.py:507, python-format
 msgid "Bringing up %s"
-msgstr ""
+msgstr "Activation de %s"
 
-#: bin/mudur.py:564
-#, python-format
+#: bin/mudur.py:512, python-format
 msgid "Unable to bring up %s"
-msgstr ""
+msgstr "Échec de l'activation de %s"
 
-#: bin/mudur.py:634
+#: bin/mudur.py:638
 msgid "No network connection, skipping remote mount."
-msgstr ""
+msgstr "Non connecté au réseau. Exemption du montage distant."
 
-#: bin/mudur.py:644
-#, fuzzy
+#: bin/mudur.py:648
 msgid "Cannot connect to DBus, services won't be started"
-msgstr "Não é possível se conectar ao COMAR, os serviços não serão iniciados"
+msgstr "Impossible de se connecter à DBus, les services ne seront pas démarrés"
 
-#: bin/mudur.py:665
-#, python-format
+#: bin/mudur.py:609, python-format
 msgid ""
 "Unable to start network:\n"
 "  %s"
 msgstr ""
+"Impossible de démarrer le réseau :\n"
+"  %s"
 
-#: bin/mudur.py:670
+#: bin/mudur.py:674
 msgid "Cannot start system logger"
-msgstr "Não é possível iniciar o logger do sistema"
+msgstr "Impossible de démarrer les journaux du système"
 
-#: bin/mudur.py:673
+#: bin/mudur.py:677
 msgid "Starting services"
-msgstr "Iniciando os serviços"
+msgstr "Démarrage des services"
 
-#: bin/mudur.py:705
+#: bin/mudur.py:709
 msgid "Stopping services"
-msgstr "Parando os serviços"
+msgstr "Arrêt des services"
 
-#: bin/mudur.py:725 bin/mudur.py:745 bin/service.py:158 bin/service.py:261
-#, fuzzy, python-format
+#: bin/mudur.py:654 bin/service.py:169 bin/service.py:196 bin/service.py:273, python-format
 msgid "Starting %s"
-msgstr "Iniciando udev"
+msgstr "Démarrage de %s"
 
-#: bin/mudur.py:735 bin/mudur.py:752 bin/service.py:169 bin/service.py:196
-#: bin/service.py:273
-#, fuzzy, python-format
+#: bin/mudur.py:739 bin/service.py:169 bin/service.py:196 bin/service.py:273
+#,python-format
 msgid "Stopping %s"
-msgstr "Parando os serviços"
+msgstr "Arrêt de %s"
 
-#: bin/mudur.py:777
+#: bin/mudur.py:764
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
+msgstr "Impossible de déplacer les règles persistentes de udev à partir de /dev/.udev"
 
-#: bin/mudur.py:783
+#: bin/mudur.py:770
 msgid "Mounting /dev"
-msgstr "Montando /dev"
+msgstr "Montage de /dev"
 
-#: bin/mudur.py:825
+#: bin/mudur.py:812
 msgid "Starting udev"
-msgstr "Iniciando udev"
+msgstr "Démarrage de udev"
 
-#: bin/mudur.py:839
+#: bin/mudur.py:826
 msgid "Populating /dev"
-msgstr "Populando /dev"
+msgstr "Peuplement de /dev"
 
-#: bin/mudur.py:874
+#: bin/mudur.py:861
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Suppression du fichier verrou périmé /etc/mtab~"
 
-#: bin/mudur.py:877
+#: bin/mudur.py:864
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Échec de la suppression du fichier verrou périmé /etc/mtab~"
 
-#: bin/mudur.py:888
+#: bin/mudur.py:875
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "/etc/fstab ne contient pas d'entrée pour la racine du système de fichiers"
 
-#: bin/mudur.py:894
+#: bin/mudur.py:881
 msgid "Remounting root filesystem read-only"
-msgstr "Remontando o sistema de arquivos raiz como somente-leitura"
+msgstr "Remontage de la racine du système de fichers (root) en lecture seule"
 
-#: bin/mudur.py:899
+#: bin/mudur.py:886
 msgid "Checking root filesystem (full check forced)"
-msgstr "Checando o sistema de arquivos raiz (checagem completa forçada)"
+msgstr "Vérification de la racine du système de fichiers (vérification complète forcée)"
+
+#: bin/mudur.py:892
+msgid "Checking root filesystem"
+msgstr "Vérification de la racine du système de fichier"
+
+#: bin/mudur.py:901
+msgid "Filesystem repaired, but reboot needed!"
+msgstr "Le système de fichiers a été réparé, mais un redémarrage est nécessaire !"
 
 #: bin/mudur.py:905
-msgid "Checking root filesystem"
-msgstr "Checando o sistema de arquivos raiz"
-
-#: bin/mudur.py:914
-msgid "Filesystem repaired, but reboot needed!"
-msgstr "Sistema de arquivos reparado, porém é necessário reiniciar!"
-
-#: bin/mudur.py:918
-#, fuzzy
 msgid "Rebooting in 10 seconds..."
-msgstr "Reiniciando em 10 segundos..."
+msgstr "Redémarrage dans 10 secondes..."
 
-#: bin/mudur.py:920
+#: bin/mudur.py:907
 msgid "Rebooting..."
-msgstr "Reiniciando..."
+msgstr "Redémarrage..."
 
-#: bin/mudur.py:924
-#, fuzzy
+#: bin/mudur.py:911
 msgid "Filesystem could not be repaired"
-msgstr "Sistema de arquivos não pôde ser consertado"
+msgstr "Le système de fichier n'a pas pu être réparé"
 
-#: bin/mudur.py:929
+#: bin/mudur.py:916
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr "Pulando a checagem do sistema de arquivos raiz (passno == 0 no fstab)"
+msgstr "Exemption de la vérification de la racine du système de fichiers (passno == 0 dans fstab)"
 
-#: bin/mudur.py:935
+#: bin/mudur.py:922
 msgid "Remounting root filesystem read/write"
-msgstr "Remontando o sistema de arquivos raiz como leitura/escrita"
+msgstr "Remontage de la racine du système de fichiers lecture/écriture"
 
-#: bin/mudur.py:939
+#: bin/mudur.py:926
 msgid ""
 "Root filesystem could not be mounted read/write\n"
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"La racine du système de fichiers n'a pas pu être montée en lecture/écriture\n"
+"   Vous pouvez soit vous identifier ci-dessous et vérifier manuellement votre système de fichiers OU\n"
+"   redémarrer votre PC, appuyer sur F3 et choisir 'Vérification du FS' dans le menu de démarrage\n"
 
-#: bin/mudur.py:951
+#: bin/mudur.py:939
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Impossible de synchroniser /etc/mtab à partir de /proc/mounts"
 
-#: bin/mudur.py:970
-msgid "Checking all filesystems"
-msgstr "Checando todos os sistemas de arquivos"
-
-#: bin/mudur.py:974
-msgid "A full fsck has been forced"
-msgstr ""
-
-#: bin/mudur.py:992
-msgid "Filesystem errors corrected"
-msgstr "Erros do sistema de arquivos corrigidos"
-
-#: bin/mudur.py:994
-msgid "Fsck could not correct all errors, manual repair needed"
-msgstr "Fsck não corrigiu todos os erros, reparo manual requerido"
-
-#: bin/mudur.py:1002
-msgid "Mounting USB filesystem"
-msgstr "Montando sistema de arquivos USB"
-
-#: bin/mudur.py:1005
-msgid "Mounting local filesystems"
-msgstr "Montando sistemas de arquivos locais"
-
-#: bin/mudur.py:1025
-#, fuzzy
-msgid "Starting portmap service for NFS"
-msgstr "Iniciando os serviços"
-
-#: bin/mudur.py:1028
-#, fuzzy
-msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr "Remontando o sistema de arquivos raiz como somente-leitura"
-
-#: bin/mudur.py:1042
-msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-
-#: bin/mudur.py:1085
+#: bin/mudur.py:864
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr "Configurando o nome do host como '%s'"
+msgstr "Établissement du nom d'hôte '%s'"
 
-#: bin/mudur.py:1110
-msgid "Setting disk parameters"
-msgstr "Ajustando parâmetros do disco"
+#: bin/mudur.py:885
+msgid "Checking all filesystems"
+msgstr "Vérification de tous les systèmes de fichiers"
 
-#: bin/mudur.py:1132
-#, fuzzy
+#: bin/mudur.py:956
+msgid "A full fsck has been forced"
+msgstr "Un fsck complet a été forcé"
+
+#: bin/mudur.py:974
+msgid "Filesystem errors corrected"
+msgstr "Erreurs des systèmes de fichiers corrigées"
+
+#: bin/mudur.py:976
+msgid "Fsck could not correct all errors, manual repair needed"
+msgstr "Fsck n'a pu corriger toutes les erreurs, une réparation manuelle est nécessaire"
+
+#: bin/mudur.py:983
+msgid "Mounting USB filesystem"
+msgstr "Montage du système de fichiers USB"
+
+#: bin/mudur.py:986
+msgid "Mounting local filesystems"
+msgstr "Montage des systèmes de fichiers locaux"
+
+#: bin/mudur.py:989
 msgid "Activating swap space"
-msgstr "Ativando a memória de troca"
+msgstr "Activation de l'espace d'échange (swap)"
 
-#: bin/mudur.py:1141
-#, fuzzy
-msgid "Deactivating swap space"
-msgstr "Desativando a memória de troca"
+#: bin/mudur.py:1009
+msgid "Starting portmap service for NFS"
+msgstr "Démarrage du service portmap pour NFS"
 
-#: bin/mudur.py:1150
+#: bin/mudur.py:1012
+msgid "Mounting remote filesystems (CTRL-C stops trying)"
+msgstr "Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
+
+#: bin/mudur.py:1026
+msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
+msgstr "Montage avorté avec CTRL-C, les partages distants ne seront pas accessibles !"
+
+#: bin/mudur.py:1069
+#, python-format
+msgid "Setting up hostname as '%s'"
+msgstr "Établissement du nom d'hôte '%s'"
+
+#: bin/mudur.py:1094
+msgid "Setting disk parameters"
+msgstr "Établissement des paramètres du disque"
+
+#: bin/mudur.py:1114
 msgid "Cleaning up /var"
-msgstr "Limpando /var"
+msgstr "Nettoyage de /var"
 
-#: bin/mudur.py:1161
+#: bin/mudur.py:1124
 msgid "Cleaning up /tmp"
-msgstr "Limpando /tmp"
+msgstr "Nettoyage de /tmp"
 
-#: bin/mudur.py:1197
+#: bin/mudur.py:1160
 msgid "Setting system clock to hardware clock"
-msgstr "Ajustando o relógio do sistema para no relógio do hardware"
+msgstr "Mise de l'horloge système à l'heure du matériel"
 
-#: bin/mudur.py:1213
-#, fuzzy
+#: bin/mudur.py:1176
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr "Falhou em ajustar o relógio do sistema no relógio do hardware"
+msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
-#: bin/mudur.py:1217
+#: bin/mudur.py:1180
 msgid "Failed to set system clock to hardware clock"
-msgstr "Falhou em ajustar o relógio do sistema no relógio do hardware"
+msgstr "Échec de la mise de l'horloge du système à l'heure du matériel."
 
-#: bin/mudur.py:1228
+#: bin/mudur.py:1191
 msgid "Syncing system clock to hardware clock"
-msgstr "Sincronizando o relógio do sistema para o relógio do hardware"
+msgstr "Synchronisation de l'horloge du système et de l'heure du matériel"
 
-#: bin/mudur.py:1231
-#, fuzzy
+#: bin/mudur.py:1194
 msgid "Failed to synchronize clocks"
-msgstr "Falhou em sincronizar relógios"
+msgstr "Échec de la synchronisation des horloges"
+
+#: bin/mudur.py:1205
+msgid "Deactivating swap space"
+msgstr "Désactivation de l'espace d'échange (swap)"
+
+#: bin/mudur.py:1226
+msgid "Unmounting filesystems"
+msgstr "Démontage des systèmes de fichiers"
 
 #: bin/mudur.py:1258
-msgid "Unmounting filesystems"
-msgstr "Desmontando sistemas de arquivos"
-
-#: bin/mudur.py:1290
 msgid "Remounting remaining filesystems read-only"
-msgstr "Remontando sistemas de arquivos remanescentes como somente-leitura"
+msgstr "Remontage en lecture seule des systèmes de fichiers restants"
 
-#: bin/mudur.py:1306
+#: bin/mudur.py:1274
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
 msgstr ""
-"Um erro interno ocorreu. Por favor, reporte este erro em bugs.pardus.org.tr "
-"com a seguinte informação:"
+"Une erreur interne est survenue. Veuillez reporter le bug à bugs.pardus.org.tr avec "
+"l'information suivante s'il vous plaît : "
 
-#: bin/mudur.py:1367
+#: bin/mudur.py:1333
 msgid "Mounting /sys"
-msgstr "Montando /sys"
+msgstr "Montage de /sys"
 
-#: bin/mudur.py:1381
+#: bin/mudur.py:1342
 msgid "Mounting /dev/pts"
-msgstr "Montando /dev/pts"
+msgstr "Montage de /dev/pts "
 
-#: bin/mudur.py:1430
+#: bin/mudur.py:1388
 msgid "Setting up localhost"
-msgstr "Configurando localhost"
+msgstr "Établissement de l'hôte local (localhost)"
 
-#: bin/mudur.py:1443
+#: bin/mudur.py:1401
 msgid "Updating environment variables"
-msgstr "Atualizando variáveis de ambiente"
+msgstr "Mise à jour des variables d'environnement"
 
-#: bin/mudur.py:1464
+#: bin/mudur.py:1421
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
+msgstr "Lancement des événements udev qui ont échoué lors d'un lancement précédent"
 
-#: bin/mudur.py:1503
+#: bin/mudur.py:1458
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
+msgstr "Tente de faire un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
 
 #: bin/service.py:60
 msgid "local"
@@ -298,70 +298,68 @@ msgstr "script"
 
 #: bin/service.py:62
 msgid "server"
-msgstr "servidor"
+msgstr "serveur"
 
 #: bin/service.py:74
 msgid "running"
-msgstr "executando"
+msgstr "en cours d'exécution"
 
 #: bin/service.py:76
 msgid "yes"
-msgstr "sim"
+msgstr "oui"
 
 #: bin/service.py:78
 msgid "conditional"
-msgstr ""
+msgstr "conditionnel"
 
 #: bin/service.py:101
 msgid "Status"
-msgstr "Status"
+msgstr "Statut"
 
 #: bin/service.py:102
 msgid "Service"
-msgstr "Serviço"
+msgstr "Service"
 
 #: bin/service.py:103
 msgid "Autostart"
-msgstr "Iniciar automaticamente"
+msgstr "Démarrage automatique"
 
 #: bin/service.py:104
 msgid "Description"
-msgstr "Descrição"
+msgstr "Description"
 
 #: bin/service.py:181
 #, python-format
 msgid "Service '%s' will be auto started."
-msgstr "Serviço '%s' será iniciado automaticamente."
+msgstr "Le service '%s' sera automatiquement démarré."
 
 #: bin/service.py:183
 #, python-format
 msgid "Service '%s' won't be auto started."
-msgstr "Serviço '%s' não será iniciado automaticamente."
+msgstr "Le service '%s' ne sera pas automatiquement démarré."
 
 #: bin/service.py:185
-#, fuzzy, python-format
+#, python-format
 msgid "Service '%s' will be started if required."
-msgstr "Serviço '%s' será iniciado automaticamente."
+msgstr "Le service '%s' sera démarré si nécessaire."
 
 #: bin/service.py:250
 msgid "You must be root to use that."
-msgstr ""
+msgstr "Vous devez être administrateur (root)."
 
 #: bin/service.py:269
 msgid "Unable to start DBus"
-msgstr ""
+msgstr "Impossible de démarrer DBus"
 
 #: bin/service.py:283
 msgid "DBus is not running."
-msgstr ""
+msgstr "DBus n'est pas en cours d'exécution."
 
 #: bin/service.py:285
-#, fuzzy
 msgid "DBus is running."
-msgstr "executando"
+msgstr "Dbus est en cours d'exécution."
 
 #: bin/service.py:290
-#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -378,90 +376,181 @@ msgid ""
 " -N, --no-color  Don't use color in output\n"
 " -q, --quiet     Don't print replies"
 msgstr ""
-"uso: service [<opções>] [<serviço>] <comando>\n"
-"onde o comando é:\n"
-" list     Mostra a lista de serviços\n"
-" status   Mostra o status do serviço\n"
-" info     Mostra informações do serviço\n"
-" on       Inicia automaticamente o serviço\n"
-" off      Não inicia automaticamente o serviço\n"
-" start    Inicia o serviço\n"
-" stop     Pára o serviço\n"
-" restart  Pára o serviço e então o inicia de novo\n"
-" reload   Recarrega a configuração (caso o serviço suporte isto)\n"
-"e a opção é:\n"
-" -N, --no-color  Não usar cor na saída"
-
-#: bin/service.py:346
-#, python-format
-msgid "No such service: %s"
-msgstr ""
+"utilisation : service [<options>] [<service>] <commande>\n"
+"où commande peut être au choix :\n"
+" list     Affiche la liste des services\n"
+" status   Affiche le statut d'un service\n"
+" info     Affiche le statut d'un service\n"
+" on       Active le démarrage automatique du service\n"
+" off      Désactive le démarrage automatique du service\n"
+" start    démarre le service\n"
+" stop     arrête le service\n"
+" restart  effectue un arrêt relance du service\n"
+" reload   Recharge la configuration (si le service le permet)\n"
+"les options pouvant être :\n"
+" -N, --no-color  Ne pas mettre de couleurs dans le message\n"
+" -q, --quiet     N'affiche aucune réponse."
 
 #~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr "Sistema de arquivos raiz não pôde ser montado como leitura/escrita"
+#~ msgstr ""
+#~ "Le système de fichier racine n'a pas pu être monté en lecture/écriture"
 
 #, fuzzy
 #~ msgid "Reloading %s"
-#~ msgstr "Reiniciando..."
+#~ msgstr "Arrêt-Relance de %s..."
 
 #~ msgid "Starting DBus..."
-#~ msgstr "Iniciando DBus"
+#~ msgstr "Démarrage de DBus..."
 
-#, fuzzy
 #~ msgid "Stopping DBus"
-#~ msgstr "Parando os serviços"
+#~ msgstr "Arrêt de DBus"
 
 #~ msgid "Restoring saved device states"
-#~ msgstr "Recuperando os estados de dispositivo salvos"
+#~ msgstr "Restauration des états sauvegardés des périphériques"
 
-#, fuzzy
+#~ msgid "Loading CPUFreq modules"
+#~ msgstr "Chargement des modules CPUFreq"
+
 #~ msgid "Stopping DBus..."
-#~ msgstr "Parando os serviços"
+#~ msgstr "Arrêt de DBus en cours..."
 
-#, fuzzy
+#~ msgid "Connection Name : %s "
+#~ msgstr "Nom de la connexion : %s"
+
+#~ msgid "Status          : %s "
+#~ msgstr "Statut          : %s "
+
+#~ msgid "Adress          : %s "
+#~ msgstr "Adresse         : %s "
+
+#~ msgid "Device Name     : %s "
+#~ msgstr "Nom du périphérique : %s "
+
+#~ msgid "Device Id       : %s "
+#~ msgstr "Id péphérique   : %s "
+
+#~ msgid "Mask            : %s "
+#~ msgstr "Masque          : %s "
+
+#~ msgid "Gateway         : %s "
+#~ msgstr "Passerelle        : %s "
+
+#~ msgid "Netmode         : %s "
+#~ msgstr "Netmode         : %s "
+
+#~ msgid "Namemode        : %s "
+#~ msgstr "Namemode        : %s "
+
+#~ msgid "Remote          : %s "
+#~ msgstr "Distant         : %s "
+
+#~ msgid "Up"
+#~ msgstr "Démarré"
+
+#~ msgid "Down"
+#~ msgstr "Arrêté"
+
+#~ msgid ""
+#~ "usage: %s <command> <arguments>\n"
+#~ "where command is:\n"
+#~ " devices      List network devices\n"
+#~ " connections  List connections\n"
+#~ " info         List properties of a given connection\n"
+#~ " create       Create a new connection\n"
+#~ " delete       Delete a connection\n"
+#~ " up           Connect given connection\n"
+#~ " down         Disconnect given connection"
+#~ msgstr ""
+#~ "usage : %s <commande> <arguments>\n"
+#~ "où commande peut-être:\n"
+#~ " devices      Liste les périphériques réseau\n"
+#~ " connections  Liste les connexions\n"
+#~ " info         Liste les propriétés d'un connexion donnée\n"
+#~ " create        Crée une nouvelle connexion\n"
+#~ " delete       Supprime une connexion\n"
+#~ " up          Établit la connexion donnée\n"
+#~ " down        Coupe la connexion donnée"
+
+#~ msgid "Error: %s"
+#~ msgstr "Erreur : %s"
+
+#~ msgid "No such profile."
+#~ msgstr "Le profil n'existe pas."
+
+#~ msgid "There are more than one profiles named '%s'"
+#~ msgstr "Plusieurs profils nommés '%s' existent"
+
+#~ msgid "Use one of the following commands:"
+#~ msgstr "Utilisez l'une des commandes suivantes :"
+
+#~ msgid "Profile name"
+#~ msgstr "Nom de Profil :"
+
+#~ msgid "Connection types:"
+#~ msgstr "Types de connexion :"
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "No avaible device for this type of connection"
+#~ msgstr "Aucun périphérique disponible pour ce type de connexion."
+
 #~ msgid "Devices:"
-#~ msgstr "Serviço"
+#~ msgstr "Périphériques : "
 
-#, fuzzy
 #~ msgid "Device"
-#~ msgstr "Serviço"
+#~ msgstr "Périphérique"
 
-#, fuzzy
+#~ msgid "%s:"
+#~ msgstr "%s : "
+
+#~ msgid "Enter manually"
+#~ msgstr "Entrer manuellement"
+
+#~ msgid "Scan"
+#~ msgstr "Scanner"
+
+#~ msgid "No remote access points found"
+#~ msgstr "Aucun point d'accès distant trouvé"
+
+#~ msgid "Choose authentication type:"
+#~ msgstr "Choisissez le type d'authentification :"
+
+#~ msgid "Password"
+#~ msgstr "Mot de passe"
+
+#~ msgid "Username"
+#~ msgstr "Nom d'utilisateur"
+
+#~ msgid "Network settings:"
+#~ msgstr "Paramètres réseau :"
+
+#~ msgid "Automatic query (DHCP)"
+#~ msgstr "Requête automatique (DHCP)"
+
+#~ msgid "Manual configuration"
+#~ msgstr "Configuration manuelle"
+
+#~ msgid "IP Address"
+#~ msgstr "Adresse IP"
+
+#~ msgid "Network mask"
+#~ msgstr "Masque réseau"
+
+#~ msgid "Gateway"
+#~ msgstr "Passerelle"
+
+#~ msgid "Profile"
+#~ msgstr "Profil :"
+
 #~ msgid "Profile %s removed."
-#~ msgstr "Serviço '%s' recarregado."
+#~ msgstr "Profil %s supprimé."
 
-#, fuzzy
+#~ msgid "D-Bus Error: %s"
+#~ msgstr "Erreur D-Bus : %s"
+
+#~ msgid "Cancelled"
+#~ msgstr "Annulé"
+
 #~ msgid "Calculating module dependencies for %s"
-#~ msgstr "Calculando as dependências dos módulos"
-
-#, fuzzy
-#~ msgid "Device '%s' selected."
-#~ msgstr "Serviço '%s' parado."
-
-#~ msgid "Starting COMAR"
-#~ msgstr "Iniciando COMAR"
-
-#~ msgid "Stopping COMAR"
-#~ msgstr "Parando COMAR"
-
-#~ msgid "Starting Coldplug"
-#~ msgstr "Iniciando Coldplug"
-
-#~ msgid "You dont have permission to do this operation."
-#~ msgstr "Você não tem permissão para realizar esta operação."
-
-#~ msgid "Service doesn't provide this operation."
-#~ msgstr "Serviço não fornece esta operação."
-
-#, fuzzy
-#~ msgid "%(script)s error: %(data)s"
-#~ msgstr "%s erro: %s"
-
-#~ msgid "You should be the root user in order to control the comar service."
-#~ msgstr "Você deve ser o usuário root para controlar o serviço comar."
-
-#~ msgid "Service '%s' started."
-#~ msgstr "Serviço '%s' iniciado."
-
-#~ msgid "Service '%s' stopped."
-#~ msgstr "Serviço '%s' parado."
+#~ msgstr "Calcul des dépendances de module pour %s"
