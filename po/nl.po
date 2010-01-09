@@ -4,13 +4,13 @@
 #
 # Willem Gielen <w.gielen@gmail.com>, 2007, 2008, 2009.
 # W.P.M.H.I.A. Gielen <w.gielen@gmail.com>, 2008.
-# Antoon Tolboom <atolboo@gmail.com>, 2009.
+# Antoon Tolboom <atolboo@gmail.com>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-09 16:23+0200\n"
-"PO-Revision-Date: 29/11/09 21:00\n"
+"PO-Revision-Date: 09/01/10 22:40\n"
 "Last-Translator: Antoon Tolboom <atolboo@gmail.com>\n"
 "Language-Team: Nederlands <kde-i18n-nl@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Kan /etc/pardus-release niet vinden"
 
 #: bin/mudur.py:469
 msgid "/etc/env.d/03locale cannot be updated"
-msgstr ""
+msgstr "/etc/env.d/03locale kan niet opgewaardeerd worden"
 
 #: bin/mudur.py:496
 #, python-format
@@ -203,8 +203,7 @@ msgstr "Aankoppelen bestandssystemen op afstand (CTRL-C stopt pogen)"
 
 #: bin/mudur.py:1046
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
+msgstr "Aankoppelen overgeslagen met CTRL-C, delen op afstand is niet toegankelijk!"
 
 #: bin/mudur.py:1089
 #, python-format
@@ -398,3 +397,4 @@ msgstr ""
 #, python-format
 msgid "No such service: %s"
 msgstr "Geen dienst: %s"
+
