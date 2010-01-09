@@ -75,10 +75,6 @@ msgstr "Démarrage des services"
 msgid "Stopping services"
 msgstr "Arrêt des services"
 
-#: bin/mudur.py:654 bin/service.py:169 bin/service.py:196 bin/service.py:273, python-format
-msgid "Starting %s"
-msgstr "Démarrage de %s"
-
 #: bin/mudur.py:739 bin/service.py:169 bin/service.py:196 bin/service.py:273
 #,python-format
 msgid "Stopping %s"
@@ -161,11 +157,6 @@ msgstr ""
 #: bin/mudur.py:939
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
 msgstr "Impossible de synchroniser /etc/mtab à partir de /proc/mounts"
-
-#: bin/mudur.py:864
-#, python-format
-msgid "Setting up hostname as '%s'"
-msgstr "Établissement du nom d'hôte '%s'"
 
 #: bin/mudur.py:885
 msgid "Checking all filesystems"
