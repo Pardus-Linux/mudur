@@ -292,6 +292,7 @@ class Config:
             if entry and len(entry) > 3 and entry[1] == mountpoint:
                 return entry
 
+    """
     def is_virtual(self):
         # Xen detection
         if os.path.exists("/proc/xen/capabilities"):
@@ -301,6 +302,7 @@ class Config:
                 # if we are in domU then no need to set/sync clock and others
                 return True
         return False
+    """
 
 ################
 # Splash class #
@@ -434,15 +436,15 @@ languages = {
 
 def setConsole():
     """Setups encoding, font and mapping for console."""
-    if not config.is_virtual():
-        lang = config.get("language")
-        keymap = config.get("keymap")
-        language = languages[lang]
+    #if not config.is_virtual():
+    lang = config.get("language")
+    keymap = config.get("keymap")
+    language = languages[lang]
 
-        # Now actually set the values
-        run("/usr/bin/kbd_mode", "-u")
-        run_quiet("/bin/loadkeys", keymap)
-        run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
+    # Now actually set the values
+    run("/usr/bin/kbd_mode", "-u")
+    run_quiet("/bin/loadkeys", keymap)
+    run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
 
 def setSystemLanguage():
     """Sets the system language."""
@@ -1197,42 +1199,40 @@ def cleanupTmp():
 
 def setClock():
     """Sets the system time according to /etc."""
-    if not config.is_virtual():
-        ui.info(_("Setting system clock to hardware clock"))
+    #if not config.is_virtual():
+    ui.info(_("Setting system clock to hardware clock"))
 
-        # Default is UTC
-        opts = "--utc"
-        if config.get("clock") != "UTC":
-            opts = "--localtime"
-
-        # Default is no
-        if config.get("clock_adjust") == "yes":
-            adj = "--adjust"
-            if not touch("/etc/adjtime"):
-                adj = "--noadjfile"
-            elif os.stat("/etc/adjtime").st_size == 0:
-                writeToFile("/etc/adjtime", "0.0 0 0.0\n")
-            t = capture("/sbin/hwclock", adj, opts)
-            if t[1] != '':
-                ui.error(_("Failed to adjust systematic drift of the hardware clock"))
-
-        t = capture("/sbin/hwclock", "--hctosys", opts)
-        if t[1] != '':
-            ui.error(_("Failed to set system clock to hardware clock"))
-
-def saveClock():
-    """Saves the system time for further boots."""
-    if config.get("live") or config.is_virtual():
-        return
-
+    # Default is UTC
     opts = "--utc"
     if config.get("clock") != "UTC":
         opts = "--localtime"
 
-    ui.info(_("Syncing system clock to hardware clock"))
-    t = capture("/sbin/hwclock", "--systohc", opts)
+    # Default is no
+    if config.get("clock_adjust") == "yes":
+        adj = "--adjust"
+        if not touch("/etc/adjtime"):
+            adj = "--noadjfile"
+        elif os.stat("/etc/adjtime").st_size == 0:
+            writeToFile("/etc/adjtime", "0.0 0 0.0\n")
+        t = capture("/sbin/hwclock", adj, opts)
+        if t[1] != '':
+            ui.error(_("Failed to adjust systematic drift of the hardware clock"))
+
+    t = capture("/sbin/hwclock", "--hctosys", opts)
     if t[1] != '':
-        ui.error(_("Failed to synchronize clocks"))
+        ui.error(_("Failed to set system clock to hardware clock"))
+
+def saveClock():
+    """Saves the system time for further boots."""
+    if not config.get("live"):# or config.is_virtual():
+        opts = "--utc"
+        if config.get("clock") != "UTC":
+            opts = "--localtime"
+
+        ui.info(_("Syncing system clock to hardware clock"))
+        t = capture("/sbin/hwclock", "--systohc", opts)
+        if t[1] != '':
+            ui.error(_("Failed to synchronize clocks"))
 
 def stopSystem():
     """Stops the system."""
