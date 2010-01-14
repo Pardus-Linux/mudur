@@ -81,8 +81,8 @@ def install(args):
     install_file("bin/compat.py", prefix, "etc/init.d/compat.py")
     install_file("bin/service.py", prefix, "bin/service")
     install_file("bin/network.py", prefix, "bin/network")
-    install_file("bin/adduser.py", prefix, "sbin/adduser.py")
-    install_file("bin/deluser.py", prefix, "sbin/deluser.py")
+    install_file("bin/adduser.py", prefix, "sbin/adduser")
+    install_file("bin/deluser.py", prefix, "sbin/deluser")
     install_file("etc/mudur.conf", prefix, "etc/conf.d/mudur")
 
     for item in os.listdir("po"):
