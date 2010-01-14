@@ -1,6 +1,10 @@
+2010-01-14  Onur Küçük <onur@pardus.org.tr>
+	* bin/adduser.py: Add adduser command to easily add users with COMAR
+
 2010-01-08  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Don't call useless is_virtual() method as we don't support
 	Xen.
+
 2010-01-06  Onur Küçük <onur@pardus.org.tr>
 	* bin/mudur.py: Check if mudur is in live environment from
 	/var/run/pardus/livemedia
