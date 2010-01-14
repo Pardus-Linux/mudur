@@ -1,3 +1,6 @@
+2010-01-14  Bahadır Kandemir <bahadir@pardus.org.tr>
+	* bin/deluser.py: Add deluser command to easily delete users with COMAR
+
 2010-01-14  Onur Küçük <onur@pardus.org.tr>
 	* bin/adduser.py: Add adduser command to easily add users with COMAR
 
