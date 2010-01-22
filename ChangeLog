@@ -1,3 +1,8 @@
+2010-01-22  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Check for /proc and /sys before mounting,
+	refactor mounting parts a little.
+	* bin/setup.py: Bump to 3.1.3
+
 2010-01-14  Bahadır Kandemir <bahadir@pardus.org.tr>
 	* bin/deluser.py: Add deluser command to easily delete users with COMAR
 
