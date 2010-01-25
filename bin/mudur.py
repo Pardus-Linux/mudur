@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Pardus boot and initialization system
-# Copyright (C) 2006-2009 TUBITAK/UEKAE
+# Copyright (C) 2006-2010 TUBITAK/UEKAE
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -410,17 +410,17 @@ class Language:
 ########################################
 
 languages = {
-    "en": Language("us", "iso01.16", "8859-1", "en_US.UTF-8"),
-    "pl": Language("pl", "iso02.16", "8859-2", "pl_PL.UTF-8"),
-    "tr": Language("trq", "lat5u-16", "8859-9", "tr_TR.UTF-8"),
-    "nl": Language("nl", "iso01.16", "8859-1", "nl_NL.UTF-8"),
-    "de": Language("de", "iso01.16", "8859-1", "de_DE.UTF-8"),
-    "es": Language("es", "iso01.16", "8859-1", "es_ES.UTF-8"),
-    "it": Language("it", "iso01.16", "8859-1", "it_IT.UTF-8"),
-    "fr": Language("fr", "iso01.16", "8859-1", "fr_FR.UTF-8"),
-    "pt_BR": Language("br-abnt2", "iso01.16", "8859-1", "pt_BR.UTF-8"),
-    "ca": Language("es", "iso01.16", "8859-1", "ca_ES.UTF-8"),
-    "sv": Language("sv-latin1", "lat0-16", "8859-1", "sv_SE.UTF-8"),
+    "en"    : Language("us", "iso01.16", "8859-1", "en_US.UTF-8"),
+    "pl"    : Language("pl", "iso02.16", "8859-2", "pl_PL.UTF-8"),
+    "nl"    : Language("nl", "iso01.16", "8859-1", "nl_NL.UTF-8"),
+    "de"    : Language("de", "iso01.16", "8859-1", "de_DE.UTF-8"),
+    "es"    : Language("es", "iso01.16", "8859-1", "es_ES.UTF-8"),
+    "it"    : Language("it", "iso01.16", "8859-1", "it_IT.UTF-8"),
+    "fr"    : Language("fr", "iso01.16", "8859-1", "fr_FR.UTF-8"),
+    "ca"    : Language("es", "iso01.16", "8859-1", "ca_ES.UTF-8"),
+    "tr"    : Language("trq", "lat5u-16", "8859-9", "tr_TR.UTF-8"),
+    "sv"    : Language("sv-latin1", "lat0-16", "8859-1", "sv_SE.UTF-8"),
+    "pt_BR" : Language("br-abnt2", "iso01.16", "8859-1", "pt_BR.UTF-8"),
 }
 
 def setConsole():
@@ -774,19 +774,12 @@ def copyUdevRules():
 def setupUdev():
     """Prepares the initial setup for udev daemon initialization."""
 
-    ui.info(_("Mounting /dev"))
-
-    # Many video drivers require exec access in /dev
-    mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755,size=10M udev /dev")
-
-    # Mount /dev/pts
-    createDirectory("/dev/pts")
-    mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
-
+    """
     # At this point, an empty /dev is mounted on ramdisk
     # We need /dev/null for calling run_quiet
     S_IFCHR = 8192
     os.mknod("/dev/null", 0666 | S_IFCHR, os.makedev(1, 3))
+    """
 
     # Copy over any persistent things
     devpath = "/lib/udev/devices"
@@ -991,8 +984,8 @@ def checkFileSystems():
 def mountLocalFileSystems():
     """Mounts local filesystems and enables swaps if any."""
 
-    # DEPRECATE: /proc/bus/usb is deprecated by /dev/bus/usb, we shouldn't mount it.
-    if config.get("deprecated") and os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
+    # DEPRECATED: /proc/bus/usb is deprecated by /dev/bus/usb, we shouldn't mount it.
+    if not config.get("deprecated") and os.path.exists("/proc/bus/usb") and not os.path.exists("/proc/bus/usb/devices"):
         ui.info(_("Mounting USB filesystem"))
         run("/bin/mount", "-t", "usbfs", "usbfs", "/proc/bus/usb")
 
@@ -1326,28 +1319,8 @@ if __name__ == "__main__":
     # Setup path just in case
     os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
 
-    ### SYSINIT ###
-    if sys.argv[1] == "sysinit":
-
-        # Mount /proc if not mounted
-        if not os.path.exists("/proc/cmdline"):
-            mount("/proc", "-t proc proc /proc")
-
-        # Mount sysfs if not mounted
-        if not os.path.exists("/sys/kernel"):
-            mount("/sys", "-t sysfs sysfs /sys")
-
-        # We need /proc mounted before accessing kernel boot options
-        config.parse_kernel_opts()
-
-        # This is who we are...
-        ui.greet()
-
-        # Now we know which language and keymap to use
-        setConsole()
-
-    else:
-        config.parse_kernel_opts()
+    # Parse kernel cmdline options
+    config.parse_kernel_opts()
 
     # We can log the event with uptime information now
     logger.log("/sbin/mudur.py %s" % sys.argv[1])
@@ -1355,8 +1328,27 @@ if __name__ == "__main__":
     # Activate i18n, we can print localized messages from now on
     setTranslation()
 
+
     ### SYSINIT ###
     if sys.argv[1] == "sysinit":
+
+        """
+        # Mount /proc if not mounted (backwards compatibility)
+        if not os.path.exists("/proc/cmdline"):
+            mount("/proc", "-t proc proc /proc")
+
+        # Mount sysfs if not mounted (backwards compatibility)
+        if not os.path.exists("/sys/kernel"):
+            mount("/sys", "-t sysfs sysfs /sys")
+        """
+
+        # This is who we are...
+        ui.greet()
+
+        # Now we know which language and keymap to use
+        setConsole()
+
+        # Initialize bootsplash
         splash.init(0)
 
         # Set kernel console log level for cleaner boot
