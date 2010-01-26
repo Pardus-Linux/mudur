@@ -53,11 +53,13 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
     ui.debug("Waited %.2f seconds for '%s'" % (itimeout-timeout, unix_name))
     return False
 
-def loadFile(path):
+def loadFile(path, ignoreComments=False):
     """Reads the contents of a file and returns it."""
     f = open(path, "r")
     data = f.read()
     f.close()
+    if ignoreComments:
+        data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     return data
 
 def loadConfig(path):
@@ -287,8 +289,7 @@ class Config:
 
     def get_fstab_entry_with_mountpoint(self, mountpoint):
         if not self.fstab:
-            data = loadFile("/etc/fstab").split("\n")
-            data = filter(lambda x: not (x.startswith("#") or x == ""), data)
+            data = loadFile("/etc/fstab", True).split("\n")
             self.fstab = map(lambda x: x.split(), data)
 
         for entry in self.fstab:
@@ -987,8 +988,7 @@ def mountLocalFileSystems():
 
 def mountRemoteFileSystems(dry_run=False):
     """Mounts remote filesystems."""
-    data = loadFile("/etc/fstab").split("\n")
-    data = filter(lambda x: not (x.startswith("#") or x == ""), data)
+    data = loadFile("/etc/fstab", True).split("\n")
     fstab = map(lambda x: x.split(), data)
     netmounts = filter(lambda x: len(x) > 2 and x[2] in ("cifs", "nfs", "nfs4"), fstab)
     if len(netmounts) == 0:
@@ -1068,12 +1068,8 @@ def setHostname():
 def autoloadModules():
     """Traverses /etc/modules.autoload.d to autoload kernel modules if any."""
     if os.path.exists("/proc/modules"):
-        fn = "/etc/modules.autoload.d/kernel-%s.%s.%s" % (config.kernel[0], config.kernel[1], config.kernel[2])
-        if not os.path.exists(fn):
-            fn = "/etc/modules.autoload.d/kernel-%s.%s" % (config.kernel[0], config.kernel[1])
-        if os.path.exists(fn):
-            data = loadFile(fn).split("\n")
-            data = filter(lambda x: x != "" and not x.startswith('#'), data)
+        for fn in glob.glob("/etc/modules.autoload.d/kernel-%s*" % config.kernel[0]):
+            data = loadFile(fn, True).split("\n")
             for mod in data:
                 run("/sbin/modprobe", "-q", "-b", mod)
 
@@ -1386,8 +1382,11 @@ def main():
         # When we exit this runlevel, init will write a boot record to utmp
         writeToFile("/var/run/utmp")
         touch("/var/log/wtmp")
+
         run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
-        run("/bin/chmod", "0664", "/var/run/utmp", "/var/log/wtmp")
+
+        os.chmod("/var/run/utmp", "0664")
+        os.chmod("/var/log/wtmp", "0664")
 
     ### BOOT ###
     elif sys.argv[1] == "boot":
