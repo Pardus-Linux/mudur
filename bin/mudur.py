@@ -1329,6 +1329,7 @@ def main():
         if not os.path.exists("/proc/cmdline"):
             mount("/proc", "-t proc proc /proc")
             config.parse_kernel_opts()
+            setTranslation()
 
         # Mount sysfs if not mounted (backward-compatibility)
         if not os.path.exists("/sys/kernel"):
