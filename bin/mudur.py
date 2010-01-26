@@ -1491,7 +1491,7 @@ def main():
 # Main program starts here #
 ############################
 if __name__ == "__main__":
-    if os.path.exists("/proc/cmdline") and "profile" in open("/proc/cmdline", "r").read().strip():
+    if os.path.exists("/proc/cmdline") getKernelOption("mudur").has_key("profile"):
         import cProfile
         cProfile.run("main()", "/dev/.mudur-%s.log" % sys.argv[1])
     else:
