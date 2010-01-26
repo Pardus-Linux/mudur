@@ -259,10 +259,7 @@ class Config:
         self.opts["live"] = opts.has_key("thin") or os.path.exists("/var/run/pardus/livemedia")
 
         for k in [_k for _k in opts.keys() if _k not in ("thin")]:
-            if opts[k]:
-                self.opts[k] = opts[k]
-            else:
-                self.opts[k] = True
+            self.opts[k] = opts[k] if opts[k] else True
 
         # Normalize options
 
