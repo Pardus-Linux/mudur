@@ -1385,8 +1385,8 @@ def main():
 
         run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
 
-        os.chmod("/var/run/utmp", "0664")
-        os.chmod("/var/log/wtmp", "0664")
+        os.chmod("/var/run/utmp", 0664)
+        os.chmod("/var/log/wtmp", 0664)
 
     ### BOOT ###
     elif sys.argv[1] == "boot":
