@@ -1339,7 +1339,7 @@ def main():
 
         # Set kernel console log level for cleaner boot
         # only panic messages will be printed
-        run("/bin/dmesg", "-n", "1")
+        writeToFile("/proc/sys/kernel/printk", "1")
 
         # Start udev and event triggering
         startUdev()
