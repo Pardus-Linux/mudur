@@ -244,6 +244,9 @@ class Config:
         # File system check can be requested with a file
         self.opts["forcefsck"] = os.path.exists("/forcefsck")
 
+        # First try
+        self.parse_kernel_opts()
+
     def parse_kernel_opts(self):
         # We need to mount /proc before accessing kernel options
         # This function is called after that, and finish parsing options
@@ -771,15 +774,8 @@ def copyUdevRules():
             ui.warn(_("Can't move persistent udev rules from /dev/.udev"))
             pass
 
-def setupUdev():
-    """Prepares the initial setup for udev daemon initialization."""
-
-    """
-    # At this point, an empty /dev is mounted on ramdisk
-    # We need /dev/null for calling run_quiet
-    S_IFCHR = 8192
-    os.mknod("/dev/null", 0666 | S_IFCHR, os.makedev(1, 3))
-    """
+def startUdev():
+    """Prepares the startup of udev daemon and starts it."""
 
     # Copy over any persistent things
     devpath = "/lib/udev/devices"
@@ -807,9 +803,6 @@ def setupUdev():
     for link in devlinks:
         if not os.path.lexists(link[0]):
             os.symlink(link[1], link[0])
-
-def startUdev():
-    """Prepares the startup of udev daemon and starts it."""
 
     # Start udev daemon
     ui.info(_("Starting udev"))
@@ -1304,11 +1297,8 @@ logger = Logger()
 splash = Splash()
 ui = UI()
 
-############################
-# Main program starts here #
-############################
 
-if __name__ == "__main__":
+def main():
 
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGQUIT, signal.SIG_IGN)
@@ -1318,9 +1308,6 @@ if __name__ == "__main__":
 
     # Setup path just in case
     os.environ["PATH"] = "/bin:/sbin:/usr/bin:/usr/sbin:" + os.environ["PATH"]
-
-    # Parse kernel cmdline options
-    config.parse_kernel_opts()
 
     # We can log the event with uptime information now
     logger.log("/sbin/mudur.py %s" % sys.argv[1])
@@ -1332,15 +1319,14 @@ if __name__ == "__main__":
     ### SYSINIT ###
     if sys.argv[1] == "sysinit":
 
-        """
-        # Mount /proc if not mounted (backwards compatibility)
+        # Mount /proc if not mounted (backward-compatibility)
         if not os.path.exists("/proc/cmdline"):
             mount("/proc", "-t proc proc /proc")
+            config.parse_kernel_opts()
 
-        # Mount sysfs if not mounted (backwards compatibility)
+        # Mount sysfs if not mounted (backward-compatibility)
         if not os.path.exists("/sys/kernel"):
             mount("/sys", "-t sysfs sysfs /sys")
-        """
 
         # This is who we are...
         ui.greet()
@@ -1354,9 +1340,6 @@ if __name__ == "__main__":
         # Set kernel console log level for cleaner boot
         # only panic messages will be printed
         run("/bin/dmesg", "-n", "1")
-
-        # Prepare the /dev directory for udev startup
-        setupUdev()
 
         # Start udev and event triggering
         startUdev()
@@ -1504,3 +1487,13 @@ if __name__ == "__main__":
         logger.sync()
     except IOError:
         pass
+
+############################
+# Main program starts here #
+############################
+if __name__ == "__main__":
+    if os.path.exists("/proc/cmdline") and "profile" in open("/proc/cmdline", "r").read().strip():
+        import cProfile
+        cProfile.run("main()", "/dev/.mudur-%s.log" % sys.argv[1])
+    else:
+        main()
