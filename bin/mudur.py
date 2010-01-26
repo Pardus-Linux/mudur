@@ -778,6 +778,15 @@ def copyUdevRules():
 def startUdev():
     """Prepares the startup of udev daemon and starts it."""
 
+    # Mount /dev if not mounted (backward-compatibility)
+    if not os.path.exists("/dev/kmsg"):
+        mount("/dev", "-t tmpfs -o exec,nosuid,mode=0755,size=10M udev /dev")
+
+    # Mount /dev/pts if not mounted (backward-compatibility)
+    if not os.path.exists("/dev/pts/ptmx"):
+        createDirectory("/dev/pts")
+        mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
+
     # Copy over any persistent things
     devpath = "/lib/udev/devices"
     if os.path.exists(devpath):
