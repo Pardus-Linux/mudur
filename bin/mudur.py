@@ -1068,6 +1068,7 @@ def setHostname():
 def autoloadModules():
     """Traverses /etc/modules.autoload.d to autoload kernel modules if any."""
     if os.path.exists("/proc/modules"):
+        import glob
         for fn in glob.glob("/etc/modules.autoload.d/kernel-%s*" % config.kernel[0]):
             data = loadFile(fn, True).split("\n")
             for mod in data:
@@ -1491,7 +1492,7 @@ def main():
 # Main program starts here #
 ############################
 if __name__ == "__main__":
-    if os.path.exists("/proc/cmdline") getKernelOption("mudur").has_key("profile"):
+    if getKernelOption("mudur").has_key("profile"):
         import cProfile
         cProfile.run("main()", "/dev/.mudur-%s.log" % sys.argv[1])
     else:
