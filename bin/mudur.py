@@ -784,32 +784,13 @@ def startUdev():
         createDirectory("/dev/pts")
         mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
 
-    # Copy over any persistent things
-    devpath = "/lib/udev/devices"
-    if os.path.exists(devpath):
-        for name in os.listdir(devpath):
-            run_quiet(
-                "/bin/cp",
-                "--preserve=all", "--recursive", "--update",
-                "%s/%s" % (devpath, name), "/dev/"
-            )
+    # Copy over initial device nodes from /lib/udev/devices
+    run_quiet("/bin/cp", "-axT", "--remove-destination",
+              "/lib/udev/devices", "/dev")
 
     # When these files are missing, lots of trouble happens
     # so we double check their existence
     createDirectory("/dev/shm")
-
-    devlinks = (
-        ("/dev/fd", "/proc/self/fd"),
-        ("/dev/stdin", "fd/0"),
-        ("/dev/stdout", "fd/1"),
-        ("/dev/stderr", "fd/2"),
-        ("/dev/core", "/proc/kcore"),
-    )
-
-    # Create if any of the above links is missing
-    for link in devlinks:
-        if not os.path.lexists(link[0]):
-            os.symlink(link[1], link[0])
 
     # Start udev daemon
     ui.info(_("Starting udev"))
