@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 16:23+0200\n"
+"POT-Creation-Date: 2010-02-04 14:42+0200\n"
 "PO-Revision-Date: 2009-12-01 21:20+0100\n"
 "Last-Translator: Patrik Karlsson <patrik@pardus.nu>\n"
 "Language-Team: Swedish <pardus-translators@pardus.org.tr>\n"
@@ -18,46 +18,46 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: bin/mudur.py:207
+#: bin/mudur.py:209
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "Kan inte skriva mudur.log, skrivskyddat filsystem."
 
-#: bin/mudur.py:373
+#: bin/mudur.py:365
 msgid "Safe Mode"
 msgstr "Säkert läge"
 
-#: bin/mudur.py:376
+#: bin/mudur.py:368
 msgid "Cannot find /etc/pardus-release"
 msgstr "Kan inte hitta /etc/pardus-release"
 
-#: bin/mudur.py:469
+#: bin/mudur.py:460
 msgid "/etc/env.d/03locale cannot be updated"
 msgstr ""
 
-#: bin/mudur.py:496
+#: bin/mudur.py:487
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "Kunde inte sätta unicode-läg på tty %d"
 
-#: bin/mudur.py:563
+#: bin/mudur.py:554
 #, python-format
 msgid "Bringing up %s"
 msgstr "Aktiverar %s"
 
-#: bin/mudur.py:568
+#: bin/mudur.py:559
 #, python-format
 msgid "Unable to bring up %s"
 msgstr "Kunde inte aktivera %s"
 
-#: bin/mudur.py:638
+#: bin/mudur.py:629
 msgid "No network connection, skipping remote mount."
 msgstr "Ingen nätverksanslutning, hoppar över fjärrmontering."
 
-#: bin/mudur.py:648
+#: bin/mudur.py:639
 msgid "Cannot connect to DBus, services won't be started"
 msgstr "Kan inte ansluta till D-Bus, tjänsten startas ej"
 
-#: bin/mudur.py:669
+#: bin/mudur.py:660
 #, python-format
 msgid ""
 "Unable to start network:\n"
@@ -66,94 +66,90 @@ msgstr ""
 "Kan inte starta nätverk:\n"
 " %s"
 
-#: bin/mudur.py:674
+#: bin/mudur.py:665
 msgid "Cannot start system logger"
 msgstr "Kan inte starta systemloggen"
 
-#: bin/mudur.py:677
+#: bin/mudur.py:668
 msgid "Starting services"
 msgstr "Startar tjänster "
 
-#: bin/mudur.py:709
+#: bin/mudur.py:700
 msgid "Stopping services"
 msgstr "Stoppar tjänster"
 
-#: bin/mudur.py:729 bin/mudur.py:749 bin/service.py:158 bin/service.py:261
+#: bin/mudur.py:720 bin/mudur.py:740 bin/service.py:161 bin/service.py:270
 #, python-format
 msgid "Starting %s"
 msgstr "Startar %s"
 
-#: bin/mudur.py:739 bin/mudur.py:756 bin/service.py:169 bin/service.py:196
-#: bin/service.py:273
+#: bin/mudur.py:730 bin/mudur.py:747 bin/service.py:174 bin/service.py:205
+#: bin/service.py:282
 #, python-format
 msgid "Stopping %s"
 msgstr "Stoppar %s"
 
-#: bin/mudur.py:781
+#: bin/mudur.py:772
 msgid "Can't move persistent udev rules from /dev/.udev"
 msgstr "Kan inte flytta beständiga udev-regler från /dev/.udev"
 
-#: bin/mudur.py:787
-msgid "Mounting /dev"
-msgstr "Monterar /dev"
-
-#: bin/mudur.py:829
+#: bin/mudur.py:796
 msgid "Starting udev"
 msgstr "Startar udev"
 
-#: bin/mudur.py:843
+#: bin/mudur.py:810
 msgid "Populating /dev"
 msgstr "Fyller /dev"
 
-#: bin/mudur.py:878
+#: bin/mudur.py:842
 msgid "Removing stale lock file /etc/mtab~"
 msgstr "Tar bort gammal låsfil /etc/mtab~"
 
-#: bin/mudur.py:881
+#: bin/mudur.py:845
 msgid "Failed removing stale lock file /etc/mtab~"
 msgstr "Misslyckades med att ta bort gammal låsfil /etc/mtab~"
 
-#: bin/mudur.py:892
+#: bin/mudur.py:856
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
 msgstr "/etc/fstab innehåller inte en post för rotfilsystemet"
 
-#: bin/mudur.py:898
+#: bin/mudur.py:862
 msgid "Remounting root filesystem read-only"
 msgstr "Återmonterar rotfilsystemet skrivskyddat"
 
-#: bin/mudur.py:903
+#: bin/mudur.py:867
 msgid "Checking root filesystem (full check forced)"
 msgstr "Kontrollerar rotfilsystemet (fullständig kontroll framtvingad)"
 
-#: bin/mudur.py:909
+#: bin/mudur.py:873
 msgid "Checking root filesystem"
 msgstr "Kontrollerar rotfilsystemet"
 
-#: bin/mudur.py:918
+#: bin/mudur.py:882
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Filsystemet lagat, omstart krävs!"
 
-#: bin/mudur.py:922
+#: bin/mudur.py:886
 msgid "Rebooting in 10 seconds..."
 msgstr "Omstart om 10 sekunder..."
 
-#: bin/mudur.py:924
+#: bin/mudur.py:888
 msgid "Rebooting..."
 msgstr "Startar om..."
 
-#: bin/mudur.py:928
+#: bin/mudur.py:892
 msgid "Filesystem could not be repaired"
 msgstr "Filsystem kunde inte repareras"
 
-#: bin/mudur.py:933
+#: bin/mudur.py:897
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Hoppar över kontroll av rotfilsystemet (fstabs passno == 0)"
 
-#: bin/mudur.py:939
+#: bin/mudur.py:903
 msgid "Remounting root filesystem read/write"
 msgstr "Återmonterar rotfilsystemet läs/skriv"
 
-#: bin/mudur.py:943
+#: bin/mudur.py:907
 msgid ""
 "Root filesystem could not be mounted read/write\n"
 "   You can either login below and manually check your filesytem(s) OR\n"
@@ -163,100 +159,100 @@ msgstr ""
 "   Du kan antingen logga in och själv kontrollera dina filsystem, ELLER\n"
 "   starta om datorn, trycka F3 och välja 'FS check' från uppstartsmenyn.\n"
 
-#: bin/mudur.py:955
+#: bin/mudur.py:919
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
 msgstr "Kunde inte synkronisera /etc/mtab med /proc/mounts"
 
-#: bin/mudur.py:974
+#: bin/mudur.py:938
 msgid "Checking all filesystems"
 msgstr "Kontrollerar alla filsystem"
 
-#: bin/mudur.py:978
+#: bin/mudur.py:942
 msgid "A full fsck has been forced"
 msgstr "En fullständig fsck har framtvingats"
 
-#: bin/mudur.py:996
+#: bin/mudur.py:960
 msgid "Filesystem errors corrected"
 msgstr "Filsystemfel åtgärdat"
 
-#: bin/mudur.py:998
+#: bin/mudur.py:962
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr "Fsck kunde inte korrigera alla fel, manuell korrigering nödvändig"
 
-#: bin/mudur.py:1006
+#: bin/mudur.py:970
 msgid "Mounting USB filesystem"
 msgstr "Monterar USB-filsystem"
 
-#: bin/mudur.py:1009
+#: bin/mudur.py:973
 msgid "Mounting local filesystems"
 msgstr "Monterar lokala filsystem"
 
-#: bin/mudur.py:1029
+#: bin/mudur.py:992
 msgid "Starting portmap service for NFS"
 msgstr "Startar portmap-tjänst för NFS"
 
-#: bin/mudur.py:1032
+#: bin/mudur.py:995
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Monterar fjärrfilsystem (CTRL-C avbryter)"
 
-#: bin/mudur.py:1046
+#: bin/mudur.py:1009
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 msgstr "Montering avbröts med CTRL-C, fjärrutdelningar blir inte tillgängliga!"
 
-#: bin/mudur.py:1089
+#: bin/mudur.py:1052
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Sätter värddatornamn till '%s'"
 
-#: bin/mudur.py:1114
+#: bin/mudur.py:1074
 msgid "Setting disk parameters"
 msgstr "Sätter diskparametrar"
 
-#: bin/mudur.py:1136
+#: bin/mudur.py:1096
 msgid "Activating swap space"
 msgstr "Aktiverar växlingsutrymme"
 
-#: bin/mudur.py:1145
+#: bin/mudur.py:1105
 msgid "Deactivating swap space"
 msgstr "Avaktiverar växlingsutrymme"
 
-#: bin/mudur.py:1154
+#: bin/mudur.py:1114
 msgid "Cleaning up /var"
 msgstr "Städar /var"
 
-#: bin/mudur.py:1165
+#: bin/mudur.py:1125
 msgid "Cleaning up /tmp"
 msgstr "Städar /tmp"
 
-#: bin/mudur.py:1201
+#: bin/mudur.py:1160
 msgid "Setting system clock to hardware clock"
 msgstr "Sätter systemklockan till hårdvaruklockan"
 
-#: bin/mudur.py:1217
+#: bin/mudur.py:1176
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr "Kunde inte justera systemklockans systematiska avdrift"
 
-#: bin/mudur.py:1221
+#: bin/mudur.py:1180
 msgid "Failed to set system clock to hardware clock"
 msgstr "Misslyckades med att sätta systemklockan till hårdvaruklockan"
 
-#: bin/mudur.py:1232
+#: bin/mudur.py:1189
 msgid "Syncing system clock to hardware clock"
 msgstr "Synkroniserar systemklockan med hårdvaruklockan"
 
-#: bin/mudur.py:1235
+#: bin/mudur.py:1192
 msgid "Failed to synchronize clocks"
 msgstr "Misslyckades med att synkronisera klockor"
 
-#: bin/mudur.py:1262
+#: bin/mudur.py:1219
 msgid "Unmounting filesystems"
 msgstr "Avmonterar filsystem"
 
-#: bin/mudur.py:1294
+#: bin/mudur.py:1251
 msgid "Remounting remaining filesystems read-only"
 msgstr "Återmonterar återstående filsystem skrivskyddade"
 
-#: bin/mudur.py:1310
+#: bin/mudur.py:1267
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.tr with "
 "following information:"
@@ -264,27 +260,19 @@ msgstr ""
 "Ett internt fel har uppstått. Vänligen rapportera följande fel till bugs."
 "pardus.org.tr:"
 
-#: bin/mudur.py:1371
-msgid "Mounting /sys"
-msgstr "Monterar /sys"
-
-#: bin/mudur.py:1385
-msgid "Mounting /dev/pts"
-msgstr "Monterar /dev/pts"
-
-#: bin/mudur.py:1434
+#: bin/mudur.py:1384
 msgid "Setting up localhost"
 msgstr "Ställer in lokal värd"
 
-#: bin/mudur.py:1447
+#: bin/mudur.py:1397
 msgid "Updating environment variables"
 msgstr "Uppdaterar miljövariabler"
 
-#: bin/mudur.py:1468
+#: bin/mudur.py:1418
 msgid "Triggering udev events which are failed during a previous run"
 msgstr "Utlöser udev-händelser som misslyckades vid föregående körning"
 
-#: bin/mudur.py:1507
+#: bin/mudur.py:1457
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr "Försöker initiera omstart (hoppar över BIOS med kexec kernel)"
 
@@ -328,38 +316,58 @@ msgstr "Autostart"
 msgid "Description"
 msgstr "Beskrivning"
 
-#: bin/service.py:181
+#: bin/service.py:147 bin/service.py:157
+#, fuzzy, python-format
+msgid "Unable to start %s:"
+msgstr "Kan inte starta D-Bus"
+
+#: bin/service.py:170
+#, fuzzy, python-format
+msgid "Unable to stop %s:"
+msgstr "Kan inte starta D-Bus"
+
+#: bin/service.py:183
+#, fuzzy, python-format
+msgid "Unable to set %s state:"
+msgstr "Kan inte starta D-Bus"
+
+#: bin/service.py:188
 #, python-format
 msgid "Service '%s' will be auto started."
 msgstr "Tjänsten '%s' kommer att startas automatiskt."
 
-#: bin/service.py:183
+#: bin/service.py:190
 #, python-format
 msgid "Service '%s' won't be auto started."
 msgstr "Tjänsten '%s' kommer inte att startas automatiskt."
 
-#: bin/service.py:185
+#: bin/service.py:192
 #, python-format
 msgid "Service '%s' will be started if required."
 msgstr "Tjänsten '%s' kommer att startas vid behov."
 
-#: bin/service.py:250
+#: bin/service.py:201
+#, fuzzy, python-format
+msgid "Unable to reload %s:"
+msgstr "Kunde inte aktivera %s"
+
+#: bin/service.py:259
 msgid "You must be root to use that."
 msgstr "Du måste vara root för att använda det."
 
-#: bin/service.py:269
+#: bin/service.py:278
 msgid "Unable to start DBus"
 msgstr "Kan inte starta D-Bus"
 
-#: bin/service.py:283
+#: bin/service.py:292
 msgid "DBus is not running."
 msgstr "D-Bus körs inte."
 
-#: bin/service.py:285
+#: bin/service.py:294
 msgid "DBus is running."
 msgstr "D-Bus körs."
 
-#: bin/service.py:290
+#: bin/service.py:299
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -391,10 +399,19 @@ msgstr ""
 " -N, --no-color  Använd inte färger i meddelanden\n"
 " -q, --quiet     Använd inte meddelanden"
 
-#: bin/service.py:346
+#: bin/service.py:355
 #, python-format
 msgid "No such service: %s"
 msgstr "Tjänst saknas: %s"
+
+#~ msgid "Mounting /dev"
+#~ msgstr "Monterar /dev"
+
+#~ msgid "Mounting /sys"
+#~ msgstr "Monterar /sys"
+
+#~ msgid "Mounting /dev/pts"
+#~ msgstr "Monterar /dev/pts"
 
 #~ msgid "Root filesystem could not be mounted read/write"
 #~ msgstr "Kunde inte återmontera rotfilsystemet läs/skriv"
