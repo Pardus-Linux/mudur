@@ -10,18 +10,18 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-04 14:42+0200\n"
-"PO-Revision-Date: 09/01/10 22:40\n"
+"PO-Revision-Date: 2010-02-04 21:32+0100\n"
 "Last-Translator: Antoon Tolboom <atolboo@gmail.com>\n"
-"Language-Team: Nederlands <kde-i18n-nl@kde.org>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: bin/mudur.py:209
 msgid "Cannot write mudur.log, read-only file system"
-msgstr "Kan niet schrijven naar mudur.log, alleen-lezen"
+msgstr "Kan niet schrijven naar mudur.log, alleen-lezen bestandsysteem"
 
 #: bin/mudur.py:365
 msgid "Safe Mode"
@@ -43,7 +43,7 @@ msgstr "Kan unicode modus niet instellen op tty %d"
 #: bin/mudur.py:554
 #, python-format
 msgid "Bringing up %s"
-msgstr "Breng %s naar voren"
+msgstr "%s naar voren brengen"
 
 #: bin/mudur.py:559
 #, python-format
@@ -52,7 +52,7 @@ msgstr "Kan %s niet naar voren te brengen"
 
 #: bin/mudur.py:629
 msgid "No network connection, skipping remote mount."
-msgstr "Geen netwerkverbinding, overslaan aankoppelen op afstand."
+msgstr "Geen netwerkverbinding, aankoppelen op afstand overslaan."
 
 #: bin/mudur.py:639
 msgid "Cannot connect to DBus, services won't be started"
@@ -92,7 +92,7 @@ msgstr "Stoppen %s"
 
 #: bin/mudur.py:772
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr "Kan aanhoudende udevl regels niet verplaatsten van /dev/.udev"
+msgstr "Kan blijvende udev-regels niet van /dev/.udev verplaatsen"
 
 #: bin/mudur.py:796
 msgid "Starting udev"
@@ -320,19 +320,19 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #: bin/service.py:147 bin/service.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start %s:"
-msgstr "Kon DBus niet starten"
+msgstr "Kan %s niet starten:"
 
 #: bin/service.py:170
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to stop %s:"
-msgstr "Kon DBus niet starten"
+msgstr "Kan %s niet stoppen:"
 
 #: bin/service.py:183
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to set %s state:"
-msgstr "Kon DBus niet starten"
+msgstr "Kan %s status niet instellen:"
 
 #: bin/service.py:188
 #, python-format
@@ -350,9 +350,9 @@ msgid "Service '%s' will be started if required."
 msgstr "Dienst '%s' zal, indien nodig, automatisch gestart worden."
 
 #: bin/service.py:201
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to reload %s:"
-msgstr "Kan %s niet naar voren te brengen"
+msgstr "Kan %s niet herladen:"
 
 #: bin/service.py:259
 msgid "You must be root to use that."
@@ -388,10 +388,10 @@ msgid ""
 " -q, --quiet     Don't print replies"
 msgstr ""
 "gebruik: service [<opties>] <dienst>] <commando>\n"
-"waar commando's zijn:\n"
-" list    Weergeven dienstenlijst weergeven\n"
-".status     Toon dienstenlijst\n"
-" info    Weergeven dienst status\n"
+"waarbij commando's zijn:\n"
+" list    Dienstenlijst weergeven\n"
+" status     Dienstenstatus tonen\n"
+" info    Dienstenstatus tonen\n"
 " on      Autostart dienst\n"
 " off     Dienst niet automatisch starten\n"
 " start   Start dienst\n"
@@ -399,8 +399,8 @@ msgstr ""
 " restart  Stop dienst en herstart\n"
 " reload   Herladen van de configuratie (als de dienst dit ondersteunt)\n"
 "en optie is:\n"
-" -N, --no-color  Gebruik geen kleur in uitvoer  -q, --quiet     Print geen "
-"antwoorden"
+" -N, --no-color  Gebruik geen kleur in uitvoer "
+" -q, --quiet     Print geen antwoorden"
 
 #: bin/service.py:355
 #, python-format
