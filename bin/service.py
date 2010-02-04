@@ -143,8 +143,9 @@ def readyService(service):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].ready()
-    except:
-        pass
+    except dbus.DBusException, e:
+        print _("Unable to start %s:") % service
+        print e.args[0]
 
 def startService(service, quiet=False):
     try:
@@ -152,7 +153,9 @@ def startService(service, quiet=False):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].start()
-    except:
+    except dbus.DBusException, e:
+        print _("Unable to start %s:") % service
+        print e.args[0]
         return
     if not quiet:
         print _("Starting %s") % service
@@ -163,7 +166,9 @@ def stopService(service, quiet=False):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].stop()
-    except:
+    except dbus.DBusException, e:
+        print _("Unable to stop %s:") % service
+        print e.args[0]
         return
     if not quiet:
         print _("Stopping %s") % service
@@ -174,7 +179,9 @@ def setServiceState(service, state, quiet=False):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].setState(state)
-    except:
+    except dbus.DBusException, e:
+        print _("Unable to set %s state:") % service
+        print e.args[0]
         return
     if not quiet:
         if state == "on":
@@ -190,7 +197,9 @@ def reloadService(service, quiet=False):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].reload()
-    except:
+    except dbus.DBusException, e:
+        print _("Unable to reload %s:") % service
+        print e.args[0]
         return
     if not quiet:
         print _("Stopping %s") % service
