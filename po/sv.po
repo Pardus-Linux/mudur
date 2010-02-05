@@ -3,24 +3,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Patrik Karlsson <patrik@pardus.nu>, 2008, 2009.
+# Patrik Karlsson <patrik@pardus.nu>, 2008, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: sv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-04 14:42+0200\n"
-"PO-Revision-Date: 2009-12-01 21:20+0100\n"
+"PO-Revision-Date: 2010-02-05 16:28+0100\n"
 "Last-Translator: Patrik Karlsson <patrik@pardus.nu>\n"
 "Language-Team: Swedish <pardus-translators@pardus.org.tr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: bin/mudur.py:209
 msgid "Cannot write mudur.log, read-only file system"
-msgstr "Kan inte skriva mudur.log, skrivskyddat filsystem."
+msgstr "Kan inte skriva mudur.log, skrivskyddat filsystem"
 
 #: bin/mudur.py:365
 msgid "Safe Mode"
@@ -32,7 +32,7 @@ msgstr "Kan inte hitta /etc/pardus-release"
 
 #: bin/mudur.py:460
 msgid "/etc/env.d/03locale cannot be updated"
-msgstr ""
+msgstr "/etc/env.d/03locale kan inte uppdateras"
 
 #: bin/mudur.py:487
 #, python-format
@@ -317,19 +317,19 @@ msgid "Description"
 msgstr "Beskrivning"
 
 #: bin/service.py:147 bin/service.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start %s:"
-msgstr "Kan inte starta D-Bus"
+msgstr "Kan inte starta %s:"
 
 #: bin/service.py:170
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to stop %s:"
-msgstr "Kan inte starta D-Bus"
+msgstr "Kan inte stoppa %s:"
 
 #: bin/service.py:183
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to set %s state:"
-msgstr "Kan inte starta D-Bus"
+msgstr "Kan inte ändra %ss tillstånd:"
 
 #: bin/service.py:188
 #, python-format
@@ -347,9 +347,9 @@ msgid "Service '%s' will be started if required."
 msgstr "Tjänsten '%s' kommer att startas vid behov."
 
 #: bin/service.py:201
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to reload %s:"
-msgstr "Kunde inte aktivera %s"
+msgstr "Kan inte starta om %s:"
 
 #: bin/service.py:259
 msgid "You must be root to use that."
