@@ -8,19 +8,19 @@
 # Klemens Haeckel <click3d at linuxmail org>, 2008.
 # Klemens Häckel <click3d at linuxmail dot org>, 2008, 2009.
 # Klemens Häckel <click3d at linuxmail dot com>, 2008.
-# Klemens Häckel <click3d at linuxmail (dot) org>, 2009.
+# Klemens Häckel <click3d at linuxmail (dot) org>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-04 14:42+0200\n"
-"PO-Revision-Date: 2009-10-22 18:25-0300\n"
-"Last-Translator: Klemens Häckel <click3d at linuxmail (dot) org>\n"
+"PO-Revision-Date: 2010-02-22 21:32-0300\n"
+"Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: bin/mudur.py:209
@@ -329,19 +329,19 @@ msgid "Description"
 msgstr "Descripción"
 
 #: bin/service.py:147 bin/service.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start %s:"
-msgstr "No posible iniciar DBus"
+msgstr "No posible iniciar %s:"
 
 #: bin/service.py:170
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to stop %s:"
-msgstr "No posible iniciar DBus"
+msgstr "No posible detener %s:"
 
 #: bin/service.py:183
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to set %s state:"
-msgstr "No posible iniciar DBus"
+msgstr "No posible setear %s al estado:"
 
 #: bin/service.py:188
 #, python-format
@@ -359,9 +359,9 @@ msgid "Service '%s' will be started if required."
 msgstr "Servicio '%s' se iniciará en caso que sea requerido."
 
 #: bin/service.py:201
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to reload %s:"
-msgstr "No posible activar %s"
+msgstr "No posible recargar %s:"
 
 #: bin/service.py:259
 msgid "You must be root to use that."
