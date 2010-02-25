@@ -540,7 +540,16 @@ def getServices(bus, all=False):
         return enabled.union(conditional).intersection(set(services))
 
 def startNetwork():
-    """Sets up network connections if any."""
+    """Sets up network connections using Pardus' own network backend if any."""
+
+    try:
+        # This is shipped with NetworkManager, check if NetworkManager is the default
+        if eval(loadConfig("/etc/conf.d/NetworkManager").get("DEFAULT", "False")):
+            return
+    except IOError:
+        # File not available, go on with our backend
+        pass
+
     import dbus
     import comar
 
