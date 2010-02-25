@@ -545,6 +545,7 @@ def startNetwork():
     try:
         # This is shipped with NetworkManager, check if NetworkManager is the default
         if eval(loadConfig("/etc/conf.d/NetworkManager").get("DEFAULT", "False")):
+            ui.info(_("Networking backend is set to NetworkManager"))
             return
     except IOError:
         # File not available, go on with our backend
