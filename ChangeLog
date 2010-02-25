@@ -1,3 +1,6 @@
+2010-02-25  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Move network-dependent code into startNetwork()
+
 2010-01-26  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Implement profiling support with cProfile,
 	Don't mount /sys, /proc, /dev and /dev/pts if they're already mounted,

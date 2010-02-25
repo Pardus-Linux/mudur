@@ -544,6 +544,11 @@ def startNetwork():
     import dbus
     import comar
 
+    # Remove unnecessary lock files - bug #7212
+    for _file in os.listdir("/etc/network"):
+        if _file.startswith("."):
+            os.unlink(os.path.join("/etc/network", _file))
+
     # Remote mount required?
     need_remount = mountRemoteFileSystems(dry_run=True)
 
@@ -648,11 +653,6 @@ def startServices(extras=None):
                 pass
 
     else:
-        # Remove unnecessary lock files - bug #7212
-        for _file in os.listdir("/etc/network"):
-            if _file.startswith("."):
-                os.unlink(os.path.join("/etc/network", _file))
-
         # Start network service
         try:
             startNetwork()
