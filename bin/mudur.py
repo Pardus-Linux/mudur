@@ -474,7 +474,7 @@ def set_unicode_mode():
     # constants from linux/kd.h
     KDSKBMODE = 0x4B45
     K_UNICODE = 0x03
-    for i in range(1, int(config.get("tty_number")) + 1):
+    for i in xrange(1, int(config.get("tty_number")) + 1):
         try:
             if os.path.exists("/dev/tty%s" % i):
                 f = file("/dev/tty%s" % i, "w")
@@ -880,16 +880,16 @@ def check_root_filesystem():
                 # it'll be deleted in that function.
             else:
                 ui.info(_("Checking root filesystem"))
-                t = run_full("/sbin/fsck", "-C", "-T", "-a", "/")
-            if t == 0:
+                ret = run_full("/sbin/fsck", "-C", "-T", "-a", "/")
+            if ret == 0:
                 # No errors,just go on
                 pass
-            elif t == 2 or t == 3:
+            elif ret == 2 or ret == 3:
                 # Actually 2 means that a reboot is required, fsck man page doesn't
                 # mention about 3 but let's leave it as it's harmless.
                 splash.verbose()
                 ui.warn(_("Filesystem repaired, but reboot needed!"))
-                for i in range(4):
+                for i in xrange(4):
                     print "\07"
                     time.sleep(1)
                 ui.warn(_("Rebooting in 10 seconds..."))
