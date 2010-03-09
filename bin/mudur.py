@@ -512,20 +512,12 @@ def fork_handler():
     # Detach from process group
     os.setsid()
 
-def start_service(service, command="start"):
-    """Starts the service."""
+def manage_service(service, command):
+    """Starts/Stops the given service."""
     cmd = ["/bin/service", "--quiet", service, command]
-    ui.debug("Starting service %s" % service)
+    ui.debug("%s service %s.." % (command, service))
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    ui.debug("%s started" % service)
-    splash.progress(1)
-
-def stop_service(service):
-    """Stops the service."""
-    cmd = ["/bin/service", "--quiet", service, "stop"]
-    ui.debug("Stopping service %s" % service)
-    subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    ui.debug("%s stopped" % service)
+    ui.debug("%s service %s..done" % (command, service))
     splash.progress(1)
 
 def get_service_list(bus, all=False):
@@ -657,7 +649,7 @@ def start_services(extras=None):
         # Start only the services given in extras
         for service in extras:
             try:
-                start_service(service)
+                manage_service(service, "start")
             except dbus.DBusException:
                 pass
 
@@ -669,7 +661,7 @@ def start_services(extras=None):
             ui.error(_("Unable to start network:\n  %s") % e)
 
         # Almost everything depends on logger, so start manually
-        start_service("sysklogd")
+        manage_service("sysklogd", "start")
         if not wait_bus("/dev/log", stream=False, timeout=15):
             ui.warn(_("Cannot start system logger"))
 
@@ -685,10 +677,10 @@ def start_services(extras=None):
             head_start = config.get("head_start")
             run_head_start = head_start and head_start in services
             if run_head_start:
-                start_service(head_start, command="ready")
+                manage_service(head_start,"ready")
                 services.remove(head_start)
             for service in services:
-                start_service(service, command="ready")
+                manage_service(service, "ready")
 
             if run_head_start and not get_kernel_option("xorg").has_key("off"):
                 wait_bus("/tmp/.X11-unix/X0", timeout=10)
@@ -713,7 +705,7 @@ def stop_services():
         return
 
     for service in get_service_list(bus, all=True):
-        stop_service(service)
+        manage_service(service, "stop")
 
     # Close the handle
     bus.close()
