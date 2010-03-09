@@ -31,7 +31,7 @@ _ = __trans.ugettext
 # Convenience methods #
 #######################
 
-def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
+def wait_bus(unix_name, timeout=5, wait=0.1, stream=True):
     """Waits over a AF_UNIX socket for a given duration."""
     import socket
     itimeout = timeout
@@ -51,16 +51,16 @@ def waitBus(unix_name, timeout=5, wait=0.1, stream=True):
     ui.debug("Waited %.2f seconds for '%s'" % (itimeout-timeout, unix_name))
     return False
 
-def loadFile(path, ignoreComments=False):
+def load_file(path, ignore_comments=False):
     """Reads the contents of a file and returns it."""
     f = open(path, "r")
     data = f.read()
     f.close()
-    if ignoreComments:
+    if ignore_comments:
         data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     return data
 
-def loadConfig(path):
+def load_config(path):
     """Reads key=value formatted config files and returns a dictionary."""
     d = {}
     for line in file(path):
@@ -73,13 +73,13 @@ def loadConfig(path):
             d[key] = value
     return d
 
-def writeToFile(filename, data=""):
+def write_to_file(filename, data=""):
     """Write data to file."""
     f = open(filename, "w")
     f.write(data)
     f.close()
 
-def createDirectory(path):
+def create_directory(path):
     """Create missing directories in the path."""
     if not os.path.exists(path):
         os.makedirs(path)
@@ -128,7 +128,7 @@ def touch(filename):
             return False
     return True
 
-def getKernelOption(option):
+def get_kernel_option(option):
     """Get a dictionary of args for the given kernel command line option"""
     args = {}
 
@@ -197,7 +197,7 @@ class Logger:
         msg = re.sub("(\033.*?m)", "", msg)
         self.lines.append("[%.3f] %s %s\n" % (time.time(), stamp, msg))
 
-    def sync(self):
+    def flush(self):
         try:
             f = open("/var/log/mudur.log", "a")
             self.lines.append("\n")
@@ -220,44 +220,44 @@ class Config:
         self.kernel = vers.split(".")
 
         # Default options for mudur= in /proc/cmdline
-        self.opts = {
-            "language": "en",
-            "clock": "local",
-            "clock_adjust": "no",
-            "tty_number": "6",
-            "keymap": None,
-            "debug": True,
-            "live": False,
-            "lvm": False,
-            "safe": False,
-            "forcefsck": False,
-            "deprecated": True,
-            "preload": False,
-            "head_start": "",
-            "services": "",
+        self.options = {
+            "language"      : "en",
+            "clock"         : "local",
+            "clock_adjust"  : "no",
+            "tty_number"    : "6",
+            "keymap"        : None,
+            "debug"         : True,
+            "deprecated"    : True,
+            "live"          : False,
+            "lvm"           : False,
+            "safe"          : False,
+            "forcefsck"     : False,
+            "preload"       : False,
+            "head_start"    : "",
+            "services"      : "",
         }
 
         # Load config file if exists
         if os.path.exists("/etc/conf.d/mudur"):
-            self.opts.update(loadConfig("/etc/conf.d/mudur"))
+            self.options.update(load_config("/etc/conf.d/mudur"))
 
         # File system check can be requested with a file
-        self.opts["forcefsck"] = os.path.exists("/forcefsck")
+        self.options["forcefsck"] = os.path.exists("/forcefsck")
 
         # First try
-        self.parse_kernel_opts()
+        self.parse_kernel_options()
 
-    def parse_kernel_opts(self):
+    def parse_kernel_options(self):
         # We need to mount /proc before accessing kernel options
         # This function is called after that, and finish parsing options
         # We dont print any messages before, cause language is not known
-        opts = getKernelOption("mudur")
+        options = get_kernel_option("mudur")
 
         # Fill in the options
-        self.opts["live"] = opts.has_key("thin") or os.path.exists("/var/run/pardus/livemedia")
+        self.options["live"] = options.has_key("thin") or os.path.exists("/var/run/pardus/livemedia")
 
-        for k in [_k for _k in opts.keys() if _k not in ("thin")]:
-            self.opts[k] = opts[k] if opts[k] else True
+        for k in [_k for _k in options.keys() if _k not in ("thin")]:
+            self.options[k] = options[k] if options[k] else True
 
         # Normalize options
 
@@ -265,26 +265,26 @@ class Config:
         # Default language is Turkish, so this only used if someone
         # selected a language which isn't Turkish or English, and
         # in that case it is more likely they'll prefer English.
-        lang = self.opts["language"]
+        lang = self.options["language"]
         if not languages.has_key(lang):
             print "Unknown language option '%s'" % lang
             lang = "en"
-            self.opts["language"] = lang
+            self.options["language"] = lang
 
         # If no keymap is given, use the language's default
-        if not self.opts["keymap"]:
-            self.opts["keymap"] = languages[lang].keymap
+        if not self.options["keymap"]:
+            self.options["keymap"] = languages[lang].keymap
 
     def get(self, key):
         try:
-            return self.opts[key]
+            return self.options[key]
         except:
             print "Unknown option '%s' requested" % key
             time.sleep(3)
 
     def get_fstab_entry_with_mountpoint(self, mountpoint):
         if not self.fstab:
-            data = loadFile("/etc/fstab", True).split("\n")
+            data = load_file("/etc/fstab", True).split("\n")
             self.fstab = map(lambda x: x.split(), data)
 
         for entry in self.fstab:
@@ -304,32 +304,32 @@ class Splash:
 
     def init(self, percent, increasing=True):
         if os.path.exists("/proc/splash"):
-            self.enabled = getKernelOption("splash").has_key("silent")
+            self.enabled = get_kernel_option("splash").has_key("silent")
             self.increasing = increasing
             self.percent = percent
 
     def silent(self):
         if self.enabled:
-            writeToFile("/proc/splash", "silent\n")
-            self.updateProgressBar()
+            write_to_file("/proc/splash", "silent\n")
+            self.update_progress()
 
     def verbose(self):
         if self.enabled:
-            writeToFile("/proc/splash", "verbose\n")
+            write_to_file("/proc/splash", "verbose\n")
 
-    def updateProgressBar(self, percent=None):
+    def update_progress(self, percent=None):
         if self.enabled:
             if percent is not None:
                 self.percent = percent
             pe = int(655.35 * self.percent)
-            writeToFile("/proc/splash", "show %d" % pe)
+            write_to_file("/proc/splash", "show %d" % pe)
 
     def progress(self, delta=3):
         if self.enabled:
             if self.increasing:
-                self.updateProgressBar(self.percent + delta)
+                self.update_progress(self.percent + delta)
             else:
-                self.updateProgressBar(self.percent - delta)
+                self.update_progress(self.percent - delta)
 
 ############
 # UI class #
@@ -358,7 +358,7 @@ class UI:
     def greet(self):
         print self.UNICODE_MAGIC
         if os.path.exists("/etc/pardus-release"):
-            release = loadFile("/etc/pardus-release").rstrip("\n")
+            release = load_file("/etc/pardus-release").rstrip("\n")
             if config.get("safe"):
                 release = "%s (%s)" % (release, _("Safe Mode"))
             print "\x1b[1m  %s  \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m" % release
@@ -409,20 +409,20 @@ class Language:
 ########################################
 
 languages = {
-    "en"    : Language("us", "iso01.16", "8859-1", "en_US.UTF-8"),
-    "pl"    : Language("pl", "iso02.16", "8859-2", "pl_PL.UTF-8"),
-    "nl"    : Language("nl", "iso01.16", "8859-1", "nl_NL.UTF-8"),
-    "de"    : Language("de", "iso01.16", "8859-1", "de_DE.UTF-8"),
-    "es"    : Language("es", "iso01.16", "8859-1", "es_ES.UTF-8"),
-    "it"    : Language("it", "iso01.16", "8859-1", "it_IT.UTF-8"),
-    "fr"    : Language("fr", "iso01.16", "8859-1", "fr_FR.UTF-8"),
-    "ca"    : Language("es", "iso01.16", "8859-1", "ca_ES.UTF-8"),
-    "tr"    : Language("trq", "lat5u-16", "8859-9", "tr_TR.UTF-8"),
-    "sv"    : Language("sv-latin1", "lat0-16", "8859-1", "sv_SE.UTF-8"),
-    "pt_BR" : Language("br-abnt2", "iso01.16", "8859-1", "pt_BR.UTF-8"),
+    "en"    : Language("us",        "iso01.16", "8859-1", "en_US.UTF-8"),
+    "pl"    : Language("pl",        "iso02.16", "8859-2", "pl_PL.UTF-8"),
+    "nl"    : Language("nl",        "iso01.16", "8859-1", "nl_NL.UTF-8"),
+    "de"    : Language("de",        "iso01.16", "8859-1", "de_DE.UTF-8"),
+    "es"    : Language("es",        "iso01.16", "8859-1", "es_ES.UTF-8"),
+    "it"    : Language("it",        "iso01.16", "8859-1", "it_IT.UTF-8"),
+    "fr"    : Language("fr",        "iso01.16", "8859-1", "fr_FR.UTF-8"),
+    "ca"    : Language("es",        "iso01.16", "8859-1", "ca_ES.UTF-8"),
+    "tr"    : Language("trq",       "lat5u-16", "8859-9", "tr_TR.UTF-8"),
+    "pt_BR" : Language("br-abnt2",  "iso01.16", "8859-1", "pt_BR.UTF-8"),
+    "sv"    : Language("sv-latin1", "lat0-16",  "8859-1", "sv_SE.UTF-8"),
 }
 
-def setConsole():
+def set_console_parameters():
     """Setups encoding, font and mapping for console."""
     lang = config.get("language")
     keymap = config.get("keymap")
@@ -433,7 +433,7 @@ def setConsole():
     run_quiet("/bin/loadkeys", keymap)
     run("/usr/bin/setfont", "-f", language.font, "-m", language.trans)
 
-def setSystemLanguage():
+def set_system_language():
     """Sets the system language."""
     lang = config.get("language")
     keymap = config.get("keymap")
@@ -443,21 +443,21 @@ def setSystemLanguage():
     # without duplicating default->mudur.conf->kernel-option logic
     # we do here. Note that these are system-wide not per user,
     # and only for reading.
-    createDirectory("/etc/mudur")
-    writeToFile("/etc/mudur/language", "%s\n" % lang)
-    writeToFile("/etc/mudur/keymap", "%s\n" % keymap)
-    writeToFile("/etc/mudur/locale", "%s\n" % language.locale)
+    create_directory("/etc/mudur")
+    write_to_file("/etc/mudur/language", "%s\n" % lang)
+    write_to_file("/etc/mudur/keymap", "%s\n" % keymap)
+    write_to_file("/etc/mudur/locale", "%s\n" % language.locale)
 
     # Update environment if necessary
     content = "LANG=%s\nLC_ALL=%s\n" % (language.locale, language.locale)
 
     try:
-        if content != loadFile("/etc/env.d/03locale"):
-            writeToFile("/etc/env.d/03locale", content)
+        if content != load_file("/etc/env.d/03locale"):
+            write_to_file("/etc/env.d/03locale", content)
     except IOError:
         ui.warn(_("/etc/env.d/03locale cannot be updated"))
 
-def setTranslation():
+def load_translations():
     """Loads the translation catalogue for mudur."""
     global __trans
     global _
@@ -465,7 +465,7 @@ def setTranslation():
     __trans = gettext.translation('mudur', languages=[lang], fallback=True)
     _ = __trans.ugettext
 
-def ttyUnicode():
+def set_unicode_mode():
     """Makes TTYs unicode compatible."""
     import fcntl
     lang = config.get("language")
@@ -512,7 +512,7 @@ def fork_handler():
     # Detach from process group
     os.setsid()
 
-def startService(service, command="start"):
+def start_service(service, command="start"):
     """Starts the service."""
     cmd = ["/bin/service", "--quiet", service, command]
     ui.debug("Starting service %s" % service)
@@ -520,7 +520,7 @@ def startService(service, command="start"):
     ui.debug("%s started" % service)
     splash.progress(1)
 
-def stopService(service):
+def stop_service(service):
     """Stops the service."""
     cmd = ["/bin/service", "--quiet", service, "stop"]
     ui.debug("Stopping service %s" % service)
@@ -528,7 +528,7 @@ def stopService(service):
     ui.debug("%s stopped" % service)
     splash.progress(1)
 
-def getServices(bus, all=False):
+def get_service_list(bus, all=False):
     """Requests and returns the list of system services through COMAR."""
     obj = bus.get_object("tr.org.pardus.comar", "/", introspect=False)
     services = obj.listModelApplications("System.Service", dbus_interface="tr.org.pardus.comar")
@@ -539,11 +539,11 @@ def getServices(bus, all=False):
         conditional = set(os.listdir("/etc/mudur/services/conditional"))
         return enabled.union(conditional).intersection(set(services))
 
-def startNetwork():
+def start_network():
     """Sets up network connections using Pardus' own network backend if any."""
     try:
         # This is shipped with NetworkManager, check if NetworkManager is the default
-        if eval(loadConfig("/etc/conf.d/NetworkManager").get("DEFAULT", "False")):
+        if eval(load_config("/etc/conf.d/NetworkManager").get("DEFAULT", "False")):
             ui.info(_("Networking backend is set to NetworkManager"))
             return
     except IOError:
@@ -563,7 +563,7 @@ def startNetwork():
 
     link = comar.Link()
 
-    def ifUp(package, name, info):
+    def interface_up(package, name, info):
         ifname = info["device_id"].split("_")[-1]
         ui.info((_("Bringing up %s") + ' (%s)') % (ui.colorize("light", ifname), ui.colorize("cyan", name)))
         if need_remount:
@@ -576,13 +576,13 @@ def startNetwork():
             link.Network.Link[package].setState(name, "up", quiet=True)
         return True
 
-    def ifDown(package, name):
+    def interface_down(package, name):
         try:
             link.Network.Link[package].setState(name, "down", quiet=True)
         except dbus.DBusException:
             pass
 
-    def getConnections(package):
+    def get_connections(package):
         connections = {}
         try:
             for name in link.Network.Link[package].connections():
@@ -602,11 +602,11 @@ def startNetwork():
         except dbus.DBusException:
             break
         if linkInfo["type"] == "net":
-            for name, info in getConnections(package).iteritems():
+            for name, info in get_connections(package).iteritems():
                 if info.get("state", "down").startswith("up"):
-                    ifUp(package, name, info)
+                    interface_up(package, name, info)
                 else:
-                    ifDown(package, name)
+                    interface_down(package, name)
         elif linkInfo["type"] == "wifi":
             # Scan remote access points
             devices = {}
@@ -619,30 +619,30 @@ def startNetwork():
                 break
             # Try to connect last connected profile
             skip = False
-            for name, info in getConnections(package).iteritems():
+            for name, info in get_connections(package).iteritems():
                 if info.get("state", "down").startswith("up") and info.get("device_id", None) in devices and info["remote"] in devices[info["device_id"]]:
-                    ifUp(package, name, info)
+                    interface_up(package, name, info)
                     skip = True
                     break
             # There's no last connected profile, try to connect other profiles
             if not skip:
                 # Reset connection states
-                for name, info in getConnections(package).iteritems():
-                    ifDown(package, name)
+                for name, info in get_connections(package).iteritems():
+                    interface_down(package, name)
                 # Try to connect other profiles
-                for name, info in getConnections(package).iteritems():
+                for name, info in get_connections(package).iteritems():
                     if info.get("device_id", None) in devices and info["remote"] in devices[info["device_id"]]:
-                        ifUp(package, name, info)
+                        interface_up(package, name, info)
                         break
 
     if need_remount:
-        from pardus.netutils import waitNet
-        if waitNet():
+        from pardus.netutils import waitNet as wait_for_network
+        if wait_for_network():
             mountRemoteFileSystems()
         else:
             ui.error(_("No network connection, skipping remote mount."))
 
-def startServices(extras=None):
+def start_services(extras=None):
     """Sends start signals to the required services through D-Bus."""
     import dbus
 
@@ -657,25 +657,25 @@ def startServices(extras=None):
         # Start only the services given in extras
         for service in extras:
             try:
-                startService(service)
+                start_service(service)
             except dbus.DBusException:
                 pass
 
     else:
         # Start network service
         try:
-            startNetwork()
+            start_network()
         except Exception, e:
             ui.error(_("Unable to start network:\n  %s") % e)
 
         # Almost everything depends on logger, so start manually
-        startService("sysklogd")
-        if not waitBus("/dev/log", stream=False, timeout=15):
+        start_service("sysklogd")
+        if not wait_bus("/dev/log", stream=False, timeout=15):
             ui.warn(_("Cannot start system logger"))
 
         if not config.get("safe"):
             ui.info(_("Starting services"))
-            services = getServices(bus)
+            services = get_service_list(bus)
 
             # Remove redundant sysklogd
             if "sysklogd" in services:
@@ -685,24 +685,24 @@ def startServices(extras=None):
             head_start = config.get("head_start")
             run_head_start = head_start and head_start in services
             if run_head_start:
-                startService(head_start, command="ready")
+                start_service(head_start, command="ready")
                 services.remove(head_start)
             for service in services:
-                startService(service, command="ready")
+                start_service(service, command="ready")
 
-            if run_head_start and not getKernelOption("xorg").has_key("off"):
-                waitBus("/tmp/.X11-unix/X0", timeout=10)
+            if run_head_start and not get_kernel_option("xorg").has_key("off"):
+                wait_bus("/tmp/.X11-unix/X0", timeout=10)
 
                 # Avoid users trying to login using VT
                 # because of the X startup delay.
                 time.sleep(1)
 
-            splash.updateProgressBar(100)
+            splash.update_progress(100)
 
         # Close the handle
         bus.close()
 
-def stopServices():
+def stop_services():
     """Sends stop signals to all available services through D-Bus."""
     import dbus
 
@@ -712,27 +712,25 @@ def stopServices():
     except dbus.DBusException:
         return
 
-    for service in getServices(bus, all=True):
-        stopService(service)
+    for service in get_service_list(bus, all=True):
+        stop_service(service)
 
     # Close the handle
     bus.close()
 
-def pruneNeedsActionPackageList():
+def prune_needs_action_package_list():
     """Clears the lists to hold needsServiceRestart and needsReboot updates."""
-    needsRestartFile = "/var/lib/pisi/info/needsrestart"
-    needsServiceRebootFile = "/var/lib/pisi/info/needsreboot"
-    if os.path.exists(needsRestartFile):
-        os.unlink(needsRestartFile)
-    if os.path.exists(needsServiceRebootFile):
-        os.unlink(needsServiceRebootFile)
+    files = ("/var/lib/pisi/info/needsrestart", "/var/lib/pisi/info/needsreboot")
+    for f in files:
+        if os.path.exists(f):
+            os.unlink(f)
 
 
 ############################
 # D-Bus start/stop methods #
 ############################
 
-def startDBus():
+def start_dbus():
     """Starts the D-Bus service."""
     os.setuid(0)
     ui.info(_("Starting %s") % "DBus")
@@ -741,9 +739,9 @@ def startDBus():
     run("/sbin/start-stop-daemon", "-b", "--start", "--quiet",
         "--pidfile", "/var/run/dbus/pid", "--exec", "/usr/bin/dbus-daemon",
         "--", "--system")
-    waitBus("/var/run/dbus/system_bus_socket")
+    wait_bus("/var/run/dbus/system_bus_socket")
 
-def stopDBus():
+def stop_dbus():
     """Stops the D-Bus service."""
     ui.info(_("Stopping %s") % "DBus")
     run("/sbin/start-stop-daemon", "--stop", "--quiet", "--pidfile", "/var/run/dbus/pid")
@@ -752,14 +750,14 @@ def stopDBus():
 # Other boot related services #
 ###############################
 
-def startPreload():
+def start_preload():
     """Starts the Preload service."""
     if os.path.exists("/sbin/preload") and config.get("preload"):
         ui.info(_("Starting %s") % "Preload")
         run("/sbin/start-stop-daemon", "--start", "--quiet", "--pidfile", "/var/run/preload.pid",
             "--exec", "/usr/bin/ionice", "--", "-c3", "/sbin/preload")
 
-def stopPreload():
+def stop_preload():
     """Stops the Preload service."""
     if os.path.exists("/var/run/preload.pid"):
         ui.info(_("Stopping %s") % "Preload")
@@ -769,7 +767,7 @@ def stopPreload():
 # UDEV management functions #
 #############################
 
-def copyUdevRules():
+def copy_udev_rules():
     """Copies persistent udev rules from /dev into /etc/udev/rules."""
     import glob
     import shutil
@@ -791,7 +789,7 @@ def copyUdevRules():
             ui.warn(_("Can't move persistent udev rules from /dev/.udev"))
             pass
 
-def startUdev():
+def start_udev():
     """Prepares the startup of udev daemon and starts it."""
 
     # Mount /dev if not mounted (backward-compatibility)
@@ -800,7 +798,7 @@ def startUdev():
 
     # Mount /dev/pts if not mounted (backward-compatibility)
     if not os.path.exists("/dev/pts/ptmx"):
-        createDirectory("/dev/pts")
+        create_directory("/dev/pts")
         mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
 
     # Copy over initial device nodes from /lib/udev/devices
@@ -809,7 +807,7 @@ def startUdev():
 
     # When these files are missing, lots of trouble happens
     # so we double check their existence
-    createDirectory("/dev/shm")
+    create_directory("/dev/shm")
 
     # Start udev daemon
     ui.info(_("Starting udev"))
@@ -819,7 +817,7 @@ def startUdev():
         "--exec", "/sbin/udevd", "--", "--daemon")
 
     # Create needed queue directory
-    createDirectory("/dev/.udev/queue/")
+    create_directory("/dev/.udev/queue/")
 
     # Log things that trigger does
     pid = run_async(["/sbin/udevadm", "monitor", "--env"],
@@ -866,7 +864,7 @@ def updateMtabForRoot():
 
     return (run_quiet("/bin/mount", "-f", "/") != MOUNT_FAILED_LOCK)
 
-def checkRootFileSystem():
+def check_root_filesystem():
     """Checks root filesystem with fsck if required."""
     if not config.get("live"):
 
@@ -886,7 +884,7 @@ def checkRootFileSystem():
                 ui.info(_("Checking root filesystem (full check forced)"))
                 # -y: Fix whatever the error is without user's intervention
                 t = run_full("/sbin/fsck", "-C", "-y", "-f", "/")
-                # /forcefsck isn't deleted because checkFileSystems needs it.
+                # /forcefsck isn't deleted because check_filesystems needs it.
                 # it'll be deleted in that function.
             else:
                 ui.info(_("Checking root filesystem"))
@@ -915,7 +913,7 @@ def checkRootFileSystem():
         else:
             ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
 
-def mountRootFileSystem():
+def mount_root_filesystem():
     """Mounts root filesystem."""
 
     # Let's remount read/write again.
@@ -933,7 +931,7 @@ def mountRootFileSystem():
     # Fix mtab as we didn't update it yet
     try:
         # Double guard against IO exceptions
-        writeToFile("/etc/mtab")
+        write_to_file("/etc/mtab")
     except IOError:
         ui.warn(_("Couldn't synchronize /etc/mtab from /proc/mounts"))
         pass
@@ -943,7 +941,7 @@ def mountRootFileSystem():
     updateMtabForRoot()
 
     # Update mtab
-    for entry in loadFile("/proc/mounts").split("\n"):
+    for entry in load_file("/proc/mounts").split("\n"):
         try:
             devpath = entry.split()[1]
         except IndexError:
@@ -951,7 +949,7 @@ def mountRootFileSystem():
         if config.get_fstab_entry_with_mountpoint(devpath):
             run("/bin/mount", "-f", "-o", "remount", devpath)
 
-def checkFileSystems():
+def check_filesystems():
     """Checks all the filesystems with fsck if required."""
     if not config.get("live"):
         ui.info(_("Checking all filesystems"))
@@ -981,7 +979,7 @@ def checkFileSystems():
             ui.error(_("Fsck could not correct all errors, manual repair needed"))
             run_full("/sbin/sulogin")
 
-def mountLocalFileSystems():
+def mount_local_filesystems():
     """Mounts local filesystems and enables swaps if any."""
 
     # DEPRECATED: /proc/bus/usb is deprecated by /dev/bus/usb, we shouldn't mount it.
@@ -994,7 +992,7 @@ def mountLocalFileSystems():
 
 def mountRemoteFileSystems(dry_run=False):
     """Mounts remote filesystems."""
-    data = loadFile("/etc/fstab", True).split("\n")
+    data = load_file("/etc/fstab", True).split("\n")
     fstab = map(lambda x: x.split(), data)
     netmounts = filter(lambda x: len(x) > 2 and x[2] in ("cifs", "nfs", "nfs4"), fstab)
     if len(netmounts) == 0:
@@ -1009,7 +1007,7 @@ def mountRemoteFileSystems(dry_run=False):
     fs_types = map(lambda x: x[2], netmounts)
     if "nfs" in fs_types or "nfs4" in fs_types:
         ui.info(_("Starting portmap service for NFS"))
-        startServices(["portmap"])
+        start_services(["portmap"])
 
     ui.info(_("Mounting remote filesystems (CTRL-C stops trying)"))
     try:
@@ -1033,12 +1031,12 @@ def mountRemoteFileSystems(dry_run=False):
 # Other system related methods for hostname setting, modules autoloading, etc. #
 ################################################################################
 
-def setHostname():
+def set_hostname():
     """Sets the system's hostname."""
     khost = capture("/bin/hostname")[0].rstrip("\n")
     uhost = None
     if os.path.exists("/etc/env.d/01hostname"):
-        data = loadFile("/etc/env.d/01hostname")
+        data = load_file("/etc/env.d/01hostname")
         i = data.find('HOSTNAME="')
         if i != -1:
             j = data.find('"',i+10)
@@ -1046,7 +1044,7 @@ def setHostname():
                 uhost = data[i+10:j]
         """
         try:
-            data = loadFile("/etc/env.d/01hostname").strip().split("HOSTNAME=")[1].strip("\"")
+            data = load_file("/etc/env.d/01hostname").strip().split("HOSTNAME=")[1].strip("\"")
         except IndexError:
             pass
         """
@@ -1066,21 +1064,21 @@ def setHostname():
                 data = data[:i+10] + host + data[j:]
         else:
             data = 'HOSTNAME="' + host + '"\n' + data
-        writeToFile("/etc/env.d/01hostname", data)
+        write_to_file("/etc/env.d/01hostname", data)
 
     ui.info(_("Setting up hostname as '%s'") % ui.colorize("light", host))
     run("/bin/hostname", host)
 
-def autoloadModules():
+def autoload_modules():
     """Traverses /etc/modules.autoload.d to autoload kernel modules if any."""
     if os.path.exists("/proc/modules"):
         import glob
         for fn in glob.glob("/etc/modules.autoload.d/kernel-%s*" % config.kernel[0]):
-            data = loadFile(fn, True).split("\n")
+            data = load_file(fn, True).split("\n")
             for mod in data:
                 run("/sbin/modprobe", "-q", "-b", mod)
 
-def setDiskParameters():
+def set_disk_parameters():
     # FIXME: Why do we have this, is it really crucial for booting?
     if config.get("safe"):
         return
@@ -1088,7 +1086,7 @@ def setDiskParameters():
     if not os.path.exists("/sbin/hdparm") or not os.path.exists("/etc/conf.d/hdparm"):
         return
 
-    d = loadConfig("/etc/conf.d/hdparm")
+    d = load_config("/etc/conf.d/hdparm")
     if len(d) > 0:
         ui.info(_("Setting disk parameters"))
         if d.has_key("all"):
@@ -1110,7 +1108,7 @@ def setDiskParameters():
 # Swap methods #
 ################
 
-def swapOn():
+def enable_swap():
     """Calls swapon for all swaps in /etc/fstab."""
     ui.info(_("Activating swap space"))
     run("/sbin/swapon", "-a")
@@ -1129,7 +1127,7 @@ def swapOff():
 # Filesystem cleanup methods #
 ##############################
 
-def cleanupVar():
+def cleanup_var():
     ui.info(_("Cleaning up /var"))
     blacklist = ["utmp", "random-seed", "livemedia", "preload.pid"]
     for root, dirs, files in os.walk("/var/run"):
@@ -1141,9 +1139,9 @@ def cleanupVar():
                     pass
 
     # Prune needsrestart and needsreboot files if any
-    pruneNeedsActionPackageList()
+    prune_needs_action_package_list()
 
-def cleanupTmp():
+def cleanup_tmp():
     ui.info(_("Cleaning up /tmp"))
 
     cleanup_list = (
@@ -1165,11 +1163,11 @@ def cleanupTmp():
     # Remove directories
     os.system("rm -rf %s" % " ".join(cleanup_list))
 
-    createDirectory("/tmp/.ICE-unix")
+    create_directory("/tmp/.ICE-unix")
     os.chown("/tmp/.ICE-unix", 0, 0)
     os.chmod("/tmp/.ICE-unix", 01777)
 
-    createDirectory("/tmp/.X11-unix")
+    create_directory("/tmp/.X11-unix")
     os.chown("/tmp/.X11-unix", 0, 0)
     os.chmod("/tmp/.X11-unix", 01777)
 
@@ -1177,14 +1175,14 @@ def cleanupTmp():
 # System time/Clock management methods #
 ########################################
 
-def setClock():
+def set_clock():
     """Sets the system time according to /etc."""
     ui.info(_("Setting system clock to hardware clock"))
 
     # Default is UTC
-    opts = "--utc"
+    options = "--utc"
     if config.get("clock") != "UTC":
-        opts = "--localtime"
+        options = "--localtime"
 
     # Default is no
     if config.get("clock_adjust") == "yes":
@@ -1192,40 +1190,40 @@ def setClock():
         if not touch("/etc/adjtime"):
             adj = "--noadjfile"
         elif os.stat("/etc/adjtime").st_size == 0:
-            writeToFile("/etc/adjtime", "0.0 0 0.0\n")
-        t = capture("/sbin/hwclock", adj, opts)
+            write_to_file("/etc/adjtime", "0.0 0 0.0\n")
+        t = capture("/sbin/hwclock", adj, options)
         if t[1] != '':
             ui.error(_("Failed to adjust systematic drift of the hardware clock"))
 
-    t = capture("/sbin/hwclock", "--hctosys", opts)
+    t = capture("/sbin/hwclock", "--hctosys", options)
     if t[1] != '':
         ui.error(_("Failed to set system clock to hardware clock"))
 
 def saveClock():
     """Saves the system time for further boots."""
     if not config.get("live"):
-        opts = "--utc"
+        options = "--utc"
         if config.get("clock") != "UTC":
-            opts = "--localtime"
+            options = "--localtime"
 
         ui.info(_("Syncing system clock to hardware clock"))
-        t = capture("/sbin/hwclock", "--systohc", opts)
+        t = capture("/sbin/hwclock", "--systohc", options)
         if t[1] != '':
             ui.error(_("Failed to synchronize clocks"))
 
-def stopSystem():
+def stop_system():
     """Stops the system."""
     import shutil
 
-    stopServices()
+    stop_services()
     stopUdev()
-    stopDBus()
-    #stopPreload()
+    stop_dbus()
+    #stop_preload()
     saveClock()
     swapOff()
 
     def getFS():
-        ents = loadFile("/proc/mounts").split("\n")
+        ents = load_file("/proc/mounts").split("\n")
         ents = map(lambda x: x.split(), ents)
         ents = filter(lambda x: len(x) > 2, ents)
         # not the virtual systems
@@ -1250,7 +1248,7 @@ def stopSystem():
             run_quiet("/bin/umount", "-f", "-r", dev[1])
 
     def remount_ro(force=False):
-        ents = loadFile("/proc/mounts").split("\n")
+        ents = load_file("/proc/mounts").split("\n")
         ents = map(lambda x: x.split(), ents)
         ents = filter(lambda x: len(x) > 2, ents)
         ents = filter(lambda x: x[0] != "none", ents)
@@ -1272,7 +1270,7 @@ def stopSystem():
         return ret
 
     ui.info(_("Remounting remaining filesystems read-only"))
-    splash.updateProgressBar(0)
+    splash.update_progress(0)
 
     # We parse /proc/mounts but use umount, so this have to agree
     shutil.copy("/proc/mounts", "/etc/mtab")
@@ -1320,7 +1318,7 @@ def main():
     logger.log("/sbin/mudur.py %s" % sys.argv[1])
 
     # Activate i18n, we can print localized messages from now on
-    setTranslation()
+    load_translations()
 
 
     ### SYSINIT ###
@@ -1329,8 +1327,8 @@ def main():
         # Mount /proc if not mounted (backward-compatibility)
         if not os.path.exists("/proc/cmdline"):
             mount("/proc", "-t proc proc /proc")
-            config.parse_kernel_opts()
-            setTranslation()
+            config.parse_kernel_options()
+            load_translations()
 
         # Mount sysfs if not mounted (backward-compatibility)
         if not os.path.exists("/sys/kernel"):
@@ -1340,59 +1338,59 @@ def main():
         ui.greet()
 
         # Now we know which language and keymap to use
-        setConsole()
+        set_console_parameters()
 
         # Initialize bootsplash
         splash.init(0)
 
         # Set kernel console log level for cleaner boot
         # only panic messages will be printed
-        writeToFile("/proc/sys/kernel/printk", "1")
+        write_to_file("/proc/sys/kernel/printk", "1")
 
         # Start udev and event triggering
-        startUdev()
+        start_udev()
 
         # Check root file system
-        checkRootFileSystem()
+        check_root_filesystem()
 
         # Mount root file system
-        mountRootFileSystem()
+        mount_root_filesystem()
 
         # Start preload if possible
-        # startPreload()
+        # start_preload()
 
         # Grab persistent rules and udev.log file from /dev
-        copyUdevRules()
+        copy_udev_rules()
 
         # Set hostname
-        setHostname()
+        set_hostname()
 
         # Load modules manually written in /etc/modules.autoload.d/kernel-x.y
-        autoloadModules()
+        autoload_modules()
 
         # Check all filesystems
-        checkFileSystems()
+        check_filesystems()
 
         # Mount local filesystems
-        mountLocalFileSystems()
+        mount_local_filesystems()
 
         # Activate swap space
-        swapOn()
+        enable_swap()
 
         # Set disk parameters using hdparm
-        setDiskParameters()
+        set_disk_parameters()
 
         # Set the clock
-        setClock()
+        set_clock()
 
         # Set the system language
-        setSystemLanguage()
+        set_system_language()
 
         # Wait for udev events to finish
         run("/sbin/udevadm", "settle", "--timeout=60")
 
         # When we exit this runlevel, init will write a boot record to utmp
-        writeToFile("/var/run/utmp")
+        write_to_file("/var/run/utmp")
         touch("/var/log/wtmp")
 
         run("/bin/chgrp", "utmp", "/var/run/utmp", "/var/log/wtmp")
@@ -1412,7 +1410,7 @@ def main():
         run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
 
         # Cleanup /var
-        cleanupVar()
+        cleanup_var()
 
         # Update environment variables according to the modification
         # time of the relevant files
@@ -1424,13 +1422,13 @@ def main():
                 run("/sbin/update-environment")
 
         # Cleanup /tmp
-        cleanupTmp()
+        cleanup_tmp()
 
         # Start DBUS
-        startDBus()
+        start_dbus()
 
         # Set unicode properties for ttys
-        ttyUnicode()
+        set_unicode_mode()
 
     ### DEFAULT ###
     elif sys.argv[1] == "default":
@@ -1446,13 +1444,13 @@ def main():
             run("/bin/bash", "/etc/conf.d/local.start")
 
         # Start services
-        startServices()
+        start_services()
 
         splash.verbose()
 
     ### SINGLE ###
     elif sys.argv[1] == "single":
-        stopServices()
+        stop_services()
 
     ### REBOOT/SHUTDOWN ###
     elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
@@ -1460,7 +1458,7 @@ def main():
         splash.silent()
 
         # Log the operation before unmounting file systems
-        logger.sync()
+        logger.flush()
 
         # Source local.stop
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
@@ -1469,14 +1467,14 @@ def main():
         splash.progress(40)
 
         # Stop the system
-        stopSystem()
+        stop_system()
 
         if sys.argv[1] == "reboot":
 
             # Try to reboot using kexec, if kernel supports it.
-            kexecFile = "/sys/kernel/kexec_loaded"
+            kexec_file = "/sys/kernel/kexec_loaded"
 
-            if os.path.exists(kexecFile) and int(file(kexecFile).read().strip()):
+            if os.path.exists(kexec_file) and int(file(kexec_file).read().strip()):
                 ui.info(_("Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"))
                 run_quiet("/usr/sbin/kexec", "-e")
 
@@ -1495,7 +1493,7 @@ def main():
         # Control never reaches here
 
     try:
-        logger.sync()
+        logger.flush()
     except IOError:
         pass
 
@@ -1503,7 +1501,7 @@ def main():
 # Main program starts here #
 ############################
 if __name__ == "__main__":
-    if getKernelOption("mudur").has_key("profile"):
+    if get_kernel_option("mudur").has_key("profile"):
         import cProfile
         cProfile.run("main()", "/dev/.mudur-%s.log" % sys.argv[1])
     else:
