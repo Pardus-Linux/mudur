@@ -875,7 +875,7 @@ def check_root_filesystem():
                 splash.verbose()
                 ui.info(_("Checking root filesystem (full check forced)"))
                 # -y: Fix whatever the error is without user's intervention
-                t = run_full("/sbin/fsck", "-C", "-y", "-f", "/")
+                ret = run_full("/sbin/fsck", "-C", "-y", "-f", "/")
                 # /forcefsck isn't deleted because check_filesystems needs it.
                 # it'll be deleted in that function.
             else:
