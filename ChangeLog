@@ -1,3 +1,7 @@
+2010-03-09  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py (cleanupVar): Call the newly added function to prune pisi
+	info files holding needsServiceRestart and needsReboot packages.
+
 2010-02-25  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Move network-dependent code into startNetwork()
 

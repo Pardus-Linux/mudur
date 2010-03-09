@@ -541,7 +541,6 @@ def getServices(bus, all=False):
 
 def startNetwork():
     """Sets up network connections using Pardus' own network backend if any."""
-
     try:
         # This is shipped with NetworkManager, check if NetworkManager is the default
         if eval(loadConfig("/etc/conf.d/NetworkManager").get("DEFAULT", "False")):
@@ -718,6 +717,15 @@ def stopServices():
 
     # Close the handle
     bus.close()
+
+def pruneNeedsActionPackageList():
+    """Clears the lists to hold needsServiceRestart and needsReboot updates."""
+    needsRestartFile = "/var/lib/pisi/info/needsrestart"
+    needsServiceRebootFile = "/var/lib/pisi/info/needsreboot"
+    if os.path.exists(needsRestartFile):
+        os.unlink(needsRestartFile)
+    if os.path.exists(needsServiceRebootFile):
+        os.unlink(needsServiceRebootFile)
 
 
 ############################
@@ -1130,6 +1138,9 @@ def cleanupVar():
                     os.unlink(os.path.join(root, f))
                 except OSError:
                     pass
+
+    # Prune needsrestart and needsreboot files if any
+    pruneNeedsActionPackageList()
 
 def cleanupTmp():
     ui.info(_("Cleaning up /tmp"))
