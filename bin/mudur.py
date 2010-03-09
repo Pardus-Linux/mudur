@@ -10,14 +10,12 @@
 # option) any later version. Please read the COPYING file.
 #
 
-import fcntl
-import signal
-import shutil
 
 import os
 import re
 import sys
 import time
+import signal
 import gettext
 import subprocess
 
@@ -469,6 +467,7 @@ def setTranslation():
 
 def ttyUnicode():
     """Makes TTYs unicode compatible."""
+    import fcntl
     lang = config.get("language")
     language = languages[lang]
 
@@ -493,6 +492,7 @@ def ttyUnicode():
 def fork_handler():
     """Callback which is passed to Popen as preexec_fn."""
     import termios
+    import fcntl
 
     # Set umask to a sane value
     # (other and group has no write permission by default)
@@ -772,6 +772,7 @@ def stopPreload():
 def copyUdevRules():
     """Copies persistent udev rules from /dev into /etc/udev/rules."""
     import glob
+    import shutil
 
     # Copy udevtrigger log file to /var/log
     if os.path.exists("/dev/.udevmonitor.log"):
@@ -1214,6 +1215,7 @@ def saveClock():
 
 def stopSystem():
     """Stops the system."""
+    import shutil
 
     stopServices()
     stopUdev()
