@@ -166,7 +166,6 @@ def run_async(cmd, stdout=None, stderr=None):
     """Runs a command in background and redirects the outputs optionally."""
     fstdout = stdout if stdout else "/dev/null"
     fstderr = stderr if stderr else "/dev/null"
-
     return subprocess.Popen(cmd, stdout=open(fstdout, "w"), stderr=open(fstderr, "w")).pid
 
 def run(*cmd):
