@@ -202,7 +202,7 @@ def reloadService(service, quiet=False):
         print e.args[0]
         return
     if not quiet:
-        print _("Stopping %s") % service
+        print _("Reloading %s") % service
 
 def getServiceInfo(service):
     link = comar.Link()

@@ -1,6 +1,12 @@
+2010-03-16  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/service.py: Fix UI message when reloading a service.
+
 2010-03-09  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (cleanupVar): Call the newly added function to prune pisi
 	info files holding needsServiceRestart and needsReboot packages.
+	* bin/mudur.py: Use delimitier-separated words for identifier names
+	instead of CamelCase notation.
+	* bin/mudur.py: Merge start_service and stop_service into manage_service.
 
 2010-02-25  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Move network-dependent code into startNetwork()
