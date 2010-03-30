@@ -279,9 +279,14 @@ def createProfile():
 
     # Get name and create it
     profile = None
+    profiles = link.Network.Link[package].connections()
     print
     while not profile:
         profile = getInput("Profile name").strip()
+        if profile in profiles:
+            print "There is already a profile named '%s'" % profile
+            print
+            profile = None
 
     try:
         for key, value in settings:
