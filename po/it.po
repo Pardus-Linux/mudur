@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrea Decorte <adecorte@gmail.com>, 2007.
-# Ercole Carpanetto <ercole69@gmail.com>, 2008
+# Ercole Carpanetto <ercole69@gmail.com>, 2008.
+# Davide Siciliano <edivad95@gmail.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-16 16:48+0200\n"
-"PO-Revision-Date: 2008-03-21 11:50+0100\n"
-"Last-Translator: Ercole Carpanetto <ercole69@gmail.com>\n"
-"Language-Team: Italian <pardus-translation-it@pardus.org.tr>\n"
+"PO-Revision-Date: 2010-04-02 22:42+0200\n"
+"Last-Translator: Davide Siciliano <edivad95@gmail.com>\n"
+"Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: bin/mudur.py:206
@@ -24,7 +25,7 @@ msgstr "Impossibile scrivere mudur.log, filesystem di sola lettura"
 
 #: bin/mudur.py:362
 msgid "Safe Mode"
-msgstr ""
+msgstr "Modalità sicura"
 
 #: bin/mudur.py:365
 msgid "Cannot find /etc/pardus-release"
@@ -32,7 +33,7 @@ msgstr "Impossibile trovare il file /etc/pardus-release"
 
 #: bin/mudur.py:457
 msgid "/etc/env.d/03locale cannot be updated"
-msgstr ""
+msgstr "/etc/env.d/03locale non può essere aggiornato."
 
 #: bin/mudur.py:485
 #, python-format
@@ -41,12 +42,12 @@ msgstr "Impossibile impostare la modalità Unicode su tty %d"
 
 #: bin/mudur.py:538
 msgid "Networking backend is set to NetworkManager"
-msgstr ""
+msgstr "Il backend della rete è affidato a NetworkManager"
 
 #: bin/mudur.py:559
-#, fuzzy, python-format
+#, python-format
 msgid "Bringing up %s"
-msgstr "Attivare l'interfaccia %s"
+msgstr " Attivare l'interfaccia %s"
 
 #: bin/mudur.py:564
 #, fuzzy, python-format
@@ -55,12 +56,11 @@ msgstr "Impossibile attivare l'interfaccia %s"
 
 #: bin/mudur.py:634
 msgid "No network connection, skipping remote mount."
-msgstr ""
+msgstr "Nessuna connessione di rete, montaggio remoto saltato."
 
 #: bin/mudur.py:644
-#, fuzzy
 msgid "Cannot connect to DBus, services won't be started"
-msgstr "Impossibile collegarsi a COMAR, i servizi non verranno avviati"
+msgstr "Impossibile collegarsi a DBUS, i servizi non verranno avviati"
 
 #: bin/mudur.py:660
 #, fuzzy, python-format
@@ -82,14 +82,14 @@ msgid "Stopping services"
 msgstr "Arresto dei servizi"
 
 #: bin/mudur.py:727 bin/mudur.py:747 bin/service.py:161 bin/service.py:270
-#, fuzzy, python-format
+#, python-format
 msgid "Starting %s"
-msgstr "Avvio di udev"
+msgstr "Avvio di %s"
 
 #: bin/mudur.py:737 bin/mudur.py:754 bin/service.py:174 bin/service.py:282
-#, fuzzy, python-format
+#, python-format
 msgid "Stopping %s"
-msgstr "Arresto dei servizi"
+msgstr "Arresto di %s"
 
 #: bin/mudur.py:780
 msgid "Can't move persistent udev rules from /dev/.udev"
@@ -113,7 +113,7 @@ msgstr ""
 
 #: bin/mudur.py:864
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "/etc/fstab non contiene una voce riguardante il filesystem di root"
 
 #: bin/mudur.py:870
 msgid "Remounting root filesystem read-only"
@@ -132,7 +132,6 @@ msgid "Filesystem repaired, but reboot needed!"
 msgstr "Filesystem riparato, ma è necessario riavviare!"
 
 #: bin/mudur.py:894
-#, fuzzy
 msgid "Rebooting in 10 seconds..."
 msgstr "Riavvio in 10 secondi..."
 
@@ -141,7 +140,6 @@ msgid "Rebooting..."
 msgstr "Riavvio in corso..."
 
 #: bin/mudur.py:900
-#, fuzzy
 msgid "Filesystem could not be repaired"
 msgstr "Impossibile riparare il filesystem"
 
@@ -159,6 +157,10 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"Il filesystem di root non può essere montato in lettura e scrittura\n"
+"  Puoi comunque loggarti qui sotto e controllare manualmente il filesystem,\n"
+"  oppure riavviare, premere F3 e selezionare 'Controllo Filesystem' dal menu "
+"di boot."
 
 #: bin/mudur.py:927
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
@@ -199,7 +201,6 @@ msgid "Mounting remote filesystems (CTRL-C stops trying)"
 msgstr "Montaggio dei filesystem remoti (Ctrl-C per fermare l'operazione)"
 
 #: bin/mudur.py:1017
-#, fuzzy
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 msgstr ""
 "Montaggio saltato con Ctrl-C, le condivisoni remote non saranno accessibili!"
@@ -214,12 +215,10 @@ msgid "Setting disk parameters"
 msgstr "Impostazione dei parametri del disco"
 
 #: bin/mudur.py:1104
-#, fuzzy
 msgid "Activating swap space"
 msgstr "Attivazione swap"
 
 #: bin/mudur.py:1113
-#, fuzzy
 msgid "Deactivating swap space"
 msgstr "Disattivazione swap"
 
@@ -251,7 +250,6 @@ msgstr ""
 "Sincronizzazione dell'orologio di sistema al valore dell'orologio hardware"
 
 #: bin/mudur.py:1203
-#, fuzzy
 msgid "Failed to synchronize clocks"
 msgstr "Errore nella sincronizzazione degli orologi"
 
@@ -260,7 +258,6 @@ msgid "Unmounting filesystems"
 msgstr "Smontaggio dei filesystem"
 
 #: bin/mudur.py:1263
-#, fuzzy
 msgid "Remounting remaining filesystems read-only"
 msgstr "Rimontaggio dei filesystem rimanenti in sola lettura"
 
@@ -287,7 +284,6 @@ msgstr ""
 "esecuzione"
 
 #: bin/mudur.py:1469
-#, fuzzy
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 "Tentativo di avviare un riavvio a caldo (saltando il BIOS con kexec kernel)"
@@ -333,19 +329,19 @@ msgid "Description"
 msgstr "Descrizione"
 
 #: bin/service.py:147 bin/service.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start %s:"
-msgstr "Impossibile attivare l'interfaccia %s"
+msgstr "Impossibile avviare %s"
 
 #: bin/service.py:170
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to stop %s:"
-msgstr "Impossibile attivare l'interfaccia %s"
+msgstr "Impossibile fermare %s:"
 
 #: bin/service.py:183
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to set %s state:"
-msgstr "Impossibile attivare l'interfaccia %s"
+msgstr "Impossibile impostare lo stato %"
 
 #: bin/service.py:188
 #, python-format
@@ -358,41 +354,37 @@ msgid "Service '%s' won't be auto started."
 msgstr "Il servizio '%s' non verrà avviato automaticamente."
 
 #: bin/service.py:192
-#, fuzzy, python-format
+#, python-format
 msgid "Service '%s' will be started if required."
-msgstr "Il servizio '%s' verrà avviato automaticamente."
+msgstr "Il servizio '%s' verrà avviato se necessario."
 
 #: bin/service.py:201
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to reload %s:"
-msgstr "Impossibile attivare l'interfaccia %s"
+msgstr "Impossibile ricaricare %s"
 
 #: bin/service.py:205
-#, fuzzy, python-format
+#, python-format
 msgid "Reloading %s"
-msgstr "Riavvio in corso..."
+msgstr "Riavvio di %s in corso..."
 
 #: bin/service.py:259
 msgid "You must be root to use that."
-msgstr ""
+msgstr "Devi essere root per eseguire questa azione."
 
 #: bin/service.py:278
-#, fuzzy
 msgid "Unable to start DBus"
-msgstr "Impossibile attivare l'interfaccia %s"
+msgstr "Impossibile avviare DBus"
 
 #: bin/service.py:292
-#, fuzzy
 msgid "DBus is not running."
 msgstr "DBus non è in esecuzione."
 
 #: bin/service.py:294
-#, fuzzy
 msgid "DBus is running."
 msgstr "Dbus è in esecuzione."
 
 #: bin/service.py:299
-#, fuzzy
 msgid ""
 "usage: service [<options>] [<service>] <command>\n"
 "where command is:\n"
@@ -409,7 +401,7 @@ msgid ""
 " -N, --no-color  Don't use color in output\n"
 " -q, --quiet     Don't print replies"
 msgstr ""
-"utilizzo: service [<opzioni>] [<servizio>] <comando>\n"
+"utilizzo: servizio [<opzioni>] [<servizio>] <comando>\n"
 "dove comando è:\n"
 " list     Mostra la lista dei servizi\n"
 " status   Mostra lo stato dei servizi\n"
@@ -422,12 +414,13 @@ msgstr ""
 " reload   Ricarica la configurazione (se il servizio supporta questa "
 "funzione)\n"
 "e le opzioni sono:\n"
-" -N, --no-color  Non utilizzare colori in output"
+" -N, --no-color  Non utilizzare colori in output "
+" -q, --quiet Non mostrare avvisi"
 
 #: bin/service.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "No such service: %s"
-msgstr "Questo servizio non esiste."
+msgstr "Questo servizio ( %s ) non esiste."
 
 #~ msgid "Mounting /dev"
 #~ msgstr "Montaggio /dev"
