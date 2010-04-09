@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-16 16:48+0200\n"
-"PO-Revision-Date: 2010-02-04 21:32+0100\n"
+"PO-Revision-Date: 2010-04-09 20:46+0200\n"
 "Last-Translator: Antoon Tolboom <atolboo@gmail.com>\n"
-"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,7 +42,7 @@ msgstr "Kan unicode modus niet instellen op tty %d"
 
 #: bin/mudur.py:538
 msgid "Networking backend is set to NetworkManager"
-msgstr ""
+msgstr "Networkingbackend is ingesteld in netwerkbeheer"
 
 #: bin/mudur.py:559
 #, python-format
@@ -358,9 +358,9 @@ msgid "Unable to reload %s:"
 msgstr "Kan %s niet herladen:"
 
 #: bin/service.py:205
-#, fuzzy, python-format
+#, python-format
 msgid "Reloading %s"
-msgstr "Opstarten %s"
+msgstr "Herladen %s"
 
 #: bin/service.py:259
 msgid "You must be root to use that."
