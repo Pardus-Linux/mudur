@@ -1,3 +1,6 @@
+2010-04-09  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: pylint fixes
+
 2010-03-16  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/service.py: Fix UI message when reloading a service.
 
