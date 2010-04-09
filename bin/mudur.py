@@ -277,6 +277,7 @@ class Config:
             time.sleep(3)
 
     def get_fstab_entry_with_mountpoint(self, mountpoint):
+        """Returns the /etc/fstab entry which corresponds to the given mountpoint."""
         if not self.fstab:
             data = load_file("/etc/fstab", True).split("\n")
             self.fstab = map(lambda x: x.split(), data)
@@ -1061,15 +1062,12 @@ def autoload_modules():
         import glob
         for _file in glob.glob("/etc/modules.autoload.d/kernel-%s*" % config.kernel[0]):
             data = load_file(_file, True).split("\n")
-            for mod in data:
-                run("/sbin/modprobe", "-q", "-b", mod)
+            for module in data:
+                run("/sbin/modprobe", "-q", "-b", module)
 
 def set_disk_parameters():
     """Sets disk parameters if hdparm is available."""
-    if config.get("safe"):
-        return
-
-    if not os.path.exists("/sbin/hdparm") or not os.path.exists("/etc/conf.d/hdparm"):
+    if config.get("safe") or not os.path.exists("/etc/conf.d/hdparm"):
         return
 
     conf = load_config("/etc/conf.d/hdparm")
@@ -1079,12 +1077,9 @@ def set_disk_parameters():
             for name in os.listdir("/sys/block/"):
                 if name.startswith("hd") and len(name) == 3 and not conf.has_key(name):
                     run_quiet("/sbin/hdparm", "%s" % conf["all"].split(), "/dev/%s" % name)
-        for key in conf:
+        for key, value in conf:
             if key != "all":
-                args = ["/sbin/hdparm"]
-                args.extend(conf[key].split())
-                args.append("/dev/%s" % key)
-                run_quiet(*args)
+                run_quiet("/sbin/hdparm", "%s" % value.split(), "/dev/%s" % name)
 
 
 ################
