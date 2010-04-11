@@ -1,7 +1,7 @@
 # translation of fr.po to French
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Amine Chadly <amine.chadly@gmail.com>, 2007, 2008.
 # Philippe Svetoslavsky <philsvet@gmail.com>, 2009, 2010.
 msgid ""
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: bin/mudur.py:206
 msgid "Cannot write mudur.log, read-only file system"
@@ -40,8 +40,9 @@ msgid "Could not set unicode mode on tty %d"
 msgstr "Impossible d'établir le mode unicode sur le terminal (tty) %d"
 
 #: bin/mudur.py:538
+#, fuzzy
 msgid "Networking backend is set to NetworkManager"
-msgstr ""
+msgstr "Le backend réseau est fixé à NetworkManager"
 
 #: bin/mudur.py:559
 #, python-format
@@ -94,8 +95,7 @@ msgstr "Arrêt de %s"
 
 #: bin/mudur.py:780
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
-"Impossible de déplacer les règles persistentes de udev à partir de /dev/.udev"
+msgstr "Impossible de déplacer les règles persistentes de udev à partir de /dev/.udev"
 
 #: bin/mudur.py:804
 msgid "Starting udev"
@@ -115,8 +115,7 @@ msgstr "Échec de la suppression du fichier verrou périmé /etc/mtab~"
 
 #: bin/mudur.py:864
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
-"/etc/fstab ne contient pas d'entrée pour la racine du système de fichiers"
+msgstr "/etc/fstab ne contient pas d'entrée pour la racine du système de fichiers"
 
 #: bin/mudur.py:870
 msgid "Remounting root filesystem read-only"
@@ -124,9 +123,7 @@ msgstr "Remontage de la racine du système de fichers (root) en lecture seule"
 
 #: bin/mudur.py:875
 msgid "Checking root filesystem (full check forced)"
-msgstr ""
-"Vérification de la racine du système de fichiers (vérification complète "
-"forcée)"
+msgstr "Vérification de la racine du système de fichiers (vérification complète forcée)"
 
 #: bin/mudur.py:881
 msgid "Checking root filesystem"
@@ -134,8 +131,7 @@ msgstr "Vérification de la racine du système de fichier"
 
 #: bin/mudur.py:890
 msgid "Filesystem repaired, but reboot needed!"
-msgstr ""
-"Le système de fichiers a été réparé, mais un redémarrage est nécessaire !"
+msgstr "Le système de fichiers a été réparé, mais un redémarrage est nécessaire !"
 
 #: bin/mudur.py:894
 msgid "Rebooting in 10 seconds..."
@@ -151,9 +147,7 @@ msgstr "Le système de fichier n'a pas pu être réparé"
 
 #: bin/mudur.py:905
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr ""
-"Exemption de la vérification de la racine du système de fichiers (passno == "
-"0 dans fstab)"
+msgstr "Exemption de la vérification de la racine du système de fichiers (passno == 0 dans fstab)"
 
 #: bin/mudur.py:911
 msgid "Remounting root filesystem read/write"
@@ -166,10 +160,8 @@ msgid ""
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
 "La racine du système de fichiers n'a pas pu être montée en lecture/écriture\n"
-"   Vous pouvez soit vous identifier ci-dessous et vérifier manuellement "
-"votre système de fichiers OU\n"
-"   redémarrer votre PC, appuyer sur F3 et choisir 'Vérification du FS' dans "
-"le menu de démarrage\n"
+"   Vous pouvez soit vous identifier ci-dessous et vérifier manuellement votre système de fichiers OU\n"
+"   redémarrer votre PC, appuyer sur F3 et choisir 'Vérification du FS' dans le menu de démarrage\n"
 
 #: bin/mudur.py:927
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
@@ -189,9 +181,7 @@ msgstr "Erreurs des systèmes de fichiers corrigées"
 
 #: bin/mudur.py:970
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck n'a pu corriger toutes les erreurs, une réparation manuelle est "
-"nécessaire"
+msgstr "Fsck n'a pu corriger toutes les erreurs, une réparation manuelle est nécessaire"
 
 #: bin/mudur.py:978
 msgid "Mounting USB filesystem"
@@ -207,13 +197,11 @@ msgstr "Démarrage du service portmap pour NFS"
 
 #: bin/mudur.py:1003
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr ""
-"Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
+msgstr "Montage des systèmes de fichiers distants (CTRL-C annule les tentatives)"
 
 #: bin/mudur.py:1017
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Montage avorté avec CTRL-C, les partages distants ne seront pas accessibles !"
+msgstr "Montage avorté avec CTRL-C, les partages distants ne seront pas accessibles !"
 
 #: bin/mudur.py:1060
 #, python-format
@@ -246,8 +234,7 @@ msgstr "Mise de l'horloge système à l'heure du matériel"
 
 #: bin/mudur.py:1187
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Échec de l'ajustement du décalage systématique de l'horloge du matériel."
+msgstr "Échec de l'ajustement du décalage systématique de l'horloge du matériel."
 
 #: bin/mudur.py:1191
 msgid "Failed to set system clock to hardware clock"
@@ -270,12 +257,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Remontage en lecture seule des systèmes de fichiers restants"
 
 #: bin/mudur.py:1279
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.tr with "
-"following information:"
-msgstr ""
-"Une erreur interne est survenue. Veuillez reporter le bug à bugs.pardus.org."
-"tr avec l'information suivante s'il vous plaît : "
+msgid "An internal error occured. Please report to the bugs.pardus.org.tr with following information:"
+msgstr "Une erreur interne est survenue. Veuillez reporter le bug à bugs.pardus.org.tr avec l'information suivante s'il vous plaît : "
 
 #: bin/mudur.py:1396
 msgid "Setting up localhost"
@@ -287,13 +270,11 @@ msgstr "Mise à jour des variables d'environnement"
 
 #: bin/mudur.py:1430
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
-"Lancement des événements udev qui ont échoué lors d'un lancement précédent"
+msgstr "Lancement des événements udev qui ont échoué lors d'un lancement précédent"
 
 #: bin/mudur.py:1469
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Tente de faire un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
+msgstr "Tente de faire un redémarrage à chaud (esquive du BIOS avec kexec kernel)."
 
 #: bin/service.py:60
 msgid "local"
@@ -438,8 +419,7 @@ msgstr "Service inconnu: %s"
 #~ msgstr "Montage de /dev/pts "
 
 #~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr ""
-#~ "Le système de fichier racine n'a pas pu être monté en lecture/écriture"
+#~ msgstr "Le système de fichier racine n'a pas pu être monté en lecture/écriture"
 
 #~ msgid "Starting DBus..."
 #~ msgstr "Démarrage de DBus..."
