@@ -1,7 +1,7 @@
 # translation of tr.po to
 # Copyright (C) 2006-2009
 # This file is distributed under the same license as the mudur package.
-#
+# 
 # Görkem Çetin <gorkem@pardus.org.tr>, 2006.
 # Ozan Çağlayan <ozan@pardus.org.tr>, 2008.
 # Necmettin Begiter <necmettin.begiter@gmail.com>, 2009.
@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 0.3\n"
 
 #: bin/mudur.py:206
 msgid "Cannot write mudur.log, read-only file system"
@@ -33,7 +33,7 @@ msgstr "/etc/pardus-release dosyası bulunamadı"
 
 #: bin/mudur.py:457
 msgid "/etc/env.d/03locale cannot be updated"
-msgstr ""
+msgstr "/etc/env.d/03locale güncelleştirilemez"
 
 #: bin/mudur.py:485
 #, python-format
@@ -42,7 +42,7 @@ msgstr "tty %d unicode kipine geçirilemedi"
 
 #: bin/mudur.py:538
 msgid "Networking backend is set to NetworkManager"
-msgstr ""
+msgstr "Ağ arkaucu NetworkManager olarak ayarlı"
 
 #: bin/mudur.py:559
 #, python-format
@@ -161,8 +161,7 @@ msgid ""
 msgstr ""
 "Kök dosya sistemi yazılır/okunur olarak bağlanamadı\n"
 "   Sisteme giriş yapıp el ile dosya sistemlerinizi denetleyebilir VEYA\n"
-"   bilgisayarınızı baştan başlatıp, açılış menüsünde F3'e basıp 'Diski "
-"onar'\n"
+"   bilgisayarınızı baştan başlatıp, açılış menüsünde F3'e basıp 'Diski onar'\n"
 "   seçeneğini kullanabilirsiniz\n"
 
 #: bin/mudur.py:927
@@ -183,8 +182,7 @@ msgstr "Dosya sistemindeki hatalar düzeltildi"
 
 #: bin/mudur.py:970
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck tüm hataları düzeltemedi. Düzeltme işleminin elle yapılması gerekiyor"
+msgstr "Fsck tüm hataları düzeltemedi. Düzeltme işleminin elle yapılması gerekiyor"
 
 #: bin/mudur.py:978
 msgid "Mounting USB filesystem"
@@ -260,12 +258,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Kalan dosya sistemleri salt okunur olarak yeniden bağlanıyor"
 
 #: bin/mudur.py:1279
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.tr with "
-"following information:"
-msgstr ""
-"Bir iç hata oluştu. Lütfen bu hatayı aşağıdaki çıktıları da ekleyerek http://"
-"hata.pardus.org.tr adresine bildirin."
+msgid "An internal error occured. Please report to the bugs.pardus.org.tr with following information:"
+msgstr "Bir iç hata oluştu. Lütfen bu hatayı aşağıdaki çıktıları da ekleyerek http://hata.pardus.org.tr adresine bildirin."
 
 #: bin/mudur.py:1396
 msgid "Setting up localhost"
@@ -281,8 +275,7 @@ msgstr "Daha önce başarısız olan udev olayları tekrar tetikleniyor"
 
 #: bin/mudur.py:1469
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Sistem BIOS'u (kexec çekirdeğiyle) atlanarak hızlı yeniden başlatma deneniyor"
+msgstr "Sistem BIOS'u (kexec çekirdeğiyle) atlanarak hızlı yeniden başlatma deneniyor"
 
 #: bin/service.py:60
 msgid "local"
