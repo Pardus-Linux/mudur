@@ -76,7 +76,6 @@ msgid "Cannot start system logger"
 msgstr "Sistem günlük hizmeti başlatılamadı"
 
 #: bin/mudur.py:668
-#, fuzzy
 msgid "Starting services"
 msgstr "Servisler başlatılıyor"
 
