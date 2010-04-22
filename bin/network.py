@@ -277,6 +277,28 @@ def createProfile():
             net_gateway = getInput("Gateway")
             settings.append(("net", ("manual", net_address, net_mask, net_gateway)))
 
+    # DNS
+    if "net" in modes:
+        print
+        print colorize("Select Name server (DNS) assignment method:", "yellow")
+        print "  [1] Use default name servers"
+        print "  [2] Enter an name server address manually"
+        if auto:
+            print "  [3] Automatically obtain from DHCP"
+            dns = getNumber("Type", 1, 3)
+        else:
+            dns = getNumber("Type", 1, 2)
+        if dns == 1:
+            dns_mode = "default"
+            dns_address = ""
+        elif dns == 2:
+            dns_mode = "manual"
+            dns_address = getInput("Address")
+        elif dns == 3:
+            dns_mode = "auto"
+            dns_address = ""
+        settings.append(("dns", (dns_mode, dns_address)))
+
     # Get name and create it
     profile = None
     profiles = link.Network.Link[package].connections()
@@ -303,6 +325,9 @@ def createProfile():
             elif key == "net":
                 mode_, address_, mask_, gateway_ = value
                 link.Network.Link[package].setAddress(profile, mode_, address_, mask_, gateway_)
+            elif key == "dns":
+                mode_, address_ = value
+                link.Network.Link[package].setNameService(profile, mode_, address_)
     except dbus.DBusException, e:
         print e
         return 1
