@@ -20,7 +20,7 @@ msgstr ""
 
 #: bin/mudur.py:206
 msgid "Cannot write mudur.log, read-only file system"
-msgstr "Impossible d'écrire mudur.log, système de fichier en lecture seule"
+msgstr "Impossible d'écrire dans mudur.log, système de fichier en lecture seule"
 
 #: bin/mudur.py:362
 msgid "Safe Mode"
@@ -389,7 +389,7 @@ msgid ""
 " -N, --no-color  Don't use color in output\n"
 " -q, --quiet     Don't print replies"
 msgstr ""
-"utilisation : service [<options>] [<service>] <commande>\n"
+"Mode d'emploi : service [<options>] [<service>] <commande>\n"
 "où commande peut être au choix :\n"
 " list     Affiche la liste des services\n"
 " status   Affiche le statut d'un service\n"
