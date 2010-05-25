@@ -790,6 +790,7 @@ def start_udev():
         create_directory("/dev/pts")
         mount("/dev/pts", "-t devpts -o gid=5,mode=0620 devpts /dev/pts")
 
+    # FIXME: The following is now handled within udev >= 155
     # Copy over initial device nodes from /lib/udev/devices
     run_quiet("/bin/cp", "-axT", "--remove-destination",
               "/lib/udev/devices", "/dev")
