@@ -1,6 +1,7 @@
 2010-06-08  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py (start_udev): Drop copying of devices which is now handled
 	by udev >= 155.
+	* setup.py: Bump to 4.0 for 2011.
 
 2010-04-09  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: pylint fixes
