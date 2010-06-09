@@ -1,4 +1,5 @@
 2010-06-08  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Drop all deprecated and backward-compatibility stuff.
 	* bin/mudur.py (start_udev): Drop copying of devices which is now handled
 	by udev >= 155.
 	* setup.py: Bump to 4.0 for 2011.
