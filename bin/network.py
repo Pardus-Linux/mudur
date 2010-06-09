@@ -49,6 +49,7 @@ def printUsage():
     print "    connections     Show connections"
     print "    devices         Show devices"
     print "    create          Create profile"
+    print "    edit            Edit profile"
     print "    delete          Delete profile"
     print "    up <profile>    Bring profile up"
     print "    down <profile>  Bring profile down"
@@ -76,23 +77,33 @@ def getNumber(label, min_, max_):
             sys.exit(1)
     return index_
 
-def printConnections():
+def printConnections(numbered=True):
+    _index = 1
+    profiles = []
     for package in link.Network.Link:
         info = link.Network.Link[package].linkInfo()
-        profiles = link.Network.Link[package].connections()
-        if len(profiles) > 0:
-            maxstringlen = max([len(l) for l in profiles])
+        _profiles = link.Network.Link[package].connections()
+        if len(_profiles) > 0:
+            maxstringlen = max([len(l) for l in _profiles])
             print colorize("%s profiles" % info["name"], 'green')
-            for profile in profiles:
+            for profile in _profiles:
                 profileInfo = link.Network.Link[package].connectionInfo(profile)
                 devname = profileInfo["device_name"].split(" - ")[0]
-                stateInfo = link.Network.Link[package].getState(profile)
-                if stateInfo.startswith("up"):
-                    stateMark = "X"
+                if numbered:
+                    stateMark = _index.__str__()
                 else:
-                    stateMark = " "
-                print "[%s]  %s%s    [%s]" % (colorize(stateMark, 'green'), colorize(profile, 'cyan'), (' ' * (maxstringlen-len(profile))), devname)
-    return 0
+                    stateInfo = link.Network.Link[package].getState(profile)
+                    if stateInfo.startswith("up"):
+                        stateMark = colorize("X", "green")
+                    else:
+                        stateMark = " "
+                print "  [%s] %s%s    [%s]" % (stateMark, colorize(profile, "cyan"), (' ' * (maxstringlen-len(profile))), devname)
+                profiles.append((package, profile, ))
+                _index += 1
+    if numbered:
+        return profiles
+    else:
+        return 0
 
 def printDevices():
     for package in link.Network.Link:
@@ -153,12 +164,20 @@ def getDevice(package):
     devNo = getNumber("Device", 1, len(devices)) - 1
     return devices[devNo]
 
+def getDeviceModes(package):
+    device_modes = {}
+    for modeName, modeDesc in link.Network.Link[package].deviceModes():
+        device_modes[modeName] = modeDesc
+    return device_modes
+
 def getDeviceMode(package):
+    deviceModes = getDeviceModes(package)
     device_modes = []
     index_ = 1
     print
     print colorize("Select device mode:", "yellow")
-    for modeName, modeDesc  in link.Network.Link[package].deviceModes():
+    for modeName in deviceModes:
+        modeDesc = deviceModes[modeName]
         print "  [%s] %s" % (index_, modeDesc)
         device_modes.append(modeName)
         index_ += 1
@@ -214,6 +233,42 @@ def getAuthSettings(package, auth):
             value = getInput(paramDesc)
             settings.append((paramName, value,))
     return settings
+
+def getProfileName(package, old_name=None):
+    profile = None
+    profiles = link.Network.Link[package].connections()
+    print
+    while not profile:
+        profile = getInput("Profile name").strip()
+        if not profile == old_name:
+            if profile in profiles:
+                print "There is already a profile named '%s'" % profile
+                print
+                profile = None
+    return profile
+
+def saveSettings(package, profile, settings):
+    try:
+        for key, value in settings:
+            if key == "device":
+                link.Network.Link[package].setDevice(profile, value)
+            elif key == "device_mode":
+                link.Network.Link[package].setDeviceMode(profile, value)
+            elif key == "remote":
+                link.Network.Link[package].setRemote(profile, value)
+            elif key == "auth":
+                link.Network.Link[package].setAuthMethod(profile, value)
+            elif key.startswith("auth_"):
+                link.Network.Link[package].setAuthParameters(profile, key[5:], value)
+            elif key == "net":
+                mode_, address_, mask_, gateway_ = value
+                link.Network.Link[package].setAddress(profile, mode_, address_, mask_, gateway_)
+            elif key == "dns":
+                mode_, address_ = value
+                link.Network.Link[package].setNameService(profile, mode_, address_)
+    except dbus.DBusException, e:
+        print e
+        return 1
 
 def createProfile():
     settings = []
@@ -300,58 +355,143 @@ def createProfile():
         settings.append(("dns", (dns_mode, dns_address)))
 
     # Get name and create it
-    profile = None
-    profiles = link.Network.Link[package].connections()
-    print
-    while not profile:
-        profile = getInput("Profile name").strip()
-        if profile in profiles:
-            print "There is already a profile named '%s'" % profile
-            print
-            profile = None
-
-    try:
-        for key, value in settings:
-            if key == "device":
-                link.Network.Link[package].setDevice(profile, value)
-            elif key == "device_mode":
-                link.Network.Link[package].setDeviceMode(profile, value)
-            elif key == "remote":
-                link.Network.Link[package].setRemote(profile, value)
-            elif key == "auth":
-                link.Network.Link[package].setAuthMethod(profile, value)
-            elif key.startswith("auth_"):
-                link.Network.Link[package].setAuthParameters(profile, key[5:], value)
-            elif key == "net":
-                mode_, address_, mask_, gateway_ = value
-                link.Network.Link[package].setAddress(profile, mode_, address_, mask_, gateway_)
-            elif key == "dns":
-                mode_, address_ = value
-                link.Network.Link[package].setNameService(profile, mode_, address_)
-    except dbus.DBusException, e:
-        print e
+    profile = getProfileName(package)
+    if saveSettings(package, profile, settings) == 1:
         return 1
     return 0
 
-def deleteProfile():
-    _index = 1
-    profiles = []
-    for package in link.Network.Link:
-        _profiles = link.Network.Link[package].connections()
-        if len(_profiles) > 0:
-            maxstringlen = max([len(l) for l in _profiles])
-            info = link.Network.Link[package].linkInfo()
-            print colorize("%s profiles" % info["name"], 'green')
+def editProfile():
+    profiles = printConnections()
+    package, profile = profiles[getNumber("Edit", 1, len(profiles)) - 1]
 
-            for profile in _profiles:
-                profileInfo = link.Network.Link[package].connectionInfo(profile)
-                devname = profileInfo["device_name"].split(" - ")[0]
+    # Get backend info
+    info = link.Network.Link[package].linkInfo()
+    modes = info["modes"].split(",")
 
-                print "  [%d] %s%s    [%s]" % (_index, profile, (' '*(maxstringlen-len(profile))), devname)
-                profiles.append((package, profile, ))
+    settings = []
+    changing = True
+    while changing:
+        profileInfo = link.Network.Link[package].connectionInfo(profile)
+        devname = profileInfo["device_name"].split(" - ")[0]
+        devmodes = getDeviceModes(package)
+        print
+        print colorize("Select an option:", "yellow")
+
+        _index = 1
+        if "device" in modes:
+            print "  [%d] Change device: %s" % (_index, devname)
+            _index += 1
+            if "device_mode" in modes:
+                print "  [%d] Change device mode: %s" % (_index, devmodes[profileInfo["device_mode"]])
                 _index += 1
+        if "remote" in modes:
+            print "  [%d] Change remote: %s" % (_index, profileInfo["remote"])
+            _index += 1
+        if "auth" in modes:
+            print "  [%d] Change auth" % _index
+            _index += 1
+        if "net" in modes:
+            netModes = {"manual": "Manual (%s)" % profileInfo["net_address"], "auto": "Automatic"}
+            print "  [%d] Change IP assignment method: %s" % (_index, netModes[profileInfo["net_mode"]])
+            _index += 1
+        if "net" in modes:
+            dnsMethods = {"default": "Default", "custom": "Manual (%s)" % profileInfo["name_server"], "auto": "Automatic"}
+            print "  [%d] Change name server (DNS) assignment method: %s" % (_index, dnsMethods[profileInfo["name_mode"]])
+            _index += 1
+        print "  [%d] Change profile name: %s" % (_index, profile)
+        _index += 1
+        print "  [%d] Finish editing" % _index
+        _option = getNumber("Option", 1, _index)
 
-    package, profile = profiles[getNumber("Delete", 1, _index - 1) - 1]
+        # Select device
+        _index = 1
+        if "device" in modes:
+            if _option == _index:
+                device = getDevice(package)
+                print device
+                if device == -1:
+                    # Backend provides no device
+                    return 1
+                settings.append(("device", device))
+            _index += 1
+            # Select device mode
+            if "device_mode" in modes:
+                if _option == _index:
+                    deviceMode = getDeviceMode(package)
+                    settings.append(("device_mode", deviceMode))
+                _index += 1
+        # Remote
+        if "remote" in modes:
+            if _option == _index:
+                if "remote_scan" in modes and "device" in modes:
+                    device = profileInfo["device_id"]
+                    remote = getRemote(package, device)
+                else:
+                    print
+                    remote = getInput("Enter Remote")
+                settings.append(("remote", remote))
+            _index += 1
+        # Authentication
+        if "auth" in modes:
+            if _option == _index:
+                auth = getAuth(package)
+                settings["auth"] =  auth,
+                if auth:
+                    for key, value in getAuthSettings(package, auth):
+                        settings.append(("auth_%s" % key, value,))
+            _index += 1
+        # Address
+        if "net" in modes:
+            if _option == _index:
+                print
+                print colorize("Select IP assignment method:", "yellow")
+                auto = False
+                if "auto" in modes:
+                    print "  [1] Enter an IP address manually"
+                    print "  [2] Automatically obtain an IP address"
+                    auto = getNumber("Type", 1, 2) == 2
+                if auto:
+                    settings.append(("net", ("auto", "", "", "")))
+                else:
+                    net_address = getInput("Address")
+                    net_mask = getInput("Mask")
+                    net_gateway = getInput("Gateway")
+                    settings.append(("net", ("manual", net_address, net_mask, net_gateway)))
+            _index += 1
+        # DNS
+        if "net" in modes:
+            if _option == _index:
+                auto = profileInfo["net_mode"] == "auto"
+                print colorize("Select Name server (DNS) assignment method:", "yellow")
+                print "  [1] Use default name servers"
+                print "  [2] Enter an name server address manually"
+                if auto:
+                    print "  [3] Automatically obtain from DHCP"
+                    dns = getNumber("Type", 1, 3)
+                else:
+                    dns = getNumber("Type", 1, 2)
+                if dns == 1:
+                    dns_mode = "default"
+                    dns_address = ""
+                elif dns == 2:
+                    dns_mode = "manual"
+                    dns_address = getInput("Address")
+                elif dns == 3:
+                    dns_mode = "auto"
+                    dns_address = ""
+                settings.append(("dns", (dns_mode, dns_address)))
+            _index += 1
+        if _option == _index:
+            profile = getProfileName(package, profile)
+        elif _option == _index+1:
+            changing = False
+        if saveSettings(package, profile, settings) == 1:
+            return 1
+    return 0
+
+def deleteProfile():
+    profiles = printConnections()
+    package, profile = profiles[getNumber("Delete", 1, len(profiles)) - 1]
     link.Network.Link[package].deleteConnection(profile)
     return 0
 
@@ -383,11 +523,13 @@ def main():
         sys.argv.remove("--no-color")
 
     if command == "connections":
-        return printConnections()
+        return printConnections(False)
     elif command == "devices":
         return printDevices()
     elif command == "create":
         return createProfile()
+    elif command == "edit":
+        return editProfile()
     elif command == "delete":
         return deleteProfile()
     elif command in ("up", "down"):
