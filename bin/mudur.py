@@ -566,109 +566,13 @@ def get_service_list(bus, _all=False):
         return enabled.union(conditional).intersection(set(services))
 
 def start_network():
-    """Sets up network connections using Pardus' own network backend if any."""
-    try:
-        # This is shipped with NetworkManager, check if it is the default
-        if eval(load_config("/etc/conf.d/NetworkManager")\
-                .get("DEFAULT", "False")):
-            ui.info(_("Networking backend is set to NetworkManager"))
-            return
-    except IOError:
-        # File not available, go on with our backend
-        pass
-
-    import dbus
-    import comar
-
-    # Remove unnecessary lock files - bug #7212
-    for _file in os.listdir("/etc/network"):
-        if _file.startswith("."):
-            os.unlink(os.path.join("/etc/network", _file))
+    """Sets up network connections."""
 
     # Remote mount required?
     need_remount = mount_remote_filesystems(dry_run=True)
 
-    link = comar.Link()
-
-    def interface_up(pkg, name, info):
-        """Brings up the given interface."""
-        ifname = info["device_id"].split("_")[-1]
-        ui.info((_("Bringing up %s") + ' (%s)') % (ui.colorize("light", ifname),
-                ui.colorize("cyan", name)))
-        if need_remount:
-            try:
-                link.Network.Link[pkg].setState(name, "up")
-            except dbus.DBusException:
-                ui.error((_("Unable to bring up %s") + ' (%s)') \
-                        % (ifname, name))
-                return False
-        else:
-            link.Network.Link[pkg].setState(name, "up", quiet=True)
-        return True
-
-    def interface_down(pkg, name):
-        """Brings down the given interface."""
-        try:
-            link.Network.Link[pkg].setState(name, "down", quiet=True)
-        except dbus.DBusException:
-            pass
-
-    def get_connections(pkg):
-        """Returns a list of connections."""
-        connections = {}
-        try:
-            for con in link.Network.Link[pkg].connections():
-                connections[con] = link.Network.Link[pkg].connectionInfo(con)
-        except dbus.DBusException:
-            pass
-        return connections
-
-    try:
-        pkgs = list(link.Network.Link)
-    except dbus.DBusException:
-        pkgs = []
-
-    for pkg in pkgs:
-        try:
-            link_info = link.Network.Link[pkg].linkInfo()
-        except dbus.DBusException:
-            continue
-        if link_info["type"] == "net":
-            for name, info in get_connections(pkg).iteritems():
-                if info.get("state", "down").startswith("up"):
-                    interface_up(pkg, name, info)
-                else:
-                    interface_down(pkg, name)
-        elif link_info["type"] == "wifi":
-            # Scan remote access points
-            devices = {}
-            try:
-                for device_id in link.Network.Link[pkg].deviceList():
-                    devices[device_id] = []
-                    for point in link.Network.Link[pkg].scanRemote(device_id):
-                        devices[device_id].append(unicode(point["remote"]))
-            except dbus.DBusException:
-                continue
-            # Try to connect last connected profile
-            skip = False
-            for name, info in get_connections(pkg).iteritems():
-                if info.get("state", "down").startswith("up") \
-                        and info.get("device_id", None) in devices \
-                        and info["remote"] in devices[info["device_id"]]:
-                    interface_up(pkg, name, info)
-                    skip = True
-                    break
-            # There's no last connected profile, try to connect other profiles
-            if not skip:
-                # Reset connection states
-                for name, info in get_connections(pkg).iteritems():
-                    interface_down(pkg, name)
-                # Try to connect other profiles
-                for name, info in get_connections(pkg).iteritems():
-                    if info.get("device_id", None) in devices \
-                            and info["remote"] in devices[info["device_id"]]:
-                        interface_up(pkg, name, info)
-                        break
+    # Start NetworkManager
+    manage_service("NetworkManager", "start")
 
     if need_remount:
         from pardus.netutils import waitNet as wait_for_network

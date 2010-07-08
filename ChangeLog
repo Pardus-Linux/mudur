@@ -1,3 +1,7 @@
+2010-07-08  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Drop support for COMAR based network management, start
+	NetworkManager in start_network().
+
 2010-06-08  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Drop all deprecated and backward-compatibility stuff.
 	* bin/mudur.py (start_udev): Drop copying of devices which is now handled
