@@ -1148,7 +1148,7 @@ def stop_system():
         ents = map(lambda x: x.split(), ents)
         ents = filter(lambda x: len(x) > 2, ents)
         # not the virtual systems
-        vfs = ["proc", "devpts", "sysfs", "devfs", "tmpfs", "usbfs", "usbdevfs"]
+        vfs = ["proc", "devpts", "sysfs", "devfs", "devtmpfs", "tmpfs", "usbfs", "usbdevfs"]
         ents = filter(lambda x: not x[2] in vfs, ents)
         ents = filter(lambda x: x[0] != "none", ents)
         # not the root stuff
