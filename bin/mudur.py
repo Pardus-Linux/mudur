@@ -56,12 +56,12 @@ def wait_bus(unix_name, timeout=5, wait=0.1, stream=True):
 
 def load_file(path, ignore_comments=False):
     """Reads the contents of a file and returns it."""
+    data = ""
     try:
         with open(path, "r") as _file:
             data = _file.read()
     except IOError:
         return ""
-    data = ""
     if ignore_comments:
         data = filter(lambda x: not (x.startswith("#") or x == ""), data)
     return data
