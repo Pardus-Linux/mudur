@@ -1332,10 +1332,7 @@ def main():
         # time of the relevant files
         if mdirtime("/etc/env.d") > mtime("/etc/profile.env"):
             ui.info(_("Updating environment variables"))
-            if config.get("live"):
-                run("/sbin/update-environment", "--live")
-            else:
-                run("/sbin/update-environment")
+            run("/sbin/update-environment")
 
         # Cleanup /tmp
         cleanup_tmp()
