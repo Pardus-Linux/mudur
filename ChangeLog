@@ -1,3 +1,6 @@
+2010-09-14  Ozan Çağlayan <ozan@pardus.org.tr>
+	* bin/mudur.py: Switch from sysklogd to rsyslog.
+
 2010-07-08  Ozan Çağlayan <ozan@pardus.org.tr>
 	* bin/mudur.py: Drop support for COMAR based network management, start
 	NetworkManager in start_network().

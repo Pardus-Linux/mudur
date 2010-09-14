@@ -611,7 +611,7 @@ def start_services(extras=None):
             ui.error(_("Unable to start network:\n  %s") % error)
 
         # Almost everything depends on logger, so start manually
-        manage_service("sysklogd", "start")
+        manage_service("rsyslog", "start")
         if not wait_bus("/dev/log", stream=False, timeout=15):
             ui.warn(_("Cannot start system logger"))
 
@@ -619,9 +619,9 @@ def start_services(extras=None):
             ui.info(_("Starting services"))
             services = get_service_list(bus)
 
-            # Remove redundant sysklogd
-            if "sysklogd" in services:
-                services.remove("sysklogd")
+            # Remove redundant rsyslog
+            if "rsyslog" in services:
+                services.remove("rsyslog")
 
             # Give login screen a headstart
             head_start = config.get("head_start")
