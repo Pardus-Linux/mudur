@@ -319,7 +319,7 @@ class Plymouth:
         self.client = "/bin/plymouth"
         self.daemon = "/sbin/plymouthd"
         self.available = os.path.exists(self.client)
-        self.running = self.available and not self.send_cmd("--ping")
+        self.running = self.available and not run_quiet(self.client, "--ping")
 
     def send_cmd(self, *cmd):
         """Send the client a command to pass to the daemon."""
@@ -328,7 +328,7 @@ class Plymouth:
 
     def start_daemon(self, mode):
         if self.available:
-            run_quiet(self.daemon, "--mode=%s" % mode)
+            run_quiet(self.daemon, "--tty=tty7", "--mode=%s" % mode)
 
     def silent(self):
         self.send_cmd("--show-splash")
