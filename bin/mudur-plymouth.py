@@ -317,12 +317,18 @@ class Plymouth:
     def __init__(self):
         """Plymouth constructor."""
         self.client = "/bin/plymouth"
-        self.enabled = os.path.exists(self.client) and not self.send_cmd("--ping")
+        self.daemon = "/sbin/plymouthd"
+        self.available = os.path.exists(self.client)
+        self.running = self.available and not self.send_cmd("--ping")
 
     def send_cmd(self, *cmd):
         """Send the client a command to pass to the daemon."""
-        if self.enabled:
+        if self.running:
             return run_quiet(self.client, *cmd)
+
+    def start_daemon(self, mode):
+        if self.available:
+            run_quiet(self.daemon, "--mode=%s" % mode)
 
     def silent(self):
         self.send_cmd("--show-splash")
@@ -386,7 +392,6 @@ class UI:
             logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.colors['green'],
                          self.colors['normal'], msg.encode("utf-8")))
-        splash.progress()
 
     def warn(self, msg):
         """Print the given message as a warning and log if debug enabled."""
@@ -537,7 +542,7 @@ def manage_service(service, command):
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler,
                      stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     logger.debug("%s service %s..done" % (command, service))
-    splash.progress(1)
+    splash.update(service)
 
 def get_service_list(bus, _all=False):
     """Requests and returns the list of system services through COMAR."""
@@ -717,8 +722,6 @@ def start_services(extras=None):
                 # Avoid users trying to login using VT
                 # because of the X startup delay.
                 time.sleep(1)
-
-            splash.update_progress(100)
 
         # Close the handle
         bus.close()
@@ -1218,13 +1221,6 @@ def stop_system():
     """Stops the system."""
     import shutil
 
-    stop_services()
-    stop_udev()
-    stop_dbus()
-    #stop_preload()
-    save_clock()
-    disable_swap()
-
     def get_fs_entry():
         ents = load_file("/proc/mounts").split("\n")
         ents = map(lambda x: x.split(), ents)
@@ -1241,6 +1237,22 @@ def stop_system():
         ents.sort(key=lambda x: x[1], reverse=True)
         return ents
 
+
+    stop_services()
+    splash.update("stop-services")
+
+    stop_udev()
+    splash.update("stop-udev")
+
+    stop_dbus()
+    splash.update("stop-dbus")
+
+    save_clock()
+    splash.update("hwclock-save")
+
+    disable_swap()
+    splash.update("swapoff")
+
     ui.info(_("Unmounting filesystems"))
     # write a reboot record to /var/log/wtmp before unmounting
     run("/sbin/halt", "-w")
@@ -1250,6 +1262,8 @@ def stop_system():
             run_quiet("/bin/fuser", "-k", "-9", "-m", dev[1])
             time.sleep(2)
             run_quiet("/bin/umount", "-f", "-r", dev[1])
+
+    splash.update("unmount")
 
     def remount_ro(force=False):
         ents = load_file("/proc/mounts").split("\n")
@@ -1262,6 +1276,7 @@ def stop_system():
             run("/bin/sync")
             run("/bin/sync")
             time.sleep(1)
+            splash.update("sync")
 
         ret = 0
         for ent in ents:
@@ -1274,13 +1289,15 @@ def stop_system():
         return ret
 
     ui.info(_("Remounting remaining filesystems read-only"))
-    splash.update_progress(0)
 
     # We parse /proc/mounts but use umount, so this have to agree
     shutil.copy("/proc/mounts", "/etc/mtab")
     if remount_ro():
+        splash.update("remount-ro")
         if remount_ro():
+            splash.update("remount-ro1")
             remount_ro(True)
+            splash.update("remount-ro2")
 
 ##################
 # Exception hook #
@@ -1328,15 +1345,11 @@ def main():
 
     ### SYSINIT ###
     if sys.argv[1] == "sysinit":
-
         # This is who we are...
         ui.greet()
 
         # Now we know which language and keymap to use
         set_console_parameters()
-
-        # Initialize bootsplash
-        splash.init(0)
 
         # Set kernel console log level for cleaner boot
         # only panic messages will be printed
@@ -1344,12 +1357,15 @@ def main():
 
         # Start udev and event triggering
         start_udev()
+        splash.update("udev")
 
         # Check root file system
         check_root_filesystem()
+        splash.update("fsck")
 
         # Mount root file system
         mount_root_filesystem()
+        splash.update("mount-rootfs")
 
         # Tell plymouthd about the rw remounted rootfs
         splash.sysinit()
@@ -1362,27 +1378,33 @@ def main():
 
         # Load modules manually written in /etc/modules.autoload.d/kernel-x.y
         autoload_modules()
+        splash.update("modules")
 
         # Check all filesystems
         check_filesystems()
+        splash.update("all-fsck")
 
         # Mount local filesystems
         mount_local_filesystems()
+        splash.update("local-fs")
 
         # Activate swap space
         enable_swap()
+        splash.update("swap")
 
         # Set disk parameters using hdparm
         set_disk_parameters()
 
         # Set the clock
         set_clock()
+        splash.update("hwclock")
 
         # Set the system language
         set_system_language()
 
         # Wait for udev events to finish
         run("/sbin/udevadm", "settle", "--timeout=60")
+        splash.update("settle")
 
         # When we exit this runlevel, init will write a boot record to utmp
         write_to_file("/var/run/utmp")
@@ -1395,7 +1417,7 @@ def main():
 
     ### BOOT ###
     elif sys.argv[1] == "boot":
-        splash.init(60)
+        splash.update("boot")
 
         ui.info(_("Setting up localhost"))
         run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
@@ -1415,16 +1437,18 @@ def main():
 
         # Cleanup /tmp
         cleanup_tmp()
+        splash.update("cleanup")
 
         # Start DBUS
         start_dbus()
+        splash.update("dbus")
 
         # Set unicode properties for ttys
         set_unicode_mode()
 
     ### DEFAULT ###
     elif sys.argv[1] == "default":
-        splash.init(75)
+        splash.update("default")
 
         # Trigger only the events which are failed during a previous run
         if os.path.exists("/dev/.udev/failed"):
@@ -1438,8 +1462,7 @@ def main():
 
         # Start services
         start_services()
-
-        splash.verbose()
+        splash.update("services")
 
     ### SINGLE ###
     elif sys.argv[1] == "single":
@@ -1447,7 +1470,7 @@ def main():
 
     ### REBOOT/SHUTDOWN ###
     elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
-        splash.init(90, False)
+        splash.start_daemon(mode="shutdown")
         splash.silent()
 
         # Log the operation before unmounting file systems
@@ -1456,8 +1479,6 @@ def main():
         # Source local.stop
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
             run("/bin/bash", "/etc/conf.d/local.stop")
-
-        splash.progress(40)
 
         # Stop the system
         stop_system()
