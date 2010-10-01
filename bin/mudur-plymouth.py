@@ -328,7 +328,7 @@ class Plymouth:
 
     def start_daemon(self, mode):
         if self.available:
-            run_quiet(self.daemon, "--tty=tty7", "--mode=%s" % mode)
+            self.running = not run_quiet(self.daemon, "--mode=%s" % mode)
 
     def silent(self):
         self.send_cmd("--show-splash")
@@ -341,6 +341,9 @@ class Plymouth:
 
     def sysinit(self):
         self.send_cmd("--sysinit")
+
+    def quit(self):
+        self.send_cmd("--quit")
 
 
 ############
@@ -1462,7 +1465,7 @@ def main():
 
         # Start services
         start_services()
-        splash.update("services")
+        splash.quit()
 
     ### SINGLE ###
     elif sys.argv[1] == "single":
@@ -1471,6 +1474,7 @@ def main():
     ### REBOOT/SHUTDOWN ###
     elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
         splash.start_daemon(mode="shutdown")
+        splash.sysinit()
         splash.silent()
 
         # Log the operation before unmounting file systems
