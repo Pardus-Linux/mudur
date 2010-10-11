@@ -237,6 +237,7 @@ class Config:
             "clock"         : "local",
             "clock_adjust"  : "no",
             "tty_number"    : "6",
+            "lxc_guest"     : "no",
             "keymap"        : None,
             "debug"         : True,
             "live"          : False,
@@ -1217,9 +1218,10 @@ def stop_system():
 
     stop_services()
     stop_dbus()
-    stop_udev()
-    save_clock()
-    disable_swap()
+    if config.get("lxc_guest") != "yes":
+        stop_udev()
+        save_clock()
+        disable_swap()
 
     def get_fs_entry():
         ents = load_file("/proc/mounts").split("\n")
@@ -1240,12 +1242,13 @@ def stop_system():
     ui.info(_("Unmounting filesystems"))
     # write a reboot record to /var/log/wtmp before unmounting
     run("/sbin/halt", "-w")
-    for dev in get_fs_entry():
-        if run_quiet("/bin/umount", dev[1]) != 0:
-            # kill processes still using this mount
-            run_quiet("/bin/fuser", "-k", "-9", "-m", dev[1])
-            time.sleep(2)
-            run_quiet("/bin/umount", "-f", "-r", dev[1])
+    if config.get("lxc_guest") != "yes":
+        for dev in get_fs_entry():
+            if run_quiet("/bin/umount", dev[1]) != 0:
+                # kill processes still using this mount
+                run_quiet("/bin/fuser", "-k", "-9", "-m", dev[1])
+                time.sleep(2)
+                run_quiet("/bin/umount", "-f", "-r", dev[1])
 
     def remount_ro(force=False):
         ents = load_file("/proc/mounts").split("\n")
@@ -1269,14 +1272,15 @@ def stop_system():
             run_quiet("killall5", "-9")
         return ret
 
-    ui.info(_("Remounting remaining filesystems read-only"))
-    splash.update_progress(0)
+    if config.get("lxc_guest") != "yes":
+        ui.info(_("Remounting remaining filesystems read-only"))
+        splash.update_progress(0)
 
-    # We parse /proc/mounts but use umount, so this have to agree
-    shutil.copy("/proc/mounts", "/etc/mtab")
-    if remount_ro():
+        # We parse /proc/mounts but use umount, so this have to agree
+        shutil.copy("/proc/mounts", "/etc/mtab")
         if remount_ro():
-            remount_ro(True)
+            if remount_ro():
+                remount_ro(True)
 
 ##################
 # Exception hook #
