@@ -1,0 +1,14 @@
+--- a/bin/mudur.py	2010-10-11 15:00:21.935684231 +0300
++++ i/bin/mudur.py	2010-10-11 15:01:15.555654067 +0300
+@@ -1441,7 +1441,10 @@
+         # time of the relevant files
+         if mdirtime("/etc/env.d") > mtime("/etc/profile.env"):
+             ui.info(_("Updating environment variables"))
+-            run("/sbin/update-environment")
++            if config.get("live"):
++                run("/sbin/update-environment", "--live")
++            else:
++                run("/sbin/update-environment")
+ 
+         # Cleanup /tmp
+         cleanup_tmp()
