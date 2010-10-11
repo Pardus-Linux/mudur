@@ -1216,8 +1216,8 @@ def stop_system():
     import shutil
 
     stop_services()
-    stop_udev()
     stop_dbus()
+    stop_udev()
     save_clock()
     disable_swap()
 
