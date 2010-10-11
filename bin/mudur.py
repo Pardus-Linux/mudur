@@ -29,6 +29,16 @@ import subprocess
 __trans = gettext.translation('mudur', fallback=True)
 _ = __trans.ugettext
 
+##############
+# Decorators #
+##############
+
+def skip_for_lxc_guests(function):
+    def wrapped():
+        if config.get("lxc_guest") == "no":
+            function()
+    return wrapped
+
 
 #######################
 # Convenience methods #
@@ -322,7 +332,7 @@ class Splash:
 
     def init(self, percent, increasing=True):
         """Initializes bootsplash through /proc/splash."""
-        if os.path.exists("/proc/splash"):
+        if config.get("lxc_guest") != "yes" and os.path.exists("/proc/splash"):
             self.enabled = get_kernel_option("splash").has_key("silent")
             self.increasing = increasing
             self.percent = percent
@@ -789,6 +799,18 @@ def stop_dbus():
 # UDEV management functions #
 #############################
 
+@skip_for_lxc_guests
+def wait_for_udev_events():
+    run("/sbin/udevadm", "settle", "--timeout=60")
+
+@skip_for_lxc_guests
+def trigger_failed_udev_events():
+    # Trigger only the events which are failed during a previous run
+    if os.path.exists("/dev/.udev/failed"):
+        ui.info(_("Triggering udev events which are failed during a previous run"))
+        run("/sbin/udevadm", "trigger", "--type=failed")
+
+@skip_for_lxc_guests
 def copy_udev_rules():
     """Copies persistent udev rules from /dev into /etc/udev/rules."""
     import glob
@@ -811,6 +833,7 @@ def copy_udev_rules():
         except IOError:
             ui.warn(_("Can't move persistent udev rules from /dev/.udev"))
 
+@skip_for_lxc_guests
 def start_udev():
     """Prepares the startup of udev daemon and starts it."""
 
@@ -850,6 +873,7 @@ def start_udev():
         run_quiet("/usr/sbin/lvm", "vgscan", "--ignorelockingfailure")
         run_quiet("/usr/sbin/lvm", "vgchange", "-ay", "--ignorelockingfailure")
 
+@skip_for_lxc_guests
 def stop_udev():
     """Stops udev daemon."""
     run("/sbin/start-stop-daemon",
@@ -872,6 +896,7 @@ def update_mtab_for_root():
 
     return (run_quiet("/bin/mount", "-f", "/") != mount_failed_lock)
 
+@skip_for_lxc_guests
 def check_root_filesystem():
     """Checks root filesystem with fsck if required."""
     if not config.get("live"):
@@ -922,6 +947,7 @@ def check_root_filesystem():
         else:
             ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
 
+@skip_for_lxc_guests
 def mount_root_filesystem():
     """Mounts root filesystem."""
 
@@ -957,6 +983,7 @@ def mount_root_filesystem():
         if config.get_fstab_entry_with_mountpoint(devpath):
             run("/bin/mount", "-f", "-o", "remount", devpath)
 
+@skip_for_lxc_guests
 def check_filesystems():
     """Checks all the filesystems with fsck if required."""
     if not config.get("live"):
@@ -987,6 +1014,7 @@ def check_filesystems():
             ui.error(_("Fsck could not correct all errors, manual repair needed"))
             run_full("/sbin/sulogin")
 
+@skip_for_lxc_guests
 def mount_local_filesystems():
     """Mounts local filesystems and enables swaps if any."""
 
@@ -1073,6 +1101,7 @@ def set_hostname():
     ui.info(_("Setting up hostname as '%s'") % ui.colorize("light", host))
     run("/bin/hostname", host)
 
+@skip_for_lxc_guests
 def autoload_modules():
     """Traverses /etc/modules.autoload.d to autoload kernel modules if any."""
     if os.path.exists("/proc/modules"):
@@ -1083,6 +1112,7 @@ def autoload_modules():
             for module in data:
                 run("/sbin/modprobe", "-q", "-b", module)
 
+@skip_for_lxc_guests
 def set_disk_parameters():
     """Sets disk parameters if hdparm is available."""
     if config.get("safe") or not os.path.exists("/etc/conf.d/hdparm"):
@@ -1107,11 +1137,13 @@ def set_disk_parameters():
 # Swap methods #
 ################
 
+@skip_for_lxc_guests
 def enable_swap():
     """Calls swapon for all swaps in /etc/fstab."""
     ui.info(_("Activating swap space"))
     run("/sbin/swapon", "-a")
 
+@skip_for_lxc_guests
 def disable_swap():
     """Calls swapoff after unmounting tmpfs."""
     # unmount unused tmpfs filesystems before swap
@@ -1176,6 +1208,7 @@ def cleanup_tmp():
 # System time/Clock management methods #
 ########################################
 
+@skip_for_lxc_guests
 def set_clock():
     """Sets the system time according to /etc."""
     ui.info(_("Setting system clock to hardware clock"))
@@ -1200,6 +1233,7 @@ def set_clock():
     if ret[1] != '':
         ui.error(_("Failed to set system clock to hardware clock"))
 
+@skip_for_lxc_guests
 def save_clock():
     """Saves the system time for further boots."""
     if not config.get("live"):
@@ -1216,12 +1250,6 @@ def stop_system():
     """Stops the system."""
     import shutil
 
-    stop_services()
-    stop_dbus()
-    stop_udev()
-    save_clock()
-    disable_swap()
-
     def get_fs_entry():
         ents = load_file("/proc/mounts").split("\n")
         ents = map(lambda x: x.split(), ents)
@@ -1233,20 +1261,9 @@ def stop_system():
         # not the root stuff
         ents = filter(lambda x: not (x[0] == "rootfs" or x[0] == "/dev/root"), ents)
         ents = filter(lambda x: x[1] != "/", ents)
-
         # sort for correct unmount order
         ents.sort(key=lambda x: x[1], reverse=True)
         return ents
-
-    ui.info(_("Unmounting filesystems"))
-    # write a reboot record to /var/log/wtmp before unmounting
-    run("/sbin/halt", "-w")
-    for dev in get_fs_entry():
-        if run_quiet("/bin/umount", dev[1]) != 0:
-            # kill processes still using this mount
-            run_quiet("/bin/fuser", "-k", "-9", "-m", dev[1])
-            time.sleep(2)
-            run_quiet("/bin/umount", "-f", "-r", dev[1])
 
     def remount_ro(force=False):
         ents = load_file("/proc/mounts").split("\n")
@@ -1270,14 +1287,33 @@ def stop_system():
             run_quiet("killall5", "-9")
         return ret
 
-    ui.info(_("Remounting remaining filesystems read-only"))
-    splash.update_progress(0)
+    # Stopping system
+    stop_services()
+    stop_dbus()
+    stop_udev()
+    save_clock()
+    disable_swap()
 
-    # We parse /proc/mounts but use umount, so this have to agree
-    shutil.copy("/proc/mounts", "/etc/mtab")
-    if remount_ro():
+    # write a reboot record to /var/log/wtmp before unmounting
+    run("/sbin/halt", "-w")
+
+    if config.get("lxc_guest") != "yes":
+        ui.info(_("Unmounting filesystems"))
+        for dev in get_fs_entry():
+            if run_quiet("/bin/umount", dev[1]) != 0:
+                # kill processes still using this mount
+                run_quiet("/bin/fuser", "-k", "-9", "-m", dev[1])
+                time.sleep(2)
+                run_quiet("/bin/umount", "-f", "-r", dev[1])
+
+        ui.info(_("Remounting remaining filesystems read-only"))
+        splash.update_progress(0)
+
+        # We parse /proc/mounts but use umount, so this have to agree
+        shutil.copy("/proc/mounts", "/etc/mtab")
         if remount_ro():
-            remount_ro(True)
+            if remount_ro():
+                remount_ro(True)
 
 ##################
 # Exception hook #
@@ -1375,8 +1411,8 @@ def main():
         # Set the system language
         set_system_language()
 
-        # Wait for udev events to finish
-        run("/sbin/udevadm", "settle", "--timeout=60")
+        # Call udev settle
+        wait_for_udev_events()
 
         # When we exit this runlevel, init will write a boot record to utmp
         write_to_file("/var/run/utmp")
@@ -1420,11 +1456,7 @@ def main():
     elif sys.argv[1] == "default":
         splash.init(75)
 
-        # Trigger only the events which are failed during a previous run
-        if os.path.exists("/dev/.udev/failed"):
-            ui.info(_("Triggering udev events which are failed "
-                "during a previous run"))
-            run("/sbin/udevadm", "trigger", "--type=failed")
+        trigger_failed_udev_events()
 
         # Source local.start
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.start"):
