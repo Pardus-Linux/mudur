@@ -1381,9 +1381,6 @@ def main():
         # Now we know which language and keymap to use
         set_console_parameters()
 
-        # Initialize bootsplash
-        splash.init(0)
-
         # Set kernel console log level for cleaner boot
         # only panic messages will be printed
         write_to_file("/proc/sys/kernel/printk", "1")
@@ -1496,8 +1493,6 @@ def main():
         # Source local.stop
         if not config.get("safe") and os.path.exists("/etc/conf.d/local.stop"):
             run("/bin/bash", "/etc/conf.d/local.stop")
-
-        splash.progress(40)
 
         # Stop the system
         stop_system()
