@@ -39,6 +39,11 @@ def skip_for_lxc_guests(function):
             function()
     return wrapped
 
+def plymouth_update_milestone(function):
+    def wrapped():
+        function()
+        splash.update(function.__name__)
+    return wrapped
 
 #######################
 # Convenience methods #
@@ -317,52 +322,44 @@ class Config:
                 return entry
 
 
-################
-# Splash class #
-################
+##################
+# Plymouth class #
+##################
 
-class Splash:
-    """Splash class for visualizing init messages and bootsplash."""
+class Plymouth:
+    """Plymouth class for visualizing init messages and plymouth splash."""
 
     def __init__(self):
-        """Splash constructor."""
-        self.enabled = False
-        self.increasing = True
-        self.percent = 0
+        """Plymouth constructor."""
+        self.client = "/bin/plymouth"
+        self.daemon = "/sbin/plymouthd"
+        self.available = config.get("lxc_guest") != "yes" \
+                and os.path.exists(self.client)
+        self.running = self.available and not run_quiet(self.client, "--ping")
 
-    def init(self, percent, increasing=True):
-        """Initializes bootsplash through /proc/splash."""
-        if config.get("lxc_guest") != "yes" and os.path.exists("/proc/splash"):
-            self.enabled = get_kernel_option("splash").has_key("silent")
-            self.increasing = increasing
-            self.percent = percent
+    def send_cmd(self, *cmd):
+        """Send the client a command to pass to the daemon."""
+        if self.running:
+            return run_quiet(self.client, *cmd)
+
+    def start_daemon(self, mode):
+        if self.available:
+            self.running = not run_quiet(self.daemon, "--mode=%s" % mode)
 
     def silent(self):
-        """Set silent mode for splash."""
-        if self.enabled:
-            write_to_file("/proc/splash", "silent\n")
-            self.update_progress()
+        self.send_cmd("--show-splash")
 
     def verbose(self):
-        """Set verbose mode for splash."""
-        if self.enabled:
-            write_to_file("/proc/splash", "verbose\n")
+        self.send_cmd("--hide-splash")
 
-    def update_progress(self, percent=None):
-        """Update the splash progress bar."""
-        if self.enabled:
-            if percent is not None:
-                self.percent = percent
-            write_to_file("/proc/splash",
-                          "show %d" % (int(655.35 * self.percent)))
+    def update(self, milestone):
+        self.send_cmd("--update=%s" % milestone)
 
-    def progress(self, delta=3):
-        """Update the splash progress bar by a default delta of 3."""
-        if self.enabled:
-            if self.increasing:
-                self.update_progress(self.percent + delta)
-            else:
-                self.update_progress(self.percent - delta)
+    def sysinit(self):
+        self.send_cmd("--sysinit")
+
+    def quit(self):
+        self.send_cmd("--quit")
 
 ############
 # UI class #
@@ -413,7 +410,6 @@ class UI:
             logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.colors['green'],
                          self.colors['normal'], msg.encode("utf-8")))
-        splash.progress()
 
     def warn(self, msg):
         """Print the given message as a warning and log if debug enabled."""
@@ -564,7 +560,7 @@ def manage_service(service, command):
     subprocess.Popen(cmd, close_fds=True, preexec_fn=fork_handler,
                      stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     logger.debug("%s service %s..done" % (command, service))
-    splash.progress(1)
+    splash.update(service)
 
 def get_service_list(bus, _all=False):
     """Requests and returns the list of system services through COMAR."""
@@ -745,11 +741,10 @@ def start_services(extras=None):
                 # because of the X startup delay.
                 time.sleep(1)
 
-            splash.update_progress(100)
-
         # Close the handle
         bus.close()
 
+@plymouth_update_milestone
 def stop_services():
     """Sends stop signals to all available services through D-Bus."""
     import dbus
@@ -778,6 +773,7 @@ def prune_needs_action_package_list():
 # D-Bus start/stop methods #
 ############################
 
+@plymouth_update_milestone
 def start_dbus():
     """Starts the D-Bus service."""
     os.setuid(0)
@@ -789,6 +785,7 @@ def start_dbus():
         "--", "--system")
     wait_bus("/var/run/dbus/system_bus_socket")
 
+@plymouth_update_milestone
 def stop_dbus():
     """Stops the D-Bus service."""
     ui.info(_("Stopping %s") % "DBus")
@@ -800,6 +797,7 @@ def stop_dbus():
 #############################
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def wait_for_udev_events():
     run("/sbin/udevadm", "settle", "--timeout=60")
 
@@ -834,6 +832,7 @@ def copy_udev_rules():
             ui.warn(_("Can't move persistent udev rules from /dev/.udev"))
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def start_udev():
     """Prepares the startup of udev daemon and starts it."""
 
@@ -874,6 +873,7 @@ def start_udev():
         run_quiet("/usr/sbin/lvm", "vgchange", "-ay", "--ignorelockingfailure")
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def stop_udev():
     """Stops udev daemon."""
     run("/sbin/start-stop-daemon",
@@ -897,6 +897,7 @@ def update_mtab_for_root():
     return (run_quiet("/bin/mount", "-f", "/") != mount_failed_lock)
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def check_root_filesystem():
     """Checks root filesystem with fsck if required."""
     if not config.get("live"):
@@ -948,6 +949,7 @@ def check_root_filesystem():
             ui.info(_("Skipping root filesystem check (fstab's passno == 0)"))
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def mount_root_filesystem():
     """Mounts root filesystem."""
 
@@ -984,6 +986,7 @@ def mount_root_filesystem():
             run("/bin/mount", "-f", "-o", "remount", devpath)
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def check_filesystems():
     """Checks all the filesystems with fsck if required."""
     if not config.get("live"):
@@ -1015,6 +1018,7 @@ def check_filesystems():
             run_full("/sbin/sulogin")
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def mount_local_filesystems():
     """Mounts local filesystems and enables swaps if any."""
 
@@ -1102,6 +1106,7 @@ def set_hostname():
     run("/bin/hostname", host)
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def autoload_modules():
     """Traverses /etc/modules.autoload.d to autoload kernel modules if any."""
     if os.path.exists("/proc/modules"):
@@ -1138,12 +1143,14 @@ def set_disk_parameters():
 ################
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def enable_swap():
     """Calls swapon for all swaps in /etc/fstab."""
     ui.info(_("Activating swap space"))
     run("/sbin/swapon", "-a")
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def disable_swap():
     """Calls swapoff after unmounting tmpfs."""
     # unmount unused tmpfs filesystems before swap
@@ -1173,6 +1180,7 @@ def cleanup_var():
     # Prune needsrestart and needsreboot files if any
     prune_needs_action_package_list()
 
+@plymouth_update_milestone
 def cleanup_tmp():
     """Cleans up /tmp upon boot."""
     ui.info(_("Cleaning up /tmp"))
@@ -1209,6 +1217,7 @@ def cleanup_tmp():
 ########################################
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def set_clock():
     """Sets the system time according to /etc."""
     ui.info(_("Setting system clock to hardware clock"))
@@ -1234,6 +1243,7 @@ def set_clock():
         ui.error(_("Failed to set system clock to hardware clock"))
 
 @skip_for_lxc_guests
+@plymouth_update_milestone
 def save_clock():
     """Saves the system time for further boots."""
     if not config.get("live"):
@@ -1276,6 +1286,7 @@ def stop_system():
             run("/bin/sync")
             run("/bin/sync")
             time.sleep(1)
+            splash.update("remount_ro_sync")
 
         ret = 0
         for ent in ents:
@@ -1298,6 +1309,7 @@ def stop_system():
     run("/sbin/halt", "-w")
 
     if config.get("lxc_guest") != "yes":
+        splash.update("unmount_filesystems")
         ui.info(_("Unmounting filesystems"))
         for dev in get_fs_entry():
             if run_quiet("/bin/umount", dev[1]) != 0:
@@ -1307,12 +1319,13 @@ def stop_system():
                 run_quiet("/bin/umount", "-f", "-r", dev[1])
 
         ui.info(_("Remounting remaining filesystems read-only"))
-        splash.update_progress(0)
 
         # We parse /proc/mounts but use umount, so this have to agree
         shutil.copy("/proc/mounts", "/etc/mtab")
         if remount_ro():
+            splash.update("remount_read_only")
             if remount_ro():
+                splash.update("remount_read_only_forced")
                 remount_ro(True)
 
 ##################
@@ -1337,7 +1350,7 @@ def except_hook(e_type, e_value, e_trace):
 
 config = Config()
 logger = Logger()
-splash = Splash()
+splash = Plymouth()
 ui = UI()
 
 
@@ -1425,7 +1438,7 @@ def main():
 
     ### BOOT ###
     elif sys.argv[1] == "boot":
-        splash.init(60)
+        splash.update("boot_runlevel")
 
         ui.info(_("Setting up localhost"))
         run("/sbin/ifconfig", "lo", "127.0.0.1", "up")
@@ -1454,7 +1467,7 @@ def main():
 
     ### DEFAULT ###
     elif sys.argv[1] == "default":
-        splash.init(75)
+        splash.update("default_runlevel")
 
         trigger_failed_udev_events()
 
@@ -1464,8 +1477,8 @@ def main():
 
         # Start services
         start_services()
+        splash.quit()
 
-        splash.verbose()
 
     ### SINGLE ###
     elif sys.argv[1] == "single":
@@ -1473,7 +1486,8 @@ def main():
 
     ### REBOOT/SHUTDOWN ###
     elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
-        splash.init(90, False)
+        splash.start_daemon(mode="shutdown")
+        splash.sysinit()
         splash.silent()
 
         # Log the operation before unmounting file systems
