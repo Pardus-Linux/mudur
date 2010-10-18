@@ -806,7 +806,7 @@ def trigger_failed_udev_events():
     # Trigger only the events which are failed during a previous run
     if os.path.exists("/dev/.udev/failed"):
         ui.info(_("Triggering udev events which are failed during a previous run"))
-        run("/sbin/udevadm", "trigger", "--type=failed")
+        run("/sbin/udevadm", "trigger", "--type=failed", "--action=add")
 
 @skip_for_lxc_guests
 def copy_udev_rules():
@@ -858,7 +858,8 @@ def start_udev():
     ui.info(_("Populating /dev"))
 
     # Trigger events for all devices
-    run("/sbin/udevadm", "trigger")
+    run("/sbin/udevadm", "trigger", "--type=subsystems", "--action=add")
+    run("/sbin/udevadm", "trigger", "--type=devices", "--action=add")
 
     # Stop udevmonitor
     os.kill(pid, 15)
