@@ -868,7 +868,6 @@ def start_udev():
     # These could be achieved using some udev rules.
 
     if config.get("lvm"):
-        run_quiet("/sbin/modprobe", "dm-mod")
         run_quiet("/usr/sbin/dmsetup", "mknodes")
         run_quiet("/usr/sbin/lvm", "vgscan", "--ignorelockingfailure")
         run_quiet("/usr/sbin/lvm", "vgchange", "-ay", "--ignorelockingfailure")
