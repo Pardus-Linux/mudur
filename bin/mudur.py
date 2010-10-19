@@ -1393,6 +1393,7 @@ def main():
 
         # Mount root file system
         mount_root_filesystem()
+        splash.sysinit()
 
         # Grab persistent rules and udev.log file from /dev
         copy_udev_rules()
