@@ -358,8 +358,10 @@ class Plymouth:
     def sysinit(self):
         self.send_cmd("--sysinit")
 
-    def quit(self):
-        self.send_cmd("--quit")
+    def quit(self, retain_splash=False):
+        cmd = "--quit --retain-splash" if retain_splash \
+                else "--quit"
+        self.send_cmd(cmd)
 
 ############
 # UI class #
@@ -1286,8 +1288,9 @@ def stop_system():
             run("/bin/sync")
             run("/bin/sync")
             time.sleep(1)
-            splash.update("remount_ro_sync")
 
+        splash.update("remount_ro")
+        splash.quit(retain_splash=True)
         ret = 0
         for ent in ents:
             if force:
@@ -1323,9 +1326,7 @@ def stop_system():
         # We parse /proc/mounts but use umount, so this have to agree
         shutil.copy("/proc/mounts", "/etc/mtab")
         if remount_ro():
-            splash.update("remount_read_only")
             if remount_ro():
-                splash.update("remount_read_only_forced")
                 remount_ro(True)
 
 ##################
