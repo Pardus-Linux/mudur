@@ -1290,7 +1290,7 @@ def stop_system():
             time.sleep(1)
 
         splash.update("remount_ro")
-        splash.quit(retain_splash=True)
+        splash.quit(retain_splash=False)
         ret = 0
         for ent in ents:
             if force:
