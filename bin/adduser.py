@@ -27,7 +27,7 @@ user = {"uid": -1,
         "blocks": []
 }
 
-defaultGroups = "users,pnp,pnpadmin,removable,disk,audio,video,power,dialout"
+defaultGroups = "users,cdrom,plugdev,floppy,disk,audio,video,power,dialout,lp,lpadmin"
 
 def fail(_message):
     print _message
@@ -37,26 +37,23 @@ def connectToDBus():
     global bus
     bus = None
 
-    for i in range(5):
-        try:
-            print "trying to start dbus.."
-            bus = dbus.bus.BusConnection(address_or_type="unix:path=/var/run/dbus/system_bus_socket")
-            break
-        except dbus.DBusException:
-            time.sleep(1)
-            print "wait dbus for 1 second..."
+    try:
+        bus = dbus.SystemBus()
+    except dbus.DBusException:
+        return False
 
     if bus:
         return True
 
-    return False
-
 def addUser():
     obj = bus.get_object("tr.org.pardus.comar", "/package/baselayout")
-    obj.addUser(user["uid"], user["username"], user["realname"],
-                user["home"], user["shell"], user["password"],
-                user["groups"], user["grants"], user["blocks"],
-                dbus_interface="tr.org.pardus.comar.User.Manager")
+    try:
+        obj.addUser(user["uid"], user["username"], user["realname"],
+                    user["home"], user["shell"], user["password"],
+                    user["groups"], user["grants"], user["blocks"],
+                    dbus_interface="tr.org.pardus.comar.User.Manager")
+    except dbus.DBusException, e:
+        fail("Error: %s" % e)
 
 
 if __name__ == "__main__":
@@ -94,7 +91,7 @@ if __name__ == "__main__":
     (opts, args) = parser.parse_args()
 
     if len(args) != 1:
-        fail("please give one username to create")
+        fail("Please provide a username.")
 
     user["username"] = args[0]
     groups = opts.groups.split(",")
@@ -110,7 +107,6 @@ if __name__ == "__main__":
         groups.remove(user["defaultgroup"])
     user["defaultgroup"] = opts.defaultgroup
     user["groups"].append(user["defaultgroup"])
-
 
     if opts.isadmin:
         for i in user["admingroups"]:
@@ -129,9 +125,9 @@ if __name__ == "__main__":
             print "%s\t%s" % (i, user[i])
     else:
         if os.getuid() != 0:
-            fail("you must have root permissions to add a user")
+            fail("You must have root permissions to add a user")
 
         if not connectToDBus():
-            fail("Could not connect to DBUS, please check your system settings")
+            fail("Could not connect to D-Bus, please check your system settings")
         addUser()
 

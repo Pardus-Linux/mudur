@@ -23,24 +23,21 @@ def connectToDBus():
     global bus
     bus = None
 
-    for i in range(5):
-        try:
-            print "trying to start dbus.."
-            bus = dbus.bus.BusConnection(address_or_type="unix:path=/var/run/dbus/system_bus_socket")
-            break
-        except dbus.DBusException:
-            time.sleep(1)
-            print "wait dbus for 1 second..."
+    try:
+        bus = dbus.SystemBus()
+    except dbus.DBusException:
+        return False
 
     if bus:
         return True
 
-    return False
-
 def delUser():
     obj = bus.get_object("tr.org.pardus.comar", "/package/baselayout")
-    obj.deleteUser(user["uid"], user["deletefiles"],
-                dbus_interface="tr.org.pardus.comar.User.Manager")
+    try:
+        obj.deleteUser(user["uid"], user["deletefiles"],
+                    dbus_interface="tr.org.pardus.comar.User.Manager")
+    except dbus.DBusException, e:
+        fail("Error: %s." % e)
 
 
 if __name__ == "__main__":
@@ -58,7 +55,7 @@ if __name__ == "__main__":
     try:
         user["uid"] = pwd.getpwnam(args[0]).pw_uid
     except KeyError:
-        fail("no such user")
+        fail("Error: No such user '%s'" % args[0])
 
     user["deletefiles"] = opts.removehome
 
