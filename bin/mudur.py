@@ -1474,8 +1474,6 @@ def main():
 
         # Start services
         start_services()
-        splash.quit()
-
 
     ### SINGLE ###
     elif sys.argv[1] == "single":
