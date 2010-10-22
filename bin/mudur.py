@@ -342,9 +342,9 @@ class Plymouth:
         if self.running:
             return run_quiet(self.client, *cmd)
 
-    def start_daemon(self, mode):
+    def start_daemon(self)
         if self.available:
-            self.running = not run_quiet(self.daemon, "--mode=%s" % mode)
+            self.running = not run_quiet(self.daemon, "--mode=shutdown")
 
     def silent(self):
         self.send_cmd("--show-splash")
@@ -1483,7 +1483,7 @@ def main():
 
     ### REBOOT/SHUTDOWN ###
     elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
-        splash.start_daemon(mode="shutdown")
+        splash.start_daemon()
         splash.sysinit()
         splash.silent()
 
