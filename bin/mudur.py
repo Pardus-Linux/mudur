@@ -728,17 +728,17 @@ def start_services(extras=None):
             head_start = config.get("head_start")
             run_head_start = head_start and head_start in services
             if run_head_start:
-                manage_service(head_start,"ready")
+                manage_service(head_start, "ready")
                 services.remove(head_start)
+
+            # Run other services
             for service in services:
                 manage_service(service, "ready")
 
-            if run_head_start and not get_kernel_option("xorg").has_key("off"):
-                wait_bus("/tmp/.X11-unix/X0", timeout=10)
+            if "off" in get_kernel_option("xorg"):
+                # Stop plymouth
+                splash.quit(retain_splash=False)
 
-                # Avoid users trying to login using VT
-                # because of the X startup delay.
-                time.sleep(1)
 
         # Close the handle
         bus.close()
