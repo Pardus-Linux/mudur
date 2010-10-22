@@ -342,7 +342,7 @@ class Plymouth:
         if self.running:
             return run_quiet(self.client, *cmd)
 
-    def start_daemon(self)
+    def start_daemon(self):
         if self.available:
             self.running = not run_quiet(self.daemon, "--mode=shutdown")
 
