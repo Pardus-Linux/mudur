@@ -346,17 +346,20 @@ class Plymouth:
         if self.available:
             self.running = not run_quiet(self.daemon, "--mode=shutdown")
 
-    def silent(self):
-        self.send_cmd("--show-splash")
+    def show_splash(self):
+        self.send_cmd("show-splash")
 
-    def verbose(self):
-        self.send_cmd("--hide-splash")
+    def hide_splash(self):
+        self.send_cmd("hide-splash")
+
+    def report_error(self):
+        self.send_cmd("report-error")
 
     def update(self, milestone):
-        self.send_cmd("--update=%s" % milestone)
+        self.send_cmd("update", "--status=%s" % milestone)
 
-    def sysinit(self):
-        self.send_cmd("--sysinit")
+    def rootfs_is_now_rw(self):
+        self.send_cmd("update-root-fs", "--read-write")
 
     def quit(self, retain_splash=False):
         self.send_cmd("quit", "--retain-splash" if retain_splash else "")
@@ -413,17 +416,13 @@ class UI:
 
     def warn(self, msg):
         """Print the given message as a warning and log if debug enabled."""
-        splash.verbose()
         logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.colors['yellow'],
                          self.colors['normal'], msg.encode("utf-8")))
 
     def error(self, msg):
         """Print the given message as an error and log if debug enabled."""
-        try:
-            splash.verbose()
-        except IOError:
-            pass
+        splash.report_error()
         logger.log(msg)
         sys.stdout.write(" %s*%s %s\n" % (self.colors['red'],
                          self.colors['normal'], msg.encode("utf-8")))
@@ -914,8 +913,9 @@ def check_root_filesystem():
             ui.info(_("Remounting root filesystem read-only"))
             run_quiet("/bin/mount", "-n", "-o", "remount,ro", "/")
 
+            # FIXME: Test with plymouth
             if config.get("forcefsck"):
-                splash.verbose()
+                splash.hide_splash()
                 ui.info(_("Checking root filesystem (full check forced)"))
                 # -y: Fix whatever the error is without user's intervention
                 ret = run_full("/sbin/fsck", "-C", "-y", "-f", "/")
@@ -930,7 +930,7 @@ def check_root_filesystem():
             elif ret == 2 or ret == 3:
                 # Actually 2 means that a reboot is required, fsck man page
                 # doesn't mention about 3 but let's leave it as it's harmless.
-                splash.verbose()
+                splash.hide_splash()
                 ui.warn(_("Filesystem repaired, but reboot needed!"))
                 for i in xrange(4):
                     print "\07"
@@ -993,7 +993,7 @@ def check_filesystems():
         ui.info(_("Checking all filesystems"))
 
         if config.get("forcefsck"):
-            splash.verbose()
+            splash.hide_splash()
             ui.info(_("A full fsck has been forced"))
             # -C: Display completion bars
             # -R: Skip the root file system
@@ -1392,7 +1392,7 @@ def main():
 
         # Mount root file system
         mount_root_filesystem()
-        splash.sysinit()
+        splash.rootfs_is_now_rw()
 
         # Grab persistent rules and udev.log file from /dev
         copy_udev_rules()
@@ -1484,8 +1484,8 @@ def main():
     ### REBOOT/SHUTDOWN ###
     elif sys.argv[1] == "reboot" or sys.argv[1] == "shutdown":
         splash.start_daemon()
-        splash.sysinit()
-        splash.silent()
+        splash.rootfs_is_now_rw()
+        splash.show_splash()
 
         # Log the operation before unmounting file systems
         logger.flush()
