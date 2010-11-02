@@ -2,7 +2,7 @@
 # translation of de.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2006.
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2007.
 # Mustafa Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
@@ -24,48 +24,46 @@ msgstr ""
 
 #: bin/mudur.py:206
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
-"Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
+msgstr "Невозможно записать mudur.log, файловой система только для чтения"
 
 #: bin/mudur.py:362
 msgid "Safe Mode"
-msgstr ""
+msgstr "Безопасный режим"
 
 #: bin/mudur.py:365
 msgid "Cannot find /etc/pardus-release"
-msgstr "/etc/pardus-release kann nicht gefunden werden"
+msgstr "Не могу найти /etc/pardus-release"
 
 #: bin/mudur.py:457
 msgid "/etc/env.d/03locale cannot be updated"
-msgstr ""
+msgstr "/etc/env.d/03locale не может быть обновлен"
 
 #: bin/mudur.py:485
 #, python-format
 msgid "Could not set unicode mode on tty %d"
-msgstr "Unicode konnte nicht an tty %d gesetzt werden"
+msgstr "Не удалось установить режим Юникод на tty %d"
 
 #: bin/mudur.py:538
 msgid "Networking backend is set to NetworkManager"
-msgstr ""
+msgstr "NetworkManager выбран как бэкэнд для работы с сетью"
 
 #: bin/mudur.py:559
 #, python-format
 msgid "Bringing up %s"
-msgstr "%s wird bereitgestellt"
+msgstr "Bringing up %s"
 
 #: bin/mudur.py:564
 #, python-format
 msgid "Unable to bring up %s"
-msgstr "%s konnte nicht bereitgestellt werden"
+msgstr "Unable to bring up %s"
 
 #: bin/mudur.py:634
 msgid "No network connection, skipping remote mount."
-msgstr ""
-"Keine Netwerkverbindung vorhanden, Remote-Einbindung wird übersprungen."
+msgstr "Нет подключения к сети, пропуск удаленного монтирования"
 
 #: bin/mudur.py:644
 msgid "Cannot connect to DBus, services won't be started"
-msgstr "Kann nicht zu DBus verbinden, Dienste werden nicht gestartet"
+msgstr "Не удается подключиться к DBus, сервис не будет запущен"
 
 #: bin/mudur.py:660
 #, python-format
@@ -73,91 +71,90 @@ msgid ""
 "Unable to start network:\n"
 "  %s"
 msgstr ""
-"Starten von Netzwerk fehlgeschlagen:\n"
+"Не удается запустить сеть::\n"
 "  %s"
 
 #: bin/mudur.py:665
 msgid "Cannot start system logger"
-msgstr "System Logger kann nicht gestartet werden"
+msgstr "Не удается запустить службу журналирования системы"
 
 #: bin/mudur.py:668
 msgid "Starting services"
-msgstr "Dienste werden gestartet"
+msgstr "Запуск служб"
 
 #: bin/mudur.py:700
 msgid "Stopping services"
-msgstr "Dienste werden angehalten"
+msgstr "Остановка служб"
 
 #: bin/mudur.py:727 bin/mudur.py:747 bin/service.py:161 bin/service.py:270
 #, python-format
 msgid "Starting %s"
-msgstr "%s wird gestartet"
+msgstr "Запуск %s"
 
 #: bin/mudur.py:737 bin/mudur.py:754 bin/service.py:174 bin/service.py:282
 #, python-format
 msgid "Stopping %s"
-msgstr "%s wird angehalten"
+msgstr "Остановка %s"
 
 #: bin/mudur.py:780
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
-"Die beständigen udev-Regeln können nicht von /dev/.udev verschoben werden."
+msgstr "Не могу установить правила udev из /dev/.udev"
 
 #: bin/mudur.py:804
 msgid "Starting udev"
-msgstr "udev wird gestartet"
+msgstr "Запуск udev"
 
 #: bin/mudur.py:818
 msgid "Populating /dev"
-msgstr "/dev wird gefüllt"
+msgstr "Запись /dev"
 
 #: bin/mudur.py:850
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Удаление устаревшего файла блокировки  /etc/mtab~"
 
 #: bin/mudur.py:853
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Не удалось удалить устаревший файл блокировки /etc/mtab~"
 
 #: bin/mudur.py:864
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "/etc/fstab не содержит записи для корневой файловой системы"
 
 #: bin/mudur.py:870
 msgid "Remounting root filesystem read-only"
-msgstr "Root Dateisystem wird mit Lese-Zugriff erneut gemountet"
+msgstr "Перемонтирование корневая файловая системы только для чтения"
 
 #: bin/mudur.py:875
 msgid "Checking root filesystem (full check forced)"
-msgstr "Root-Dateisystem wird überprüft (vollständige Überprüfung gezwungen)"
+msgstr "Проверка корневой файловой системы (полная проверка принудительно)"
 
 #: bin/mudur.py:881
 msgid "Checking root filesystem"
-msgstr "Root-Dateisystem wird überprüft"
+msgstr "Проверка корневой файловой системы"
 
 #: bin/mudur.py:890
 msgid "Filesystem repaired, but reboot needed!"
-msgstr "Dateisystem wurde repariert"
+msgstr "Файловая система отремонтирована, но необходима перезагрузка!"
 
 #: bin/mudur.py:894
 msgid "Rebooting in 10 seconds..."
-msgstr "Computer wird in 10 Sekunden neugestartet"
+msgstr "Перезагрузка через 10 секунд..."
 
 #: bin/mudur.py:896
 msgid "Rebooting..."
-msgstr "Wird neugestartet..."
+msgstr "Перезагрузка..."
 
 #: bin/mudur.py:900
 msgid "Filesystem could not be repaired"
-msgstr "Dateisystem konnte nicht fixiert werden"
+msgstr "Файловая система не может быть восстановлена"
 
 #: bin/mudur.py:905
 msgid "Skipping root filesystem check (fstab's passno == 0)"
-msgstr "Root Dateisystem Überprüfung (fstab's passno == 0) wird übersprungen"
+msgstr "Пропуск проверки корневой файловой системы (fstab's passno == 0)"
 
 #: bin/mudur.py:911
 msgid "Remounting root filesystem read/write"
-msgstr "Root Dateisystem wird neu mit Lese-/Schreibzugriff gemountet"
+msgstr "Перемонтирование корневой файловой системы для чтения/записи"
 
 #: bin/mudur.py:915
 msgid ""
@@ -165,226 +162,218 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"Корневая файловая система не может быть смонтирована для чтения и записи\n"
+"Вы можете войти ниже и вручную проверить файловую систему(ы) или\n"
+"перезагрузить систему, нажмите F3 и выберите 'FS check' из меню загрузки\n"
 
 #: bin/mudur.py:927
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Не удалось произвести синхронизацию /etc/mtab с /proc/mounts"
 
 #: bin/mudur.py:946
 msgid "Checking all filesystems"
-msgstr "Alle Dateisysteme werden überprüft"
+msgstr "Проверка всех файловых систем"
 
 #: bin/mudur.py:950
 msgid "A full fsck has been forced"
-msgstr "Ein vollständiges fsck wurde erzwungen"
+msgstr "Полный FSCK был остановлен"
 
 #: bin/mudur.py:968
 msgid "Filesystem errors corrected"
-msgstr "Dateisystem Fehler korrigiert"
+msgstr "Ошибки файловой системы исправлены"
 
 #: bin/mudur.py:970
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
+msgstr "Fsck не может исправить все ошибки автоматически, нужно ручное исправление"
 
 #: bin/mudur.py:978
 msgid "Mounting USB filesystem"
-msgstr "USB Dateisystem wird gemountet"
+msgstr "Монтирование USB файловой системы"
 
 #: bin/mudur.py:981
 msgid "Mounting local filesystems"
-msgstr "Lokale Dateisysteme werden gemountet"
+msgstr "Монтаж локальных файловых систем"
 
 #: bin/mudur.py:1000
 msgid "Starting portmap service for NFS"
-msgstr "Portmap-Dienst für NFS wird gestartet"
+msgstr "Запуск Portmap службы для NFS"
 
 #: bin/mudur.py:1003
 msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr "Remote-Dateisysteme werden gemountet (STRG-C stoppt den Versuch)"
+msgstr "Монтирования удаленных файловых систем (CTRL-C прекращает попытки)"
 
 #: bin/mudur.py:1017
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
+msgstr "Монтирование отменено!"
 
 #: bin/mudur.py:1060
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr "Hostname wird als '%s' eingestellt"
+msgstr "Настройка хоста '%s'"
 
 #: bin/mudur.py:1082
 msgid "Setting disk parameters"
-msgstr "Festplatten-Parameter werden gesetzt"
+msgstr "Настройка параметров диска"
 
 #: bin/mudur.py:1104
 msgid "Activating swap space"
-msgstr "SWAP wird aktiviert"
+msgstr "Активация подкачки"
 
 #: bin/mudur.py:1113
 msgid "Deactivating swap space"
-msgstr "SWAP wird deaktiviert"
+msgstr "Отключение подкачки"
 
 #: bin/mudur.py:1122
 msgid "Cleaning up /var"
-msgstr "/var wird gesäubert"
+msgstr "Очистка /var"
 
 #: bin/mudur.py:1136
 msgid "Cleaning up /tmp"
-msgstr "/tmp wird gesäubert"
+msgstr "Очистка /tmp"
 
 #: bin/mudur.py:1171
 msgid "Setting system clock to hardware clock"
-msgstr "Systemuhr wird von der Hardwareuhr gesetzt"
+msgstr "Настройка системных часов"
 
 #: bin/mudur.py:1187
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Abgleichung der systematischen Abweichung von der Hardware-Uhr ist "
-"fehlgeschlagen"
+msgstr "Не удалось настроить систематическую отправку из аппаратных часов"
 
 #: bin/mudur.py:1191
 msgid "Failed to set system clock to hardware clock"
-msgstr "Einstellen der Systemuhr von der Hardwareuhr ist fehlgeschlagen"
+msgstr "Не удалось установить системные часы"
 
 #: bin/mudur.py:1200
 msgid "Syncing system clock to hardware clock"
-msgstr "Systemuhr wird mit der Hardwareuhr synchronisiert"
+msgstr "Синхронизация системного времени"
 
 #: bin/mudur.py:1203
 msgid "Failed to synchronize clocks"
-msgstr "Synchronisation der Uhr ist fehlgeschlagen"
+msgstr "Ошибка синхронизации системного времени"
 
 #: bin/mudur.py:1231
 msgid "Unmounting filesystems"
-msgstr "Unmounten der Dateisysteme"
+msgstr "Демонтирование файловых систем"
 
 #: bin/mudur.py:1263
 msgid "Remounting remaining filesystems read-only"
-msgstr "Restliche Dateisysteme werden mit Lesezugriff erneut gemountet"
+msgstr "Перемонтирование остальных файловых систем только для чтения"
 
 #: bin/mudur.py:1279
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.tr with "
-"following information:"
-msgstr ""
-"Ein Interner Fehler ist vorgekommen. Bitte an bugs.pardus.org.tr mit der "
-"folgenden Information melden:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.tr with following information:"
+msgstr "Произошла внутренняя ошибка. Пожалуйста сообщите по адресу bugs.pardus.org.tr следующую информацию:"
 
 #: bin/mudur.py:1396
 msgid "Setting up localhost"
-msgstr "Localhost wird eingestellt"
+msgstr "Настройка localhost"
 
 #: bin/mudur.py:1409
 msgid "Updating environment variables"
-msgstr "Umgebungsvariablen werden aktualisiert"
+msgstr "Обновление переменных среды"
 
 #: bin/mudur.py:1430
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
-"Udev-Ereignisse, die bei der vorherigen Ausführung fehlgeschlagen sind, "
-"werden angesteuert"
+msgstr "Запуск Udev событий, которые не удалось запустить во время предыдущего запуска"
 
 #: bin/mudur.py:1469
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
+msgstr "Попытка инициирования теплой перезагрузки (пропуск BIOS с Kexec ядро)"
 
 #: bin/service.py:60
 msgid "local"
-msgstr "Lokal"
+msgstr "local"
 
 #: bin/service.py:61
 msgid "script"
-msgstr "Skript"
+msgstr "скрипт"
 
 #: bin/service.py:62
 msgid "server"
-msgstr "Server"
+msgstr "сервер"
 
 #: bin/service.py:74
 msgid "running"
-msgstr "wird ausgeführt"
+msgstr "запущен"
 
 #: bin/service.py:76
 msgid "yes"
-msgstr "ja"
+msgstr "да"
 
 #: bin/service.py:78
 msgid "conditional"
-msgstr "abhängig"
+msgstr "conditional"
 
 #: bin/service.py:101
 msgid "Status"
-msgstr "Status"
+msgstr "Статус"
 
 #: bin/service.py:102
 msgid "Service"
-msgstr "Dienst"
+msgstr "Служба"
 
 #: bin/service.py:103
 msgid "Autostart"
-msgstr "Autostart"
+msgstr "Автостарт"
 
 #: bin/service.py:104
 msgid "Description"
-msgstr "Beschreibung"
+msgstr "Описание"
 
 #: bin/service.py:147 bin/service.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start %s:"
-msgstr "DBus konnte nicht gestartet werden"
+msgstr "Не удается запустить %s:"
 
 #: bin/service.py:170
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to stop %s:"
-msgstr "DBus konnte nicht gestartet werden"
+msgstr "Не удается остановить %s:"
 
 #: bin/service.py:183
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to set %s state:"
-msgstr "DBus konnte nicht gestartet werden"
+msgstr "Невозможно установить состояние %s :"
 
 #: bin/service.py:188
 #, python-format
 msgid "Service '%s' will be auto started."
-msgstr "Dienst '%s' wird automatisch gestartet."
+msgstr "Служба '%s' будет запущена автоматически."
 
 #: bin/service.py:190
 #, python-format
 msgid "Service '%s' won't be auto started."
-msgstr "Dienst '%s' wird nicht automatisch gestartet."
+msgstr "Служба '%s'  не будет  запущена автоматически."
 
 #: bin/service.py:192
 #, python-format
 msgid "Service '%s' will be started if required."
-msgstr "Dienst '%s' wird bei Bedarf gestartet."
+msgstr "Служба '%s'  будет запущена, если потребуется."
 
 #: bin/service.py:201
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to reload %s:"
-msgstr "%s konnte nicht bereitgestellt werden"
+msgstr "Невозможно перезапустить %s:"
 
 #: bin/service.py:205
 #, python-format
 msgid "Reloading %s"
-msgstr "%s wird neu geladen"
+msgstr "Перезапуск %s"
 
 #: bin/service.py:259
 msgid "You must be root to use that."
-msgstr "Sie müssen als root angemeldet sein, um dies zu verwenden."
+msgstr "Вы должны быть суперпользователем, чтобы использовать это."
 
 #: bin/service.py:278
 msgid "Unable to start DBus"
-msgstr "DBus konnte nicht gestartet werden"
+msgstr "Не удается запустить DBus"
 
 #: bin/service.py:292
 msgid "DBus is not running."
-msgstr "DBus wird nicht ausgeführt."
+msgstr "DBus не запущен."
 
 #: bin/service.py:294
 msgid "DBus is running."
-msgstr "DBus wird ausgeführt."
+msgstr "DBus запущен."
 
 #: bin/service.py:299
 msgid ""
@@ -403,25 +392,25 @@ msgid ""
 " -N, --no-color  Don't use color in output\n"
 " -q, --quiet     Don't print replies"
 msgstr ""
-"Verwendung: service [<Option>][<Dienst>] <Befehl>\n"
-"wo Befehl folgendes ist:\n"
-" list    Dienste auflisten \n"
-" status   Status des Dienstes anzeigen\n"
-" info    Status des Dienstes anzeigen\n"
-" on      Dienst automatisch starten\n"
-" off      Dienst nicht automatisch starten\n"
-" start   Dienst starten\n"
-" stop   Dienst anhalten\n"
-" restart Dienst anhalten und anschliessen erneut starten\n"
-" reload Konfiguration wird neugeladen (wenn der Dienst das unterstützt)\n"
-"und Option ist:\n"
-" -N, --no-color  keine Farben bei der Ausgabe verwenden\n"
-" -q, --quiet     Keine Antworten ausgeben"
+"Использование: service [<options>] [<service>] <command>\n"
+"where command is:\n"
+" list Display service list\n"
+" status Display service status\n"
+" info Display service status\n"
+" on Auto start the service\n"
+" off Don't auto start the service\n"
+" start Start the service\n"
+" stop Stop the service\n"
+" restart Stop the service, then start again\n"
+" reload Reload the configuration (if service supports this)\n"
+"and option is:\n"
+" -N, --no-color Don't use color in output\n"
+" -q, --quiet Don't print replies"
 
 #: bin/service.py:355
 #, python-format
 msgid "No such service: %s"
-msgstr ""
+msgstr "Нет такой службы: %s"
 
 #~ msgid "Mounting /dev"
 #~ msgstr "/dev wird gemountet"
@@ -433,5 +422,4 @@ msgstr ""
 #~ msgstr "/dev/pts wird gemountet"
 
 #~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr ""
-#~ "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
+#~ msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
