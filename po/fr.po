@@ -40,9 +40,8 @@ msgid "Could not set unicode mode on tty %d"
 msgstr "Impossible d'établir le mode unicode sur le terminal (tty) %d"
 
 #: bin/mudur.py:538
-#, fuzzy
 msgid "Networking backend is set to NetworkManager"
-msgstr "Networking backend is set to NetworkManager"
+msgstr "Le backend réseau est fixé à NetworkManager"
 
 #: bin/mudur.py:559
 #, python-format
