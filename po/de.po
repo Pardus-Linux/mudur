@@ -2,7 +2,7 @@
 # translation of de.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2006.
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2007.
 # Mustafa Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
@@ -24,12 +24,11 @@ msgstr ""
 
 #: bin/mudur.py:206
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
-"Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
+msgstr "Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
 
 #: bin/mudur.py:362
 msgid "Safe Mode"
-msgstr ""
+msgstr "Sicherer Modus"
 
 #: bin/mudur.py:365
 msgid "Cannot find /etc/pardus-release"
@@ -37,7 +36,7 @@ msgstr "/etc/pardus-release kann nicht gefunden werden"
 
 #: bin/mudur.py:457
 msgid "/etc/env.d/03locale cannot be updated"
-msgstr ""
+msgstr "/etc/env.d/03locale kann nicht aktualisiert werden"
 
 #: bin/mudur.py:485
 #, python-format
@@ -46,7 +45,7 @@ msgstr "Unicode konnte nicht an tty %d gesetzt werden"
 
 #: bin/mudur.py:538
 msgid "Networking backend is set to NetworkManager"
-msgstr ""
+msgstr "Das Netzwerk-Backend ist dem Netzwerkmanager zugewiesen "
 
 #: bin/mudur.py:559
 #, python-format
@@ -60,8 +59,7 @@ msgstr "%s konnte nicht bereitgestellt werden"
 
 #: bin/mudur.py:634
 msgid "No network connection, skipping remote mount."
-msgstr ""
-"Keine Netwerkverbindung vorhanden, Remote-Einbindung wird übersprungen."
+msgstr "Keine Netwerkverbindung vorhanden, Remote-Einbindung wird übersprungen."
 
 #: bin/mudur.py:644
 msgid "Cannot connect to DBus, services won't be started"
@@ -100,8 +98,7 @@ msgstr "%s wird angehalten"
 
 #: bin/mudur.py:780
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
-"Die beständigen udev-Regeln können nicht von /dev/.udev verschoben werden."
+msgstr "Die beständigen udev-Regeln können nicht von /dev/.udev verschoben werden."
 
 #: bin/mudur.py:804
 msgid "Starting udev"
@@ -113,15 +110,15 @@ msgstr "/dev wird gefüllt"
 
 #: bin/mudur.py:850
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Entferne stale lock file /etc/mtab~"
 
 #: bin/mudur.py:853
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Konnte stale lock file /etc/mtab~ nicht entfernen"
 
 #: bin/mudur.py:864
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "/etc/fstab beinhaltet keinen Eintrag für das root Dateisystem"
 
 #: bin/mudur.py:870
 msgid "Remounting root filesystem read-only"
@@ -165,10 +162,13 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"Das Root Dateisystem konnte nicht für Lese/Schreibzugriff eingehängt werden.\n"
+"   Sie können sich entweder einloggen und das Dateisystem händisch überprüfen lassen, ODER\n"
+" das System neu starten. Drücken Sie dann im Startmenü die Funktionstaste F3 und wählen Sie dann 'FS check'\n"
 
 #: bin/mudur.py:927
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Konnte nicht /etc/mtab von /proc/mounts synchronisieren"
 
 #: bin/mudur.py:946
 msgid "Checking all filesystems"
@@ -184,8 +184,7 @@ msgstr "Dateisystem Fehler korrigiert"
 
 #: bin/mudur.py:970
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
+msgstr "Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
 
 #: bin/mudur.py:978
 msgid "Mounting USB filesystem"
@@ -205,8 +204,7 @@ msgstr "Remote-Dateisysteme werden gemountet (STRG-C stoppt den Versuch)"
 
 #: bin/mudur.py:1017
 msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-"Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
+msgstr "Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
 
 #: bin/mudur.py:1060
 #, python-format
@@ -239,9 +237,7 @@ msgstr "Systemuhr wird von der Hardwareuhr gesetzt"
 
 #: bin/mudur.py:1187
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Abgleichung der systematischen Abweichung von der Hardware-Uhr ist "
-"fehlgeschlagen"
+msgstr "Abgleichung der systematischen Abweichung von der Hardware-Uhr ist fehlgeschlagen"
 
 #: bin/mudur.py:1191
 msgid "Failed to set system clock to hardware clock"
@@ -264,12 +260,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Restliche Dateisysteme werden mit Lesezugriff erneut gemountet"
 
 #: bin/mudur.py:1279
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.tr with "
-"following information:"
-msgstr ""
-"Ein Interner Fehler ist vorgekommen. Bitte an bugs.pardus.org.tr mit der "
-"folgenden Information melden:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.tr with following information:"
+msgstr "Ein Interner Fehler ist vorgekommen. Bitte an bugs.pardus.org.tr mit der folgenden Information melden:"
 
 #: bin/mudur.py:1396
 msgid "Setting up localhost"
@@ -281,14 +273,11 @@ msgstr "Umgebungsvariablen werden aktualisiert"
 
 #: bin/mudur.py:1430
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
-"Udev-Ereignisse, die bei der vorherigen Ausführung fehlgeschlagen sind, "
-"werden angesteuert"
+msgstr "Udev-Ereignisse, die bei der vorherigen Ausführung fehlgeschlagen sind, werden angesteuert"
 
 #: bin/mudur.py:1469
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
+msgstr "Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
 
 #: bin/service.py:60
 msgid "local"
@@ -331,19 +320,19 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: bin/service.py:147 bin/service.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start %s:"
-msgstr "DBus konnte nicht gestartet werden"
+msgstr "Konnte %s nicht starten:"
 
 #: bin/service.py:170
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to stop %s:"
-msgstr "DBus konnte nicht gestartet werden"
+msgstr "Konnte %s nicht stoppen:"
 
 #: bin/service.py:183
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to set %s state:"
-msgstr "DBus konnte nicht gestartet werden"
+msgstr "Konnte %s Status nicht setzen:"
 
 #: bin/service.py:188
 #, python-format
@@ -361,9 +350,9 @@ msgid "Service '%s' will be started if required."
 msgstr "Dienst '%s' wird bei Bedarf gestartet."
 
 #: bin/service.py:201
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to reload %s:"
-msgstr "%s konnte nicht bereitgestellt werden"
+msgstr "Konnte nicht %s neu laden:"
 
 #: bin/service.py:205
 #, python-format
@@ -421,7 +410,7 @@ msgstr ""
 #: bin/service.py:355
 #, python-format
 msgid "No such service: %s"
-msgstr ""
+msgstr "Kein Service vorhanden: %s"
 
 #~ msgid "Mounting /dev"
 #~ msgstr "/dev wird gemountet"
@@ -433,5 +422,4 @@ msgstr ""
 #~ msgstr "/dev/pts wird gemountet"
 
 #~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr ""
-#~ "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
+#~ msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
