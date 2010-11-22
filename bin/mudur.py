@@ -102,13 +102,6 @@ def create_directory(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def mount(part, args):
-    """Mounts the partition with arguments."""
-    ent = config.get_fstab_entry_with_mountpoint(part)
-    if ent and len(ent) > 3:
-        args = "-t %s -o %s %s %s" % (ent[2], ent[3], ent[0], ent[1])
-    os.system("/bin/mount -n %s" % args)
-
 def mtime(filename):
     """Returns the last modification time of a file."""
     m_time = 0
