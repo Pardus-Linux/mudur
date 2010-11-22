@@ -1013,7 +1013,7 @@ def check_filesystems():
 @skip_for_lxc_guests
 @plymouth_update_milestone
 def mount_local_filesystems():
-    """Mounts local filesystems and enables swaps if any."""
+    """Mounts local filesystems."""
 
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4")
