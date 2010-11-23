@@ -249,7 +249,6 @@ class Config:
             "keymap"        : None,
             "debug"         : True,
             "live"          : False,
-            "lvm"           : False,
             "safe"          : False,
             "forcefsck"     : False,
             "head_start"    : "",
@@ -855,14 +854,6 @@ def start_udev():
 
     # Stop udevmonitor
     os.kill(pid, 15)
-
-    # NOTE: handle lvm here when used by pardus
-    # These could be achieved using some udev rules.
-
-    if config.get("lvm"):
-        run_quiet("/usr/sbin/dmsetup", "mknodes")
-        run_quiet("/usr/sbin/lvm", "vgscan", "--ignorelockingfailure")
-        run_quiet("/usr/sbin/lvm", "vgchange", "-ay", "--ignorelockingfailure")
 
 @skip_for_lxc_guests
 @plymouth_update_milestone
