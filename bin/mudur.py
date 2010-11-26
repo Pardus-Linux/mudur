@@ -1025,8 +1025,8 @@ def mount_remote_filesystems(dry_run=False):
 
     fs_types = map(lambda x: x[2], netmounts)
     if "nfs" in fs_types or "nfs4" in fs_types:
-        ui.info(_("Starting portmap service for NFS"))
-        start_services(["portmap"])
+        ui.info(_("Starting rpcbind service for NFS"))
+        start_services(["rpcbind"])
 
     ui.info(_("Mounting remote filesystems (CTRL-C stops trying)"))
     try:
