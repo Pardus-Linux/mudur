@@ -565,118 +565,6 @@ def get_service_list(bus, _all=False):
         conditional = set(os.listdir("/etc/mudur/services/conditional"))
         return enabled.union(conditional).intersection(set(services))
 
-def start_network():
-    """Sets up network connections using Pardus' own network backend if any."""
-    try:
-        # This is shipped with NetworkManager, check if it is the default
-        if eval(load_config("/etc/conf.d/NetworkManager")\
-                .get("DEFAULT", "False")):
-            ui.info(_("Networking backend is set to NetworkManager"))
-            return
-    except IOError:
-        # File not available, go on with our backend
-        pass
-
-    import dbus
-    import comar
-
-    # Remove unnecessary lock files - bug #7212
-    for _file in os.listdir("/etc/network"):
-        if _file.startswith("."):
-            os.unlink(os.path.join("/etc/network", _file))
-
-    # Remote mount required?
-    need_remount = mount_remote_filesystems(dry_run=True)
-
-    link = comar.Link()
-
-    def interface_up(pkg, name, info):
-        """Brings up the given interface."""
-        ifname = info["device_id"].split("_")[-1]
-        ui.info((_("Bringing up %s") + ' (%s)') % (ui.colorize("light", ifname),
-                ui.colorize("cyan", name)))
-        if need_remount:
-            try:
-                link.Network.Link[pkg].setState(name, "up")
-            except dbus.DBusException:
-                ui.error((_("Unable to bring up %s") + ' (%s)') \
-                        % (ifname, name))
-                return False
-        else:
-            link.Network.Link[pkg].setState(name, "up", quiet=True)
-        return True
-
-    def interface_down(pkg, name):
-        """Brings down the given interface."""
-        try:
-            link.Network.Link[pkg].setState(name, "down", quiet=True)
-        except dbus.DBusException:
-            pass
-
-    def get_connections(pkg):
-        """Returns a list of connections."""
-        connections = {}
-        try:
-            for con in link.Network.Link[pkg].connections():
-                connections[con] = link.Network.Link[pkg].connectionInfo(con)
-        except dbus.DBusException:
-            pass
-        return connections
-
-    try:
-        pkgs = list(link.Network.Link)
-    except dbus.DBusException:
-        pkgs = []
-
-    for pkg in pkgs:
-        try:
-            link_info = link.Network.Link[pkg].linkInfo()
-        except dbus.DBusException:
-            continue
-        if link_info["type"] == "net":
-            for name, info in get_connections(pkg).iteritems():
-                if info.get("state", "down").startswith("up"):
-                    interface_up(pkg, name, info)
-                else:
-                    interface_down(pkg, name)
-        elif link_info["type"] == "wifi":
-            # Scan remote access points
-            devices = {}
-            try:
-                for device_id in link.Network.Link[pkg].deviceList():
-                    devices[device_id] = []
-                    for point in link.Network.Link[pkg].scanRemote(device_id):
-                        devices[device_id].append(unicode(point["remote"]))
-            except dbus.DBusException:
-                continue
-            # Try to connect last connected profile
-            skip = False
-            for name, info in get_connections(pkg).iteritems():
-                if info.get("state", "down").startswith("up") \
-                        and info.get("device_id", None) in devices \
-                        and info["remote"] in devices[info["device_id"]]:
-                    interface_up(pkg, name, info)
-                    skip = True
-                    break
-            # There's no last connected profile, try to connect other profiles
-            if not skip:
-                # Reset connection states
-                for name, info in get_connections(pkg).iteritems():
-                    interface_down(pkg, name)
-                # Try to connect other profiles
-                for name, info in get_connections(pkg).iteritems():
-                    if info.get("device_id", None) in devices \
-                            and info["remote"] in devices[info["device_id"]]:
-                        interface_up(pkg, name, info)
-                        break
-
-    if need_remount:
-        from pardus.netutils import waitNet as wait_for_network
-        if wait_for_network():
-            mount_remote_filesystems()
-        else:
-            ui.error(_("No network connection, skipping remote mount."))
-
 def start_services(extras=None):
     """Sends start signals to the required services through D-Bus."""
     import dbus
@@ -697,9 +585,9 @@ def start_services(extras=None):
                 pass
 
     else:
-        # Start network service
+        # Start network service first
         try:
-            start_network()
+            manage_service("NetworkManager", "start")
         except Exception, error:
             ui.error(_("Unable to start network:\n  %s") % error)
 
@@ -708,13 +596,15 @@ def start_services(extras=None):
         if not wait_bus("/dev/log", stream=False, timeout=15):
             ui.warn(_("Cannot start system logger"))
 
+        # Mount remote filesystems if any
+        mount_remote_filesystems()
+
         if not config.get("safe"):
             ui.info(_("Starting services"))
             services = get_service_list(bus)
 
-            # Remove redundant rsyslog
-            if "rsyslog" in services:
-                services.remove("rsyslog")
+            # Remove already started services
+            services = set(services).difference(["rsyslog", "NetworkManager"])
 
             # Give login screen a headstart
             head_start = config.get("head_start")
@@ -730,7 +620,6 @@ def start_services(extras=None):
             if "off" in get_kernel_option("xorg"):
                 # Stop plymouth
                 splash.quit(retain_splash=False)
-
 
         # Close the handle
         bus.close()
@@ -1009,42 +898,14 @@ def mount_local_filesystems():
     ui.info(_("Mounting local filesystems"))
     run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4,noncpfs")
 
-def mount_remote_filesystems(dry_run=False):
+def mount_remote_filesystems():
     """Mounts remote filesystems."""
-    data = load_file("/etc/fstab", True).split("\n")
-    fstab = map(lambda x: x.split(), data)
-    netmounts = filter(lambda x: len(x) > 2 and x[2] in ("cifs", "nfs", "nfs4"), fstab)
-    if len(netmounts) == 0:
-        return False
-
-    if dry_run:
-        return True
-    # If user has set some network filesystems in fstab, we should wait
-    # until they are mounted, otherwise several programs can fail if
-    # /home or /var is on a network share.
-
-    fs_types = map(lambda x: x[2], netmounts)
-    if "nfs" in fs_types or "nfs4" in fs_types:
-        start_services(["rpcbind"])
-
-    ui.info(_("Mounting remote filesystems (CTRL-C stops trying)"))
-    try:
-        signal.signal(signal.SIGINT, signal.default_int_handler)
-        while True:
-            next_set = []
-            for item in netmounts:
-                ret = run_quiet("/bin/mount", item[1])
-                if ret != 0:
-                    next_set.append(item)
-            if len(next_set) == 0:
-                break
-            netmounts = next_set
-            time.sleep(0.5)
-    except KeyboardInterrupt:
-        ui.error(_("Mounting skipped with CTRL-C, "
-            "remote shares will not be accessible!"))
-        time.sleep(1)
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
+    from pardus.fstabutils import Fstab
+    fstab = Fstab()
+    if fstab.contains_remote_mounts():
+        #ui.info(_("Mounting remote filesystems (CTRL-C stops trying)"))
+        ui.info(_("Mounting remote filesystems"))
+        start_services(["netfs"])
 
 ################################################################################
 # Other system related methods for hostname setting, modules autoloading, etc. #
