@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-29 10:56+0200\n"
-"PO-Revision-Date: 2010-04-09 20:46+0200\n"
+"PO-Revision-Date: 2010-11-29 10:21+0100\n"
 "Last-Translator: Antoon Tolboom <atolboo@gmail.com>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -255,13 +255,12 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Opnieuw aankoppelen bestandssystemen als alleen-lezen"
 
 #: bin/mudur.py:1320
-#, fuzzy
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.trwith "
 "following information:"
 msgstr ""
-"Er is een interne fout opgetreden. Meld alstublieft de foutmelding aan bugs."
-"pardus.org.tr met de volgende informatie:"
+"Er is een interne fout opgetreden. Meld de foutmelding bij bugs.pardus.org."
+"tr met de volgende informatie:"
 
 #: bin/mudur.py:1423
 msgid "Setting up localhost"
