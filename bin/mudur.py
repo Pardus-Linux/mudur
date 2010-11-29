@@ -1007,7 +1007,7 @@ def mount_local_filesystems():
     """Mounts local filesystems."""
 
     ui.info(_("Mounting local filesystems"))
-    run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4")
+    run("/bin/mount", "-at", "noproc,nocifs,nonfs,nonfs4,noncpfs")
 
 def mount_remote_filesystems(dry_run=False):
     """Mounts remote filesystems."""
