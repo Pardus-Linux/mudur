@@ -1,0 +1,407 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mudur\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-29 10:56+0200\n"
+"PO-Revision-Date: 2010-11-30 10:19+0100\n"
+"Last-Translator: Zoltan Siposs <zoltan.siposs@gmail.com>\n"
+"Language-Team: HUNGARIAN <pardus-translators@pardus.org.tr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: HUNGARY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: bin/mudur.py:227
+msgid "Cannot write mudur.log, read-only file system"
+msgstr "Nem írható a mudur.log, csak olvasható a fájlrendszer"
+
+#: bin/mudur.py:395
+msgid "Safe Mode"
+msgstr "Csökkentett mód"
+
+#: bin/mudur.py:399
+msgid "Cannot find /etc/pardus-release"
+msgstr "A /etc/pardus-release nem található"
+
+#: bin/mudur.py:492
+msgid "/etc/env.d/03locale cannot be updated"
+msgstr "Nem frissíthető a /etc/env.d/03locale"
+
+#: bin/mudur.py:518
+#, python-format
+msgid "Could not set unicode mode on tty %d"
+msgstr "Nem tudom beállítnai a unicode módot a(z) %d terminálon"
+
+#: bin/mudur.py:574
+msgid "Networking backend is set to NetworkManager"
+msgstr "A hálózakezelő alrendszer a NetworkManager."
+
+#: bin/mudur.py:596
+#, python-format
+msgid "Bringing up %s"
+msgstr "%s indítása"
+
+#: bin/mudur.py:602
+#, python-format
+msgid "Unable to bring up %s"
+msgstr "Nem tudom indítani %s-t"
+
+#: bin/mudur.py:678
+msgid "No network connection, skipping remote mount."
+msgstr "Nincs hálózati kapcsolat, a távoli fájlrendszerek nem lesznem csatolva."
+
+#: bin/mudur.py:688
+msgid "Cannot connect to DBus, services won't be started"
+msgstr "Nem tudok a DBushoz csatlakozni, a szolgáltatások nem lesznek elindítva."
+
+#: bin/mudur.py:704
+#, python-format
+msgid ""
+"Unable to start network:\n"
+"  %s"
+msgstr ""
+"Nem indítható el a hálózat:\n"
+"%s"
+
+#: bin/mudur.py:709
+msgid "Cannot start system logger"
+msgstr "Nem tudom elindítani a rendszernaplózó szolgáltatást."
+
+#: bin/mudur.py:712
+msgid "Starting services"
+msgstr "Szolgáltatások indítása"
+
+#: bin/mudur.py:743
+msgid "Stopping services"
+msgstr "Szolgáltatások leállítása"
+
+#: bin/mudur.py:771
+#: bin/service.py:161
+#: bin/service.py:270
+#, python-format
+msgid "Starting %s"
+msgstr "%s indítása"
+
+#: bin/mudur.py:782
+#: bin/service.py:174
+#: bin/service.py:282
+#, python-format
+msgid "Stopping %s"
+msgstr "%s leállítása"
+
+#: bin/mudur.py:799
+msgid "Triggering udev events which are failed during a previous run"
+msgstr "Az előző futásnál hibásan működö udev események újrapróbálása"
+
+#: bin/mudur.py:823
+msgid "Can't move persistent udev rules from /dev/.udev"
+msgstr "Nem tudom átmozgatni az állandó udev szabályokat a /dev/.udev-ből"
+
+#: bin/mudur.py:835
+msgid "Starting udev"
+msgstr "Az udev indítása"
+
+#: bin/mudur.py:849
+msgid "Populating /dev"
+msgstr "A /dev feltöltése"
+
+#: bin/mudur.py:875
+msgid "Removing stale lock file /etc/mtab~"
+msgstr "Ottfelejtett /etc/mtab~ zárolási fájl eltávolítása"
+
+#: bin/mudur.py:878
+msgid "Failed removing stale lock file /etc/mtab~"
+msgstr "Nem tudom eltávolítani az ottfelejtett /etc/mtab~ zárolási fájt"
+
+#: bin/mudur.py:890
+msgid "/etc/fstab doesn't contain an entry for the root filesystem"
+msgstr "A /etc/fstab-ab nincs a gyökér fájlrendszerre mutató bejegyzés"
+
+#: bin/mudur.py:897
+msgid "Remounting root filesystem read-only"
+msgstr "Gyökér fájlrendszer újracsatolása csak olvasható módban"
+
+#: bin/mudur.py:903
+msgid "Checking root filesystem (full check forced)"
+msgstr "Gyökér fájlrendszer ellenőrzése (teljes ellenőrzés kényszerítve)"
+
+#: bin/mudur.py:909
+msgid "Checking root filesystem"
+msgstr "Gyökér fájlrendszer ellenőrzése"
+
+#: bin/mudur.py:918
+msgid "Filesystem repaired, but reboot needed!"
+msgstr "A fájlrendszer megjavítva, de újraindítás szükséges!"
+
+#: bin/mudur.py:922
+msgid "Rebooting in 10 seconds..."
+msgstr "Újraindítás 10 másodperc múlva..."
+
+#: bin/mudur.py:924
+msgid "Rebooting..."
+msgstr "Újraindítás..."
+
+#: bin/mudur.py:928
+msgid "Filesystem could not be repaired"
+msgstr "A fájlrendszer nem javítható"
+
+#: bin/mudur.py:933
+msgid "Skipping root filesystem check (fstab's passno == 0)"
+msgstr "A gyökér fájlrendszer ellenőrzésének kihagyása (fstab beállítás, passno == 0)"
+
+#: bin/mudur.py:941
+msgid "Remounting root filesystem read/write"
+msgstr "Gyökér fájrendszer újracsatolása írható/olvasható módban"
+
+#: bin/mudur.py:945
+msgid ""
+"Root filesystem could not be mounted read/write\n"
+"   You can either login below and manually check your filesytem(s) OR\n"
+"   restart your system, press F3 and select 'FS check' from boot menu\n"
+msgstr ""
+"A gyökér fájlrendszer nem csatolható fel írható/olvasható módban\n"
+"   Alább bejelentkezhet és elvégezheti a fájlrendszer(ek) kézi ellenőrzését VAGY\n"
+"   újraindíthatja a rendszert és a rendszerindító menüben F3 megnyomásával kiválaszthatja a fájlrendszer ellenőrzést.\n"
+
+#: bin/mudur.py:957
+msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
+msgstr "Nem tudom a szinkronizálni a /etc/mtab-ot a /proc/mounts tartalmával"
+
+#: bin/mudur.py:977
+msgid "Checking all filesystems"
+msgstr "Minden fájlrendszer ellenőrzése"
+
+#: bin/mudur.py:981
+msgid "A full fsck has been forced"
+msgstr "Teljes fsck kényszerítve"
+
+#: bin/mudur.py:999
+msgid "Filesystem errors corrected"
+msgstr "A fájlrendszerhibák kijavítva"
+
+#: bin/mudur.py:1001
+msgid "Fsck could not correct all errors, manual repair needed"
+msgstr "AZ fsck nem tudott mindent hibát kijavítani. Manuális javítás szükséges."
+
+#: bin/mudur.py:1009
+msgid "Mounting local filesystems"
+msgstr "Helyi fájlrendszerek csatolása"
+
+#: bin/mudur.py:1030
+msgid "Mounting remote filesystems (CTRL-C stops trying)"
+msgstr "Távoli fájlrendszerek csatolása (CTRL-C megszakítja a próbálkozást)"
+
+#: bin/mudur.py:1044
+msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
+msgstr "A csatolás megszakítva CTR-C-vel, a távoli megosztott fájlrendszerek nem lesznek elérhetők!"
+
+#: bin/mudur.py:1088
+#, python-format
+msgid "Setting up hostname as '%s'"
+msgstr "Hosztnév beállítva: %s"
+
+#: bin/mudur.py:1111
+msgid "Setting disk parameters"
+msgstr "Lemez paraméterek beállítása"
+
+#: bin/mudur.py:1132
+msgid "Activating swap space"
+msgstr "Lapozóterület aktiválása"
+
+#: bin/mudur.py:1143
+msgid "Deactivating swap space"
+msgstr "Lapozóterület deaktiválása"
+
+#: bin/mudur.py:1153
+msgid "Cleaning up /var"
+msgstr "A /var tisztítása"
+
+#: bin/mudur.py:1169
+msgid "Cleaning up /tmp"
+msgstr "A /tmp tisztítása"
+
+#: bin/mudur.py:1206
+msgid "Setting system clock to hardware clock"
+msgstr "A rendszeróra beállítása a hardver-óra értékére"
+
+#: bin/mudur.py:1222
+msgid "Failed to adjust systematic drift of the hardware clock"
+msgstr "Nem sikerült kiigazítani a hardver-óra elcsúszását"
+
+#: bin/mudur.py:1226
+msgid "Failed to set system clock to hardware clock"
+msgstr "Nem sikerült a rendszerórát a hardver-órához igazítani"
+
+#: bin/mudur.py:1237
+msgid "Syncing system clock to hardware clock"
+msgstr "A rendszeróra értékének szinkronizálása a hardvare-órába"
+
+#: bin/mudur.py:1240
+msgid "Failed to synchronize clocks"
+msgstr "Nem sikerült az órák szinkronizálása"
+
+#: bin/mudur.py:1297
+msgid "Unmounting filesystems"
+msgstr "Fájlrendszerek leválasztása"
+
+#: bin/mudur.py:1305
+msgid "Remounting remaining filesystems read-only"
+msgstr "Maradék fájlrendszerek újracsatolása csak olvashatóként"
+
+#: bin/mudur.py:1320
+msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
+msgstr "Belső hiba történt. Kérjük küldjön hibabejelentés a bugs.pardus.org.tr címen, az alábbi tartalommal: "
+
+#: bin/mudur.py:1423
+msgid "Setting up localhost"
+msgstr "localhost beállítása"
+
+#: bin/mudur.py:1436
+msgid "Updating environment variables"
+msgstr "Környezeti változók ferissítése"
+
+#: bin/mudur.py:1488
+msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
+msgstr "Kísérlet a meleg-újraindításra (a BIOS kexec kernel általi kihagyása)"
+
+#: bin/service.py:60
+msgid "local"
+msgstr "helyi"
+
+#: bin/service.py:61
+msgid "script"
+msgstr "szkript"
+
+#: bin/service.py:62
+msgid "server"
+msgstr "szerver"
+
+#: bin/service.py:74
+msgid "running"
+msgstr "fut"
+
+#: bin/service.py:76
+msgid "yes"
+msgstr "igen"
+
+#: bin/service.py:78
+msgid "conditional"
+msgstr "feltételes"
+
+#: bin/service.py:101
+msgid "Status"
+msgstr "Státusz"
+
+#: bin/service.py:102
+msgid "Service"
+msgstr "Szolgáltatás"
+
+#: bin/service.py:103
+msgid "Autostart"
+msgstr "Automatikus indítás"
+
+#: bin/service.py:104
+msgid "Description"
+msgstr "Leírás"
+
+#: bin/service.py:147
+#: bin/service.py:157
+#, python-format
+msgid "Unable to start %s:"
+msgstr "Nem tudom elindítani %s-t:"
+
+#: bin/service.py:170
+#, python-format
+msgid "Unable to stop %s:"
+msgstr "Nem tudom leállítani %s-t:"
+
+#: bin/service.py:183
+#, python-format
+msgid "Unable to set %s state:"
+msgstr "Nem tudom beállítani a(z) %s státuszt:"
+
+#: bin/service.py:188
+#, python-format
+msgid "Service '%s' will be auto started."
+msgstr "A(z) %s szolgáltatás ezentúl automatikusan elindul."
+
+#: bin/service.py:190
+#, python-format
+msgid "Service '%s' won't be auto started."
+msgstr "A(z) %s szolgáltatás ezentúl nem indul el automatikusan."
+
+#: bin/service.py:192
+#, python-format
+msgid "Service '%s' will be started if required."
+msgstr "A(z) %s szolgáltatás ezentúl szükség szerint elindul."
+
+#: bin/service.py:201
+#, python-format
+msgid "Unable to reload %s:"
+msgstr "Nem tudom újolvasni %s beállításait:"
+
+#: bin/service.py:205
+#, python-format
+msgid "Reloading %s"
+msgstr "%s beállításainak újraolvasása"
+
+#: bin/service.py:259
+msgid "You must be root to use that."
+msgstr "Ez csak root-ként használható."
+
+#: bin/service.py:278
+msgid "Unable to start DBus"
+msgstr "Nem tudom elindítani a DBus-t"
+
+#: bin/service.py:292
+msgid "DBus is not running."
+msgstr "A DBus nem fut."
+
+#: bin/service.py:294
+msgid "DBus is running."
+msgstr "A DBus fut."
+
+#: bin/service.py:299
+msgid ""
+"usage: service [<options>] [<service>] <command>\n"
+"where command is:\n"
+" list     Display service list\n"
+" status   Display service status\n"
+" info     Display service status\n"
+" on       Auto start the service\n"
+" off      Don't auto start the service\n"
+" start    Start the service\n"
+" stop     Stop the service\n"
+" restart  Stop the service, then start again\n"
+" reload   Reload the configuration (if service supports this)\n"
+"and option is:\n"
+" -N, --no-color  Don't use color in output\n"
+" -q, --quiet     Don't print replies"
+msgstr ""
+"használata: service [<opciók>] [<szolgáltatás>] <parancs>\n"
+"ahol a parancs az alábbiak egyike:\n"
+" list     Kilistázza a szolgáltatásokat\n"
+" status   A szolgáltatás állapotát mutatja meg\n"
+" info     A szolgáltatás állapotát mutatja meg\n"
+" on       Automatikusan indítja a szolgáltatást\n"
+" off      Nem indítja automatikusa a szolgáltatást\n"
+" start    Elindítja a szolgáltatást\n"
+" stop     Leállítja a szolgáltatást\n"
+" restart  Leállítja, majd újraindítja a szolgáltatást\n"
+" reload   Újraolvassa a beállításokat (amennyiben a szolgáltatás képes rá)\n"
+"az opciók a következők lehetnek:\n"
+" -N, --no-color  Ne használjon színeket az üzenetek megjelenítése során\n"
+" -q, --quiet     Ne írja ki az üzeneteket"
+
+#: bin/service.py:355
+#, python-format
+msgid "No such service: %s"
+msgstr "Nincs ilyen szolgáltatás: %s"
+
