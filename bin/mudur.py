@@ -609,6 +609,10 @@ def start_services(extras=None):
             # Give login screen a headstart
             head_start = config.get("head_start")
             run_head_start = head_start and head_start in services
+
+            # Decide whether we'll stop plymouth or not
+            stop_plymouth = "off" in get_kernel_option("xorg") or \
+                            not run_head_start
             if run_head_start:
                 manage_service(head_start, "ready")
                 services.remove(head_start)
@@ -617,7 +621,7 @@ def start_services(extras=None):
             for service in services:
                 manage_service(service, "ready")
 
-            if "off" in get_kernel_option("xorg"):
+            if stop_plymouth:
                 # Stop plymouth
                 splash.quit(retain_splash=False)
 
