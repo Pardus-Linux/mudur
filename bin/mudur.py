@@ -911,6 +911,16 @@ def mount_remote_filesystems():
 # Other system related methods for hostname setting, modules autoloading, etc. #
 ################################################################################
 
+@skip_for_lxc_guests
+def minimize_printk_log_level():
+    # Set kernel console log level for cleaner boot
+    # only panic messages will be printed
+    write_to_file("/proc/sys/kernel/printk", "1")
+
+@skip_for_lxc_guests
+def run_sysctl():
+    run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
+
 def set_hostname():
     """Sets the system's hostname."""
     khost = capture("/bin/hostname")[0].rstrip("\n")
@@ -1224,10 +1234,6 @@ def main():
         # Now we know which language and keymap to use
         set_console_parameters()
 
-        # Set kernel console log level for cleaner boot
-        # only panic messages will be printed
-        write_to_file("/proc/sys/kernel/printk", "1")
-
         # Start udev and event triggering
         start_udev()
 
@@ -1286,7 +1292,7 @@ def main():
         run("/sbin/route", "add", "-net", "127.0.0.0",
             "netmask", "255.0.0.0", "gw", "127.0.0.1", "dev", "lo")
 
-        run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
+        run_sysctl()
 
         # Cleanup /var
         cleanup_var()
