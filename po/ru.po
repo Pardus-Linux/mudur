@@ -2,7 +2,7 @@
 # translation of de.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2006.
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2007.
 # Mustafa Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
@@ -98,9 +98,7 @@ msgstr "Остановка %s"
 
 #: bin/mudur.py:799
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
-"Запуск Udev событий, которые не удалось запустить во время предыдущего "
-"запуска"
+msgstr "Запуск Udev событий, которые не удалось запустить во время предыдущего запуска"
 
 #: bin/mudur.py:823
 msgid "Can't move persistent udev rules from /dev/.udev"
@@ -190,8 +188,7 @@ msgstr "Ошибки файловой системы исправлены"
 
 #: bin/mudur.py:1001
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck не может исправить все ошибки автоматически, нужно ручное исправление"
+msgstr "Fsck не может исправить все ошибки автоматически, нужно ручное исправление"
 
 #: bin/mudur.py:1009
 msgid "Mounting local filesystems"
@@ -259,13 +256,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Перемонтирование остальных файловых систем только для чтения"
 
 #: bin/mudur.py:1320
-#, fuzzy
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.trwith "
-"following information:"
-msgstr ""
-"Произошла внутренняя ошибка. Пожалуйста сообщите по адресу bugs.pardus.org."
-"tr следующую информацию:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
+msgstr "Произошла внутренняя ошибка. Пожалуйста сообщите по адресу bugs.pardus.org.tr следующую информацию:"
 
 #: bin/mudur.py:1423
 msgid "Setting up localhost"
@@ -428,5 +420,4 @@ msgstr "Нет такой службы: %s"
 #~ msgstr "/dev/pts wird gemountet"
 
 #~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr ""
-#~ "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
+#~ msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
