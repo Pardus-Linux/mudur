@@ -1238,6 +1238,8 @@ def main():
         # Now we know which language and keymap to use
         set_console_parameters()
 
+        minimize_printk_log_level()
+
         # Start udev and event triggering
         start_udev()
 
