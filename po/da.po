@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 10:56+0200\n"
+"POT-Creation-Date: 2010-12-08 12:05+0200\n"
 "PO-Revision-Date: 2009-09-08 12:23+0200\n"
 "Last-Translator: Peter Lyberth <peterjensen84@gmail.com>\n"
 "Language-Team: Danish <pardus-translators@pardus.org.tr>\n"
@@ -37,228 +37,206 @@ msgstr ""
 msgid "Could not set unicode mode on tty %d"
 msgstr "Kunne ikke sætte tty %d til unicode tilstand"
 
-#: bin/mudur.py:574
-msgid "Networking backend is set to NetworkManager"
-msgstr ""
-
-#: bin/mudur.py:596
-#, python-format
-msgid "Bringing up %s"
-msgstr ""
-
-#: bin/mudur.py:602
-#, python-format
-msgid "Unable to bring up %s"
-msgstr ""
-
-#: bin/mudur.py:678
-msgid "No network connection, skipping remote mount."
-msgstr ""
-
-#: bin/mudur.py:688
+#: bin/mudur.py:576
 msgid "Cannot connect to DBus, services won't be started"
 msgstr ""
 
-#: bin/mudur.py:704
+#: bin/mudur.py:592
 #, python-format
 msgid ""
 "Unable to start network:\n"
 "  %s"
 msgstr ""
 
-#: bin/mudur.py:709
+#: bin/mudur.py:597
 msgid "Cannot start system logger"
 msgstr ""
 
-#: bin/mudur.py:712
+#: bin/mudur.py:603
 msgid "Starting services"
 msgstr ""
 
-#: bin/mudur.py:743
+#: bin/mudur.py:636
 msgid "Stopping services"
 msgstr ""
 
-#: bin/mudur.py:771 bin/service.py:161 bin/service.py:270
+#: bin/mudur.py:664 bin/service.py:161 bin/service.py:270
 #, python-format
 msgid "Starting %s"
 msgstr "Starter %s"
 
-#: bin/mudur.py:782 bin/service.py:174 bin/service.py:282
+#: bin/mudur.py:675 bin/service.py:174 bin/service.py:282
 #, python-format
 msgid "Stopping %s"
 msgstr ""
 
-#: bin/mudur.py:799
+#: bin/mudur.py:692
 msgid "Triggering udev events which are failed during a previous run"
 msgstr ""
 
-#: bin/mudur.py:823
+#: bin/mudur.py:716
 msgid "Can't move persistent udev rules from /dev/.udev"
 msgstr ""
 
-#: bin/mudur.py:835
+#: bin/mudur.py:728
 msgid "Starting udev"
 msgstr ""
 
-#: bin/mudur.py:849
+#: bin/mudur.py:742
 msgid "Populating /dev"
 msgstr ""
 
-#: bin/mudur.py:875
+#: bin/mudur.py:768
 msgid "Removing stale lock file /etc/mtab~"
 msgstr ""
 
-#: bin/mudur.py:878
+#: bin/mudur.py:771
 msgid "Failed removing stale lock file /etc/mtab~"
 msgstr ""
 
-#: bin/mudur.py:890
+#: bin/mudur.py:783
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
 msgstr ""
 
-#: bin/mudur.py:897
+#: bin/mudur.py:790
 msgid "Remounting root filesystem read-only"
 msgstr ""
 
-#: bin/mudur.py:903
+#: bin/mudur.py:796
 msgid "Checking root filesystem (full check forced)"
 msgstr ""
 
-#: bin/mudur.py:909
+#: bin/mudur.py:802
 msgid "Checking root filesystem"
 msgstr ""
 
-#: bin/mudur.py:918
+#: bin/mudur.py:811
 msgid "Filesystem repaired, but reboot needed!"
 msgstr ""
 
-#: bin/mudur.py:922
+#: bin/mudur.py:815
 msgid "Rebooting in 10 seconds..."
 msgstr ""
 
-#: bin/mudur.py:924
+#: bin/mudur.py:817
 msgid "Rebooting..."
 msgstr ""
 
-#: bin/mudur.py:928
+#: bin/mudur.py:821
 msgid "Filesystem could not be repaired"
 msgstr ""
 
-#: bin/mudur.py:933
+#: bin/mudur.py:826
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr ""
 
-#: bin/mudur.py:941
+#: bin/mudur.py:834
 msgid "Remounting root filesystem read/write"
 msgstr ""
 
-#: bin/mudur.py:945
+#: bin/mudur.py:838
 msgid ""
 "Root filesystem could not be mounted read/write\n"
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
 
-#: bin/mudur.py:957
+#: bin/mudur.py:850
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
 msgstr ""
 
-#: bin/mudur.py:977
+#: bin/mudur.py:870
 msgid "Checking all filesystems"
 msgstr ""
 
-#: bin/mudur.py:981
+#: bin/mudur.py:874
 msgid "A full fsck has been forced"
 msgstr ""
 
-#: bin/mudur.py:999
+#: bin/mudur.py:892
 msgid "Filesystem errors corrected"
 msgstr ""
 
-#: bin/mudur.py:1001
+#: bin/mudur.py:894
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr ""
 
-#: bin/mudur.py:1009
+#: bin/mudur.py:902
 msgid "Mounting local filesystems"
 msgstr ""
 
-#: bin/mudur.py:1030
-msgid "Mounting remote filesystems (CTRL-C stops trying)"
+#: bin/mudur.py:911
+msgid "Mounting remote filesystems"
 msgstr ""
 
-#: bin/mudur.py:1044
-msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr ""
-
-#: bin/mudur.py:1088
+#: bin/mudur.py:963
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr ""
 
-#: bin/mudur.py:1111
+#: bin/mudur.py:986
 msgid "Setting disk parameters"
 msgstr ""
 
-#: bin/mudur.py:1132
+#: bin/mudur.py:1007
 msgid "Activating swap space"
 msgstr ""
 
-#: bin/mudur.py:1143
+#: bin/mudur.py:1018
 msgid "Deactivating swap space"
 msgstr ""
 
-#: bin/mudur.py:1153
+#: bin/mudur.py:1028
 msgid "Cleaning up /var"
 msgstr ""
 
-#: bin/mudur.py:1169
+#: bin/mudur.py:1044
 msgid "Cleaning up /tmp"
 msgstr ""
 
-#: bin/mudur.py:1206
+#: bin/mudur.py:1081
 msgid "Setting system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:1222
+#: bin/mudur.py:1097
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr ""
 
-#: bin/mudur.py:1226
+#: bin/mudur.py:1101
 msgid "Failed to set system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:1237
+#: bin/mudur.py:1112
 msgid "Syncing system clock to hardware clock"
 msgstr ""
 
-#: bin/mudur.py:1240
+#: bin/mudur.py:1115
 msgid "Failed to synchronize clocks"
 msgstr ""
 
-#: bin/mudur.py:1297
+#: bin/mudur.py:1172
 msgid "Unmounting filesystems"
 msgstr ""
 
-#: bin/mudur.py:1305
+#: bin/mudur.py:1180
 msgid "Remounting remaining filesystems read-only"
 msgstr ""
 
-#: bin/mudur.py:1320
+#: bin/mudur.py:1195
 msgid ""
 "An internal error occured. Please report to the bugs.pardus.org.trwith "
 "following information:"
 msgstr ""
 
-#: bin/mudur.py:1423
+#: bin/mudur.py:1296
 msgid "Setting up localhost"
 msgstr ""
 
-#: bin/mudur.py:1436
+#: bin/mudur.py:1309
 msgid "Updating environment variables"
 msgstr ""
 
-#: bin/mudur.py:1488
+#: bin/mudur.py:1361
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
 

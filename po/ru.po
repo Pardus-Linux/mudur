@@ -2,7 +2,7 @@
 # translation of de.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2006.
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2007.
 # Mustafa Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-29 10:56+0200\n"
+"POT-Creation-Date: 2010-12-08 12:05+0200\n"
 "PO-Revision-Date: 2009-06-26 21:34-0400\n"
 "Last-Translator: Klemens Häckel <click3d at linuxmail dot org>\n"
 "Language-Team: German <es@li.org>\n"
@@ -43,29 +43,11 @@ msgstr "/etc/env.d/03locale не может быть обновлен"
 msgid "Could not set unicode mode on tty %d"
 msgstr "Не удалось установить режим Юникод на tty %d"
 
-#: bin/mudur.py:574
-msgid "Networking backend is set to NetworkManager"
-msgstr "NetworkManager выбран как бэкэнд для работы с сетью"
-
-#: bin/mudur.py:596
-#, python-format
-msgid "Bringing up %s"
-msgstr "Bringing up %s"
-
-#: bin/mudur.py:602
-#, python-format
-msgid "Unable to bring up %s"
-msgstr "Unable to bring up %s"
-
-#: bin/mudur.py:678
-msgid "No network connection, skipping remote mount."
-msgstr "Нет подключения к сети, пропуск удаленного монтирования"
-
-#: bin/mudur.py:688
+#: bin/mudur.py:576
 msgid "Cannot connect to DBus, services won't be started"
 msgstr "Не удается подключиться к DBus, сервис не будет запущен"
 
-#: bin/mudur.py:704
+#: bin/mudur.py:592
 #, python-format
 msgid ""
 "Unable to start network:\n"
@@ -74,93 +56,95 @@ msgstr ""
 "Не удается запустить сеть::\n"
 "  %s"
 
-#: bin/mudur.py:709
+#: bin/mudur.py:597
 msgid "Cannot start system logger"
 msgstr "Не удается запустить службу журналирования системы"
 
-#: bin/mudur.py:712
+#: bin/mudur.py:603
 msgid "Starting services"
 msgstr "Запуск служб"
 
-#: bin/mudur.py:743
+#: bin/mudur.py:636
 msgid "Stopping services"
 msgstr "Остановка служб"
 
-#: bin/mudur.py:771 bin/service.py:161 bin/service.py:270
+#: bin/mudur.py:664 bin/service.py:161 bin/service.py:270
 #, python-format
 msgid "Starting %s"
 msgstr "Запуск %s"
 
-#: bin/mudur.py:782 bin/service.py:174 bin/service.py:282
+#: bin/mudur.py:675 bin/service.py:174 bin/service.py:282
 #, python-format
 msgid "Stopping %s"
 msgstr "Остановка %s"
 
-#: bin/mudur.py:799
+#: bin/mudur.py:692
 msgid "Triggering udev events which are failed during a previous run"
-msgstr "Запуск Udev событий, которые не удалось запустить во время предыдущего запуска"
+msgstr ""
+"Запуск Udev событий, которые не удалось запустить во время предыдущего "
+"запуска"
 
-#: bin/mudur.py:823
+#: bin/mudur.py:716
 msgid "Can't move persistent udev rules from /dev/.udev"
 msgstr "Не могу установить правила udev из /dev/.udev"
 
-#: bin/mudur.py:835
+#: bin/mudur.py:728
 msgid "Starting udev"
 msgstr "Запуск udev"
 
-#: bin/mudur.py:849
+#: bin/mudur.py:742
 msgid "Populating /dev"
 msgstr "Запись /dev"
 
-#: bin/mudur.py:875
+#: bin/mudur.py:768
 msgid "Removing stale lock file /etc/mtab~"
 msgstr "Удаление устаревшего файла блокировки  /etc/mtab~"
 
-#: bin/mudur.py:878
+#: bin/mudur.py:771
 msgid "Failed removing stale lock file /etc/mtab~"
 msgstr "Не удалось удалить устаревший файл блокировки /etc/mtab~"
 
-#: bin/mudur.py:890
+#: bin/mudur.py:783
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
 msgstr "/etc/fstab не содержит записи для корневой файловой системы"
 
-#: bin/mudur.py:897
+#: bin/mudur.py:790
 msgid "Remounting root filesystem read-only"
 msgstr "Перемонтирование корневая файловая системы только для чтения"
 
-#: bin/mudur.py:903
+#: bin/mudur.py:796
 msgid "Checking root filesystem (full check forced)"
 msgstr "Проверка корневой файловой системы (полная проверка принудительно)"
 
-#: bin/mudur.py:909
+#: bin/mudur.py:802
 msgid "Checking root filesystem"
 msgstr "Проверка корневой файловой системы"
 
-#: bin/mudur.py:918
+#: bin/mudur.py:811
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Файловая система отремонтирована, но необходима перезагрузка!"
 
-#: bin/mudur.py:922
+#: bin/mudur.py:815
 msgid "Rebooting in 10 seconds..."
 msgstr "Перезагрузка через 10 секунд..."
 
-#: bin/mudur.py:924
+#: bin/mudur.py:817
 msgid "Rebooting..."
 msgstr "Перезагрузка..."
 
-#: bin/mudur.py:928
+#: bin/mudur.py:821
 msgid "Filesystem could not be repaired"
 msgstr "Файловая система не может быть восстановлена"
 
-#: bin/mudur.py:933
+#: bin/mudur.py:826
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Пропуск проверки корневой файловой системы (fstab's passno == 0)"
 
-#: bin/mudur.py:941
+#: bin/mudur.py:834
 msgid "Remounting root filesystem read/write"
 msgstr "Перемонтирование корневой файловой системы для чтения/записи"
 
-#: bin/mudur.py:945
+#: bin/mudur.py:838
 msgid ""
 "Root filesystem could not be mounted read/write\n"
 "   You can either login below and manually check your filesytem(s) OR\n"
@@ -170,104 +154,105 @@ msgstr ""
 "Вы можете войти ниже и вручную проверить файловую систему(ы) или\n"
 "перезагрузить систему, нажмите F3 и выберите 'FS check' из меню загрузки\n"
 
-#: bin/mudur.py:957
+#: bin/mudur.py:850
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
 msgstr "Не удалось произвести синхронизацию /etc/mtab с /proc/mounts"
 
-#: bin/mudur.py:977
+#: bin/mudur.py:870
 msgid "Checking all filesystems"
 msgstr "Проверка всех файловых систем"
 
-#: bin/mudur.py:981
+#: bin/mudur.py:874
 msgid "A full fsck has been forced"
 msgstr "Полный FSCK был остановлен"
 
-#: bin/mudur.py:999
+#: bin/mudur.py:892
 msgid "Filesystem errors corrected"
 msgstr "Ошибки файловой системы исправлены"
 
-#: bin/mudur.py:1001
+#: bin/mudur.py:894
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr "Fsck не может исправить все ошибки автоматически, нужно ручное исправление"
+msgstr ""
+"Fsck не может исправить все ошибки автоматически, нужно ручное исправление"
 
-#: bin/mudur.py:1009
+#: bin/mudur.py:902
 msgid "Mounting local filesystems"
 msgstr "Монтаж локальных файловых систем"
 
-#: bin/mudur.py:1030
-msgid "Mounting remote filesystems (CTRL-C stops trying)"
-msgstr "Монтирования удаленных файловых систем (CTRL-C прекращает попытки)"
+#: bin/mudur.py:911
+msgid "Mounting remote filesystems"
+msgstr "Монтирования удаленных файловых систем"
 
-#: bin/mudur.py:1044
-msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-msgstr "Монтирование отменено!"
-
-#: bin/mudur.py:1088
+#: bin/mudur.py:963
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Настройка хоста '%s'"
 
-#: bin/mudur.py:1111
+#: bin/mudur.py:986
 msgid "Setting disk parameters"
 msgstr "Настройка параметров диска"
 
-#: bin/mudur.py:1132
+#: bin/mudur.py:1007
 msgid "Activating swap space"
 msgstr "Активация подкачки"
 
-#: bin/mudur.py:1143
+#: bin/mudur.py:1018
 msgid "Deactivating swap space"
 msgstr "Отключение подкачки"
 
-#: bin/mudur.py:1153
+#: bin/mudur.py:1028
 msgid "Cleaning up /var"
 msgstr "Очистка /var"
 
-#: bin/mudur.py:1169
+#: bin/mudur.py:1044
 msgid "Cleaning up /tmp"
 msgstr "Очистка /tmp"
 
-#: bin/mudur.py:1206
+#: bin/mudur.py:1081
 msgid "Setting system clock to hardware clock"
 msgstr "Настройка системных часов"
 
-#: bin/mudur.py:1222
+#: bin/mudur.py:1097
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr "Не удалось настроить систематическую отправку из аппаратных часов"
 
-#: bin/mudur.py:1226
+#: bin/mudur.py:1101
 msgid "Failed to set system clock to hardware clock"
 msgstr "Не удалось установить системные часы"
 
-#: bin/mudur.py:1237
+#: bin/mudur.py:1112
 msgid "Syncing system clock to hardware clock"
 msgstr "Синхронизация системного времени"
 
-#: bin/mudur.py:1240
+#: bin/mudur.py:1115
 msgid "Failed to synchronize clocks"
 msgstr "Ошибка синхронизации системного времени"
 
-#: bin/mudur.py:1297
+#: bin/mudur.py:1172
 msgid "Unmounting filesystems"
 msgstr "Демонтирование файловых систем"
 
-#: bin/mudur.py:1305
+#: bin/mudur.py:1180
 msgid "Remounting remaining filesystems read-only"
 msgstr "Перемонтирование остальных файловых систем только для чтения"
 
-#: bin/mudur.py:1320
-msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
-msgstr "Произошла внутренняя ошибка. Пожалуйста сообщите по адресу bugs.pardus.org.tr следующую информацию:"
+#: bin/mudur.py:1195
+msgid ""
+"An internal error occured. Please report to the bugs.pardus.org.trwith "
+"following information:"
+msgstr ""
+"Произошла внутренняя ошибка. Пожалуйста сообщите по адресу bugs.pardus.org."
+"tr следующую информацию:"
 
-#: bin/mudur.py:1423
+#: bin/mudur.py:1296
 msgid "Setting up localhost"
 msgstr "Настройка localhost"
 
-#: bin/mudur.py:1436
+#: bin/mudur.py:1309
 msgid "Updating environment variables"
 msgstr "Обновление переменных среды"
 
-#: bin/mudur.py:1488
+#: bin/mudur.py:1361
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr "Попытка инициирования теплой перезагрузки (пропуск BIOS с Kexec ядро)"
 
@@ -404,6 +389,24 @@ msgstr ""
 msgid "No such service: %s"
 msgstr "Нет такой службы: %s"
 
+#~ msgid "Networking backend is set to NetworkManager"
+#~ msgstr "NetworkManager выбран как бэкэнд для работы с сетью"
+
+#~ msgid "Bringing up %s"
+#~ msgstr "Bringing up %s"
+
+#~ msgid "Unable to bring up %s"
+#~ msgstr "Unable to bring up %s"
+
+#~ msgid "No network connection, skipping remote mount."
+#~ msgstr "Нет подключения к сети, пропуск удаленного монтирования"
+
+#~ msgid "Mounting remote filesystems (CTRL-C stops trying)"
+#~ msgstr "Монтирования удаленных файловых систем (CTRL-C прекращает попытки)"
+
+#~ msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
+#~ msgstr "Монтирование отменено!"
+
 #~ msgid "Mounting USB filesystem"
 #~ msgstr "Монтирование USB файловой системы"
 
@@ -420,4 +423,5 @@ msgstr "Нет такой службы: %s"
 #~ msgstr "/dev/pts wird gemountet"
 
 #~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
+#~ msgstr ""
+#~ "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
