@@ -907,9 +907,8 @@ def mount_remote_filesystems():
     from pardus.fstabutils import Fstab
     fstab = Fstab()
     if fstab.contains_remote_mounts():
-        #ui.info(_("Mounting remote filesystems (CTRL-C stops trying)"))
         ui.info(_("Mounting remote filesystems"))
-        start_services(["netfs"])
+        manage_service("netfs", "start")
 
 ################################################################################
 # Other system related methods for hostname setting, modules autoloading, etc. #
