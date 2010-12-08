@@ -2,7 +2,7 @@
 # translation of mudur.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Patrik Karlsson <patrik@pardus.nu>, 2008, 2009, 2010.
 msgid ""
 msgstr ""
@@ -230,13 +230,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Återmonterar återstående filsystem skrivskyddade"
 
 #: bin/mudur.py:1195
-#, fuzzy
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.trwith "
-"following information:"
-msgstr ""
-"Ett internt fel har uppstått. Vänligen rapportera följande fel till bugs."
-"pardus.org.tr:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
+msgstr "Ett internt fel har uppstått. Vänligen rapportera till bugs.pardus.org.tr:"
 
 #: bin/mudur.py:1296
 msgid "Setting up localhost"
@@ -399,8 +394,7 @@ msgstr "Tjänst saknas: %s"
 #~ msgstr "Monterar fjärrfilsystem (CTRL-C avbryter)"
 
 #~ msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-#~ msgstr ""
-#~ "Montering avbröts med CTRL-C, fjärrutdelningar blir inte tillgängliga!"
+#~ msgstr "Montering avbröts med CTRL-C, fjärrutdelningar blir inte tillgängliga!"
 
 #~ msgid "Mounting USB filesystem"
 #~ msgstr "Monterar USB-filsystem"
