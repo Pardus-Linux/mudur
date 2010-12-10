@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-12-08 12:05+0200\n"
-"PO-Revision-Date: 2010-04-02 22:42+0200\n"
+"PO-Revision-Date: 2010-12-10 09:14+0200\n"
 "Last-Translator: Davide Siciliano <edivad95@gmail.com>\n"
 "Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
@@ -147,8 +147,7 @@ msgid ""
 msgstr ""
 "Il filesystem di root non può essere montato in lettura e scrittura\n"
 "  Puoi comunque loggarti qui sotto e controllare manualmente il filesystem,\n"
-"  oppure riavviare, premere F3 e selezionare 'Controllo Filesystem' dal menu "
-"di boot."
+"  oppure riavviare, premere F3 e selezionare 'Controllo Filesystem' dal menu di boot\n"
 
 #: bin/mudur.py:850
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
@@ -311,7 +310,7 @@ msgstr "Impossibile fermare %s:"
 #: bin/service.py:183
 #, python-format
 msgid "Unable to set %s state:"
-msgstr "Impossibile impostare lo stato %"
+msgstr "Impossibile impostare lo stato %s"
 
 #: bin/service.py:188
 #, python-format
