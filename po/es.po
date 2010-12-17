@@ -2,7 +2,7 @@
 # translation of es.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Klemens Häckel <click3d_at_linuxmail_org>, 2007, 2008.
 # klemens <click3d at linuxmail org>, 2007.
 # Klemens Haeckel <click3d at linuxmail org>, 2008.
@@ -98,11 +98,11 @@ msgstr "Populando /dev"
 
 #: bin/mudur.py:768
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Eliminando archivo de bloquéo obsoleto /etc/mtab~"
 
 #: bin/mudur.py:771
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "No posible eliminar archivo de bloquéo obsoleto /etc/mtab~"
 
 #: bin/mudur.py:783
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
@@ -152,8 +152,7 @@ msgid ""
 msgstr ""
 "Sistema de archivos Root no se pudo montar lectura/escitura\n"
 "   Puede iniciar una sesión y chequear manualmente el sistema de archivo o\n"
-"   rebootear el sistema, presionar F3 y seleccionar 'Verificación de Sistema "
-"de archivos' en el menú de arranque\n"
+"   rebootear el sistema, presionar F3 y seleccionar 'Verificación de Sistema de archivos' en el menú de arranque\n"
 
 #: bin/mudur.py:850
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
@@ -237,13 +236,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Montando de nuevo sistemas de archivos restantes solo-lectura"
 
 #: bin/mudur.py:1195
-#, fuzzy
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.trwith "
-"following information:"
-msgstr ""
-"Ocurrió un error interno. Por favor reporte a bugs.pardus.org.tr con las "
-"informaciones siguientes:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
+msgstr "Ocurrió un error interno. Por favor reporte a bugs.pardus.org.tr con la siguiente información:"
 
 #: bin/mudur.py:1296
 msgid "Setting up localhost"
@@ -407,9 +401,7 @@ msgstr "No existe servicio: %s"
 #~ msgstr "Montando sistema de archivos remotos (CTRL-C aborta el intento)"
 
 #~ msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-#~ msgstr ""
-#~ "Proceso de montar interrumpido con CTRL-C, directorios remotos no están "
-#~ "accesibles !"
+#~ msgstr "Proceso de montar interrumpido con CTRL-C, directorios remotos no están accesibles !"
 
 #~ msgid "Mounting USB filesystem"
 #~ msgstr "Montando sistema de archivos USB"
