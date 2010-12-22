@@ -24,7 +24,7 @@ msgstr ""
 
 #: bin/mudur.py:227
 msgid "Cannot write mudur.log, read-only file system"
-msgstr "Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
+msgstr "Mudur.log kann nicht beschrieben werden, Nur Lesezugriff auf Dateisystem möglich"
 
 #: bin/mudur.py:395
 msgid "Safe Mode"
