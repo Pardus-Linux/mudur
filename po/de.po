@@ -2,7 +2,7 @@
 # translation of de.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2006.
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2007.
 # Mustafa Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
@@ -24,8 +24,7 @@ msgstr ""
 
 #: bin/mudur.py:227
 msgid "Cannot write mudur.log, read-only file system"
-msgstr ""
-"Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
+msgstr "Mudur.log kann nicht beschrieben werden, Dateisystem nur mit Lesezugriff"
 
 #: bin/mudur.py:395
 msgid "Safe Mode"
@@ -81,14 +80,11 @@ msgstr "%s wird angehalten"
 
 #: bin/mudur.py:692
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
-"Udev-Ereignisse, die bei der vorherigen Ausführung fehlgeschlagen sind, "
-"werden angesteuert"
+msgstr "Udev-Ereignisse, die bei der vorherigen Ausführung fehlgeschlagen sind, werden angesteuert"
 
 #: bin/mudur.py:716
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
-"Die beständigen udev-Regeln können nicht von /dev/.udev verschoben werden."
+msgstr "Die beständigen udev-Regeln können nicht von /dev/.udev verschoben werden."
 
 #: bin/mudur.py:728
 msgid "Starting udev"
@@ -152,12 +148,9 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
-"Das Root Dateisystem konnte nicht für Lese/Schreibzugriff eingehängt "
-"werden.\n"
-"   Sie können sich entweder einloggen und das Dateisystem händisch "
-"überprüfen lassen, ODER\n"
-" das System neu starten. Drücken Sie dann im Startmenü die Funktionstaste F3 "
-"und wählen Sie dann 'FS check'\n"
+"Das Root Dateisystem konnte nicht für Lese/Schreibzugriff eingehängt werden.\n"
+"   Sie können sich entweder einloggen und das Dateisystem händisch überprüfen lassen, ODER\n"
+" das System neu starten. Drücken Sie dann im Startmenü die Funktionstaste F3 und wählen Sie dann 'FS check'\n"
 
 #: bin/mudur.py:850
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
@@ -177,8 +170,7 @@ msgstr "Dateisystem Fehler korrigiert"
 
 #: bin/mudur.py:894
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
+msgstr "Fsck konnte nicht alle Fehler beheben, eine manuelle Behebung ist nötig"
 
 #: bin/mudur.py:902
 msgid "Mounting local filesystems"
@@ -219,9 +211,7 @@ msgstr "Systemuhr wird von der Hardwareuhr gesetzt"
 
 #: bin/mudur.py:1097
 msgid "Failed to adjust systematic drift of the hardware clock"
-msgstr ""
-"Abgleichung der systematischen Abweichung von der Hardware-Uhr ist "
-"fehlgeschlagen"
+msgstr "Abgleichung der systematischen Abweichung von der Hardware-Uhr ist fehlgeschlagen"
 
 #: bin/mudur.py:1101
 msgid "Failed to set system clock to hardware clock"
@@ -244,13 +234,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Restliche Dateisysteme werden mit Lesezugriff erneut gemountet"
 
 #: bin/mudur.py:1195
-#, fuzzy
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.trwith "
-"following information:"
-msgstr ""
-"Ein Interner Fehler ist vorgekommen. Bitte an bugs.pardus.org.tr mit der "
-"folgenden Information melden:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
+msgstr "Ein interner Fehler ist aufgetreten. Bitte berichten Sie den Fehler an bugs.pardus.org.tr mit der folgenden Information:"
 
 #: bin/mudur.py:1296
 msgid "Setting up localhost"
@@ -262,8 +247,7 @@ msgstr "Umgebungsvariablen werden aktualisiert"
 
 #: bin/mudur.py:1361
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr ""
-"Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
+msgstr "Wird versucht, ein Warmstart zu beginnen (überspringe BIOS mit kexec kernel)"
 
 #: bin/service.py:60
 msgid "local"
@@ -408,15 +392,13 @@ msgstr "Kein Service vorhanden: %s"
 #~ msgstr "%s konnte nicht bereitgestellt werden"
 
 #~ msgid "No network connection, skipping remote mount."
-#~ msgstr ""
-#~ "Keine Netwerkverbindung vorhanden, Remote-Einbindung wird übersprungen."
+#~ msgstr "Keine Netwerkverbindung vorhanden, Remote-Einbindung wird übersprungen."
 
 #~ msgid "Mounting remote filesystems (CTRL-C stops trying)"
 #~ msgstr "Remote-Dateisysteme werden gemountet (STRG-C stoppt den Versuch)"
 
 #~ msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-#~ msgstr ""
-#~ "Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
+#~ msgstr "Mounten mit STRG-C übersprungen, Remote-Freigaben sind nicht zugänglich!"
 
 #~ msgid "Mounting USB filesystem"
 #~ msgstr "USB Dateisystem wird gemountet"
@@ -434,5 +416,4 @@ msgstr "Kein Service vorhanden: %s"
 #~ msgstr "/dev/pts wird gemountet"
 
 #~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr ""
-#~ "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
+#~ msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
