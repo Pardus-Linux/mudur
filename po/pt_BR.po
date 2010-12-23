@@ -142,10 +142,13 @@ msgid ""
 "   You can either login below and manually check your filesytem(s) OR\n"
 "   restart your system, press F3 and select 'FS check' from boot menu\n"
 msgstr ""
+"Sistema de arquivos raiz não pôde ser montado para leitura/escrita\n"
+" Você pode fazer seu login abaixo e checar manualmente seu(s) Sistema(s) de arquivo(s) OU\n"
+" reiniciar seu sistema, pressione F3 e selecione 'FScheck' no menu de boot\n"
 
 #: bin/mudur.py:850
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Não foi possível sincronizar /etc/mtab a partir de /proc/mounts"
 
 #: bin/mudur.py:870
 msgid "Checking all filesystems"
@@ -153,7 +156,7 @@ msgstr "Checando todos os sistemas de arquivos"
 
 #: bin/mudur.py:874
 msgid "A full fsck has been forced"
-msgstr ""
+msgstr "Um fsck completo foi forçado"
 
 #: bin/mudur.py:892
 msgid "Filesystem errors corrected"
@@ -262,7 +265,7 @@ msgstr "sim"
 
 #: bin/service.py:78
 msgid "conditional"
-msgstr ""
+msgstr "condicional"
 
 #: bin/service.py:101
 msgid "Status"
@@ -283,17 +286,17 @@ msgstr "Descrição"
 #: bin/service.py:147 bin/service.py:157
 #, python-format
 msgid "Unable to start %s:"
-msgstr ""
+msgstr "Não foi possível iniciar %s:"
 
 #: bin/service.py:170
 #, python-format
 msgid "Unable to stop %s:"
-msgstr ""
+msgstr "Não foi possível parar %s:"
 
 #: bin/service.py:183
 #, python-format
 msgid "Unable to set %s state:"
-msgstr ""
+msgstr "Não foi possível definir o estado de %s:"
 
 #: bin/service.py:188
 #, python-format
@@ -322,7 +325,7 @@ msgstr "Reiniciando %s"
 
 #: bin/service.py:259
 msgid "You must be root to use that."
-msgstr ""
+msgstr "Você deve ser root para usar isto."
 
 #: bin/service.py:278
 msgid "Unable to start DBus"
@@ -370,7 +373,7 @@ msgstr ""
 #: bin/service.py:355
 #, python-format
 msgid "No such service: %s"
-msgstr ""
+msgstr "Sem este serviço: %s"
 
 #~ msgid "Mounting remote filesystems (CTRL-C stops trying)"
 #~ msgstr "Remontando o sistema de arquivos raiz como somente-leitura"
