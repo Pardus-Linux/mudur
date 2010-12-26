@@ -2,7 +2,7 @@
 # translation of de.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2006.
 # Mustafa Ölcerman <oelcerman@fussballkreis.org>, 2007.
 # Mustafa Ölcerman <mustafa.oelcerman@fk-koeln.de>, 2007.
@@ -80,9 +80,7 @@ msgstr "Остановка %s"
 
 #: bin/mudur.py:692
 msgid "Triggering udev events which are failed during a previous run"
-msgstr ""
-"Запуск Udev событий, которые не удалось запустить во время предыдущего "
-"запуска"
+msgstr "Запуск Udev событий, которые не удалось запустить во время предыдущего запуска"
 
 #: bin/mudur.py:716
 msgid "Can't move persistent udev rules from /dev/.udev"
@@ -172,8 +170,7 @@ msgstr "Ошибки файловой системы исправлены"
 
 #: bin/mudur.py:894
 msgid "Fsck could not correct all errors, manual repair needed"
-msgstr ""
-"Fsck не может исправить все ошибки автоматически, нужно ручное исправление"
+msgstr "Fsck не может исправить все ошибки автоматически, нужно ручное исправление"
 
 #: bin/mudur.py:902
 msgid "Mounting local filesystems"
@@ -230,19 +227,15 @@ msgstr "Ошибка синхронизации системного време�
 
 #: bin/mudur.py:1172
 msgid "Unmounting filesystems"
-msgstr "Демонтирование файловых систем"
+msgstr "Отключение файловых систем"
 
 #: bin/mudur.py:1180
 msgid "Remounting remaining filesystems read-only"
 msgstr "Перемонтирование остальных файловых систем только для чтения"
 
 #: bin/mudur.py:1195
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.trwith "
-"following information:"
-msgstr ""
-"Произошла внутренняя ошибка. Пожалуйста сообщите по адресу bugs.pardus.org."
-"tr следующую информацию:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
+msgstr "Произошла внутренняя ошибка. Пожалуйста сообщите по адресу bugs.pardus.org.tr следующую информацию:"
 
 #: bin/mudur.py:1296
 msgid "Setting up localhost"
@@ -290,7 +283,7 @@ msgstr "Служба"
 
 #: bin/service.py:103
 msgid "Autostart"
-msgstr "Автостарт"
+msgstr "Автозапуск"
 
 #: bin/service.py:104
 msgid "Description"
@@ -423,5 +416,4 @@ msgstr "Нет такой службы: %s"
 #~ msgstr "/dev/pts wird gemountet"
 
 #~ msgid "Root filesystem could not be mounted read/write"
-#~ msgstr ""
-#~ "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
+#~ msgstr "Root Dateisystem konnte nicht mit Lese-/Schreibzugriff gemountet werden"
