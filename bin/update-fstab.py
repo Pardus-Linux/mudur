@@ -48,22 +48,29 @@ def blockDevices():
     devices.sort()
     return devices
 
-def blockPartitions(dev):
-    pdev = parted.getDevice(dev)
+def blockPartitions(path):
+    device = parted.Device(path)
     try:
-        disk = parted.Disk(device=pdev)
+        disk = parted.Disk(device)
     except:
-        # FIXME: replace with what exception could we get here, bare except sucks
-        disk = parted.freshDisk(pdev, parted.diskType['msdos'])
+        # FIXME: This is suck! Must be changed!
+        disk = parted.freshDisk(device, parted.diskType['msdos'])
 
-    part = disk.getFirstPartition()
-    while part:
-        if part.fileSystem and part.fileSystem.type != "linux-swap":
-            yield part.path, part.fileSystem.type
-        part = part.nextPartition()
+    partition = disk.getFirstPartition()
+    while partition:
+        if partition.fileSystem and partition.fileSystem.type != "linux-swap":
+            yield partition.path, partition.fileSystem.type
+        partition = partition.nextPartition()
 
 def blockNameByLabel(label):
     path = os.path.join("/dev/disk/by-label/%s" % label)
+    if os.path.islink(path):
+        return "/dev/%s" % os.readlink(path)[6:]
+    else:
+        return None
+
+def blockNameByUuid(uuid):
+    path = os.path.join("/dev/disk/by-uuid/%s" % uuid)
     if os.path.islink(path):
         return "/dev/%s" % os.readlink(path)[6:]
     else:
@@ -100,7 +107,7 @@ class FstabEntry:
         self.pass_no = args[5]
 
     def __str__(self):
-        return "%-20s %-16s %-9s %-20s %s %s" % (
+        return "%-23s %-23s %-7s %-15s %s %s" % (
             self.device_node,
             self.mount_point,
             self.file_system,
@@ -123,6 +130,7 @@ class Fstab:
         self.entries = []
         self.partitions = None
         self.labels = {}
+        self.uuids = {}
         for line in file(path):
             if line.strip() != "" and not line.startswith('#'):
                 self.entries.append(FstabEntry(line))
@@ -132,12 +140,16 @@ class Fstab:
 
     def scan(self):
         self.partitions = {}
-        for dev in blockDevices():
-            for part, fstype in blockPartitions(dev):
-                self.partitions[part] = fstype, dev
+        for device in blockDevices():
+            for partition, fstype in blockPartitions(device):
+                self.partitions[partition] = fstype, device
+
         if os.path.exists("/dev/disk/by-label"):
             for label in os.listdir("/dev/disk/by-label/"):
                 self.labels[blockNameByLabel(label)] = label
+        elif os.path.exists("/dev/disk/by-uuid"):
+            for uuid in os.listdir("/dev/disk/by-uuid/"):
+                self.uuids[blockNameByUuid(uuid)] = uuid
 
     def write(self, path=None):
         if not path:
@@ -201,18 +213,27 @@ class Fstab:
             if entry.mount_point == "/":
                 # Root partition is never removed
                 continue
-            if not entry.mount_point.startswith("/mnt"):
+
+            elif not entry.mount_point.startswith("/mnt"):
                 # Only remove partitions that were added in /mnt
                 continue
             elif entry.file_system in excluded_file_systems:
                 # Virtual file systems are never removed
                 continue
+            elif node.startswith("UUID="):
+                uuid = node.split("=", 1)[1]
+                if not self.partitions.has_key(blockNameByUuid(uuid)):
+                    removal.append(node)
             elif node.startswith("LABEL="):
                 label = node.split("=", 1)[1]
                 if label in pardus_labels:
                     # Labelled Pardus system partitions are never removed
                     continue
                 if not self.partitions.has_key(blockNameByLabel(label)):
+                    removal.append(node)
+            elif node.startswith("UUID="):
+                uuid = node.split("=", 1)[1]
+                if not self.partitions.has_key(blockNameByUuid(uuid)):
                     removal.append(node)
             else:
                 if not self.partitions.has_key(node):
@@ -225,6 +246,9 @@ class Fstab:
             if not part in mounted:
                 if part in self.labels:
                     if "LABEL=%s" % self.labels[part] in mounted:
+                        continue
+                elif part in self.uuids:
+                    if "UUID=%s" % self.uuids[part] in mounted:
                         continue
                 self.addEntry(part)
 
