@@ -63,14 +63,14 @@ def blockPartitions(path):
         partition = partition.nextPartition()
 
 def blockNameByLabel(label):
-    path = os.path.join("/dev/disk/by-label/%s" % label)
+    path = os.path.join("/dev/disk/by-label", label)
     if os.path.islink(path):
         return "/dev/%s" % os.readlink(path)[6:]
     else:
         return None
 
 def blockNameByUuid(uuid):
-    path = os.path.join("/dev/disk/by-uuid/%s" % uuid)
+    path = os.path.join("/dev/disk/by-uuid", uuid)
     if os.path.islink(path):
         return "/dev/%s" % os.readlink(path)[6:]
     else:
