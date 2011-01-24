@@ -18,8 +18,9 @@ msgid "Cannot write mudur.log, read-only file system"
 msgstr "Nie można zapisać mudur.log, system plików tylko do odczytu"
 
 #: bin/mudur.py:395
+#, fuzzy
 msgid "Safe Mode"
-msgstr ""
+msgstr "Tryb awaryjny"
 
 #: bin/mudur.py:399
 msgid "Cannot find /etc/pardus-release"
@@ -27,7 +28,7 @@ msgstr "Nie można znaleźć /etc/pardus-release"
 
 #: bin/mudur.py:492
 msgid "/etc/env.d/03locale cannot be updated"
-msgstr ""
+msgstr "/etc/env.d/03locale nie może być zaktualizowany"
 
 #: bin/mudur.py:518
 #, python-format
@@ -39,11 +40,13 @@ msgid "Cannot connect to DBus, services won't be started"
 msgstr "Nie można połączyć z DBus, usługi nie zostaną uruchomione"
 
 #: bin/mudur.py:592
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to start network:\n"
 "  %s"
-msgstr "Nie mogę uruchomić D-Bus"
+msgstr ""
+"Nie można uruchomić sieci: \n"
+" %s"
 
 #: bin/mudur.py:597
 msgid "Cannot start system logger"
@@ -58,14 +61,14 @@ msgid "Stopping services"
 msgstr "Zatrzymywanie usług"
 
 #: bin/mudur.py:664 bin/service.py:161 bin/service.py:270
-#, fuzzy, python-format
+#, python-format
 msgid "Starting %s"
-msgstr "Startowanie %s..."
+msgstr "Uruchamianie  %s"
 
 #: bin/mudur.py:675 bin/service.py:174 bin/service.py:282
-#, fuzzy, python-format
+#, python-format
 msgid "Stopping %s"
-msgstr "Zatrzymywanie %s..."
+msgstr "Zatrzymywanie %s"
 
 #: bin/mudur.py:692
 msgid "Triggering udev events which are failed during a previous run"
@@ -112,16 +115,14 @@ msgid "Filesystem repaired, but reboot needed!"
 msgstr "System plików naprawiony, wymagany reboot!"
 
 #: bin/mudur.py:815
-#, fuzzy
 msgid "Rebooting in 10 seconds..."
-msgstr "Rebootowanie w ciągu 10 sekund..."
+msgstr "Ponowne uruchomienie za 10 sekund..."
 
 #: bin/mudur.py:817
 msgid "Rebooting..."
 msgstr "Rebootowanie..."
 
 #: bin/mudur.py:821
-#, fuzzy
 msgid "Filesystem could not be repaired"
 msgstr "System plików nie może zostać naprawiony"
 
@@ -178,14 +179,12 @@ msgid "Setting disk parameters"
 msgstr "Ustawianie parametrów dysku"
 
 #: bin/mudur.py:1007
-#, fuzzy
 msgid "Activating swap space"
-msgstr "Aktywowanie swap"
+msgstr "Aktywowanie SWAP"
 
 #: bin/mudur.py:1018
-#, fuzzy
 msgid "Deactivating swap space"
-msgstr "Deaktywowanie swap"
+msgstr "Dezaktywowanie SWAP"
 
 #: bin/mudur.py:1028
 msgid "Cleaning up /var"
@@ -212,9 +211,8 @@ msgid "Syncing system clock to hardware clock"
 msgstr "Synchronizacja zegara systemowego z zegarem sprzętowym"
 
 #: bin/mudur.py:1115
-#, fuzzy
 msgid "Failed to synchronize clocks"
-msgstr "Niepowodzenie przy synchronizacji zegarów"
+msgstr "Niepowodzenie przy synchronizacji czasu"
 
 #: bin/mudur.py:1172
 msgid "Unmounting filesystems"
@@ -225,13 +223,8 @@ msgid "Remounting remaining filesystems read-only"
 msgstr "Montowanie pozostałych systemów plików w trybie tylko do odczytu"
 
 #: bin/mudur.py:1195
-#, fuzzy
-msgid ""
-"An internal error occured. Please report to the bugs.pardus.org.trwith "
-"following information:"
-msgstr ""
-"Pojawił się błąd wewnętrzny. Proszę zgłosić go na bugs.pardus.org.tr z "
-"następującą informacją:"
+msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
+msgstr "Pojawił się błąd wewnętrzny. Proszę zgłosić go na bugs.pardus.org.tr z następującą informacją:"
 
 #: bin/mudur.py:1296
 msgid "Setting up localhost"
@@ -242,10 +235,8 @@ msgid "Updating environment variables"
 msgstr "Aktualizuję zmienne środowiskowe"
 
 #: bin/mudur.py:1361
-#, fuzzy
 msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
 msgstr ""
-"Próbuje zainicjować \"gorący\" restart (pomijam BIOS za pomocą kernela kexec)"
 
 #: bin/service.py:60
 msgid "local"
@@ -288,14 +279,14 @@ msgid "Description"
 msgstr "Opis"
 
 #: bin/service.py:147 bin/service.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to start %s:"
-msgstr "Nie mogę uruchomić D-Bus"
+msgstr "Nie można uruchomić %s:"
 
 #: bin/service.py:170
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to stop %s:"
-msgstr "Nie mogę uruchomić D-Bus"
+msgstr "Nie można zatrzymać %s:"
 
 #: bin/service.py:183
 #, fuzzy, python-format
@@ -380,11 +371,9 @@ msgstr ""
 msgid "No such service: %s"
 msgstr "Brak takiego profilu"
 
-#, fuzzy
 #~ msgid "Bringing up %s"
 #~ msgstr "Podnosze interfejs %s"
 
-#, fuzzy
 #~ msgid "Unable to bring up %s"
 #~ msgstr "Nie mogę podnieść interfejsu %s"
 
@@ -394,7 +383,6 @@ msgstr "Brak takiego profilu"
 #~ msgid "Mounting remote filesystems (CTRL-C stops trying)"
 #~ msgstr "Montowanie zdalnych systemów plików (CTRL-C zatrzymuje operację)"
 
-#, fuzzy
 #~ msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
 #~ msgstr "Montowanie pominięte przez CTRL-C, zdalne zasoby są niedostępne!"
 
