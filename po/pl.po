@@ -289,9 +289,9 @@ msgid "Unable to stop %s:"
 msgstr "Nie można zatrzymać %s:"
 
 #: bin/service.py:183
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to set %s state:"
-msgstr "Nie mogę uruchomić D-Bus"
+msgstr "Nie można ustawić państwa %s :"
 
 #: bin/service.py:188
 #, python-format
@@ -309,14 +309,14 @@ msgid "Service '%s' will be started if required."
 msgstr "Dienst '%s' zal, indien nodig, gestart worden."
 
 #: bin/service.py:201
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to reload %s:"
-msgstr "Nie mogę podnieść interfejsu %s"
+msgstr "Nie można przeładować %s:"
 
 #: bin/service.py:205
-#, fuzzy, python-format
+#, python-format
 msgid "Reloading %s"
-msgstr "Rebootowanie %s..."
+msgstr "Ponowne uruchomienie %s"
 
 #: bin/service.py:259
 msgid "You must be root to use that."
@@ -367,9 +367,9 @@ msgstr ""
 " -N, --no-color  Nie koloruje wyniku -q, --quiet     Nie wyświetla odpowiedzi"
 
 #: bin/service.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "No such service: %s"
-msgstr "Brak takiego profilu"
+msgstr "Nie ma takiej usługi : %s"
 
 #~ msgid "Bringing up %s"
 #~ msgstr "Podnosze interfejs %s"
