@@ -18,7 +18,6 @@ msgid "Cannot write mudur.log, read-only file system"
 msgstr "Nie można zapisać mudur.log, system plików tylko do odczytu"
 
 #: bin/mudur.py:395
-#, fuzzy
 msgid "Safe Mode"
 msgstr "Tryb awaryjny"
 
@@ -323,7 +322,6 @@ msgid "You must be root to use that."
 msgstr "Musisz być rootem by wykonać tą operację."
 
 #: bin/service.py:278
-#, fuzzy
 msgid "Unable to start DBus"
 msgstr "Nie mogę uruchomić D-Bus"
 
