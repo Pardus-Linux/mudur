@@ -391,8 +391,6 @@ class UI:
         print self.UNICODE_MAGIC
         if os.path.exists("/etc/pardus-release"):
             release = load_file("/etc/pardus-release").rstrip("\n")
-            if config.get("safe"):
-                release = "%s (%s)" % (release, _("Safe Mode"))
             print "\x1b[1m  %s  \x1b[0;36mhttp://www.pardus.org.tr\x1b[0m" \
                     % release
         else:
