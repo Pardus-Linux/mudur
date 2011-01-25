@@ -1,0 +1,385 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Korostil Daniel <ted.korostiled@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-08 12:05+0200\n"
+"PO-Revision-Date: 2011-01-25 05:44+0300\n"
+"Last-Translator: Korostil Daniel <ted.korostiled@gmail.com>\n"
+"Language-Team: translation@linux.org.ua\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Virtaal 0.6.1\n"
+
+#: bin/mudur.py:227
+msgid "Cannot write mudur.log, read-only file system"
+msgstr ""
+"Неможливо записати в mudur.log, оскільки файлова система лише для читання"
+
+#: bin/mudur.py:395
+msgid "Safe Mode"
+msgstr "Безпечний режим"
+
+#: bin/mudur.py:399
+msgid "Cannot find /etc/pardus-release"
+msgstr "Неможливо знайти /etc/pardus-release"
+
+#: bin/mudur.py:492
+msgid "/etc/env.d/03locale cannot be updated"
+msgstr "Неможливо оновити /etc/env.d/03locale"
+
+#: bin/mudur.py:518
+#, python-format
+msgid "Could not set unicode mode on tty %d"
+msgstr "Неможливо встановити унікод на tty %d"
+
+#: bin/mudur.py:576
+msgid "Cannot connect to DBus, services won't be started"
+msgstr "Неможливо з'єднатись з DBus, служби не буде запущено"
+
+#: bin/mudur.py:592
+#, python-format
+msgid ""
+"Unable to start network:\n"
+"  %s"
+msgstr ""
+"Неможливо запустити мережу:\n"
+"  %s"
+
+#: bin/mudur.py:597
+msgid "Cannot start system logger"
+msgstr "Неможливо запусти журналювання системи"
+
+#: bin/mudur.py:603
+msgid "Starting services"
+msgstr "Запуск служб"
+
+#: bin/mudur.py:636
+msgid "Stopping services"
+msgstr "Зупинення служб"
+
+#: bin/mudur.py:664 bin/service.py:161 bin/service.py:270
+#, python-format
+msgid "Starting %s"
+msgstr "Запуск %s"
+
+#: bin/mudur.py:675 bin/service.py:174 bin/service.py:282
+#, python-format
+msgid "Stopping %s"
+msgstr "Зупинення %s"
+
+#: bin/mudur.py:692
+msgid "Triggering udev events which are failed during a previous run"
+msgstr "Перемикання подій udev, які невдало працювали попереднього разу"
+
+#: bin/mudur.py:716
+msgid "Can't move persistent udev rules from /dev/.udev"
+msgstr "Неможливо перемістити стійкі правила з /dev/.udev"
+
+#: bin/mudur.py:728
+msgid "Starting udev"
+msgstr "Запуск udev"
+
+#: bin/mudur.py:742
+msgid "Populating /dev"
+msgstr "Заселення /dev"
+
+#: bin/mudur.py:768
+msgid "Removing stale lock file /etc/mtab~"
+msgstr "Вилучення застралого заблокованого файла /etc/mtab~"
+
+#: bin/mudur.py:771
+msgid "Failed removing stale lock file /etc/mtab~"
+msgstr "Не вдалось вилучити застарілий заблокований файл /etc/mtab~"
+
+#: bin/mudur.py:783
+msgid "/etc/fstab doesn't contain an entry for the root filesystem"
+msgstr "Нема даних про файлову систему кореню в /etc/fstab"
+
+#: bin/mudur.py:790
+msgid "Remounting root filesystem read-only"
+msgstr "Демонтування файлової системи кореню лише для читання"
+
+#: bin/mudur.py:796
+msgid "Checking root filesystem (full check forced)"
+msgstr "Перевірка файлової системи кореню (примусово повна перевірка)"
+
+#: bin/mudur.py:802
+msgid "Checking root filesystem"
+msgstr "Перевірка файлової системи кореню"
+
+#: bin/mudur.py:811
+msgid "Filesystem repaired, but reboot needed!"
+msgstr "Файлову систему відновлено, проте її потрібно перезавантажити!"
+
+#: bin/mudur.py:815
+msgid "Rebooting in 10 seconds..."
+msgstr "Перезавантаження відбудеться через 10 секунд…"
+
+#: bin/mudur.py:817
+msgid "Rebooting..."
+msgstr "Перезавантаження..."
+
+#: bin/mudur.py:821
+msgid "Filesystem could not be repaired"
+msgstr "Файлову систему неможливо відновити."
+
+#: bin/mudur.py:826
+msgid "Skipping root filesystem check (fstab's passno == 0)"
+msgstr "Пропуск перевірки файлової ситеми кореню (fstab passno == 0)"
+
+#: bin/mudur.py:834
+msgid "Remounting root filesystem read/write"
+msgstr "Демонтування файлової системи кореню для читання й запису "
+
+#: bin/mudur.py:838
+msgid ""
+"Root filesystem could not be mounted read/write\n"
+"   You can either login below and manually check your filesytem(s) OR\n"
+"   restart your system, press F3 and select 'FS check' from boot menu\n"
+msgstr ""
+"Файлова ситема коеню неможливо змонтувати для читання й запису\n"
+"   Можна зареєструватись нижче і вручну перевірити файлову систему або\n"
+"   перезапустити систему, натиснувши F3 та вибравши «FS check» з\n"
+"   меню завантаження\n"
+
+#: bin/mudur.py:850
+msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
+msgstr "Неможливо синхронізувати /etc/mtab з /proc/mounts"
+
+#: bin/mudur.py:870
+msgid "Checking all filesystems"
+msgstr "Перевірка усіх файлових систем"
+
+#: bin/mudur.py:874
+msgid "A full fsck has been forced"
+msgstr "Повний fsck — примусовий"
+
+#: bin/mudur.py:892
+msgid "Filesystem errors corrected"
+msgstr "Помилки файлової системи з'єднано"
+
+#: bin/mudur.py:894
+msgid "Fsck could not correct all errors, manual repair needed"
+msgstr "Fsck не може виправити всі помилки, потрібно ручне відновлення"
+
+#: bin/mudur.py:902
+msgid "Mounting local filesystems"
+msgstr "Монтування локальної файлової системи"
+
+#: bin/mudur.py:911
+msgid "Mounting remote filesystems"
+msgstr "Монтування віддалених файлових систем"
+
+#: bin/mudur.py:963
+#, python-format
+msgid "Setting up hostname as '%s'"
+msgstr "Заснування назви вузла як «%s»"
+
+#: bin/mudur.py:986
+msgid "Setting disk parameters"
+msgstr "Налаштування параметрів диска"
+
+#: bin/mudur.py:1007
+msgid "Activating swap space"
+msgstr "Залучення простору SWAP"
+
+#: bin/mudur.py:1018
+msgid "Deactivating swap space"
+msgstr "Вилучення простору SWAP"
+
+#: bin/mudur.py:1028
+msgid "Cleaning up /var"
+msgstr "Очищення /var"
+
+#: bin/mudur.py:1044
+msgid "Cleaning up /tmp"
+msgstr "Очищення /tmp"
+
+#: bin/mudur.py:1081
+msgid "Setting system clock to hardware clock"
+msgstr "Налаштування системного годинника до апаратного"
+
+#: bin/mudur.py:1097
+msgid "Failed to adjust systematic drift of the hardware clock"
+msgstr "Не вдалось налаштувати апаратний годинник"
+
+#: bin/mudur.py:1101
+msgid "Failed to set system clock to hardware clock"
+msgstr "Не вдалось налаштувати системного годинника до апаратного"
+
+#: bin/mudur.py:1112
+msgid "Syncing system clock to hardware clock"
+msgstr "Синхронізація системного годинника до апаратного"
+
+#: bin/mudur.py:1115
+msgid "Failed to synchronize clocks"
+msgstr "Не вдалось синхронізувати годинники"
+
+#: bin/mudur.py:1172
+msgid "Unmounting filesystems"
+msgstr "Демонтування файлових систем"
+
+#: bin/mudur.py:1180
+msgid "Remounting remaining filesystems read-only"
+msgstr "Демонтування залишених файлових систем лише для читання"
+
+#: bin/mudur.py:1195
+msgid ""
+"An internal error occured. Please report to the bugs.pardus.org.trwith "
+"following information:"
+msgstr ""
+"Трапилась внутрішня помилка. Будь ласка, повідомте в bugs.pardus.org.trwith "
+"таку інформацію:"
+
+#: bin/mudur.py:1296
+msgid "Setting up localhost"
+msgstr "Заснування локального вузла"
+
+#: bin/mudur.py:1309
+msgid "Updating environment variables"
+msgstr "Оновлення середовища змінних"
+
+#: bin/mudur.py:1361
+msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
+msgstr "Спроба запустити тепле перезавантаження (пропуск BIOS з kexec kernel)"
+
+#: bin/service.py:60
+msgid "local"
+msgstr "локальний"
+
+#: bin/service.py:61
+msgid "script"
+msgstr "скрипт"
+
+#: bin/service.py:62
+msgid "server"
+msgstr "сервер"
+
+#: bin/service.py:74
+msgid "running"
+msgstr "запущено"
+
+#: bin/service.py:76
+msgid "yes"
+msgstr "так"
+
+#: bin/service.py:78
+msgid "conditional"
+msgstr "умовно"
+
+#: bin/service.py:101
+msgid "Status"
+msgstr "Стан"
+
+#: bin/service.py:102
+msgid "Service"
+msgstr "Служба"
+
+#: bin/service.py:103
+msgid "Autostart"
+msgstr "Автозапуск"
+
+#: bin/service.py:104
+msgid "Description"
+msgstr "Опис"
+
+#: bin/service.py:147 bin/service.py:157
+#, python-format
+msgid "Unable to start %s:"
+msgstr "Неможливо запустити %s:"
+
+#: bin/service.py:170
+#, python-format
+msgid "Unable to stop %s:"
+msgstr "Неможливо зупити %s:"
+
+#: bin/service.py:183
+#, python-format
+msgid "Unable to set %s state:"
+msgstr "Неможливо встановити стан %s:"
+
+#: bin/service.py:188
+#, python-format
+msgid "Service '%s' will be auto started."
+msgstr "Буде автоматично запущено службу «%s»."
+
+#: bin/service.py:190
+#, python-format
+msgid "Service '%s' won't be auto started."
+msgstr "Не буде автоматично запущено службу «%s»."
+
+#: bin/service.py:192
+#, python-format
+msgid "Service '%s' will be started if required."
+msgstr "При потребі буде запущено службу «%s»."
+
+#: bin/service.py:201
+#, python-format
+msgid "Unable to reload %s:"
+msgstr "Неможливо перезавантажити %s:"
+
+#: bin/service.py:205
+#, python-format
+msgid "Reloading %s"
+msgstr "Перевантаження %s"
+
+#: bin/service.py:259
+msgid "You must be root to use that."
+msgstr "Потрібно мати повноваження адміністратора для цього."
+
+#: bin/service.py:278
+msgid "Unable to start DBus"
+msgstr "Неможливо запустити DBus"
+
+#: bin/service.py:292
+msgid "DBus is not running."
+msgstr "DBus не запущено."
+
+#: bin/service.py:294
+msgid "DBus is running."
+msgstr "DBus запущено."
+
+#: bin/service.py:299
+msgid ""
+"usage: service [<options>] [<service>] <command>\n"
+"where command is:\n"
+" list     Display service list\n"
+" status   Display service status\n"
+" info     Display service status\n"
+" on       Auto start the service\n"
+" off      Don't auto start the service\n"
+" start    Start the service\n"
+" stop     Stop the service\n"
+" restart  Stop the service, then start again\n"
+" reload   Reload the configuration (if service supports this)\n"
+"and option is:\n"
+" -N, --no-color  Don't use color in output\n"
+" -q, --quiet     Don't print replies"
+msgstr ""
+"Використання: service [<параметри>] [<служба>] <команд>\n"
+"команди:\n"
+" list     Показує перелік служб\n"
+" status   Показує стан служби\n"
+" info     Показує стан служби\n"
+" on       Автоматично запускає службу\n"
+" off      Не запускає службу автоматично\n"
+" start    Запускає службу\n"
+" stop     Зупиняє службу\n"
+" restart  Зупиняє і запускає службу\n"
+" reload   Перезавантажує налаштування (якщо служба підтримує таке)\n"
+"параметри:\n"
+" -N, --no-color  Не використовувати кольорове підсвічення\n"
+" -q, --quiet     Не показувати повторення"
+
+#: bin/service.py:355
+#, python-format
+msgid "No such service: %s"
+msgstr "Нема такої служби: %s"
