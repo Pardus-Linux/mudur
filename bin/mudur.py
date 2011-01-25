@@ -1070,43 +1070,31 @@ def cleanup_tmp():
 
 @skip_for_lxc_guests
 @plymouth_update_milestone
-def set_clock():
-    """Sets the system time according to /etc."""
-    ui.info(_("Setting system clock to hardware clock"))
+def load_hwclock():
+    """Sets the system time according based on the timezone."""
+    if not config.get("live"):
+        ui.info(_("Setting system clock to hardware clock"))
 
-    # Default is UTC
-    options = "--utc"
-    if config.get("clock") != "UTC":
-        options = "--localtime"
+        # Default is UTC
+        options = "--localtime" if \
+                config.get("clock") == "localtime" else "--utc"
 
-    # Default is no
-    if config.get("clock_adjust") == "yes":
-        adj = "--adjust"
-        if not touch("/etc/adjtime"):
-            adj = "--noadjfile"
-        elif os.stat("/etc/adjtime").st_size == 0:
-            write_to_file("/etc/adjtime", "0.0 0 0.0\n")
-        ret = capture("/sbin/hwclock", adj, options)
+        ret = capture("/sbin/hwclock", "--systz", options)
         if ret[1] != '':
-            ui.error(_("Failed to adjust systematic drift of the hardware clock"))
-
-    ret = capture("/sbin/hwclock", "--hctosys", options)
-    if ret[1] != '':
-        ui.error(_("Failed to set system clock to hardware clock"))
+            ui.warn(_("Failed to set system time according to timezone"))
 
 @skip_for_lxc_guests
 @plymouth_update_milestone
-def save_clock():
+def save_hwclock():
     """Saves the system time for further boots."""
     if not config.get("live"):
-        options = "--utc"
-        if config.get("clock") != "UTC":
-            options = "--localtime"
+        options = "--localtime" if \
+                config.get("clock") == "localtime" else "--utc"
 
         ui.info(_("Syncing system clock to hardware clock"))
         ret = capture("/sbin/hwclock", "--systohc", options)
         if ret[1] != '':
-            ui.error(_("Failed to synchronize clocks"))
+            ui.warn(_("Failed to synchronize clocks"))
 
 def stop_system():
     """Stops the system."""
@@ -1155,7 +1143,7 @@ def stop_system():
     stop_services()
     stop_dbus()
     stop_udev()
-    save_clock()
+    save_hwclock()
     disable_swap()
 
     # write a reboot record to /var/log/wtmp before unmounting
@@ -1264,7 +1252,7 @@ def main():
         set_disk_parameters()
 
         # Set the clock
-        set_clock()
+        load_hwclock()
 
         # Set the system language
         set_system_language()
