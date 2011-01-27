@@ -588,9 +588,9 @@ def start_services(extras=None):
     else:
         # Start network service first
         try:
-            manage_service("NetworkManager", "start")
+            manage_service("NetworkManager", "ready")
         except Exception, error:
-            ui.error(_("Unable to start network:\n  %s") % error)
+            ui.warn(_("Unable to start network:\n  %s") % error)
 
         # Almost everything depends on logger, so start manually
         manage_service("rsyslog", "start")
