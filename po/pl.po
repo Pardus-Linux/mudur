@@ -95,7 +95,7 @@ msgstr "Nie powiodło się usuwanie nieaktualnego pliku blokującego  /etc/mtab~
 
 #: bin/mudur.py:783
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
-msgstr ""
+msgstr "/etc/fstab nie zawiera wpisu z główną partycją root"
 
 #: bin/mudur.py:790
 msgid "Remounting root filesystem read-only"
@@ -142,7 +142,7 @@ msgstr ""
 
 #: bin/mudur.py:850
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Nie można synchronizować  /etc/mtab z /proc/mounts"
 
 #: bin/mudur.py:870
 msgid "Checking all filesystems"
