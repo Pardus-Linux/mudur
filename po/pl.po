@@ -75,7 +75,7 @@ msgstr "Activeren udev gebeurtenissen die bij eerdere run mislukt zijn"
 
 #: bin/mudur.py:716
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
+msgstr "Nie można przenieść reguł udev z  /dev/.udev"
 
 #: bin/mudur.py:728
 msgid "Starting udev"
@@ -87,11 +87,11 @@ msgstr "Tworzę /dev"
 
 #: bin/mudur.py:768
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Usuwanie nieaktualnego pliku blokującego  /etc /mtab~"
 
 #: bin/mudur.py:771
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Nie powiodło się usuwanie nieaktualnego pliku blokującego  /etc/mtab~"
 
 #: bin/mudur.py:783
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
