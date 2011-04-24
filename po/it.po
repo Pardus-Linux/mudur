@@ -81,7 +81,7 @@ msgstr "Riattivare gli eventi udev che non sono partiti duranti la precedente es
 
 #: bin/mudur.py:716
 msgid "Can't move persistent udev rules from /dev/.udev"
-msgstr ""
+msgstr "Non è possibile spostare le regole di udev persistente da /dev/.udev"
 
 #: bin/mudur.py:728
 msgid "Starting udev"
@@ -93,11 +93,11 @@ msgstr "Popolamento di /dev"
 
 #: bin/mudur.py:768
 msgid "Removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Rimozione vecchio file di blocco /etc/mtab~"
 
 #: bin/mudur.py:771
 msgid "Failed removing stale lock file /etc/mtab~"
-msgstr ""
+msgstr "Impossibile eliminare file obsoleti di blocco /etc/mtab~"
 
 #: bin/mudur.py:783
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
@@ -151,7 +151,7 @@ msgstr ""
 
 #: bin/mudur.py:850
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
-msgstr ""
+msgstr "Impossibile sincronizzare i file /etc/mtab da /proc/mounts"
 
 #: bin/mudur.py:870
 msgid "Checking all filesystems"
