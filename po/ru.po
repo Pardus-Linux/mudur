@@ -53,7 +53,7 @@ msgid ""
 "Unable to start network:\n"
 "  %s"
 msgstr ""
-"Не удается запустить сеть::\n"
+"Не удается запустить сеть:\n"
 "  %s"
 
 #: bin/mudur.py:597
@@ -108,7 +108,7 @@ msgstr "/etc/fstab не содержит записи для корневой ф
 
 #: bin/mudur.py:790
 msgid "Remounting root filesystem read-only"
-msgstr "Перемонтирование корневая файловая системы только для чтения"
+msgstr "Перемонтирование корневой файловой системы в режиме только для чтения"
 
 #: bin/mudur.py:796
 msgid "Checking root filesystem (full check forced)"
@@ -183,7 +183,7 @@ msgstr "Монтирования удаленных файловых систе�
 #: bin/mudur.py:963
 #, python-format
 msgid "Setting up hostname as '%s'"
-msgstr "Настройка хоста '%s'"
+msgstr "Настройка имени хоста '%s'"
 
 #: bin/mudur.py:986
 msgid "Setting disk parameters"
@@ -270,8 +270,9 @@ msgid "yes"
 msgstr "да"
 
 #: bin/service.py:78
+#, fuzzy
 msgid "conditional"
-msgstr "conditional"
+msgstr "условный(условие?)"
 
 #: bin/service.py:101
 msgid "Status"
