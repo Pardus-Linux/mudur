@@ -270,9 +270,8 @@ msgid "yes"
 msgstr "да"
 
 #: bin/service.py:78
-#, fuzzy
 msgid "conditional"
-msgstr "условный(условие?)"
+msgstr "условно"
 
 #: bin/service.py:101
 msgid "Status"
