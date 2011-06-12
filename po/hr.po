@@ -1,0 +1,370 @@
+# Croatian translation for mudur package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the mudur package.
+# Ivica Kolić <ikoli@yahoo.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mudur\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-08 12:05+0200\n"
+"PO-Revision-Date: 2011-06-12 11:21+0100\n"
+"Last-Translator: Ivica Kolić <ikoli@yahoo.com>\n"
+"Language-Team: Croatian <ikoli@yahoo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Croatian\n"
+"X-Poedit-Country: CROATIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: bin/mudur.py:227
+msgid "Cannot write mudur.log, read-only file system"
+msgstr ""
+
+#: bin/mudur.py:395
+msgid "Safe Mode"
+msgstr "Sigurni način rada"
+
+#: bin/mudur.py:399
+msgid "Cannot find /etc/pardus-release"
+msgstr "Ne mogu naći /etc/pardus-release"
+
+#: bin/mudur.py:492
+msgid "/etc/env.d/03locale cannot be updated"
+msgstr "/etc/env.d/03locale sa ne može dopuniti"
+
+#: bin/mudur.py:518
+#, python-format
+msgid "Could not set unicode mode on tty %d"
+msgstr ""
+
+#: bin/mudur.py:576
+msgid "Cannot connect to DBus, services won't be started"
+msgstr "Ne mogu se spojiti na DBus,servisi neće biti pokrenuti"
+
+#: bin/mudur.py:592
+#, python-format
+msgid ""
+"Unable to start network:\n"
+"  %s"
+msgstr ""
+"NIje moguće pokrenuti mrežu:\n"
+" %s"
+
+#: bin/mudur.py:597
+msgid "Cannot start system logger"
+msgstr ""
+
+#: bin/mudur.py:603
+msgid "Starting services"
+msgstr "Pokrećem servise"
+
+#: bin/mudur.py:636
+msgid "Stopping services"
+msgstr "Zaustavljam servise"
+
+#: bin/mudur.py:664
+#: bin/service.py:161
+#: bin/service.py:270
+#, python-format
+msgid "Starting %s"
+msgstr "Pokrećem %s"
+
+#: bin/mudur.py:675
+#: bin/service.py:174
+#: bin/service.py:282
+#, python-format
+msgid "Stopping %s"
+msgstr "Zaustavljam %s"
+
+#: bin/mudur.py:692
+msgid "Triggering udev events which are failed during a previous run"
+msgstr ""
+
+#: bin/mudur.py:716
+msgid "Can't move persistent udev rules from /dev/.udev"
+msgstr ""
+
+#: bin/mudur.py:728
+msgid "Starting udev"
+msgstr "Pokrećem udev"
+
+#: bin/mudur.py:742
+msgid "Populating /dev"
+msgstr ""
+
+#: bin/mudur.py:768
+msgid "Removing stale lock file /etc/mtab~"
+msgstr ""
+
+#: bin/mudur.py:771
+msgid "Failed removing stale lock file /etc/mtab~"
+msgstr ""
+
+#: bin/mudur.py:783
+msgid "/etc/fstab doesn't contain an entry for the root filesystem"
+msgstr "/etc/fstab ne sadrži unos za korijenski datotečni sustav"
+
+#: bin/mudur.py:790
+msgid "Remounting root filesystem read-only"
+msgstr "Ponovno montiranje korijenskog datotečnog sustava samo-čitanje"
+
+#: bin/mudur.py:796
+msgid "Checking root filesystem (full check forced)"
+msgstr "Provjeravam korijenski datotečni sustav (prisiljena puna provjera)"
+
+#: bin/mudur.py:802
+msgid "Checking root filesystem"
+msgstr "Provjeravam korijenski datotečni sustav"
+
+#: bin/mudur.py:811
+msgid "Filesystem repaired, but reboot needed!"
+msgstr "Datotečni sustav je popravljen,ali potrebno je ponovno podizanje sustava!"
+
+#: bin/mudur.py:815
+msgid "Rebooting in 10 seconds..."
+msgstr "Ponovno podizanje sustava za 10sekundi"
+
+#: bin/mudur.py:817
+msgid "Rebooting..."
+msgstr "Ponovno podižem sustav..."
+
+#: bin/mudur.py:821
+msgid "Filesystem could not be repaired"
+msgstr "Datotečni sustav se ne može popraviti"
+
+#: bin/mudur.py:826
+msgid "Skipping root filesystem check (fstab's passno == 0)"
+msgstr "Preskačem provjeru datotečnog sustava (fstab's passno == 0)"
+
+#: bin/mudur.py:834
+msgid "Remounting root filesystem read/write"
+msgstr "Ponovno montiranje korijenskog datotečnog sustava čitanje/pisanje"
+
+#: bin/mudur.py:838
+msgid ""
+"Root filesystem could not be mounted read/write\n"
+"   You can either login below and manually check your filesytem(s) OR\n"
+"   restart your system, press F3 and select 'FS check' from boot menu\n"
+msgstr ""
+
+#: bin/mudur.py:850
+msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
+msgstr ""
+
+#: bin/mudur.py:870
+msgid "Checking all filesystems"
+msgstr "Provjeravam sve datotečne sustave"
+
+#: bin/mudur.py:874
+msgid "A full fsck has been forced"
+msgstr "Prisiljen je puni fsck"
+
+#: bin/mudur.py:892
+msgid "Filesystem errors corrected"
+msgstr "Ispravljene su greške datotečnog sustava"
+
+#: bin/mudur.py:894
+msgid "Fsck could not correct all errors, manual repair needed"
+msgstr "Fsck ne može popraviti sve grešle,potreban je ručni popravak"
+
+#: bin/mudur.py:902
+msgid "Mounting local filesystems"
+msgstr "Montiram lokalne datotečne sustave"
+
+#: bin/mudur.py:911
+msgid "Mounting remote filesystems"
+msgstr "Montiram udaljene datotečne sustave"
+
+#: bin/mudur.py:963
+#, python-format
+msgid "Setting up hostname as '%s'"
+msgstr "Postavljam računalo kao '%s'"
+
+#: bin/mudur.py:986
+msgid "Setting disk parameters"
+msgstr "Postavljam parametre diska"
+
+#: bin/mudur.py:1007
+msgid "Activating swap space"
+msgstr "Uključujem swap prostor"
+
+#: bin/mudur.py:1018
+msgid "Deactivating swap space"
+msgstr "Isključujem swap prostor"
+
+#: bin/mudur.py:1028
+msgid "Cleaning up /var"
+msgstr "Čistim /var"
+
+#: bin/mudur.py:1044
+msgid "Cleaning up /tmp"
+msgstr "Čistim /tmp"
+
+#: bin/mudur.py:1081
+msgid "Setting system clock to hardware clock"
+msgstr ""
+
+#: bin/mudur.py:1097
+msgid "Failed to adjust systematic drift of the hardware clock"
+msgstr ""
+
+#: bin/mudur.py:1101
+msgid "Failed to set system clock to hardware clock"
+msgstr ""
+
+#: bin/mudur.py:1112
+msgid "Syncing system clock to hardware clock"
+msgstr ""
+
+#: bin/mudur.py:1115
+msgid "Failed to synchronize clocks"
+msgstr "Neuspjela sinkronizacija satova"
+
+#: bin/mudur.py:1172
+msgid "Unmounting filesystems"
+msgstr "Odmontiram datotečne sustave"
+
+#: bin/mudur.py:1180
+msgid "Remounting remaining filesystems read-only"
+msgstr "Ponovno montiram preostale datotečne sustave samo-čitanje"
+
+#: bin/mudur.py:1195
+msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
+msgstr ""
+
+#: bin/mudur.py:1296
+msgid "Setting up localhost"
+msgstr ""
+
+#: bin/mudur.py:1309
+msgid "Updating environment variables"
+msgstr ""
+
+#: bin/mudur.py:1361
+msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
+msgstr ""
+
+#: bin/service.py:60
+msgid "local"
+msgstr "lokalno"
+
+#: bin/service.py:61
+msgid "script"
+msgstr "skripta"
+
+#: bin/service.py:62
+msgid "server"
+msgstr "poslužitelj"
+
+#: bin/service.py:74
+msgid "running"
+msgstr ""
+
+#: bin/service.py:76
+msgid "yes"
+msgstr "da"
+
+#: bin/service.py:78
+msgid "conditional"
+msgstr ""
+
+#: bin/service.py:101
+msgid "Status"
+msgstr "Status"
+
+#: bin/service.py:102
+msgid "Service"
+msgstr "Servis"
+
+#: bin/service.py:103
+msgid "Autostart"
+msgstr "Samopokretanje"
+
+#: bin/service.py:104
+msgid "Description"
+msgstr "Opis"
+
+#: bin/service.py:147
+#: bin/service.py:157
+#, python-format
+msgid "Unable to start %s:"
+msgstr "NIje moguće pokrenuti %s:"
+
+#: bin/service.py:170
+#, python-format
+msgid "Unable to stop %s:"
+msgstr "NIje moguće zaustaviti %s:"
+
+#: bin/service.py:183
+#, python-format
+msgid "Unable to set %s state:"
+msgstr ""
+
+#: bin/service.py:188
+#, python-format
+msgid "Service '%s' will be auto started."
+msgstr "Servis '%s' će biti samopokrenut."
+
+#: bin/service.py:190
+#, python-format
+msgid "Service '%s' won't be auto started."
+msgstr "Servis '%s' neće biti samopokrenut."
+
+#: bin/service.py:192
+#, python-format
+msgid "Service '%s' will be started if required."
+msgstr ""
+
+#: bin/service.py:201
+#, python-format
+msgid "Unable to reload %s:"
+msgstr "Nije moguće učitati %s:"
+
+#: bin/service.py:205
+#, python-format
+msgid "Reloading %s"
+msgstr "Ponovno učitavam %s"
+
+#: bin/service.py:259
+msgid "You must be root to use that."
+msgstr "Morate biti root da biste to koristili."
+
+#: bin/service.py:278
+msgid "Unable to start DBus"
+msgstr "Nije moguće pokrenuti DBus"
+
+#: bin/service.py:292
+msgid "DBus is not running."
+msgstr ""
+
+#: bin/service.py:294
+msgid "DBus is running."
+msgstr ""
+
+#: bin/service.py:299
+msgid ""
+"usage: service [<options>] [<service>] <command>\n"
+"where command is:\n"
+" list     Display service list\n"
+" status   Display service status\n"
+" info     Display service status\n"
+" on       Auto start the service\n"
+" off      Don't auto start the service\n"
+" start    Start the service\n"
+" stop     Stop the service\n"
+" restart  Stop the service, then start again\n"
+" reload   Reload the configuration (if service supports this)\n"
+"and option is:\n"
+" -N, --no-color  Don't use color in output\n"
+" -q, --quiet     Don't print replies"
+msgstr ""
+
+#: bin/service.py:355
+#, python-format
+msgid "No such service: %s"
+msgstr "Nema takvog servisa: %s"
+
