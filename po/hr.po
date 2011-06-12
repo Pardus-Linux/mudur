@@ -311,7 +311,7 @@ msgstr "Servis '%s' neće biti samopokrenut."
 #: bin/service.py:192
 #, python-format
 msgid "Service '%s' will be started if required."
-msgstr ""
+msgstr "Servis '%s' će biti pokrenut ako je potrebno."
 
 #: bin/service.py:201
 #, python-format
@@ -333,11 +333,11 @@ msgstr "Nije moguće pokrenuti DBus"
 
 #: bin/service.py:292
 msgid "DBus is not running."
-msgstr ""
+msgstr "DBus nije pokrenut."
 
 #: bin/service.py:294
 msgid "DBus is running."
-msgstr ""
+msgstr "DBus je pokrenut."
 
 #: bin/service.py:299
 msgid ""
