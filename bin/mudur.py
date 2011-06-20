@@ -164,6 +164,54 @@ def get_kernel_option(option):
                     args[arg] = ""
     return args
 
+##########################################
+# Reboot/shutdown related methods        #
+##########################################
+
+@skip_for_lxc_guests
+def attempt_kexec_reboot():
+    kexec_conf = "/etc/conf.d/kexec"
+    if os.path.exists(kexec_conf):
+        conf = load_config(kexec_conf)
+        if conf.get("ENABLE_KEXEC").lower() != "no":
+            default_kernel = "/boot/latest-kernel"
+            default_initrd = "/boot/latest-initramfs"
+
+            # Default to normal kernel
+            kernel_suffix = ""
+
+            if "-" in os.uname()[2]:
+                # e.g. -pae
+                kernel_suffix = os.uname()[2].split("-")[-1]
+                default_kernel += "-%s" % kernel_suffix
+                default_initrd += "-%s" % kernel_suffix
+
+            # Override the images if provided in conf
+            kernel_image = conf.get("KERNEL_IMAGE", default_kernel)
+            initrd_image = conf.get("INITRD_IMAGE", default_initrd)
+
+            if conf.get("OVERWRITE_CMDLINE"):
+                run_quiet("/usr/sbin/kexec", "--load", kernel_image,
+                          "--initrd", initrd_image, "--command-line",
+                          config.get("OVERWRITE_CMDLINE"))
+            elif conf.get("APPEND_CMDLINE"):
+                run_quiet("/usr/sbin/kexec", "--load", kernel_image,
+                          "--initrd", initrd_image, "--reuse-cmdline",
+                          "--append", config.get("APPEND_CMDLINE"))
+            else:
+                run_quiet("/usr/sbin/kexec", "--load", kernel_image,
+                          "--initrd", initrd_image, "--reuse-cmdline")
+
+            # Try to reboot using kexec.
+            try:
+                loaded = int(open("/sys/kernel/kexec_loaded").read().strip())
+            except OSError:
+                pass
+            else:
+                if loaded:
+                    run_quiet("/usr/sbin/kexec", "-e")
+
+
 ####################################
 # Process spawning related methods #
 ####################################
@@ -1346,13 +1394,7 @@ def main():
         if sys.argv[1] == "reboot":
 
             # Try to reboot using kexec, if kernel supports it.
-            kexec_file = "/sys/kernel/kexec_loaded"
-
-            if os.path.exists(kexec_file) \
-                    and int(open(kexec_file, "r").read().strip()):
-                ui.info(_("Trying to initiate a warm reboot "
-                    "(skipping BIOS with kexec kernel)"))
-                run_quiet("/usr/sbin/kexec", "-e")
+            attempt_kexec_reboot()
 
             # Shut down all network interfaces just before halt or reboot,
             # When halting the system do a poweroff. This is the default
