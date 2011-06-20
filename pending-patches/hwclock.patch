@@ -1,0 +1,123 @@
+Index: bin/mudur.py
+===================================================================
+--- bin/mudur.py	(revision 35636)
++++ bin/mudur.py	(revision 35637)
+@@ -1070,43 +1070,31 @@
+ 
+ @skip_for_lxc_guests
+ @plymouth_update_milestone
+-def set_clock():
+-    """Sets the system time according to /etc."""
+-    ui.info(_("Setting system clock to hardware clock"))
++def load_hwclock():
++    """Sets the system time according based on the timezone."""
++    if not config.get("live"):
++        ui.info(_("Setting system clock to hardware clock"))
+ 
+-    # Default is UTC
+-    options = "--utc"
+-    if config.get("clock") != "UTC":
+-        options = "--localtime"
++        # Default is UTC
++        options = "--localtime" if \
++                config.get("clock") == "localtime" else "--utc"
+ 
+-    # Default is no
+-    if config.get("clock_adjust") == "yes":
+-        adj = "--adjust"
+-        if not touch("/etc/adjtime"):
+-            adj = "--noadjfile"
+-        elif os.stat("/etc/adjtime").st_size == 0:
+-            write_to_file("/etc/adjtime", "0.0 0 0.0\n")
+-        ret = capture("/sbin/hwclock", adj, options)
++        ret = capture("/sbin/hwclock", "--systz", options)
+         if ret[1] != '':
+-            ui.error(_("Failed to adjust systematic drift of the hardware clock"))
++            ui.warn(_("Failed to set system time according to timezone"))
+ 
+-    ret = capture("/sbin/hwclock", "--hctosys", options)
+-    if ret[1] != '':
+-        ui.error(_("Failed to set system clock to hardware clock"))
+-
+ @skip_for_lxc_guests
+ @plymouth_update_milestone
+-def save_clock():
++def save_hwclock():
+     """Saves the system time for further boots."""
+     if not config.get("live"):
+-        options = "--utc"
+-        if config.get("clock") != "UTC":
+-            options = "--localtime"
++        options = "--localtime" if \
++                config.get("clock") == "localtime" else "--utc"
+ 
+         ui.info(_("Syncing system clock to hardware clock"))
+         ret = capture("/sbin/hwclock", "--systohc", options)
+         if ret[1] != '':
+-            ui.error(_("Failed to synchronize clocks"))
++            ui.warn(_("Failed to synchronize clocks"))
+ 
+ def stop_system():
+     """Stops the system."""
+@@ -1155,7 +1143,7 @@
+     stop_services()
+     stop_dbus()
+     stop_udev()
+-    save_clock()
++    save_hwclock()
+     disable_swap()
+ 
+     # write a reboot record to /var/log/wtmp before unmounting
+@@ -1264,7 +1252,7 @@
+         set_disk_parameters()
+ 
+         # Set the clock
+-        set_clock()
++        load_hwclock()
+ 
+         # Set the system language
+         set_system_language()
+Index: etc/mudur.conf
+===================================================================
+--- etc/mudur.conf	(revision 35636)
++++ etc/mudur.conf	(revision 35637)
+@@ -1,35 +1,20 @@
+-#
+ # Pardus boot configuration
+-# Pardus açılış ayarları
+-#
+ 
+ # System language
+-# Sistem dili
+ # language="tr"
+ 
+ # System keymap, set if you are not using system language's default keymap.
+-# Sistem klavye haritası, sistem dilinin öntanımlısından farklıysa ayarlayın.
+ # keymap=
+ 
+-# Set to "UTC" if your computer's hardware clock is set to Greenwich
+-# mean time, set to "local" otherwise.
+-# Bilgisayarınızın donanım saati Greenwich saatine göre ayarlıysa bu
+-# değeri "UTC" yapın, aksi durumda "local" yapın.
+-# clock="local"
++# Set to "localtime" if you want to keep your localtime in your computer's
++# RTC (Realtime Clock). The default is UTC.
++# clock="localtime"
+ 
+-# Set to "yes" if you want to normalize systematic drift of the
+-# hardware clock, see the hwclock man page for more information.
+-# Donanım saatinin ritmik kaymasını düzeltmek için "yes" yapın,
+-# daha fazla bilgiyi hwclock komutunun man sayfasında bulabilirsiniz.
+-# clock_adjust="no"
+-
+-# Number of TTYs
+-# Ayarlanacak konsol sayısı
++# Number of TTYs that will be configured during booting.
+ # tty_number="6"
+ 
+ # Set to "yes" if the system will run as an LXC guest
+ lxc_guest="no"
+ 
+ # First service to run with a head start
+-# Öncelikle başlatılacak servis
+ head_start="xdm"
