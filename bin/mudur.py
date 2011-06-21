@@ -1028,14 +1028,13 @@ def set_disk_parameters():
         ui.info(_("Setting disk parameters"))
         if conf.has_key("all"):
             for name in os.listdir("/sys/block/"):
-                if name.startswith("hd") and \
+                if name.startswith("sd") and \
                         len(name) == 3 and not conf.has_key(name):
                     run_quiet("/sbin/hdparm", "%s" % conf["all"].split(),
                             "/dev/%s" % name)
         for key, value in conf:
             if key != "all":
-                # FIXME: There's a bug here!
-                run_quiet("/sbin/hdparm", "%s" % value.split(), "/dev/%s" % name)
+                run_quiet("/sbin/hdparm", "%s" % value.split(), "/dev/%s" % key)
 
 
 ################
