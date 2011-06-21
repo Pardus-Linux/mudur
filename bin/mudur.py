@@ -34,13 +34,17 @@ _ = __trans.ugettext
 ##############
 
 def skip_for_lxc_guests(function):
+    """Ignores the function call if lxc_guest is set."""
     def wrapped():
+        """Checks whether lxc_guest is set."""
         if config.get("lxc_guest") == "no":
             function()
     return wrapped
 
 def plymouth_update_milestone(function):
+    """Updates plymouth milestones."""
     def wrapped():
+        """Calls the function and updates plymouth milestone."""
         function()
         splash.update(function.__name__)
     return wrapped
@@ -60,7 +64,8 @@ def wait_bus(unix_name, timeout=5, wait=0.1, stream=True):
     while timeout > 0:
         try:
             sock.connect(unix_name)
-            logger.debug("Waited %.2f sec for '%s'" % (itimeout-timeout, unix_name))
+            logger.debug("Waited %.2f sec for '%s'" \
+                    % (itimeout-timeout, unix_name))
             return True
         except socket.error:
             timeout -= wait
@@ -170,6 +175,7 @@ def get_kernel_option(option):
 
 @skip_for_lxc_guests
 def attempt_kexec_reboot():
+    """Attempts a kexec reboot if requested by the user."""
     kexec_conf = "/etc/conf.d/kexec"
     if os.path.exists(kexec_conf):
         conf = load_config(kexec_conf)
@@ -383,25 +389,32 @@ class Plymouth:
             return run_quiet(self.client, *cmd)
 
     def start_daemon(self):
+        """Starts plymouth daemon."""
         if self.available:
             self.running = not run_quiet(self.daemon, "--mode=shutdown")
 
     def show_splash(self):
+        """Shows splash screen."""
         self.send_cmd("show-splash")
 
     def hide_splash(self):
+        """Hides splash screen."""
         self.send_cmd("hide-splash")
 
     def report_error(self):
+        """Reports error."""
         self.send_cmd("report-error")
 
     def update(self, milestone):
+        """Updates status milestones."""
         self.send_cmd("update", "--status=%s" % milestone)
 
     def rootfs_is_now_rw(self):
+        """Notifies that rootfs is now rw."""
         self.send_cmd("update-root-fs", "--read-write")
 
     def quit(self, retain_splash=False):
+        """Quits the daemon."""
         self.send_cmd("quit", "--retain-splash" if retain_splash else "")
 
 ############
@@ -696,10 +709,10 @@ def stop_services():
 
 def prune_needs_action_package_list():
     """Clears the lists to hold needsServiceRestart and needsReboot updates."""
-    for f in ("/var/lib/pisi/info/needsrestart",
-              "/var/lib/pisi/info/needsreboot"):
-        if os.path.exists(f):
-            os.unlink(f)
+    for _file in ("/var/lib/pisi/info/needsrestart",
+                  "/var/lib/pisi/info/needsreboot"):
+        if os.path.exists(_file):
+            os.unlink(_file)
 
 
 ############################
@@ -732,13 +745,13 @@ def stop_dbus():
 @skip_for_lxc_guests
 @plymouth_update_milestone
 def wait_for_udev_events():
+    """Waits for udev events."""
     run("/sbin/udevadm", "settle", "--timeout=60")
 
 @skip_for_lxc_guests
 def trigger_failed_udev_events():
-    # Trigger only the events which are failed during a previous run
+    """Trigger only the events which are failed during a previous run."""
     if os.path.exists("/dev/.udev/failed"):
-        ui.info(_("Triggering udev events which are failed during a previous run"))
         run("/sbin/udevadm", "trigger", "--type=failed", "--action=add")
 
 @skip_for_lxc_guests
@@ -965,6 +978,7 @@ def mount_remote_filesystems():
 
 @skip_for_lxc_guests
 def run_sysctl():
+    """Applies sysctl.conf rules."""
     run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
 
 def set_hostname():
@@ -978,12 +992,6 @@ def set_hostname():
             j = data.find('"', i+10)
             if j != -1:
                 uhost = data[i+10:j]
-        """
-        try:
-            data = load_file("/etc/env.d/01hostname").strip().split("HOSTNAME=")[1].strip("\"")
-        except IndexError:
-            pass
-        """
 
     if khost != "" and khost != "(none)":
         # kernel already got a hostname (pxeboot or something)
@@ -1160,21 +1168,21 @@ def stop_system():
     import shutil
 
     def get_fs_entry():
-        ents = load_file("/proc/mounts").split("\n")
-        ents = map(lambda x: x.split(), ents)
-        ents = filter(lambda x: len(x) > 2, ents)
-        # not the virtual systems
-        vfs = ["proc", "devpts", "sysfs", "devtmpfs", "squashfs", "tmpfs"]
-        ents = filter(lambda x: not x[2] in vfs, ents)
-        ents = filter(lambda x: x[0] != "none", ents)
-        # not the root stuff
-        ents = filter(lambda x: not (x[0] == "rootfs" or x[0] == "/dev/root"), ents)
-        ents = filter(lambda x: x[1] != "/", ents)
-        # sort for correct unmount order
-        ents.sort(key=lambda x: x[1], reverse=True)
-        return ents
+        """Parses and returns /proc/mounts entries."""
+        entries = []
+        vfs = ["proc", "devpts", "sysfs", "devtmpfs", "squashfs", \
+               "tmpfs", "rootfs", "debugfs"]
+        for entry in load_file("/proc/mounts").split("\n"):
+            fields = entry.split()
+            if len(fields) > 2 and fields[2] not in vfs and \
+                    fields[0] != "none" and \
+                    fields[1] != "/":
+                        entries.append(fields)
+        entries.sort(key=lambda x: x[1], reverse=True)
+        return entries
 
     def remount_ro(force=False):
+        """Remounts the root filesystem read/only."""
         ents = load_file("/proc/mounts").split("\n")
         ents = map(lambda x: x.split(), ents)
         ents = filter(lambda x: len(x) > 2, ents)
@@ -1195,7 +1203,7 @@ def stop_system():
             else:
                 ret += run_quiet("/bin/mount", "-n", "-o", "remount,ro", ent[1])
         if ret:
-            run_quiet("killall5", "-9")
+            run_quiet("/sbin/killall5", "-9")
         return ret
 
     # Stopping system
@@ -1231,6 +1239,7 @@ def stop_system():
 ##################
 
 def except_hook(e_type, e_value, e_trace):
+    """Hook that intercepts and handles exceptions."""
     import traceback
     print
     print _("An internal error occured. Please report to the bugs.pardus.org.tr"
@@ -1253,6 +1262,7 @@ ui = UI()
 
 
 def main():
+    """Main entry point."""
 
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGQUIT, signal.SIG_IGN)
