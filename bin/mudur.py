@@ -179,14 +179,17 @@ def load_kexec_image():
     """Attempts to load a kexec image if configured."""
     kexec_conf = "/etc/conf.d/kexec"
     loaded = False
-    if os.path.exists(kexec_conf):
+    if os.path.exists("/usr/sbin/kexec") and \
+            os.path.exists(kexec_conf):
         conf = load_config(kexec_conf)
         # Read config
-        kexec_reboot = conf.get("KEXEC_REBOOT", "no")
-        kexec_shutdown = conf.get("KEXEC_SHUTDOWN", "no")
+        kexec_reboot = conf.get("KEXEC_REBOOT", "no") == "yes"
+        kexec_shutdown = conf.get("KEXEC_SHUTDOWN", "no") == "yes"
 
-        if kexec_reboot and sys.argv[1] == "reboot" or \
-           (kexec_shutdown and sys.argv[1] == "shutdown"):
+        stage = sys.argv[1]
+
+        if kexec_reboot and stage == "reboot" or \
+           (kexec_shutdown and stage == "shutdown"):
 
             kernel_ver = os.uname()[2]
             kernel_suffix = None
@@ -208,19 +211,22 @@ def load_kexec_image():
             elif kernel_suffix:
                 default_initrd += "-%s" % kernel_suffix
 
+            # Get relevant parameters
+            append_params = conf.get("APPEND_CMDLINE_%s" % stage.upper())
+            owrite_params = conf.get("OVERWRITE_CMDLINE_%s" % stage.upper())
+
             # Override the images if provided in conf
             kernel_image = conf.get("KERNEL_IMAGE", default_kernel)
             initrd_image = conf.get("INITRD_IMAGE", default_initrd)
 
-            if conf.get("OVERWRITE_CMDLINE"):
+            if owrite_params:
                 run_quiet("/usr/sbin/kexec", "--load", kernel_image,
                           "--initrd", initrd_image, "--command-line",
-                          conf.get("OVERWRITE_CMDLINE"))
-            elif conf.get("APPEND_CMDLINE"):
-                print "* '%s'" % conf.get("APPEND_CMDLINE")
-                run_full("/usr/sbin/kexec", "--load", kernel_image,
+                          owrite_params)
+            elif append_params:
+                run_quiet("/usr/sbin/kexec", "--load", kernel_image,
                           "--initrd", initrd_image, "--reuse-cmdline",
-                          "--append", conf.get("APPEND_CMDLINE"))
+                          "--append", append_params)
             else:
                 run_quiet("/usr/sbin/kexec", "--load", kernel_image,
                           "--initrd", initrd_image, "--reuse-cmdline")
