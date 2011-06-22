@@ -2,7 +2,7 @@
 # translation of es.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Klemens Häckel <click3d_at_linuxmail_org>, 2007, 2008.
 # klemens <click3d at linuxmail org>, 2007.
 # Klemens Haeckel <click3d at linuxmail org>, 2008.
@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-08 12:05+0200\n"
+"POT-Creation-Date: 2011-06-22 08:50+0000\n"
 "PO-Revision-Date: 2010-02-22 21:32-0300\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -23,32 +23,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.0\n"
 
-#: bin/mudur.py:227
+#: bin/mudur.py:307
 msgid "Cannot write mudur.log, read-only file system"
 msgstr "No posible grabar mudur.log, sistema de archivo solo-lectura"
 
-#: bin/mudur.py:395
-msgid "Safe Mode"
-msgstr "Modo Seguro"
-
-#: bin/mudur.py:399
+#: bin/mudur.py:484
 msgid "Cannot find /etc/pardus-release"
 msgstr "Archivo /etc/pardus-release no encontrado"
 
-#: bin/mudur.py:492
+#: bin/mudur.py:580
 msgid "/etc/env.d/03locale cannot be updated"
 msgstr "/etc/env.d/03locale no se puede actualizar"
 
-#: bin/mudur.py:518
+#: bin/mudur.py:606
 #, python-format
 msgid "Could not set unicode mode on tty %d"
 msgstr "No posible establecer modo unicode para tty %d"
 
-#: bin/mudur.py:576
+#: bin/mudur.py:664
 msgid "Cannot connect to DBus, services won't be started"
 msgstr "No posible conectar a DBus, servicios no se iniciarán"
 
-#: bin/mudur.py:592
+#: bin/mudur.py:680
 #, python-format
 msgid ""
 "Unable to start network:\n"
@@ -57,94 +53,89 @@ msgstr ""
 "No posible iniciar le red:\n"
 "  %s"
 
-#: bin/mudur.py:597
+#: bin/mudur.py:685
 msgid "Cannot start system logger"
 msgstr "No posible iniciar log del sistema"
 
-#: bin/mudur.py:603
+#: bin/mudur.py:691
 msgid "Starting services"
 msgstr "Iniciando servicios"
 
-#: bin/mudur.py:636
+#: bin/mudur.py:724
 msgid "Stopping services"
 msgstr "Parando servicios"
 
-#: bin/mudur.py:664 bin/service.py:161 bin/service.py:270
+#: bin/mudur.py:752 bin/service.py:161 bin/service.py:270
 #, python-format
 msgid "Starting %s"
 msgstr "Iniciando %s"
 
-#: bin/mudur.py:675 bin/service.py:174 bin/service.py:282
+#: bin/mudur.py:763 bin/service.py:174 bin/service.py:282
 #, python-format
 msgid "Stopping %s"
 msgstr "Deteniendo %s"
 
-# please proofread, sort of free translation, traduccion libre
-#: bin/mudur.py:692
-msgid "Triggering udev events which are failed during a previous run"
-msgstr "Ejecutando eventos udev que fallaron durante un intento anterior"
-
-#: bin/mudur.py:716
+#: bin/mudur.py:804
 msgid "Can't move persistent udev rules from /dev/.udev"
 msgstr "No posible mover reglas udev persistente de /dev/.udev"
 
-#: bin/mudur.py:728
+#: bin/mudur.py:816
 msgid "Starting udev"
 msgstr "Iniciando udev"
 
-#: bin/mudur.py:742
+#: bin/mudur.py:830
 msgid "Populating /dev"
 msgstr "Populando /dev"
 
-#: bin/mudur.py:768
+#: bin/mudur.py:856
 msgid "Removing stale lock file /etc/mtab~"
 msgstr "Eliminando archivo de bloquéo obsoleto /etc/mtab~"
 
-#: bin/mudur.py:771
+#: bin/mudur.py:859
 msgid "Failed removing stale lock file /etc/mtab~"
 msgstr "No posible eliminar archivo de bloquéo obsoleto /etc/mtab~"
 
-#: bin/mudur.py:783
+#: bin/mudur.py:871
 msgid "/etc/fstab doesn't contain an entry for the root filesystem"
 msgstr "en /etc/fstab falta la entrada para el sistema de archivos raíz"
 
-#: bin/mudur.py:790
+#: bin/mudur.py:878
 msgid "Remounting root filesystem read-only"
 msgstr "Montando de nuevo sistema de archivos raíz (root) solo-lectura"
 
-#: bin/mudur.py:796
+#: bin/mudur.py:883
 msgid "Checking root filesystem (full check forced)"
 msgstr "Verificando sistema de archivos raíz (verificación completa forzada)"
 
-#: bin/mudur.py:802
+#: bin/mudur.py:889
 msgid "Checking root filesystem"
 msgstr "Verificando sistema de archivos raíz (root)"
 
-#: bin/mudur.py:811
+#: bin/mudur.py:898
 msgid "Filesystem repaired, but reboot needed!"
 msgstr "Sistema de archivos reparado, pero requiere rebootear!"
 
-#: bin/mudur.py:815
+#: bin/mudur.py:904
 msgid "Rebooting in 10 seconds..."
 msgstr "Rebooteando en 10 segundos ..."
 
-#: bin/mudur.py:817
+#: bin/mudur.py:906
 msgid "Rebooting..."
 msgstr "Rebooteando..."
 
-#: bin/mudur.py:821
+#: bin/mudur.py:910
 msgid "Filesystem could not be repaired"
 msgstr "Sistema de archivos no se pudo reparar"
 
-#: bin/mudur.py:826
+#: bin/mudur.py:915
 msgid "Skipping root filesystem check (fstab's passno == 0)"
 msgstr "Saltando chequeo de sistema de archivos root (fstab's passno == 0)"
 
-#: bin/mudur.py:834
+#: bin/mudur.py:923
 msgid "Remounting root filesystem read/write"
 msgstr "Montando de nuevo sistema de archivos raíz (root) lectura/escritura"
 
-#: bin/mudur.py:838
+#: bin/mudur.py:927
 msgid ""
 "Root filesystem could not be mounted read/write\n"
 "   You can either login below and manually check your filesytem(s) OR\n"
@@ -152,104 +143,105 @@ msgid ""
 msgstr ""
 "Sistema de archivos Root no se pudo montar lectura/escitura\n"
 "   Puede iniciar una sesión y chequear manualmente el sistema de archivo o\n"
-"   rebootear el sistema, presionar F3 y seleccionar 'Verificación de Sistema de archivos' en el menú de arranque\n"
+"   rebootear el sistema, presionar F3 y seleccionar 'Verificación de Sistema "
+"de archivos' en el menú de arranque\n"
 
-#: bin/mudur.py:850
+#: bin/mudur.py:939
 msgid "Couldn't synchronize /etc/mtab from /proc/mounts"
 msgstr "No posible sincronizar /etc/mtab desde /proc/mounts"
 
-#: bin/mudur.py:870
+#: bin/mudur.py:959
 msgid "Checking all filesystems"
 msgstr "Verificando todos los sistemas de archivos"
 
-#: bin/mudur.py:874
+#: bin/mudur.py:963
 msgid "A full fsck has been forced"
 msgstr "Verificación completa fsck fue forzado"
 
-#: bin/mudur.py:892
+#: bin/mudur.py:981
 msgid "Filesystem errors corrected"
 msgstr "Errores del sistema de archivos corregidos"
 
-#: bin/mudur.py:894
+#: bin/mudur.py:983
 msgid "Fsck could not correct all errors, manual repair needed"
 msgstr "Fsck no pudo corregir todos los errores, se requiere reparación manual"
 
-#: bin/mudur.py:902
+#: bin/mudur.py:992
 msgid "Mounting local filesystems"
 msgstr "Montando sistemas de archivos locales"
 
-#: bin/mudur.py:911
+#: bin/mudur.py:1000
 msgid "Mounting remote filesystems"
 msgstr "Montando sistema de archivos remotos"
 
-#: bin/mudur.py:963
+#: bin/mudur.py:1046
 #, python-format
 msgid "Setting up hostname as '%s'"
 msgstr "Estableciendo hostname como '%s'"
 
-#: bin/mudur.py:986
+#: bin/mudur.py:1069
 msgid "Setting disk parameters"
 msgstr "Estableciendo parámetros de disco"
 
-#: bin/mudur.py:1007
+#: bin/mudur.py:1089
 msgid "Activating swap space"
 msgstr "Activando área de swap"
 
-#: bin/mudur.py:1018
+#: bin/mudur.py:1100
 msgid "Deactivating swap space"
 msgstr "Desactivando área de swap"
 
-#: bin/mudur.py:1028
+#: bin/mudur.py:1110
 msgid "Cleaning up /var"
 msgstr "Limpiando /var"
 
-#: bin/mudur.py:1044
+#: bin/mudur.py:1126
 msgid "Cleaning up /tmp"
 msgstr "Limpiando /tmp"
 
-#: bin/mudur.py:1081
+#: bin/mudur.py:1163
 msgid "Setting system clock to hardware clock"
 msgstr "Estableciendo hora del sistema a hora de hardware"
 
-#: bin/mudur.py:1097
+#: bin/mudur.py:1179
 msgid "Failed to adjust systematic drift of the hardware clock"
 msgstr "No posible corregir el desajuste sistemático de la hora de hardware"
 
-#: bin/mudur.py:1101
+#: bin/mudur.py:1184
 msgid "Failed to set system clock to hardware clock"
 msgstr "No posible establecer hora del sistema a hora de hardware"
 
-#: bin/mudur.py:1112
+#: bin/mudur.py:1195
 msgid "Syncing system clock to hardware clock"
 msgstr "Sincronizando reloj del sistema a reloj de hardware"
 
-#: bin/mudur.py:1115
+#: bin/mudur.py:1198
 msgid "Failed to synchronize clocks"
 msgstr "No posible sincronizar reloj"
 
-#: bin/mudur.py:1172
+#: bin/mudur.py:1252
 msgid "Unmounting filesystems"
 msgstr "Desmontando sistemas de archivos"
 
-#: bin/mudur.py:1180
+#: bin/mudur.py:1260
 msgid "Remounting remaining filesystems read-only"
 msgstr "Montando de nuevo sistemas de archivos restantes solo-lectura"
 
-#: bin/mudur.py:1195
-msgid "An internal error occured. Please report to the bugs.pardus.org.trwith following information:"
-msgstr "Ocurrió un error interno. Por favor reporte a bugs.pardus.org.tr con la siguiente información:"
+#: bin/mudur.py:1276
+msgid ""
+"An internal error occured. Please report to the bugs.pardus.org.trwith "
+"following information:"
+msgstr ""
+"Ocurrió un error interno. Por favor reporte a bugs.pardus.org.tr con la "
+"siguiente información:"
 
-#: bin/mudur.py:1296
+#: bin/mudur.py:1379
 msgid "Setting up localhost"
 msgstr "Configurando localhost"
 
-#: bin/mudur.py:1309
+#: bin/mudur.py:1392
 msgid "Updating environment variables"
 msgstr "Actualizando variables del entorno"
-
-#: bin/mudur.py:1361
-msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
-msgstr "Intentando reboot caliente (omitiendo BIOS con kernel kexec)"
 
 #: bin/service.py:60
 msgid "local"
@@ -388,6 +380,16 @@ msgstr ""
 msgid "No such service: %s"
 msgstr "No existe servicio: %s"
 
+#~ msgid "Safe Mode"
+#~ msgstr "Modo Seguro"
+
+# please proofread, sort of free translation, traduccion libre
+#~ msgid "Triggering udev events which are failed during a previous run"
+#~ msgstr "Ejecutando eventos udev que fallaron durante un intento anterior"
+
+#~ msgid "Trying to initiate a warm reboot (skipping BIOS with kexec kernel)"
+#~ msgstr "Intentando reboot caliente (omitiendo BIOS con kernel kexec)"
+
 #~ msgid "Bringing up %s"
 #~ msgstr "Activando %s"
 
@@ -401,7 +403,9 @@ msgstr "No existe servicio: %s"
 #~ msgstr "Montando sistema de archivos remotos (CTRL-C aborta el intento)"
 
 #~ msgid "Mounting skipped with CTRL-C, remote shares will not be accessible!"
-#~ msgstr "Proceso de montar interrumpido con CTRL-C, directorios remotos no están accesibles !"
+#~ msgstr ""
+#~ "Proceso de montar interrumpido con CTRL-C, directorios remotos no están "
+#~ "accesibles !"
 
 #~ msgid "Mounting USB filesystem"
 #~ msgstr "Montando sistema de archivos USB"
