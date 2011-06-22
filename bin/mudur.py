@@ -179,7 +179,14 @@ def load_kexec_image():
     """Attempts to load a kexec image if configured."""
     kexec_conf = "/etc/conf.d/kexec"
     loaded = False
-    if os.path.exists("/usr/sbin/kexec") and \
+    # Check for grubonce, inhibit kexec if grub has set
+    # a default entry.
+    grub_default = load_file("/boot/grub/default")
+    if grub_default:
+        grub_default = int(grub_default.rstrip("\x00"))
+        grub_default = (grub_default ^ 0x4000 < 0x4000)
+    if not grub_default and \
+            os.path.exists("/usr/sbin/kexec") and \
             os.path.exists(kexec_conf):
         conf = load_config(kexec_conf)
         # Read config
