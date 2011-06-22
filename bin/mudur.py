@@ -181,8 +181,12 @@ def load_kexec_image():
     loaded = False
     if os.path.exists(kexec_conf):
         conf = load_config(kexec_conf)
-        if conf.get("KEXEC_REBOOT", "no") == "yes" or \
-            conf.get("KEXEC_SHUTDOWN", "no") == "yes":
+        # Read config
+        kexec_reboot = conf.get("KEXEC_REBOOT", "no")
+        kexec_shutdown = conf.get("KEXEC_SHUTDOWN", "no")
+
+        if kexec_reboot and sys.argv[1] == "reboot" or \
+           (kexec_shutdown and sys.argv[1] == "shutdown"):
 
             kernel_ver = os.uname()[2]
             kernel_suffix = None
