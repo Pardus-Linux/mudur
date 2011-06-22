@@ -1005,6 +1005,11 @@ def mount_remote_filesystems():
 ################################################################################
 
 @skip_for_lxc_guests
+def minimize_printk_log_level():
+    """Decrease kernel console log level for cleaner boot."""
+    write_to_file("/proc/sys/kernel/printk", "1")
+
+@skip_for_lxc_guests
 def run_sysctl():
     """Applies sysctl.conf rules."""
     run("/sbin/sysctl", "-q", "-p", "/etc/sysctl.conf")
@@ -1314,6 +1319,9 @@ def main():
 
         # Now we know which language and keymap to use
         set_console_parameters()
+
+        # Minimize dmesg noise
+        minimize_printk_log_level()
 
         # Start udev and event triggering
         start_udev()
