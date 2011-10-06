@@ -290,7 +290,7 @@ msgstr "%s başlatılamadı:"
 #: bin/service.py:170
 #, python-format
 msgid "Unable to stop %s:"
-msgstr "%s başlatılamadı:"
+msgstr "%s durdurulamadı:"
 
 #: bin/service.py:183
 #, python-format
